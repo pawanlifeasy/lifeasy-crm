@@ -3,290 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard — Lifeasy CRM</title>
+<title>Lifeasy CRM</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
-  body { background: #f0f2f5; min-height: 100vh; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
+body { background: #f0f2f5; min-height: 100vh; }
 
-  /* ---------- TOPBAR ---------- */
-  .topbar {
-    background: #fff; padding: 14px 24px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    position: sticky; top: 0; z-index: 100;
-  }
-  .brand { font-weight: 700; font-size: 18px; color: #1a1a1a; }
-  .user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
-  .user-name { font-weight: 600; color: #1a1a1a; }
-  .user-role {
-    background: #EBF3FC; color: #4A90D9;
-    padding: 3px 10px; border-radius: 20px;
-    font-size: 11px; font-weight: 600;
-  }
-  .logout-btn {
-    background: #FDECEA; color: #C0392B; border: none;
-    padding: 8px 14px; border-radius: 8px;
-    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
-  }
+/* ---------- TOPBAR ---------- */
+.topbar { background: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
+.brand { font-weight: 700; font-size: 18px; color: #1a1a1a; }
+.user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
+.user-name { font-weight: 600; color: #1a1a1a; }
+.user-role { background: #EBF3FC; color: #4A90D9; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.logout-btn { background: #FDECEA; color: #C0392B; border: none; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
 
-  /* ---------- NOTIFICATION BELL ---------- */
-  .bell-wrap { position: relative; }
-  .bell {
-    position: relative; cursor: pointer; font-size: 20px;
-    padding: 6px 8px; border-radius: 8px;
-    background: #f5f5f5;
-  }
-  .bell:hover { background: #eee; }
-  .bell-count {
-    position: absolute; top: 0; right: 0;
-    background: #C0392B; color: #fff;
-    font-size: 10px; font-weight: 700;
-    padding: 2px 6px; border-radius: 10px;
-    min-width: 18px; text-align: center;
-  }
-  .bell-count.hide { display: none; }
-  .bell-dropdown {
-    position: absolute; top: 100%; right: 0; margin-top: 8px;
-    width: 340px; background: #fff;
-    border: 1px solid #eee; border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    display: none; z-index: 200;
-    max-height: 420px; overflow-y: auto;
-  }
-  .bell-dropdown.show { display: block; }
-  .bell-header {
-    padding: 12px 16px; border-bottom: 1px solid #eee;
-    font-weight: 700; font-size: 14px;
-  }
-  .bell-item {
-    padding: 12px 16px; border-bottom: 1px solid #f5f5f5;
-    font-size: 13px; cursor: pointer;
-  }
-  .bell-item:hover { background: #fafafa; }
-  .bell-item:last-child { border-bottom: none; }
-  .bell-item .time { color: #999; font-size: 11px; margin-top: 4px; }
-  .bell-empty { padding: 24px; text-align: center; color: #aaa; font-size: 13px; }
+/* ---------- BELL ---------- */
+.bell-wrap { position: relative; }
+.bell { position: relative; cursor: pointer; font-size: 20px; padding: 6px 8px; border-radius: 8px; background: #f5f5f5; }
+.bell:hover { background: #eee; }
+.bell-count { position: absolute; top: 0; right: 0; background: #C0392B; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center; }
+.bell-count.hide { display: none; }
+.bell-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; width: 340px; background: #fff; border: 1px solid #eee; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); display: none; z-index: 200; max-height: 420px; overflow-y: auto; }
+.bell-dropdown.show { display: block; }
+.bell-header { padding: 12px 16px; border-bottom: 1px solid #eee; font-weight: 700; font-size: 14px; }
+.bell-item { padding: 12px 16px; border-bottom: 1px solid #f5f5f5; font-size: 13px; cursor: pointer; }
+.bell-item:hover { background: #fafafa; }
+.bell-item:last-child { border-bottom: none; }
+.bell-item .time { color: #999; font-size: 11px; margin-top: 4px; }
+.bell-empty { padding: 24px; text-align: center; color: #aaa; font-size: 13px; }
 
-  /* ---------- TABS ---------- */
-  .tabs {
-    background: #fff; padding: 0 24px;
-    display: flex; gap: 4px; overflow-x: auto;
-    border-bottom: 1px solid #eee; scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    padding: 14px 16px; font-size: 14px; font-weight: 500;
-    color: #666; border-bottom: 3px solid transparent;
-    cursor: pointer; white-space: nowrap; transition: 0.2s;
-  }
-  .tab.active { color: #4A90D9; border-bottom-color: #4A90D9; }
-  .tab:hover { color: #4A90D9; }
+/* ---------- TABS ---------- */
+.tabs { background: #fff; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid #eee; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: 14px 16px; font-size: 14px; font-weight: 500; color: #666; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+.tab.active { color: #4A90D9; border-bottom-color: #4A90D9; }
+.tab:hover { color: #4A90D9; }
 
-  /* ---------- CONTENT ---------- */
-  .content { padding: 24px; max-width: 1200px; margin: 0 auto; }
-  .section { display: none; }
-  .section.active { display: block; }
+/* ---------- CONTENT ---------- */
+.content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
 
-  .section-header {
-    display: flex; justify-content: space-between;
-    align-items: center; margin-bottom: 20px;
-    flex-wrap: wrap; gap: 12px;
-  }
-  .section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
+.period-selector { display: flex; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
+.period-selector button { padding: 8px 16px; background: transparent; border: none; cursor: pointer; font-size: 13px; color: #666; border-right: 1px solid #e0e0e0; font-family: inherit; }
+.period-selector button:last-child { border-right: none; }
+.period-selector button.active { background: #4A90D9; color: #fff; font-weight: 600; }
 
-  /* ---------- PERIOD SELECTOR ---------- */
-  .period-selector {
-    display: flex; background: #fff;
-    border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;
-  }
-  .period-selector button {
-    padding: 8px 16px; background: transparent;
-    border: none; cursor: pointer; font-size: 13px;
-    color: #666; border-right: 1px solid #e0e0e0; font-family: inherit;
-  }
-  .period-selector button:last-child { border-right: none; }
-  .period-selector button.active {
-    background: #4A90D9; color: #fff; font-weight: 600;
-  }
+/* ---------- BUTTONS ---------- */
+.btn-primary { background: #4A90D9; color: #fff; border: none; padding: 11px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #3a7bc8; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; }
+.btn-call { background: #4A90D9; color: #fff; }
+.btn-call:hover { background: #3a7bc8; }
+.btn-warning { background: #F39C12; color: #fff; }
+.btn-warning:hover { background: #d68910; }
 
-  /* ---------- BUTTONS ---------- */
-  .btn-primary {
-    background: #4A90D9; color: #fff; border: none;
-    padding: 11px 18px; border-radius: 10px;
-    font-size: 14px; font-weight: 600;
-    cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .btn-primary:hover { background: #3a7bc8; }
-  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+/* ---------- STATS ---------- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: #fff; padding: 20px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #4A90D9; }
+.stat-card.green { border-left-color: #27AE60; }
+.stat-card.amber { border-left-color: #F39C12; }
+.stat-card.red { border-left-color: #C0392B; }
+.stat-card.cyan { border-left-color: #17A2B8; }
+.stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+.stat-label { font-size: 13px; color: #888; }
 
-  .btn-sm {
-    padding: 6px 12px; border-radius: 8px;
-    font-size: 12px; font-weight: 600; cursor: pointer;
-    border: none; font-family: inherit;
-  }
-  .btn-call { background: #4A90D9; color: #fff; }
-  .btn-call:hover { background: #3a7bc8; }
+/* ---------- TABLE ---------- */
+.table-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
+th { background: #fafafa; font-weight: 600; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+tr { border-bottom: 1px solid #f0f0f0; }
+tr:last-child { border-bottom: none; }
+tr:hover { background: #fafafa; }
 
-  /* ---------- STATS ---------- */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px; margin-bottom: 24px;
-  }
-  .stat-card {
-    background: #fff; padding: 20px; border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border-left: 4px solid #4A90D9;
-  }
-  .stat-card.green { border-left-color: #27AE60; }
-  .stat-card.amber { border-left-color: #F39C12; }
-  .stat-card.red { border-left-color: #C0392B; }
-  .stat-card.cyan { border-left-color: #17A2B8; }
-  .stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
-  .stat-label { font-size: 13px; color: #888; }
+/* ---------- BADGES ---------- */
+.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge.active { background: #E8F8EE; color: #27AE60; }
+.badge.inactive { background: #FDECEA; color: #C0392B; }
+.badge.role { background: #EBF3FC; color: #4A90D9; }
+.badge.new { background: #EBF3FC; color: #4A90D9; }
+.badge.interested { background: #E8F8EE; color: #27AE60; }
+.badge.later { background: #FEF3C7; color: #92400E; }
+.badge.visit { background: #CFFAFE; color: #155E75; }
+.badge.not { background: #FDECEA; color: #C0392B; }
+.badge.gray { background: #F3F4F6; color: #374151; }
+.badge.pending { background: #FEF3C7; color: #92400E; }
+.badge.production { background: #EBF3FC; color: #4A90D9; }
+.badge.dispatched { background: #CFFAFE; color: #155E75; }
+.badge.installed { background: #E8F8EE; color: #27AE60; }
 
-  /* ---------- TABLE ---------- */
-  .table-card {
-    background: #fff; border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    overflow: hidden; margin-bottom: 20px;
-  }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
-  th {
-    background: #fafafa; font-weight: 600; color: #666;
-    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  tr { border-bottom: 1px solid #f0f0f0; }
-  tr:last-child { border-bottom: none; }
-  tr:hover { background: #fafafa; }
+/* ---------- NEXT CALL HIGHLIGHT ---------- */
+.next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; }
+.next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; animation: pulse-bg 2s infinite; }
+@keyframes pulse-bg { 0%, 100% { background: #FEE2E2; } 50% { background: #FCA5A5; } }
+.next-call-normal { color: #6B7280; }
 
-  /* ---------- BADGES ---------- */
-  .badge {
-    display: inline-block; padding: 4px 10px;
-    border-radius: 20px; font-size: 11px; font-weight: 600;
-  }
-  .badge.active { background: #E8F8EE; color: #27AE60; }
-  .badge.inactive { background: #FDECEA; color: #C0392B; }
-  .badge.role { background: #EBF3FC; color: #4A90D9; }
-  .badge.new { background: #EBF3FC; color: #4A90D9; }
-  .badge.interested { background: #E8F8EE; color: #27AE60; }
-  .badge.later { background: #FEF3C7; color: #92400E; }
-  .badge.visit { background: #CFFAFE; color: #155E75; }
-  .badge.not { background: #FDECEA; color: #C0392B; }
-  .badge.gray { background: #F3F4F6; color: #374151; }
+/* ---------- TOOLBAR ---------- */
+.toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; }
+.toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
+.toolbar input { flex: 1; min-width: 200px; }
 
-  /* ---------- ACTION BUTTONS ---------- */
-  .action-btn {
-    background: transparent; border: 1px solid #ddd;
-    padding: 6px 10px; border-radius: 8px;
-    cursor: pointer; font-size: 13px;
-    margin-right: 4px; font-family: inherit;
-  }
-  .action-btn:hover { background: #f0f0f0; }
-  .action-btn.delete { color: #C0392B; border-color: #f8d7da; }
-  .action-btn.delete:hover { background: #FDECEA; }
+/* ---------- ALERT BANNER ---------- */
+.alert-banner { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.alert-banner.overdue { background: #FEE2E2; border-left-color: #DC2626; }
+.alert-banner strong { color: #92400E; }
+.alert-banner.overdue strong { color: #991B1B; }
 
-  /* ---------- TOOLBAR ---------- */
-  .toolbar {
-    display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .toolbar input, .toolbar select {
-    padding: 10px 14px; border: 2px solid #e8e8e8;
-    border-radius: 10px; font-size: 13px;
-    outline: none; font-family: inherit;
-  }
-  .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
-  .toolbar input { flex: 1; min-width: 200px; }
+/* ---------- MODAL ---------- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.modal-overlay.show { display: flex; }
+.modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
+.modal.wide { max-width: 720px; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-title { font-size: 20px; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #888; }
 
-  /* ---------- MODAL ---------- */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-    display: none; align-items: center; justify-content: center;
-    z-index: 1000; padding: 20px;
-  }
-  .modal-overlay.show { display: flex; }
-  .modal {
-    background: #fff; border-radius: 16px; padding: 28px;
-    max-width: 480px; width: 100%;
-    max-height: 90vh; overflow-y: auto;
-  }
-  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .modal-title { font-size: 20px; font-weight: 700; }
-  .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #888; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; transition: 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4A90D9; }
+.form-group textarea { resize: vertical; min-height: 70px; }
+.required { color: #C0392B; }
 
-  .form-group { margin-bottom: 14px; }
-  .form-group label {
-    display: block; font-size: 13px; font-weight: 600;
-    color: #444; margin-bottom: 6px;
-  }
-  .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 11px 14px;
-    border: 2px solid #e8e8e8; border-radius: 10px;
-    font-size: 14px; outline: none; font-family: inherit; transition: 0.2s;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: #4A90D9;
-  }
-  .form-group textarea { resize: vertical; min-height: 70px; }
-  .required { color: #C0392B; }
+.radio-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.15s; font-size: 14px; }
+.radio-option:hover { background: #fafafa; }
+.radio-option.selected { border-color: #4A90D9; background: #EBF3FC; }
+.radio-option input { width: auto; margin: 0; }
 
-  /* ---------- RADIO OPTIONS ---------- */
-  .radio-option {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px; border: 2px solid #e8e8e8;
-    border-radius: 10px; margin-bottom: 8px; cursor: pointer;
-    transition: 0.15s; font-size: 14px;
-  }
-  .radio-option:hover { background: #fafafa; }
-  .radio-option.selected {
-    border-color: #4A90D9; background: #EBF3FC;
-  }
-  .radio-option input { width: auto; margin: 0; }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-cancel { background: #f0f0f0; color: #444; border: none; }
+.btn-save { background: #4A90D9; color: #fff; border: none; }
+.btn-save:hover { background: #3a7bc8; }
+.btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  .modal-actions {
-    display: flex; gap: 10px; margin-top: 20px;
-  }
-  .modal-actions button {
-    flex: 1; padding: 12px; border-radius: 10px;
-    font-size: 14px; font-weight: 600;
-    cursor: pointer; font-family: inherit;
-  }
-  .btn-cancel { background: #f0f0f0; color: #444; border: none; }
-  .btn-save { background: #4A90D9; color: #fff; border: none; }
-  .btn-save:hover { background: #3a7bc8; }
+/* ---------- CALLBACK ALERT MODAL ---------- */
+.callback-list { max-height: 400px; overflow-y: auto; margin: 10px 0; }
+.callback-item { padding: 12px 14px; border: 1px solid #e8e8e8; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
+.callback-item.today { background: #FEF3C7; border-color: #FCD34D; }
+.callback-info { flex: 1; }
+.callback-info .name { font-weight: 700; font-size: 14px; }
+.callback-info .meta { font-size: 12px; color: #666; margin-top: 2px; }
 
-  /* ---------- EMPTY STATE ---------- */
-  .empty-state {
-    padding: 40px 20px; text-align: center;
-    color: #aaa; font-size: 14px;
-  }
+/* ---------- BULK UPLOAD ---------- */
+.upload-zone { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 30px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; }
+.upload-zone:hover { border-color: #4A90D9; background: #EBF3FC; }
+.upload-zone input { display: none; }
+.preview-table { max-height: 240px; overflow: auto; border: 1px solid #e8e8e8; border-radius: 8px; margin: 10px 0; }
+.preview-table table { font-size: 12px; }
+.preview-table th, .preview-table td { padding: 8px 10px; }
 
-  /* ---------- TOAST ---------- */
-  .toast {
-    position: fixed; bottom: 24px; right: 24px;
-    background: #27AE60; color: #fff;
-    padding: 14px 20px; border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    font-size: 14px; font-weight: 500;
-    opacity: 0; transform: translateY(20px);
-    transition: all 0.3s; z-index: 2000;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.error { background: #C0392B; }
+.empty-state { padding: 40px 20px; text-align: center; color: #aaa; font-size: 14px; }
 
-  /* ---------- MOBILE ---------- */
-  @media (max-width: 640px) {
-    .topbar { padding: 12px 16px; }
-    .tabs { padding: 0 12px; }
-    .content { padding: 16px; }
-    .user-name { display: none; }
-    .section-title { font-size: 18px; }
-    th, td { padding: 10px 12px; font-size: 13px; }
-    .bell-dropdown { width: 280px; right: -60px; }
-  }
+/* ---------- TOAST ---------- */
+.toast { position: fixed; bottom: 24px; right: 24px; background: #27AE60; color: #fff; padding: 14px 20px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.error { background: #C0392B; }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 640px) {
+  .topbar { padding: 12px 16px; }
+  .tabs { padding: 0 12px; }
+  .content { padding: 16px; }
+  .user-name { display: none; }
+  .section-title { font-size: 18px; }
+  th, td { padding: 10px 12px; font-size: 13px; }
+  .bell-dropdown { width: 280px; right: -60px; }
+  .modal.wide { max-width: 95vw; }
+}
 </style>
 </head>
 <body>
@@ -339,7 +228,7 @@
     </div>
   </div>
 
-  <!-- ========== USERS (Admin) ========== -->
+  <!-- ========== USERS ========== -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">User Management</h1>
@@ -370,6 +259,9 @@
         <button onclick="setPeriod('telecaller','year',this)">Year</button>
       </div>
     </div>
+
+    <div id="tcCallbackBanner"></div>
+
     <div class="stats-grid" id="tcStats"></div>
 
     <div class="table-card">
@@ -387,6 +279,7 @@
             <option>Switched Off</option>
             <option>Already Purchased</option>
           </select>
+          <button class="btn-primary" onclick="openBulkUpload()">📤 Bulk Upload</button>
         </div>
         <table>
           <thead>
@@ -415,8 +308,21 @@
     <div class="section-header">
       <h1 class="section-title">🚗 Visit</h1>
     </div>
+    <div class="stats-grid" id="visitStats"></div>
     <div class="table-card">
-      <div class="empty-state">Visit tab — coming soon</div>
+      <div style="padding:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Visit ID</th><th>Client</th><th>Phone</th>
+              <th>Date</th><th>Time</th><th>Status</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="visitBody">
+            <tr><td colspan="7" class="empty-state">Loading visits...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -424,9 +330,23 @@
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
+      <button class="btn-primary" onclick="openMaterialModal()">+ Add Material</button>
     </div>
+    <div class="stats-grid" id="designerStats"></div>
     <div class="table-card">
-      <div class="empty-state">Designer tab — coming soon</div>
+      <div style="padding:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Material ID</th><th>Client</th><th>Item</th>
+              <th>Qty</th><th>Status</th><th>Need By</th><th>Urgency</th>
+            </tr>
+          </thead>
+          <tbody id="designerBody">
+            <tr><td colspan="7" class="empty-state">Loading materials...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -434,9 +354,23 @@
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
+      <button class="btn-primary" onclick="openProductionModal()">+ Add Production</button>
     </div>
+    <div class="stats-grid" id="productionStats"></div>
     <div class="table-card">
-      <div class="empty-state">Production tab — coming soon</div>
+      <div style="padding:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Log ID</th><th>Item</th><th>Required</th>
+              <th>Produced</th><th>Pending</th><th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="productionBody">
+            <tr><td colspan="6" class="empty-state">Loading production...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -444,9 +378,23 @@
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
+      <button class="btn-primary" onclick="openDispatchModal()">+ Add Dispatch</button>
     </div>
+    <div class="stats-grid" id="dispatchStats"></div>
     <div class="table-card">
-      <div class="empty-state">Dispatch tab — coming soon</div>
+      <div style="padding:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Log ID</th><th>Item</th><th>Qty</th>
+              <th>Vehicle</th><th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="dispatchBody">
+            <tr><td colspan="5" class="empty-state">Loading dispatches...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -454,9 +402,52 @@
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
+      <button class="btn-primary" onclick="openInstallationModal()">+ Add Installation</button>
     </div>
+    <div class="stats-grid" id="installationStats"></div>
     <div class="table-card">
-      <div class="empty-state">Installation tab — coming soon</div>
+      <div style="padding:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Log ID</th><th>Item</th><th>Qty</th>
+              <th>Date</th><th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="installationBody">
+            <tr><td colspan="5" class="empty-state">Loading installations...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ADMIN ========== -->
+  <div class="section" id="section-admin">
+    <div class="section-header">
+      <h1 class="section-title">👤 Admin Overview</h1>
+      <div class="period-selector" id="adminPeriod">
+        <button class="active" onclick="setPeriod('admin','day',this)">Day</button>
+        <button onclick="setPeriod('admin','month',this)">Month</button>
+        <button onclick="setPeriod('admin','year',this)">Year</button>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">📊 All Departments</h3>
+    <div class="stats-grid" id="adminStats"></div>
+
+    <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">⏰ Today's Alerts</h3>
+    <div class="table-card">
+      <div style="padding:16px;" id="adminCallbacks">
+        <div class="empty-state">Loading...</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">🏆 Top Performers</h3>
+    <div class="table-card">
+      <div style="padding:16px;" id="adminPerformers">
+        <div class="empty-state">Loading...</div>
+      </div>
     </div>
   </div>
 
@@ -469,45 +460,24 @@
   <div class="modal">
     <div class="modal-header">
       <h2 class="modal-title" id="modalTitle">Add New User</h2>
-      <button class="modal-close" onclick="closeUserModal()">×</button>
+      <button class="modal-close" onclick="closeModal('userModal')">×</button>
     </div>
     <input type="hidden" id="editUserId">
-    <div class="form-group">
-      <label>Full Name *</label>
-      <input type="text" id="formName" placeholder="Enter full name">
-    </div>
-    <div class="form-group">
-      <label>Phone Number *</label>
-      <input type="tel" id="formPhone" placeholder="Enter 10-digit phone">
-    </div>
-    <div class="form-group">
-      <label>Role *</label>
+    <div class="form-group"><label>Full Name *</label><input type="text" id="formName" placeholder="Enter full name"></div>
+    <div class="form-group"><label>Phone Number *</label><input type="tel" id="formPhone" placeholder="Enter 10-digit phone"></div>
+    <div class="form-group"><label>Role *</label>
       <select id="formRole">
         <option value="">Select role</option>
-        <option>Telecaller</option>
-        <option>Visit</option>
-        <option>Designer</option>
-        <option>Production</option>
-        <option>Dispatch</option>
-        <option>Installation</option>
-        <option>Admin</option>
+        <option>Telecaller</option><option>Visit</option><option>Designer</option>
+        <option>Production</option><option>Dispatch</option><option>Installation</option><option>Admin</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Username *</label>
-      <input type="text" id="formUsername" placeholder="Enter username">
-    </div>
-    <div class="form-group">
-      <label>Password *</label>
-      <input type="password" id="formPassword" placeholder="Enter password">
-    </div>
-    <div class="form-group">
-      <label>Email (optional)</label>
-      <input type="email" id="formEmail" placeholder="Enter email">
-    </div>
+    <div class="form-group"><label>Username *</label><input type="text" id="formUsername" placeholder="Enter username"></div>
+    <div class="form-group"><label>Password *</label><input type="password" id="formPassword" placeholder="Enter password"></div>
+    <div class="form-group"><label>Email (optional)</label><input type="email" id="formEmail" placeholder="Enter email"></div>
     <div class="msg" id="formMsg"></div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeUserModal()">Cancel</button>
+      <button class="btn-cancel" onclick="closeModal('userModal')">Cancel</button>
       <button class="btn-save" id="saveBtn" onclick="saveUser()">Save User</button>
     </div>
   </div>
@@ -526,10 +496,7 @@
       <label>Select Status <span class="required">*</span></label>
       <div id="statusOptions"></div>
     </div>
-    <div class="form-group">
-      <label>Notes</label>
-      <textarea id="callNotes" placeholder="Optional notes..."></textarea>
-    </div>
+    <div class="form-group"><label>Notes</label><textarea id="callNotes" placeholder="Optional notes..."></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('callStatusModal')">Cancel</button>
       <button class="btn-save" onclick="submitCallStatus()">Save Call</button>
@@ -546,26 +513,12 @@
       <h2 class="modal-title" id="callLaterTitle">⏰ Schedule Callback</h2>
       <button class="modal-close" onclick="closeModal('callLaterModal')">×</button>
     </div>
-    <div class="form-group">
-      <label>Next Call Date <span class="required">*</span></label>
-      <input type="date" id="nextCallDate">
+    <div class="form-group"><label>Next Call Date <span class="required">*</span></label><input type="date" id="nextCallDate"></div>
+    <div class="form-group"><label>Next Call Time <span class="required">*</span></label><input type="time" id="nextCallTime"></div>
+    <div class="form-group"><label>Priority</label>
+      <select id="nextCallPriority"><option>Low</option><option selected>Medium</option><option>High</option></select>
     </div>
-    <div class="form-group">
-      <label>Next Call Time <span class="required">*</span></label>
-      <input type="time" id="nextCallTime">
-    </div>
-    <div class="form-group">
-      <label>Priority</label>
-      <select id="nextCallPriority">
-        <option>Low</option>
-        <option selected>Medium</option>
-        <option>High</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Notes</label>
-      <textarea id="callLaterNotes" placeholder="Optional notes..."></textarea>
-    </div>
+    <div class="form-group"><label>Notes</label><textarea id="callLaterNotes" placeholder="Optional notes..."></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
       <button class="btn-save" onclick="submitCallLater()">Schedule</button>
@@ -582,41 +535,176 @@
       <h2 class="modal-title" id="visitReadyTitle">🚗 Schedule Visit</h2>
       <button class="modal-close" onclick="closeModal('visitReadyModal')">×</button>
     </div>
-    <div class="form-group">
-      <label>Address <span class="required">*</span></label>
-      <textarea id="visitAddress" placeholder="Full address..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>Property Type <span class="required">*</span></label>
+    <div class="form-group"><label>Address <span class="required">*</span></label><textarea id="visitAddress" placeholder="Full address..."></textarea></div>
+    <div class="form-group"><label>Property Type <span class="required">*</span></label>
       <select id="visitPropertyType">
         <option value="">Select...</option>
-        <option>Apartment</option>
-        <option>Villa</option>
-        <option>Independent House</option>
-        <option>Office</option>
-        <option>Shop</option>
-        <option>Other</option>
+        <option>Apartment</option><option>Villa</option><option>Independent House</option>
+        <option>Office</option><option>Shop</option><option>Other</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Budget (₹)</label>
-      <input type="number" id="visitBudget" placeholder="e.g. 500000">
-    </div>
-    <div class="form-group">
-      <label>Visit Date <span class="required">*</span></label>
-      <input type="date" id="visitDate">
-    </div>
-    <div class="form-group">
-      <label>Visit Time <span class="required">*</span></label>
-      <input type="time" id="visitTime">
-    </div>
-    <div class="form-group">
-      <label>Notes</label>
-      <textarea id="visitNotes" placeholder="Optional notes..."></textarea>
-    </div>
+    <div class="form-group"><label>Budget (₹)</label><input type="number" id="visitBudget" placeholder="e.g. 500000"></div>
+    <div class="form-group"><label>Visit Date <span class="required">*</span></label><input type="date" id="visitDate"></div>
+    <div class="form-group"><label>Visit Time <span class="required">*</span></label><input type="time" id="visitTime"></div>
+    <div class="form-group"><label>Notes</label><textarea id="visitNotes" placeholder="Optional notes..."></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
       <button class="btn-save" onclick="submitVisitReady()">Assign to Visit Team</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: BULK UPLOAD
+     ============================================================ -->
+<div class="modal-overlay" id="bulkUploadModal">
+  <div class="modal wide">
+    <div class="modal-header">
+      <h2 class="modal-title">📤 Bulk Upload Leads</h2>
+      <button class="modal-close" onclick="closeModal('bulkUploadModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Upload Date (Auto)</label>
+      <input type="text" id="bulkDate" readonly style="background:#f5f5f5;">
+    </div>
+    <div class="form-group">
+      <label>Upload Method</label>
+      <div style="display:flex;gap:10px;margin-bottom:12px;">
+        <button class="btn-primary" id="bulkFileBtn" onclick="switchBulkTab('file')" style="flex:1;">📁 CSV File</button>
+        <button class="btn-cancel" id="bulkPasteBtn" onclick="switchBulkTab('paste')" style="flex:1;">📋 Paste Data</button>
+      </div>
+    </div>
+    <div id="bulkFileSection">
+      <div class="upload-zone" onclick="document.getElementById('bulkFileInput').click()">
+        <div style="font-size:32px;margin-bottom:8px;">📁</div>
+        <div style="font-weight:600;margin-bottom:4px;">Click to choose CSV file</div>
+        <div style="font-size:12px;color:#888;">Or drag & drop</div>
+        <input type="file" id="bulkFileInput" accept=".csv,.txt" onchange="handleBulkFile(event)">
+      </div>
+    </div>
+    <div id="bulkPasteSection" style="display:none;">
+      <div class="form-group">
+        <label>Paste from Excel/Sheet (tab-separated)</label>
+        <textarea id="bulkPasteArea" rows="6" placeholder="Name	Phone	Source	Assigned To
+Rajesh Kumar	9876543210	Website	Pawan Kumar
+Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicate phone numbers</label>
+    </div>
+    <div id="bulkPreview"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('bulkUploadModal')">Cancel</button>
+      <button class="btn-save" id="bulkImportBtn" onclick="submitBulkUpload()" disabled>Import 0 Leads</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: DAILY ALERT
+     ============================================================ -->
+<div class="modal-overlay" id="callbackAlertModal">
+  <div class="modal wide">
+    <div class="modal-header">
+      <h2 class="modal-title" id="callbackAlertTitle">⏰ Today's Alerts</h2>
+      <button class="modal-close" onclick="closeModal('callbackAlertModal')">×</button>
+    </div>
+    <div id="callbackAlertBody"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="dismissCallbackAlert()">Dismiss for Today</button>
+      <button class="btn-save" onclick="closeModal('callbackAlertModal')">View All</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: MATERIAL (Designer)
+     ============================================================ -->
+<div class="modal-overlay" id="materialModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">🎨 Add Material</h2>
+      <button class="modal-close" onclick="closeModal('materialModal')">×</button>
+    </div>
+    <div class="form-group"><label>Client ID <span class="required">*</span></label><input type="text" id="matClientId" placeholder="e.g. CL001"></div>
+    <div class="form-group"><label>Client Name</label><input type="text" id="matClientName" placeholder="Client name"></div>
+    <div class="form-group"><label>Item Name <span class="required">*</span></label><input type="text" id="matItemName" placeholder="e.g. Sofa Set"></div>
+    <div class="form-group"><label>Quantity <span class="required">*</span></label><input type="number" id="matQty" placeholder="e.g. 5"></div>
+    <div class="form-group"><label>Need By</label><input type="date" id="matNeedBy"></div>
+    <div class="form-group"><label>Urgency</label>
+      <select id="matUrgency"><option>Normal</option><option>High</option><option>Urgent</option></select>
+    </div>
+    <div class="form-group"><label>Notes</label><textarea id="matNotes" placeholder="Optional..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('materialModal')">Cancel</button>
+      <button class="btn-save" onclick="submitMaterial()">Add Material</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: PRODUCTION
+     ============================================================ -->
+<div class="modal-overlay" id="productionModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">🏭 Add Production Entry</h2>
+      <button class="modal-close" onclick="closeModal('productionModal')">×</button>
+    </div>
+    <div class="form-group"><label>Material ID <span class="required">*</span></label><input type="text" id="prodMatId"></div>
+    <div class="form-group"><label>Client ID</label><input type="text" id="prodClientId"></div>
+    <div class="form-group"><label>Item Name <span class="required">*</span></label><input type="text" id="prodItem"></div>
+    <div class="form-group"><label>Required Qty</label><input type="number" id="prodRequired"></div>
+    <div class="form-group"><label>Produced Qty <span class="required">*</span></label><input type="number" id="prodProduced"></div>
+    <div class="form-group"><label>Notes</label><textarea id="prodNotes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('productionModal')">Cancel</button>
+      <button class="btn-save" onclick="submitProduction()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: DISPATCH
+     ============================================================ -->
+<div class="modal-overlay" id="dispatchModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">🚚 Add Dispatch</h2>
+      <button class="modal-close" onclick="closeModal('dispatchModal')">×</button>
+    </div>
+    <div class="form-group"><label>Material ID <span class="required">*</span></label><input type="text" id="dispMatId"></div>
+    <div class="form-group"><label>Client ID</label><input type="text" id="dispClientId"></div>
+    <div class="form-group"><label>Item Name <span class="required">*</span></label><input type="text" id="dispItem"></div>
+    <div class="form-group"><label>Dispatched Qty <span class="required">*</span></label><input type="number" id="dispQty"></div>
+    <div class="form-group"><label>Vehicle</label><input type="text" id="dispVehicle" placeholder="e.g. MH01AB1234"></div>
+    <div class="form-group"><label>Received By</label><input type="text" id="dispReceivedBy"></div>
+    <div class="form-group"><label>Notes</label><textarea id="dispNotes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('dispatchModal')">Cancel</button>
+      <button class="btn-save" onclick="submitDispatch()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: INSTALLATION
+     ============================================================ -->
+<div class="modal-overlay" id="installationModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">🔧 Add Installation</h2>
+      <button class="modal-close" onclick="closeModal('installationModal')">×</button>
+    </div>
+    <div class="form-group"><label>Material ID <span class="required">*</span></label><input type="text" id="instMatId"></div>
+    <div class="form-group"><label>Client ID</label><input type="text" id="instClientId"></div>
+    <div class="form-group"><label>Item Name <span class="required">*</span></label><input type="text" id="instItem"></div>
+    <div class="form-group"><label>Installed Qty <span class="required">*</span></label><input type="number" id="instQty"></div>
+    <div class="form-group"><label>Notes</label><textarea id="instNotes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('installationModal')">Cancel</button>
+      <button class="btn-save" onclick="submitInstallation()">Save</button>
     </div>
   </div>
 </div>
@@ -630,7 +718,7 @@
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
 
 // ============================================================
-// SESSION CHECK
+// SESSION
 // ============================================================
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) window.location.href = 'index.html';
@@ -648,39 +736,60 @@ document.getElementById('userRole').textContent = session.role;
 let allLeads = [];
 let allCallLogs = [];
 let allUsers = [];
+let allMaterials = [];
+let allProduction = [];
+let allDispatches = [];
+let allInstallations = [];
+let allAlerts = { telecaller: [], visit: [], designer: [], production: [], dispatch: [], installation: [] };
 let currentLead = null;
 let selectedStatus = null;
-let currentPeriod = { dashboard: 'day', telecaller: 'day' };
+let currentPeriod = { dashboard: 'day', telecaller: 'day', admin: 'day' };
+let bulkParsedLeads = [];
+let bulkMethod = 'file';
+let originalTitle = document.title;
+let titleBlinkInterval = null;
+let audioCtx = null;
 
 // ============================================================
-// API HELPER — FLEXIBLE PARSER
+// UTILS
+// ============================================================
+function getISTDate() {
+  const now = new Date();
+  const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  return ist.toISOString().slice(0, 10);
+}
+function getISTTime() {
+  const now = new Date();
+  const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  return ist.toISOString().slice(11, 16);
+}
+
+// ============================================================
+// API
 // ============================================================
 async function apiGet(action, params = {}) {
   const qs = new URLSearchParams({ action, ...params }).toString();
   try {
-    const res = await fetch(WORKER_URL + '?' + qs);
+    const res = await fetch(WORKER_URL + '/?' + qs);
     return await res.json();
   } catch (err) {
-    console.error('API error:', action, err);
+    console.error('API GET error:', action, err);
     return { success: false, error: err.message };
   }
 }
-
 async function apiPost(action, payload = {}) {
   try {
-    const res = await fetch(WORKER_URL, {
+    const res = await fetch(WORKER_URL + '/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, ...payload })
     });
     return await res.json();
   } catch (err) {
-    console.error('API error:', action, err);
+    console.error('API POST error:', action, err);
     return { success: false, error: err.message };
   }
 }
-
-// Flexible array extractor
 function extractArray(res, keys = []) {
   if (!res) return [];
   if (Array.isArray(res)) return res;
@@ -693,7 +802,7 @@ function extractArray(res, keys = []) {
 // TABS
 // ============================================================
 const TABS_BY_ROLE = {
-  Admin:        ['Dashboard', 'Users', 'Telecaller', 'Visit', 'Designer', 'Production', 'Dispatch', 'Installation'],
+  Admin:        ['Dashboard', 'Users', 'Telecaller', 'Visit', 'Designer', 'Production', 'Dispatch', 'Installation', 'Admin'],
   Telecaller:   ['Dashboard', 'Telecaller'],
   Visit:        ['Dashboard', 'Visit'],
   Designer:     ['Dashboard', 'Designer'],
@@ -711,41 +820,37 @@ document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => switchTab(tab.dataset.tab, tab));
 });
 
+const TAB_MAP = {
+  'Dashboard':    'section-dashboard',
+  'Users':        'section-users',
+  'Telecaller':   'section-telecaller',
+  'Visit':        'section-visit',
+  'Designer':     'section-designer',
+  'Production':   'section-production',
+  'Dispatch':     'section-dispatch',
+  'Installation': 'section-installation',
+  'Admin':        'section-admin',
+};
+
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-
-  const map = {
-    'Dashboard':    'section-dashboard',
-    'Users':        'section-users',
-    'Telecaller':   'section-telecaller',
-    'Visit':        'section-visit',
-    'Designer':     'section-designer',
-    'Production':   'section-production',
-    'Dispatch':     'section-dispatch',
-    'Installation': 'section-installation',
-    // Legacy names (Phase 1)
-    'My Leads':     'section-telecaller',
-    'Callbacks':    'section-telecaller',
-    'My Visits':    'section-visit',
-    'My Projects':  'section-designer',
-    'Production Queue':   'section-production',
-    'Dispatch Queue':     'section-dispatch',
-    'Installation Queue': 'section-installation',
-  };
-
-  const target = map[name] || 'section-dashboard';
+  const target = TAB_MAP[name] || 'section-dashboard';
   document.getElementById(target).classList.add('active');
 
   if (name === 'Users') loadUsers();
-  if (name === 'Telecaller' || name === 'My Leads' || name === 'Callbacks') {
-    loadTelecallerData();
-  }
+  if (name === 'Telecaller') loadTelecallerData();
+  if (name === 'Visit') loadVisitData();
+  if (name === 'Designer') loadDesignerData();
+  if (name === 'Production') loadProductionData();
+  if (name === 'Dispatch') loadDispatchData();
+  if (name === 'Installation') loadInstallationData();
+  if (name === 'Admin') loadAdminOverview();
 }
 
 // ============================================================
-// PERIOD SELECTOR
+// PERIOD
 // ============================================================
 function setPeriod(page, period, btn) {
   currentPeriod[page] = period;
@@ -753,43 +858,60 @@ function setPeriod(page, period, btn) {
   btn.classList.add('active');
   if (page === 'dashboard') renderDashboardStats();
   if (page === 'telecaller') renderTelecallerStats();
+  if (page === 'admin') renderAdminStats();
 }
 
 // ============================================================
-// USERS MANAGEMENT (Phase 1 — unchanged)
+// INIT
+// ============================================================
+(async function init() {
+  originalTitle = document.title;
+  renderDashboardStats();
+
+  if (session.role === 'Admin') {
+    loadUsers();
+    loadLeads();
+    loadCallLogs();
+  } else if (session.role === 'Telecaller') {
+    loadTelecallerData();
+  }
+
+  setTimeout(() => checkDailyCallbacks(), 1500);
+  pollNotifications();
+  setInterval(pollNotifications, 30000);
+  setInterval(() => checkDailyCallbacks(true), 60000);
+})();
+
+// ============================================================
+// USER MANAGEMENT
 // ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
+  const data = await apiGet('getUsers');
+  const users = extractArray(data, ['users']);
 
-  try {
-    const data = await apiGet('getUsers');
-    const users = extractArray(data, ['users']);
-
-    if (!data.success || !users.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found. Click "Add New User" to create one.</td></tr>';
-      return;
-    }
-    allUsers = users;
-
-    tbody.innerHTML = users.map(u => `
-      <tr>
-        <td>${u.userId || '-'}</td>
-        <td><strong>${u.name}</strong></td>
-        <td><span class="badge role">${u.role}</span></td>
-        <td>${u.phone || '-'}</td>
-        <td>${u.username}</td>
-        <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
-        <td>
-          <button class="action-btn" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
-          <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
-          <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
-        </td>
-      </tr>
-    `).join('');
-  } catch (err) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Failed to load users</td></tr>';
+  if (!data.success || !users.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found.</td></tr>';
+    return;
   }
+  allUsers = users;
+
+  tbody.innerHTML = users.map(u => `
+    <tr>
+      <td>${u.userId || '-'}</td>
+      <td><strong>${u.name}</strong></td>
+      <td><span class="badge role">${u.role}</span></td>
+      <td>${u.phone || '-'}</td>
+      <td>${u.username}</td>
+      <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
+      <td>
+        <button class="action-btn" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
+        <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
+        <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
+      </td>
+    </tr>
+  `).join('');
 }
 
 function openUserModal() {
@@ -799,10 +921,6 @@ function openUserModal() {
   document.getElementById('formRole').value = '';
   document.getElementById('formMsg').className = 'msg';
   document.getElementById('userModal').classList.add('show');
-}
-
-function closeUserModal() {
-  document.getElementById('userModal').classList.remove('show');
 }
 
 function editUser(u) {
@@ -828,7 +946,7 @@ async function saveUser() {
   const email = document.getElementById('formEmail').value.trim();
 
   if (!name) return showFormMsg('Name is required');
-  if (!phone) return showFormMsg('Phone number is required');
+  if (!phone) return showFormMsg('Phone is required');
   if (!role) return showFormMsg('Role is required');
   if (!username) return showFormMsg('Username is required');
   if (!password) return showFormMsg('Password is required');
@@ -843,8 +961,8 @@ async function saveUser() {
   btn.disabled = false; btn.textContent = 'Save User';
 
   if (data.success) {
-    closeUserModal();
-    showToast(userId ? 'User updated successfully' : 'User added successfully');
+    closeModal('userModal');
+    showToast(userId ? 'User updated' : 'User added');
     loadUsers();
   } else {
     showFormMsg(data.error || 'Failed to save user');
@@ -860,70 +978,70 @@ function showFormMsg(text) {
 async function toggleUser(userId, currentStatus) {
   const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
   const data = await apiPost('toggleStatus', { userId, status: newStatus });
-  if (data.success) {
-    showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`);
-    loadUsers();
-  } else {
-    showToast(data.error || 'Failed to update status', 'error');
-  }
+  if (data.success) { showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`); loadUsers(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 
 async function deleteUserConfirm(userId, name) {
   if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
   const data = await apiPost('deleteUser', { userId });
-  if (data.success) {
-    showToast('User deleted successfully');
-    loadUsers();
-  } else {
-    showToast(data.error || 'Failed to delete user', 'error');
-  }
+  if (data.success) { showToast('User deleted'); loadUsers(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
-// TELECALLER — DATA LOAD
+// TELECALLER DATA
 // ============================================================
 async function loadTelecallerData() {
-  await Promise.all([loadLeads(), loadCallLogs()]);
+  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts()]);
   renderTelecallerStats();
   renderTelecallerLeads();
   renderTelecallerCallbacks();
+  renderCallbackBanner();
 }
 
 async function loadLeads() {
-  const data = await apiGet('getLeads', { username: session.username || '' });
+  const data = await apiGet('getLeads', { username: session.username || '', role: session.role });
   allLeads = extractArray(data, ['leads']);
 }
-
 async function loadCallLogs() {
-  const data = await apiGet('getCallLogs', { username: session.username || '' });
+  const data = await apiGet('getCallLogs', { username: session.username || '', role: session.role });
   allCallLogs = extractArray(data, ['callLogs', 'logs']);
+}
+async function loadDailyAlerts() {
+  const data = await apiGet('getDailyAlerts', { role: session.role, username: session.username || '' });
+  if (data.success && data.alerts) allAlerts = data.alerts;
 }
 
 // ============================================================
-// TELECALLER — STATS
+// TELECALLER STATS
 // ============================================================
 function renderTelecallerStats() {
   const period = currentPeriod.telecaller || 'day';
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getISTDate();
   const month = today.slice(0, 7);
   const year = today.slice(0, 4);
 
-  function inPeriod(dateStr) {
-    if (!dateStr) return false;
-    if (period === 'day') return dateStr.startsWith(today);
-    if (period === 'month') return dateStr.startsWith(month);
-    if (period === 'year') return dateStr.startsWith(year);
+  function inPeriod(d) {
+    if (!d) return false;
+    const s = String(d).slice(0, 10);
+    if (period === 'day') return s === today;
+    if (period === 'month') return s.startsWith(month);
+    if (period === 'year') return s.startsWith(year);
     return true;
   }
 
   const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
-  const callsToday = myCalls.length;
-  const pending = allLeads.filter(l => l['Status'] === 'New' || l['Status'] === 'Call Later').length;
-  const visitReady = myCalls.filter(c => c['Status'] === 'Visit Ready').length;
+  const pending = allLeads.filter(l =>
+    (l['Status'] === 'New' || l['Status'] === 'Call Later') &&
+    (session.role === 'Admin' || l['Assigned To'] === session.name)
+  ).length;
   const interested = myCalls.filter(c => c['Status'] === 'Interested').length;
+  const visitReady = myCalls.filter(c => c['Status'] === 'Visit Ready').length;
+  const periodLabel = period === 'day' ? 'Today' : period === 'month' ? 'This Month' : 'This Year';
 
   document.getElementById('tcStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${callsToday}</div><div class="stat-label">Calls (${period})</div></div>
+    <div class="stat-card"><div class="stat-value">${myCalls.length}</div><div class="stat-label">Calls (${periodLabel})</div></div>
     <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending Followups</div></div>
     <div class="stat-card green"><div class="stat-value">${interested}</div><div class="stat-label">Interested</div></div>
     <div class="stat-card cyan"><div class="stat-value">${visitReady}</div><div class="stat-label">Visit Ready</div></div>
@@ -931,7 +1049,19 @@ function renderTelecallerStats() {
 }
 
 // ============================================================
-// TELECALLER — LEADS
+// NEXT CALL CLASS
+// ============================================================
+function getNextCallClass(nextCall) {
+  if (!nextCall) return 'next-call-normal';
+  const today = getISTDate();
+  const d = String(nextCall).slice(0, 10);
+  if (d === today) return 'next-call-today';
+  if (d < today) return 'next-call-overdue';
+  return 'next-call-normal';
+}
+
+// ============================================================
+// TELECALLER LEADS
 // ============================================================
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
@@ -951,20 +1081,22 @@ function renderTelecallerLeads() {
   });
 
   if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found. Try bulk upload.</td></tr>';
     return;
   }
 
   tbody.innerHTML = leads.map(l => {
     const status = l['Status'] || 'New';
     const cls = statusToClass(status);
+    const nextCall = l['Next Call'] || '';
+    const ncCls = getNextCallClass(nextCall);
     return `
       <tr>
         <td>${l['Lead ID'] || '-'}</td>
         <td><strong>${l['Name'] || '-'}</strong></td>
         <td>${l['Phone'] || '-'}</td>
         <td><span class="badge ${cls}">${status}</span></td>
-        <td>${l['Next Call'] || '—'}</td>
+        <td class="${ncCls}">${nextCall || '—'}</td>
         <td><button class="btn-sm btn-call" onclick='openCallStatus(${JSON.stringify(l).replace(/'/g, "&apos;")})'>📞 Call</button></td>
       </tr>
     `;
@@ -973,31 +1105,51 @@ function renderTelecallerLeads() {
 
 function statusToClass(status) {
   const map = {
-    'New': 'new',
-    'Interested': 'interested',
-    'Not Interested': 'not',
-    'Call Later': 'later',
-    'Visit Ready': 'visit',
-    'Wrong Number': 'gray',
-    'Switched Off': 'gray',
-    'Already Purchased': 'gray',
+    'New': 'new', 'Interested': 'interested', 'Not Interested': 'not',
+    'Call Later': 'later', 'Visit Ready': 'visit', 'Wrong Number': 'gray',
+    'Switched Off': 'gray', 'Already Purchased': 'gray',
   };
   return map[status] || 'new';
 }
 
 // ============================================================
-// TELECALLER — CALLBACKS
+// CALLBACK BANNER
+// ============================================================
+function renderCallbackBanner() {
+  const el = document.getElementById('tcCallbackBanner');
+  const today = getISTDate();
+  const due = allLeads.filter(l => {
+    const nc = String(l['Next Call'] || '').slice(0, 10);
+    if (!nc) return false;
+    if (session.role !== 'Admin' && l['Assigned To'] !== session.name) return false;
+    return nc <= today;
+  });
+
+  if (!due.length) { el.innerHTML = ''; return; }
+
+  const overdueCount = due.filter(l => String(l['Next Call']).slice(0, 10) < today).length;
+  const isOverdue = overdueCount > 0;
+
+  el.innerHTML = `
+    <div class="alert-banner ${isOverdue ? 'overdue' : ''}">
+      <div>
+        <strong>⏰ ${due.length} callback${due.length > 1 ? 's' : ''} due today</strong>
+        ${overdueCount > 0 ? ` — <strong>${overdueCount} overdue</strong>` : ''}
+      </div>
+      <button class="btn-sm btn-warning" onclick="openCallbackAlert()">View</button>
+    </div>
+  `;
+}
+
+// ============================================================
+// CALLBACKS LIST
 // ============================================================
 function renderTelecallerCallbacks() {
   const el = document.getElementById('tcCallbacks');
-  const pending = allCallLogs.filter(c =>
-    c['Status'] === 'Call Later' && c['Next Call Date']
-  ).sort((a, b) => (a['Next Call Date'] + a['Next Call Time']).localeCompare(b['Next Call Date'] + b['Next Call Time']));
+  const pending = allCallLogs.filter(c => c['Status'] === 'Call Later' && c['Next Call Date'])
+    .sort((a, b) => (a['Next Call Date'] + a['Next Call Time']).localeCompare(b['Next Call Date'] + b['Next Call Time']));
 
-  if (!pending.length) {
-    el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
-    return;
-  }
+  if (!pending.length) { el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>'; return; }
 
   el.innerHTML = pending.map(c => `
     <div style="padding:12px;border-bottom:1px solid #f0f0f0;">
@@ -1009,7 +1161,100 @@ function renderTelecallerCallbacks() {
 }
 
 // ============================================================
-// CALL STATUS MODAL
+// DAILY CALLBACK ALERT
+// ============================================================
+async function checkDailyCallbacks(silent = false) {
+  await loadDailyAlerts();
+  const today = getISTDate();
+  const lastDismissed = localStorage.getItem('lifeasy_alert_dismissed');
+  if (lastDismissed === today) return;
+  const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+  if (total === 0) return;
+  if (!silent) {
+    openCallbackAlert();
+    playRingSound();
+    blinkTitle(`${total} Alerts Today`);
+    showBrowserNotification('Lifeasy CRM — Daily Alerts', `You have ${total} tasks due today.`);
+  }
+}
+
+function openCallbackAlert() {
+  const body = document.getElementById('callbackAlertBody');
+  const role = session.role;
+  const sections = [];
+
+  if ((role === 'Admin' || role === 'Telecaller') && allAlerts.telecaller.length) {
+    sections.push(buildSection('📞 Callbacks Due', allAlerts.telecaller.map(c => ({
+      primary: `${c.overdue ? '🔴' : '🟡'} ${c.name || c.leadId} — ${c.phone || ''}`,
+      secondary: `Next Call: ${c.nextCall}${c.overdue ? ' (OVERDUE)' : ''} — Assigned: ${c.assignedTo || 'You'}`,
+      overdue: c.overdue,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Visit') && allAlerts.visit.length) {
+    sections.push(buildSection('🚗 Visits Today', allAlerts.visit.map(v => ({
+      primary: `⏰ ${v.visitTime || ''} — ${v.name || v.visitId}`,
+      secondary: `${v.address || ''} — ${v.phone || ''}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Designer') && allAlerts.designer.length) {
+    sections.push(buildSection('🎨 Materials Due', allAlerts.designer.map(m => ({
+      primary: `${m.overdue ? '🔴' : '🟡'} ${m.itemName} — ${m.qty} qty`,
+      secondary: `Client: ${m.clientName || ''} — Need by: ${m.needBy} (${m.urgency})`,
+      overdue: m.overdue,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Production') && allAlerts.production.length) {
+    sections.push(buildSection('🏭 Production Due', allAlerts.production.map(p => ({
+      primary: `${p.itemName} — ${p.pending} pending`,
+      secondary: `Log: ${p.logId}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Dispatch') && allAlerts.dispatch.length) {
+    sections.push(buildSection('🚚 Dispatches Today', allAlerts.dispatch.map(d => ({
+      primary: `${d.itemName} — Vehicle: ${d.vehicle || 'TBD'}`,
+      secondary: `Log: ${d.logId}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Installation') && allAlerts.installation.length) {
+    sections.push(buildSection('🔧 Installations Today', allAlerts.installation.map(i => ({
+      primary: `⏰ ${i.time || ''} — ${i.itemName}`,
+      secondary: `Log: ${i.logId}`,
+    }))));
+  }
+
+  if (!sections.length) {
+    body.innerHTML = '<div class="empty-state">No alerts for today. Great job! 🎉</div>';
+  } else {
+    const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+    body.innerHTML = `<div style="padding:12px;background:#EBF3FC;border-radius:8px;margin-bottom:12px;"><strong>Total: ${total} alerts</strong></div>` + sections.join('');
+  }
+  document.getElementById('callbackAlertModal').classList.add('show');
+}
+
+function buildSection(title, items) {
+  return `
+    <div style="margin-bottom:16px;">
+      <div style="font-weight:700;margin-bottom:8px;font-size:15px;">${title} (${items.length})</div>
+      ${items.map(i => `
+        <div class="callback-item ${i.overdue ? 'overdue' : 'today'}">
+          <div class="callback-info">
+            <div class="name">${i.primary}</div>
+            ${i.secondary ? `<div class="meta">${i.secondary}</div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function dismissCallbackAlert() {
+  localStorage.setItem('lifeasy_alert_dismissed', getISTDate());
+  closeModal('callbackAlertModal');
+  stopTitleBlink();
+}
+
+// ============================================================
+// CALL STATUS
 // ============================================================
 const CALL_STATUSES = [
   { value: 'Interested', label: '🟢 Interested' },
@@ -1026,14 +1271,11 @@ function openCallStatus(lead) {
   selectedStatus = null;
   document.getElementById('callStatusTitle').textContent = `📞 Call Status — ${lead['Name'] || lead['Lead ID']}`;
   document.getElementById('callNotes').value = '';
-
   document.getElementById('statusOptions').innerHTML = CALL_STATUSES.map(s => `
     <div class="radio-option" data-value="${s.value}" onclick="selectStatus('${s.value}', this)">
-      <input type="radio" name="callStatus">
-      <span>${s.label}</span>
+      <input type="radio" name="callStatus"><span>${s.label}</span>
     </div>
   `).join('');
-
   document.getElementById('callStatusModal').classList.add('show');
 }
 
@@ -1042,54 +1284,33 @@ function selectStatus(value, el) {
   document.querySelectorAll('#statusOptions .radio-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   el.querySelector('input').checked = true;
-
-  // auto-advance for Call Later / Visit Ready
-  if (value === 'Call Later') {
-    setTimeout(() => {
-      closeModal('callStatusModal');
-      openCallLater();
-    }, 300);
-  } else if (value === 'Visit Ready') {
-    setTimeout(() => {
-      closeModal('callStatusModal');
-      openVisitReady();
-    }, 300);
-  }
+  if (value === 'Call Later') setTimeout(() => { closeModal('callStatusModal'); openCallLater(); }, 300);
+  else if (value === 'Visit Ready') setTimeout(() => { closeModal('callStatusModal'); openVisitReady(); }, 300);
 }
 
 async function submitCallStatus() {
   if (!selectedStatus) return showToast('Please select a status', 'error');
   if (!currentLead) return;
-
   const notes = document.getElementById('callNotes').value.trim();
-  const now = new Date();
-  const callDate = now.toISOString().slice(0, 10);
-  const callTime = now.toTimeString().slice(0, 5);
-
   const payload = {
-    leadId: currentLead['Lead ID'],
-    caller: session.name,
-    callDate, callTime,
-    status: selectedStatus,
-    notes,
+    leadId: currentLead['Lead ID'], leadName: currentLead['Name'],
+    phone: currentLead['Phone'], caller: session.name,
+    callDate: getISTDate(), callTime: getISTTime(),
+    status: selectedStatus, notes,
   };
-
   const data = await apiPost('saveCallLog', payload);
-
   if (data.success) {
     closeModal('callStatusModal');
-    showToast('Call logged successfully');
+    showToast('Call logged');
     await loadTelecallerData();
-  } else {
-    showToast(data.error || 'Failed to save call', 'error');
-  }
+  } else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
-// CALL LATER MODAL
+// CALL LATER
 // ============================================================
 function openCallLater() {
-  document.getElementById('callLaterTitle').textContent = `⏰ Schedule Callback — ${currentLead['Name'] || currentLead['Lead ID']}`;
+  document.getElementById('callLaterTitle').textContent = `⏰ Schedule Callback — ${currentLead['Name']}`;
   const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
   document.getElementById('nextCallDate').value = tomorrow;
   document.getElementById('nextCallTime').value = '10:00';
@@ -1103,38 +1324,28 @@ async function submitCallLater() {
   const time = document.getElementById('nextCallTime').value;
   const priority = document.getElementById('nextCallPriority').value;
   const notes = document.getElementById('callLaterNotes').value.trim();
-
-  if (!date) return showToast('Please pick a date', 'error');
-  if (!time) return showToast('Please pick a time', 'error');
-
-  const now = new Date();
+  if (!date) return showToast('Pick a date', 'error');
+  if (!time) return showToast('Pick a time', 'error');
   const payload = {
-    leadId: currentLead['Lead ID'],
-    caller: session.name,
-    callDate: now.toISOString().slice(0, 10),
-    callTime: now.toTimeString().slice(0, 5),
-    status: 'Call Later',
-    nextCallDate: date,
-    nextCallTime: time,
-    priority,
-    notes,
+    leadId: currentLead['Lead ID'], leadName: currentLead['Name'],
+    phone: currentLead['Phone'], caller: session.name,
+    callDate: getISTDate(), callTime: getISTTime(),
+    status: 'Call Later', nextCallDate: date, nextCallTime: time,
+    priority, notes,
   };
-
   const data = await apiPost('saveCallLog', payload);
   if (data.success) {
     closeModal('callLaterModal');
     showToast('Callback scheduled');
     await loadTelecallerData();
-  } else {
-    showToast(data.error || 'Failed to schedule', 'error');
-  }
+  } else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
-// VISIT READY MODAL
+// VISIT READY
 // ============================================================
 function openVisitReady() {
-  document.getElementById('visitReadyTitle').textContent = `🚗 Schedule Visit — ${currentLead['Name'] || currentLead['Lead ID']}`;
+  document.getElementById('visitReadyTitle').textContent = `🚗 Schedule Visit — ${currentLead['Name']}`;
   ['visitAddress','visitBudget','visitNotes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('visitPropertyType').value = '';
   const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
@@ -1150,32 +1361,23 @@ async function submitVisitReady() {
   const date = document.getElementById('visitDate').value;
   const time = document.getElementById('visitTime').value;
   const notes = document.getElementById('visitNotes').value.trim();
-
   if (!address) return showToast('Address is required', 'error');
   if (!propertyType) return showToast('Property type is required', 'error');
   if (!date) return showToast('Visit date is required', 'error');
   if (!time) return showToast('Visit time is required', 'error');
-
-  const now = new Date();
   const payload = {
-    leadId: currentLead['Lead ID'],
-    caller: session.name,
-    callDate: now.toISOString().slice(0, 10),
-    callTime: now.toTimeString().slice(0, 5),
-    status: 'Visit Ready',
-    address, propertyType, budget,
-    visitDate: date, visitTime: time,
-    notes,
+    leadId: currentLead['Lead ID'], leadName: currentLead['Name'],
+    phone: currentLead['Phone'], caller: session.name,
+    callDate: getISTDate(), callTime: getISTTime(),
+    status: 'Visit Ready', address, propertyType, budget,
+    visitDate: date, visitTime: time, notes,
   };
-
   const data = await apiPost('saveCallLog', payload);
   if (data.success) {
     closeModal('visitReadyModal');
-    showToast('Visit assigned to Visit Team');
+    showToast('Visit assigned');
     await loadTelecallerData();
-  } else {
-    showToast(data.error || 'Failed to assign visit', 'error');
-  }
+  } else showToast(data.error || 'Failed', 'error');
 }
 
 function backToCallStatus() {
@@ -1190,20 +1392,32 @@ function backToCallStatus() {
 function renderDashboardStats() {
   const role = session.role;
   const period = currentPeriod.dashboard || 'day';
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getISTDate();
+  const month = today.slice(0, 7);
+  const year = today.slice(0, 4);
+
+  function inPeriod(d) {
+    if (!d) return false;
+    const s = String(d).slice(0, 10);
+    if (period === 'day') return s === today;
+    if (period === 'month') return s.startsWith(month);
+    if (period === 'year') return s.startsWith(year);
+    return true;
+  }
+  const periodLabel = period === 'day' ? "Today's" : period === 'month' ? "This Month's" : "This Year's";
 
   let cards = [];
   if (role === 'Admin') {
     cards = [
       { value: allLeads.length, label: 'Total Leads', cls: '' },
-      { value: allCallLogs.filter(c => c['Call Date'] === today).length, label: "Today's Calls", cls: 'cyan' },
+      { value: allCallLogs.filter(c => inPeriod(c['Call Date'])).length, label: `${periodLabel} Calls`, cls: 'cyan' },
       { value: allLeads.filter(l => l['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
       { value: allUsers.filter(u => u.status === 'Active').length, label: 'Active Users', cls: 'green' },
     ];
   } else if (role === 'Telecaller') {
-    const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && c['Call Date'] === today);
+    const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
     cards = [
-      { value: myCalls.length, label: "Today's Calls", cls: '' },
+      { value: myCalls.length, label: `${periodLabel} Calls`, cls: '' },
       { value: myCalls.filter(c => c['Status'] === 'Interested').length, label: 'Interested', cls: 'green' },
       { value: myCalls.filter(c => c['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
       { value: myCalls.filter(c => c['Status'] === 'Call Later').length, label: 'Callbacks', cls: 'cyan' },
@@ -1220,9 +1434,453 @@ function renderDashboardStats() {
   document.getElementById('statsGrid').innerHTML = cards.map(c => `
     <div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>
   `).join('');
+  document.getElementById('dashEmpty').textContent = role === 'Admin' ? `Showing ${periodLabel} data.` : `Your ${periodLabel} performance above.`;
+}
 
-  document.getElementById('dashEmpty').textContent =
-    role === 'Admin' ? 'Detailed analytics will appear here.' : 'Your performance summary appears above.';
+// ============================================================
+// VISIT TAB
+// ============================================================
+async function loadVisitData() {
+  const data = await apiGet('getDailyAlerts', { role: 'Visit', username: session.name });
+  const visits = (data.alerts && data.alerts.visit) || [];
+  document.getElementById('visitStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${visits.length}</div><div class="stat-label">Today's Visits</div></div>
+    <div class="stat-card green"><div class="stat-value">${visits.filter(v => v.status === 'Done').length}</div><div class="stat-label">Done</div></div>
+    <div class="stat-card amber"><div class="stat-value">${visits.filter(v => v.status !== 'Done').length}</div><div class="stat-label">Pending</div></div>
+  `;
+  const tbody = document.getElementById('visitBody');
+  if (!visits.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No visits today</td></tr>'; return; }
+  tbody.innerHTML = visits.map(v => `
+    <tr>
+      <td>${v.visitId || '-'}</td><td>${v.name || '-'}</td><td>${v.phone || '-'}</td>
+      <td>${v.visitDate || '-'}</td><td>${v.visitTime || '-'}</td>
+      <td><span class="badge ${v.status === 'Done' ? 'installed' : 'pending'}">${v.status || 'Pending'}</span></td>
+      <td><button class="btn-sm btn-call" onclick='completeVisit("${v.visitId}")'>✓ Done</button></td>
+    </tr>
+  `).join('');
+}
+
+async function completeVisit(visitId) {
+  const clientId = prompt('Enter Client ID:');
+  if (!clientId) return;
+  const notes = prompt('Notes (optional):') || '';
+  const data = await apiPost('completeVisit', {
+    visitId, clientId, notes,
+    visitor: session.name, status: 'Done',
+    visitDate: getISTDate(), visitTime: getISTTime(),
+  });
+  if (data.success) { showToast('Visit completed'); loadVisitData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// DESIGNER TAB
+// ============================================================
+async function loadDesignerData() {
+  const data = await apiGet('getMaterials');
+  allMaterials = extractArray(data, ['materials']);
+  document.getElementById('designerStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${allMaterials.length}</div><div class="stat-label">Total Materials</div></div>
+    <div class="stat-card amber"><div class="stat-value">${allMaterials.filter(m => m.status === 'Pending').length}</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${allMaterials.filter(m => m.status === 'Production').length}</div><div class="stat-label">In Production</div></div>
+    <div class="stat-card green"><div class="stat-value">${allMaterials.filter(m => m.status === 'Installed').length}</div><div class="stat-label">Completed</div></div>
+  `;
+  const tbody = document.getElementById('designerBody');
+  if (!allMaterials.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No materials</td></tr>'; return; }
+  tbody.innerHTML = allMaterials.map(m => `
+    <tr>
+      <td>${m.materialId || '-'}</td><td>${m.clientName || m.clientId || '-'}</td>
+      <td><strong>${m.itemName || '-'}</strong></td><td>${m.qty || '-'}</td>
+      <td><span class="badge ${m.status === 'Installed' ? 'installed' : m.status === 'Dispatched' ? 'dispatched' : m.status === 'Production' ? 'production' : 'pending'}">${m.status || 'Pending'}</span></td>
+      <td>${m.needBy || '—'}</td>
+      <td><span class="badge ${m.urgency === 'Urgent' ? 'not' : m.urgency === 'High' ? 'later' : 'gray'}">${m.urgency || 'Normal'}</span></td>
+    </tr>
+  `).join('');
+}
+
+function openMaterialModal() {
+  ['matClientId','matClientName','matItemName','matQty','matNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('matNeedBy').value = '';
+  document.getElementById('matUrgency').value = 'Normal';
+  document.getElementById('materialModal').classList.add('show');
+}
+
+async function submitMaterial() {
+  const payload = {
+    clientId: document.getElementById('matClientId').value.trim(),
+    clientName: document.getElementById('matClientName').value.trim(),
+    itemName: document.getElementById('matItemName').value.trim(),
+    qty: document.getElementById('matQty').value.trim(),
+    needBy: document.getElementById('matNeedBy').value,
+    urgency: document.getElementById('matUrgency').value,
+    notes: document.getElementById('matNotes').value.trim(),
+    addedBy: session.name,
+    status: 'Pending',
+  };
+  if (!payload.clientId) return showToast('Client ID required', 'error');
+  if (!payload.itemName) return showToast('Item name required', 'error');
+  if (!payload.qty) return showToast('Qty required', 'error');
+  const data = await apiPost('addMaterial', payload);
+  if (data.success) { closeModal('materialModal'); showToast('Material added'); loadDesignerData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// PRODUCTION TAB
+// ============================================================
+async function loadProductionData() {
+  const data = await apiGet('getProductionLog');
+  allProduction = extractArray(data, ['logs']);
+  const pending = allProduction.reduce((s, l) => s + ((Number(l['Production QTY']) || 0) - (Number(l['Produced QTY']) || 0)), 0);
+  const produced = allProduction.reduce((s, l) => s + (Number(l['Produced QTY']) || 0), 0);
+  document.getElementById('productionStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${allProduction.length}</div><div class="stat-label">Total Logs</div></div>
+    <div class="stat-card green"><div class="stat-value">${produced}</div><div class="stat-label">Produced</div></div>
+    <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>
+  `;
+  const tbody = document.getElementById('productionBody');
+  if (!allProduction.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No production logs</td></tr>'; return; }
+  tbody.innerHTML = allProduction.map(l => {
+    const req = Number(l['Production QTY']) || 0;
+    const prod = Number(l['Produced QTY']) || 0;
+    return `
+      <tr>
+        <td>${l['Log ID'] || '-'}</td><td>${l['Item Name'] || '-'}</td>
+        <td>${req}</td><td>${prod}</td>
+        <td><span class="badge ${req - prod > 0 ? 'pending' : 'installed'}">${req - prod}</span></td>
+        <td>${l['Date'] || '-'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openProductionModal() {
+  ['prodMatId','prodClientId','prodItem','prodRequired','prodProduced','prodNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('productionModal').classList.add('show');
+}
+
+async function submitProduction() {
+  const payload = {
+    materialId: document.getElementById('prodMatId').value.trim(),
+    clientId: document.getElementById('prodClientId').value.trim(),
+    itemName: document.getElementById('prodItem').value.trim(),
+    requiredQty: document.getElementById('prodRequired').value,
+    productionQty: document.getElementById('prodRequired').value,
+    producedQty: document.getElementById('prodProduced').value,
+    notes: document.getElementById('prodNotes').value.trim(),
+    updatedBy: session.name, date: getISTDate(),
+  };
+  if (!payload.materialId) return showToast('Material ID required', 'error');
+  if (!payload.itemName) return showToast('Item required', 'error');
+  if (!payload.producedQty) return showToast('Produced qty required', 'error');
+  const data = await apiPost('logProduction', payload);
+  if (data.success) { closeModal('productionModal'); showToast('Production logged'); loadProductionData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// DISPATCH TAB
+// ============================================================
+async function loadDispatchData() {
+  const data = await apiGet('getDispatchLog');
+  allDispatches = extractArray(data, ['logs']);
+  const today = getISTDate();
+  document.getElementById('dispatchStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${allDispatches.length}</div><div class="stat-label">Total Dispatches</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${allDispatches.filter(d => String(d['Date']).slice(0,10) === today).length}</div><div class="stat-label">Today</div></div>
+  `;
+  const tbody = document.getElementById('dispatchBody');
+  if (!allDispatches.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No dispatches</td></tr>'; return; }
+  tbody.innerHTML = allDispatches.map(d => `
+    <tr>
+      <td>${d['Log ID'] || '-'}</td><td>${d['Item Name'] || '-'}</td>
+      <td>${d['Dispatched QTY'] || '-'}</td><td>${d['Vehicle'] || '-'}</td>
+      <td>${d['Date'] || '-'}</td>
+    </tr>
+  `).join('');
+}
+
+function openDispatchModal() {
+  ['dispMatId','dispClientId','dispItem','dispQty','dispVehicle','dispReceivedBy','dispNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('dispatchModal').classList.add('show');
+}
+
+async function submitDispatch() {
+  const payload = {
+    materialId: document.getElementById('dispMatId').value.trim(),
+    clientId: document.getElementById('dispClientId').value.trim(),
+    itemName: document.getElementById('dispItem').value.trim(),
+    dispatchedQty: document.getElementById('dispQty').value,
+    vehicle: document.getElementById('dispVehicle').value.trim(),
+    receivedBy: document.getElementById('dispReceivedBy').value.trim(),
+    notes: document.getElementById('dispNotes').value.trim(),
+    updatedBy: session.name, date: getISTDate(),
+  };
+  if (!payload.materialId) return showToast('Material ID required', 'error');
+  if (!payload.itemName) return showToast('Item required', 'error');
+  if (!payload.dispatchedQty) return showToast('Qty required', 'error');
+  const data = await apiPost('logDispatch', payload);
+  if (data.success) { closeModal('dispatchModal'); showToast('Dispatch logged'); loadDispatchData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// INSTALLATION TAB
+// ============================================================
+async function loadInstallationData() {
+  const data = await apiGet('getInstallationLog');
+  allInstallations = extractArray(data, ['logs']);
+  const today = getISTDate();
+  document.getElementById('installationStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${allInstallations.length}</div><div class="stat-label">Total Installations</div></div>
+    <div class="stat-card green"><div class="stat-value">${allInstallations.filter(i => String(i['Date']).slice(0,10) === today).length}</div><div class="stat-label">Today</div></div>
+  `;
+  const tbody = document.getElementById('installationBody');
+  if (!allInstallations.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No installations</td></tr>'; return; }
+  tbody.innerHTML = allInstallations.map(i => `
+    <tr>
+      <td>${i['Log ID'] || '-'}</td><td>${i['Item Name'] || '-'}</td>
+      <td>${i['Installed QTY'] || '-'}</td><td>${i['Date'] || '-'}</td>
+      <td>${i['Time'] || '-'}</td>
+    </tr>
+  `).join('');
+}
+
+function openInstallationModal() {
+  ['instMatId','instClientId','instItem','instQty','instNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('installationModal').classList.add('show');
+}
+
+async function submitInstallation() {
+  const payload = {
+    materialId: document.getElementById('instMatId').value.trim(),
+    clientId: document.getElementById('instClientId').value.trim(),
+    itemName: document.getElementById('instItem').value.trim(),
+    installedQty: document.getElementById('instQty').value,
+    notes: document.getElementById('instNotes').value.trim(),
+    updatedBy: session.name, date: getISTDate(), time: getISTTime(),
+  };
+  if (!payload.materialId) return showToast('Material ID required', 'error');
+  if (!payload.itemName) return showToast('Item required', 'error');
+  if (!payload.installedQty) return showToast('Qty required', 'error');
+  const data = await apiPost('logInstallation', payload);
+  if (data.success) { closeModal('installationModal'); showToast('Installation logged'); loadInstallationData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// ADMIN OVERVIEW
+// ============================================================
+async function loadAdminOverview() {
+  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts()]);
+  renderAdminStats();
+  renderAdminAlerts();
+  renderAdminPerformers();
+}
+
+function renderAdminStats() {
+  const period = currentPeriod.admin || 'day';
+  const today = getISTDate();
+  const month = today.slice(0, 7);
+  const year = today.slice(0, 4);
+
+  function inPeriod(d) {
+    if (!d) return false;
+    const s = String(d).slice(0, 10);
+    if (period === 'day') return s === today;
+    if (period === 'month') return s.startsWith(month);
+    if (period === 'year') return s.startsWith(year);
+    return true;
+  }
+  const calls = allCallLogs.filter(c => inPeriod(c['Call Date'])).length;
+  const visits = allLeads.filter(l => l['Status'] === 'Visit Ready').length;
+
+  document.getElementById('adminStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visits Ready</div></div>
+    <div class="stat-card amber"><div class="stat-value">${allAlerts.designer?.length || 0}</div><div class="stat-label">🎨 Materials Due</div></div>
+    <div class="stat-card green"><div class="stat-value">${allAlerts.production?.length || 0}</div><div class="stat-label">🏭 Production Due</div></div>
+    <div class="stat-card red"><div class="stat-value">${allAlerts.installation?.length || 0}</div><div class="stat-label">🔧 Installs</div></div>
+  `;
+}
+
+function renderAdminAlerts() {
+  const el = document.getElementById('adminCallbacks');
+  const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+  if (!total) { el.innerHTML = '<div class="empty-state">No alerts today</div>'; return; }
+
+  const lines = [];
+  if (allAlerts.telecaller.length) lines.push(`📞 Telecaller: ${allAlerts.telecaller.length} callbacks`);
+  if (allAlerts.visit.length) lines.push(`🚗 Visit: ${allAlerts.visit.length} visits`);
+  if (allAlerts.designer.length) lines.push(`🎨 Designer: ${allAlerts.designer.length} materials`);
+  if (allAlerts.production.length) lines.push(`🏭 Production: ${allAlerts.production.length} items`);
+  if (allAlerts.dispatch.length) lines.push(`🚚 Dispatch: ${allAlerts.dispatch.length} dispatches`);
+  if (allAlerts.installation.length) lines.push(`🔧 Installation: ${allAlerts.installation.length} installs`);
+
+  el.innerHTML = lines.map(l => `<div style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px;">${l}</div>`).join('');
+}
+
+function renderAdminPerformers() {
+  const el = document.getElementById('adminPerformers');
+  const month = getISTDate().slice(0, 7);
+  const callerCount = {};
+  allCallLogs.filter(c => String(c['Call Date']).startsWith(month)).forEach(c => {
+    const who = c['Caller'] || 'Unknown';
+    callerCount[who] = (callerCount[who] || 0) + 1;
+  });
+  const top = Object.entries(callerCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  if (!top.length) { el.innerHTML = '<div class="empty-state">No data yet</div>'; return; }
+  el.innerHTML = `<div style="font-weight:700;margin-bottom:8px;">📞 Telecaller (This Month)</div>` +
+    top.map(([name, count], i) => `
+      <div style="padding:8px 12px;background:#fafafa;border-radius:8px;margin-bottom:4px;font-size:13px;">
+        ${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}.`} <strong>${name}</strong> — ${count} calls
+      </div>
+    `).join('');
+}
+
+// ============================================================
+// BULK UPLOAD
+// ============================================================
+function openBulkUpload() {
+  document.getElementById('bulkDate').value = getISTDate();
+  document.getElementById('bulkFileInput').value = '';
+  document.getElementById('bulkPasteArea').value = '';
+  document.getElementById('bulkPreview').innerHTML = '';
+  document.getElementById('bulkImportBtn').disabled = true;
+  document.getElementById('bulkImportBtn').textContent = 'Import 0 Leads';
+  bulkParsedLeads = [];
+  switchBulkTab('file');
+  document.getElementById('bulkUploadModal').classList.add('show');
+}
+
+function switchBulkTab(method) {
+  bulkMethod = method;
+  const fileBtn = document.getElementById('bulkFileBtn');
+  const pasteBtn = document.getElementById('bulkPasteBtn');
+  const fileSec = document.getElementById('bulkFileSection');
+  const pasteSec = document.getElementById('bulkPasteSection');
+  if (method === 'file') {
+    fileBtn.className = 'btn-primary'; fileBtn.style.flex = '1';
+    pasteBtn.className = 'btn-cancel'; pasteBtn.style.flex = '1';
+    fileSec.style.display = 'block'; pasteSec.style.display = 'none';
+  } else {
+    pasteBtn.className = 'btn-primary'; pasteBtn.style.flex = '1';
+    fileBtn.className = 'btn-cancel'; fileBtn.style.flex = '1';
+    pasteSec.style.display = 'block'; fileSec.style.display = 'none';
+  }
+}
+
+function handleBulkFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => parseBulkText(ev.target.result);
+  reader.readAsText(file);
+}
+
+function handleBulkPaste() {
+  const text = document.getElementById('bulkPasteArea').value;
+  if (!text.trim()) {
+    document.getElementById('bulkPreview').innerHTML = '';
+    document.getElementById('bulkImportBtn').disabled = true;
+    return;
+  }
+  parseBulkText(text);
+}
+
+function parseBulkText(text) {
+  const lines = text.trim().split('\n').filter(l => l.trim());
+  if (lines.length < 2) {
+    document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need header + at least 1 row</div>';
+    document.getElementById('bulkImportBtn').disabled = true;
+    return;
+  }
+  const delim = lines[0].includes('\t') ? '\t' : ',';
+  const headers = lines[0].split(delim).map(h => h.trim().toLowerCase().replace(/\s+/g, ''));
+  const headerMap = {};
+  headers.forEach((h, i) => {
+    if (h.includes('name')) headerMap.name = i;
+    else if (h.includes('phone') || h.includes('mobile')) headerMap.phone = i;
+    else if (h.includes('source')) headerMap.source = i;
+    else if (h.includes('assigned')) headerMap.assignedTo = i;
+    else if (h.includes('address')) headerMap.address = i;
+    else if (h.includes('property')) headerMap.propertyType = i;
+    else if (h.includes('budget')) headerMap.budget = i;
+    else if (h.includes('notes')) headerMap.notes = i;
+    else if (h.includes('date')) headerMap.date = i;
+  });
+
+  if (headerMap.name === undefined || headerMap.phone === undefined) {
+    document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">CSV must have "Name" and "Phone"</div>';
+    document.getElementById('bulkImportBtn').disabled = true;
+    return;
+  }
+
+  const parsed = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(delim).map(c => c.trim());
+    const lead = {
+      name: cols[headerMap.name] || '',
+      phone: cols[headerMap.phone] || '',
+      source: headerMap.source !== undefined ? cols[headerMap.source] : '',
+      assignedTo: headerMap.assignedTo !== undefined ? cols[headerMap.assignedTo] : session.name,
+      address: headerMap.address !== undefined ? cols[headerMap.address] : '',
+      propertyType: headerMap.propertyType !== undefined ? cols[headerMap.propertyType] : '',
+      budget: headerMap.budget !== undefined ? cols[headerMap.budget] : '',
+      notes: headerMap.notes !== undefined ? cols[headerMap.notes] : '',
+      date: headerMap.date !== undefined ? cols[headerMap.date] : getISTDate(),
+    };
+    if (lead.name && lead.phone) parsed.push(lead);
+  }
+
+  if (!parsed.length) {
+    document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">No valid rows</div>';
+    document.getElementById('bulkImportBtn').disabled = true;
+    return;
+  }
+
+  const existingPhones = new Set(allLeads.map(l => String(l['Phone'] || '').trim()));
+  const newOnes = parsed.filter(l => !existingPhones.has(String(l.phone).trim()));
+  const dupes = parsed.length - newOnes.length;
+  bulkParsedLeads = newOnes;
+
+  document.getElementById('bulkPreview').innerHTML = `
+    <div style="padding:12px;background:#EBF3FC;border-radius:8px;margin-bottom:10px;">
+      <strong>Total: ${parsed.length}</strong> | Will add: <strong style="color:#27AE60;">${newOnes.length}</strong> | Duplicates: <strong style="color:#C0392B;">${dupes}</strong>
+    </div>
+    <div class="preview-table">
+      <table>
+        <thead><tr><th>Name</th><th>Phone</th><th>Source</th><th>Assigned To</th><th>Date</th></tr></thead>
+        <tbody>${newOnes.slice(0, 10).map(l => `
+          <tr><td>${l.name}</td><td>${l.phone}</td><td>${l.source || '-'}</td><td>${l.assignedTo || '-'}</td><td>${l.date}</td></tr>
+        `).join('')}</tbody>
+      </table>
+    </div>
+    ${newOnes.length > 10 ? `<div style="font-size:12px;color:#888;margin-top:6px;">...and ${newOnes.length - 10} more</div>` : ''}
+  `;
+  document.getElementById('bulkImportBtn').disabled = newOnes.length === 0;
+  document.getElementById('bulkImportBtn').textContent = `Import ${newOnes.length} Leads`;
+}
+
+async function submitBulkUpload() {
+  if (!bulkParsedLeads.length) return;
+  const btn = document.getElementById('bulkImportBtn');
+  btn.disabled = true; btn.textContent = 'Importing...';
+  const payload = {
+    leads: bulkParsedLeads,
+    skipDuplicates: document.getElementById('bulkSkipDuplicates').checked,
+    uploadedBy: session.name,
+    uploadDate: getISTDate(),
+  };
+  const data = await apiPost('bulkUploadLeads', payload);
+  if (data.success) {
+    closeModal('bulkUploadModal');
+    showToast(`${data.added || bulkParsedLeads.length} leads imported`);
+    await loadTelecallerData();
+  } else {
+    btn.disabled = false; btn.textContent = 'Retry';
+    showToast(data.error || 'Upload failed', 'error');
+  }
 }
 
 // ============================================================
@@ -1234,24 +1892,19 @@ async function pollNotifications() {
     const items = extractArray(data, ['notifications']);
     const unread = items.filter(n => n['Status'] !== 'Read' && !n['Read At']);
     updateBell(unread);
-  } catch (err) {
-    // silent
-  }
+  } catch (err) {}
 }
 
 function updateBell(items) {
   const count = document.getElementById('bellCount');
   const dropdown = document.getElementById('bellDropdown');
-
   if (items.length === 0) {
     count.classList.add('hide');
     dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>';
     return;
   }
-
   count.textContent = items.length;
   count.classList.remove('hide');
-
   dropdown.innerHTML = `
     <div class="bell-header">Notifications (${items.length})</div>
     ${items.map(n => `
@@ -1275,22 +1928,58 @@ document.addEventListener('click', (e) => {
 });
 
 // ============================================================
-// MODAL HELPERS
+// SOUND + BLINK
 // ============================================================
-function closeModal(id) {
-  document.getElementById(id).classList.remove('show');
+function playRingSound() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.frequency.value = 800;
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+    osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.4);
+    setTimeout(() => {
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.connect(gain2); gain2.connect(audioCtx.destination);
+      osc2.frequency.value = 1000;
+      gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc2.start(audioCtx.currentTime); osc2.stop(audioCtx.currentTime + 0.4);
+    }, 500);
+  } catch (err) {}
 }
 
-// Close modal on overlay click
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('show');
-  });
-});
+function blinkTitle(text) {
+  if (titleBlinkInterval) return;
+  let blink = true;
+  titleBlinkInterval = setInterval(() => {
+    document.title = blink ? `🔔 ${text}` : originalTitle;
+    blink = !blink;
+  }, 1000);
+  setTimeout(stopTitleBlink, 15000);
+}
+
+function stopTitleBlink() {
+  if (titleBlinkInterval) { clearInterval(titleBlinkInterval); titleBlinkInterval = null; document.title = originalTitle; }
+}
+
+function showBrowserNotification(title, body) {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') new Notification(title, { body });
+  else if (Notification.permission !== 'denied') Notification.requestPermission().then(p => { if (p === 'granted') new Notification(title, { body }); });
+}
 
 // ============================================================
-// TOAST
+// MODAL HELPERS
 // ============================================================
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('show'); });
+});
+
 function showToast(text, type = 'success') {
   const el = document.getElementById('toast');
   el.textContent = text;
@@ -1298,33 +1987,12 @@ function showToast(text, type = 'success') {
   setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-// ============================================================
-// LOGOUT
-// ============================================================
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.clear();
     window.location.href = 'index.html';
   }
 }
-
-// ============================================================
-// INIT
-// ============================================================
-(async function init() {
-  renderDashboardStats();
-
-  if (session.role === 'Admin') {
-    loadUsers();
-    loadLeads();
-    loadCallLogs();
-  } else if (session.role === 'Telecaller') {
-    loadTelecallerData();
-  }
-
-  pollNotifications();
-  setInterval(pollNotifications, 30000);
-})();
 </script>
 
 </body>
