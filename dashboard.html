@@ -7,16 +7,12 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
 body { background: #f0f2f5; min-height: 100vh; }
-
-/* ---------- TOPBAR ---------- */
 .topbar { background: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
 .brand { font-weight: 700; font-size: 18px; color: #1a1a1a; }
 .user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
 .user-name { font-weight: 600; color: #1a1a1a; }
 .user-role { background: #EBF3FC; color: #4A90D9; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .logout-btn { background: #FDECEA; color: #C0392B; border: none; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
-
-/* ---------- BELL ---------- */
 .bell-wrap { position: relative; }
 .bell { position: relative; cursor: pointer; font-size: 20px; padding: 6px 8px; border-radius: 8px; background: #f5f5f5; }
 .bell:hover { background: #eee; }
@@ -30,27 +26,20 @@ body { background: #f0f2f5; min-height: 100vh; }
 .bell-item:last-child { border-bottom: none; }
 .bell-item .time { color: #999; font-size: 11px; margin-top: 4px; }
 .bell-empty { padding: 24px; text-align: center; color: #aaa; font-size: 13px; }
-
-/* ---------- TABS ---------- */
 .tabs { background: #fff; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid #eee; scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
 .tab { padding: 14px 16px; font-size: 14px; font-weight: 500; color: #666; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: 0.2s; }
 .tab.active { color: #4A90D9; border-bottom-color: #4A90D9; }
 .tab:hover { color: #4A90D9; }
-
-/* ---------- CONTENT ---------- */
 .content { padding: 24px; max-width: 1200px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
 .section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
-
 .period-selector { display: flex; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
 .period-selector button { padding: 8px 16px; background: transparent; border: none; cursor: pointer; font-size: 13px; color: #666; border-right: 1px solid #e0e0e0; font-family: inherit; }
 .period-selector button:last-child { border-right: none; }
 .period-selector button.active { background: #4A90D9; color: #fff; font-weight: 600; }
-
-/* ---------- BUTTONS ---------- */
 .btn-primary { background: #4A90D9; color: #fff; border: none; padding: 11px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; }
 .btn-primary:hover { background: #3a7bc8; }
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -59,18 +48,15 @@ body { background: #f0f2f5; min-height: 100vh; }
 .btn-call:hover { background: #3a7bc8; }
 .btn-warning { background: #F39C12; color: #fff; }
 .btn-warning:hover { background: #d68910; }
-
-/* ---------- STATS ---------- */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #fff; padding: 20px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #4A90D9; }
 .stat-card.green { border-left-color: #27AE60; }
 .stat-card.amber { border-left-color: #F39C12; }
 .stat-card.red { border-left-color: #C0392B; }
 .stat-card.cyan { border-left-color: #17A2B8; }
+.stat-card.purple { border-left-color: #8E44AD; }
 .stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
 .stat-label { font-size: 13px; color: #888; }
-
-/* ---------- TABLE ---------- */
 .table-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 20px; }
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
@@ -78,8 +64,6 @@ th { background: #fafafa; font-weight: 600; color: #666; font-size: 12px; text-t
 tr { border-bottom: 1px solid #f0f0f0; }
 tr:last-child { border-bottom: none; }
 tr:hover { background: #fafafa; }
-
-/* ---------- BADGES ---------- */
 .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #E8F8EE; color: #27AE60; }
 .badge.inactive { background: #FDECEA; color: #C0392B; }
@@ -94,26 +78,18 @@ tr:hover { background: #fafafa; }
 .badge.production { background: #EBF3FC; color: #4A90D9; }
 .badge.dispatched { background: #CFFAFE; color: #155E75; }
 .badge.installed { background: #E8F8EE; color: #27AE60; }
-
-/* ---------- NEXT CALL HIGHLIGHT ---------- */
 .next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; }
 .next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; animation: pulse-bg 2s infinite; }
 @keyframes pulse-bg { 0%, 100% { background: #FEE2E2; } 50% { background: #FCA5A5; } }
 .next-call-normal { color: #6B7280; }
-
-/* ---------- TOOLBAR ---------- */
 .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 .toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; }
 .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
 .toolbar input { flex: 1; min-width: 200px; }
-
-/* ---------- ALERT BANNER ---------- */
 .alert-banner { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .alert-banner.overdue { background: #FEE2E2; border-left-color: #DC2626; }
 .alert-banner strong { color: #92400E; }
 .alert-banner.overdue strong { color: #991B1B; }
-
-/* ---------- MODAL ---------- */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
@@ -121,27 +97,22 @@ tr:hover { background: #fafafa; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .modal-title { font-size: 20px; font-weight: 700; }
 .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #888; }
-
 .form-group { margin-bottom: 14px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; transition: 0.2s; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4A90D9; }
 .form-group textarea { resize: vertical; min-height: 70px; }
 .required { color: #C0392B; }
-
 .radio-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.15s; font-size: 14px; }
 .radio-option:hover { background: #fafafa; }
 .radio-option.selected { border-color: #4A90D9; background: #EBF3FC; }
 .radio-option input { width: auto; margin: 0; }
-
 .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
 .modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-cancel { background: #f0f0f0; color: #444; border: none; }
 .btn-save { background: #4A90D9; color: #fff; border: none; }
 .btn-save:hover { background: #3a7bc8; }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
-
-/* ---------- CALLBACK ALERT MODAL ---------- */
 .callback-list { max-height: 400px; overflow-y: auto; margin: 10px 0; }
 .callback-item { padding: 12px 14px; border: 1px solid #e8e8e8; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
@@ -149,23 +120,16 @@ tr:hover { background: #fafafa; }
 .callback-info { flex: 1; }
 .callback-info .name { font-weight: 700; font-size: 14px; }
 .callback-info .meta { font-size: 12px; color: #666; margin-top: 2px; }
-
-/* ---------- BULK UPLOAD ---------- */
 .upload-zone { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 30px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; }
 .upload-zone:hover { border-color: #4A90D9; background: #EBF3FC; }
 .upload-zone input { display: none; }
 .preview-table { max-height: 240px; overflow: auto; border: 1px solid #e8e8e8; border-radius: 8px; margin: 10px 0; }
 .preview-table table { font-size: 12px; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
-
 .empty-state { padding: 40px 20px; text-align: center; color: #aaa; font-size: 14px; }
-
-/* ---------- TOAST ---------- */
 .toast { position: fixed; bottom: 24px; right: 24px; background: #27AE60; color: #fff; padding: 14px 20px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.error { background: #C0392B; }
-
-/* ---------- MOBILE ---------- */
 @media (max-width: 640px) {
   .topbar { padding: 12px 16px; }
   .tabs { padding: 0 12px; }
@@ -180,9 +144,6 @@ tr:hover { background: #fafafa; }
 </head>
 <body>
 
-<!-- ============================================================
-     TOPBAR
-     ============================================================ -->
 <div class="topbar">
   <div class="brand">🏢 Lifeasy CRM</div>
   <div class="user-info">
@@ -202,17 +163,10 @@ tr:hover { background: #fafafa; }
   </div>
 </div>
 
-<!-- ============================================================
-     TABS
-     ============================================================ -->
 <div class="tabs" id="tabs"></div>
 
-<!-- ============================================================
-     CONTENT
-     ============================================================ -->
 <div class="content">
 
-  <!-- ========== DASHBOARD ========== -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">Dashboard</h1>
@@ -224,11 +178,12 @@ tr:hover { background: #fafafa; }
     </div>
     <div class="stats-grid" id="statsGrid"></div>
     <div class="table-card">
-      <div class="empty-state" id="dashEmpty">Loading dashboard...</div>
+      <div style="padding:16px;" id="dashExtra">
+        <div class="empty-state">Loading dashboard data...</div>
+      </div>
     </div>
   </div>
 
-  <!-- ========== USERS ========== -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">User Management</h1>
@@ -237,10 +192,7 @@ tr:hover { background: #fafafa; }
     <div class="table-card">
       <table>
         <thead>
-          <tr>
-            <th>User ID</th><th>Name</th><th>Role</th>
-            <th>Phone</th><th>Username</th><th>Status</th><th>Actions</th>
-          </tr>
+          <tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr>
         </thead>
         <tbody id="usersTbody">
           <tr><td colspan="7" class="empty-state">Loading users...</td></tr>
@@ -249,7 +201,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== TELECALLER ========== -->
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
@@ -259,34 +210,23 @@ tr:hover { background: #fafafa; }
         <button onclick="setPeriod('telecaller','year',this)">Year</button>
       </div>
     </div>
-
     <div id="tcCallbackBanner"></div>
-
     <div class="stats-grid" id="tcStats"></div>
-
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search name or phone..." oninput="renderTelecallerLeads()">
           <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
             <option value="">All Status</option>
-            <option>New</option>
-            <option>Interested</option>
-            <option>Not Interested</option>
-            <option>Call Later</option>
-            <option>Visit Ready</option>
-            <option>Wrong Number</option>
-            <option>Switched Off</option>
-            <option>Already Purchased</option>
+            <option>New</option><option>Interested</option><option>Not Interested</option>
+            <option>Call Later</option><option>Visit Ready</option><option>Wrong Number</option>
+            <option>Switched Off</option><option>Already Purchased</option>
           </select>
           <button class="btn-primary" onclick="openBulkUpload()">📤 Bulk Upload</button>
         </div>
         <table>
           <thead>
-            <tr>
-              <th>Lead ID</th><th>Name</th><th>Phone</th>
-              <th>Status</th><th>Next Call</th><th>Action</th>
-            </tr>
+            <tr><th>Lead ID</th><th>Name</th><th>Phone</th><th>Status</th><th>Next Call</th><th>Action</th></tr>
           </thead>
           <tbody id="tcLeadsBody">
             <tr><td colspan="6" class="empty-state">Loading leads...</td></tr>
@@ -294,7 +234,6 @@ tr:hover { background: #fafafa; }
         </table>
       </div>
     </div>
-
     <div class="table-card">
       <div style="padding:16px;">
         <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">⏰ Upcoming Callbacks</h3>
@@ -303,7 +242,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== VISIT ========== -->
   <div class="section" id="section-visit">
     <div class="section-header">
       <h1 class="section-title">🚗 Visit</h1>
@@ -313,10 +251,7 @@ tr:hover { background: #fafafa; }
       <div style="padding:16px;">
         <table>
           <thead>
-            <tr>
-              <th>Visit ID</th><th>Client</th><th>Phone</th>
-              <th>Date</th><th>Time</th><th>Status</th><th>Action</th>
-            </tr>
+            <tr><th>Visit ID</th><th>Client</th><th>Phone</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr>
           </thead>
           <tbody id="visitBody">
             <tr><td colspan="7" class="empty-state">Loading visits...</td></tr>
@@ -326,7 +261,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== DESIGNER ========== -->
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
@@ -337,10 +271,7 @@ tr:hover { background: #fafafa; }
       <div style="padding:16px;">
         <table>
           <thead>
-            <tr>
-              <th>Material ID</th><th>Client</th><th>Item</th>
-              <th>Qty</th><th>Status</th><th>Need By</th><th>Urgency</th>
-            </tr>
+            <tr><th>Material ID</th><th>Client</th><th>Item</th><th>Qty</th><th>Status</th><th>Need By</th><th>Urgency</th></tr>
           </thead>
           <tbody id="designerBody">
             <tr><td colspan="7" class="empty-state">Loading materials...</td></tr>
@@ -350,7 +281,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== PRODUCTION ========== -->
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
@@ -361,10 +291,7 @@ tr:hover { background: #fafafa; }
       <div style="padding:16px;">
         <table>
           <thead>
-            <tr>
-              <th>Log ID</th><th>Item</th><th>Required</th>
-              <th>Produced</th><th>Pending</th><th>Date</th>
-            </tr>
+            <tr><th>Log ID</th><th>Item</th><th>Required</th><th>Produced</th><th>Pending</th><th>Date</th></tr>
           </thead>
           <tbody id="productionBody">
             <tr><td colspan="6" class="empty-state">Loading production...</td></tr>
@@ -374,7 +301,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== DISPATCH ========== -->
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
@@ -385,10 +311,7 @@ tr:hover { background: #fafafa; }
       <div style="padding:16px;">
         <table>
           <thead>
-            <tr>
-              <th>Log ID</th><th>Item</th><th>Qty</th>
-              <th>Vehicle</th><th>Date</th>
-            </tr>
+            <tr><th>Log ID</th><th>Item</th><th>Qty</th><th>Vehicle</th><th>Date</th></tr>
           </thead>
           <tbody id="dispatchBody">
             <tr><td colspan="5" class="empty-state">Loading dispatches...</td></tr>
@@ -398,7 +321,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== INSTALLATION ========== -->
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
@@ -409,10 +331,7 @@ tr:hover { background: #fafafa; }
       <div style="padding:16px;">
         <table>
           <thead>
-            <tr>
-              <th>Log ID</th><th>Item</th><th>Qty</th>
-              <th>Date</th><th>Time</th>
-            </tr>
+            <tr><th>Log ID</th><th>Item</th><th>Qty</th><th>Date</th><th>Time</th></tr>
           </thead>
           <tbody id="installationBody">
             <tr><td colspan="5" class="empty-state">Loading installations...</td></tr>
@@ -422,7 +341,6 @@ tr:hover { background: #fafafa; }
     </div>
   </div>
 
-  <!-- ========== ADMIN ========== -->
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
@@ -432,17 +350,14 @@ tr:hover { background: #fafafa; }
         <button onclick="setPeriod('admin','year',this)">Year</button>
       </div>
     </div>
-
     <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">📊 All Departments</h3>
     <div class="stats-grid" id="adminStats"></div>
-
     <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">⏰ Today's Alerts</h3>
     <div class="table-card">
       <div style="padding:16px;" id="adminCallbacks">
         <div class="empty-state">Loading...</div>
       </div>
     </div>
-
     <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">🏆 Top Performers</h3>
     <div class="table-card">
       <div style="padding:16px;" id="adminPerformers">
@@ -453,9 +368,6 @@ tr:hover { background: #fafafa; }
 
 </div>
 
-<!-- ============================================================
-     MODAL: USER
-     ============================================================ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
@@ -483,9 +395,6 @@ tr:hover { background: #fafafa; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: CALL STATUS
-     ============================================================ -->
 <div class="modal-overlay" id="callStatusModal">
   <div class="modal">
     <div class="modal-header">
@@ -504,9 +413,6 @@ tr:hover { background: #fafafa; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: CALL LATER
-     ============================================================ -->
 <div class="modal-overlay" id="callLaterModal">
   <div class="modal">
     <div class="modal-header">
@@ -526,9 +432,6 @@ tr:hover { background: #fafafa; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: VISIT READY
-     ============================================================ -->
 <div class="modal-overlay" id="visitReadyModal">
   <div class="modal">
     <div class="modal-header">
@@ -554,9 +457,6 @@ tr:hover { background: #fafafa; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: BULK UPLOAD
-     ============================================================ -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -586,8 +486,7 @@ tr:hover { background: #fafafa; }
       <div class="form-group">
         <label>Paste from Excel/Sheet (tab-separated)</label>
         <textarea id="bulkPasteArea" rows="6" placeholder="Name	Phone	Source	Assigned To
-Rajesh Kumar	9876543210	Website	Pawan Kumar
-Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></textarea>
+Rajesh Kumar	9876543210	Website	Pawan Kumar" oninput="handleBulkPaste()"></textarea>
       </div>
     </div>
     <div class="form-group">
@@ -601,9 +500,6 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: DAILY ALERT
-     ============================================================ -->
 <div class="modal-overlay" id="callbackAlertModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -618,9 +514,6 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: MATERIAL (Designer)
-     ============================================================ -->
 <div class="modal-overlay" id="materialModal">
   <div class="modal">
     <div class="modal-header">
@@ -643,9 +536,6 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: PRODUCTION
-     ============================================================ -->
 <div class="modal-overlay" id="productionModal">
   <div class="modal">
     <div class="modal-header">
@@ -665,9 +555,6 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: DISPATCH
-     ============================================================ -->
 <div class="modal-overlay" id="dispatchModal">
   <div class="modal">
     <div class="modal-header">
@@ -688,9 +575,6 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: INSTALLATION
-     ============================================================ -->
 <div class="modal-overlay" id="installationModal">
   <div class="modal">
     <div class="modal-header">
@@ -712,14 +596,8 @@ Priya Sharma	9765432109	Reference	Pawan Kumar" oninput="handleBulkPaste()"></tex
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================================
-// CONFIG
-// ============================================================
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
 
-// ============================================================
-// SESSION
-// ============================================================
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) window.location.href = 'index.html';
 const session = JSON.parse(sessionRaw);
@@ -730,9 +608,6 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
-// ============================================================
-// STATE
-// ============================================================
 let allLeads = [];
 let allCallLogs = [];
 let allUsers = [];
@@ -750,9 +625,6 @@ let originalTitle = document.title;
 let titleBlinkInterval = null;
 let audioCtx = null;
 
-// ============================================================
-// UTILS
-// ============================================================
 function getISTDate() {
   const now = new Date();
   const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
@@ -764,9 +636,6 @@ function getISTTime() {
   return ist.toISOString().slice(11, 16);
 }
 
-// ============================================================
-// API
-// ============================================================
 async function apiGet(action, params = {}) {
   const qs = new URLSearchParams({ action, ...params }).toString();
   try {
@@ -798,9 +667,6 @@ function extractArray(res, keys = []) {
   return [];
 }
 
-// ============================================================
-// TABS
-// ============================================================
 const TABS_BY_ROLE = {
   Admin:        ['Dashboard', 'Users', 'Telecaller', 'Visit', 'Designer', 'Production', 'Dispatch', 'Installation', 'Admin'],
   Telecaller:   ['Dashboard', 'Telecaller'],
@@ -821,15 +687,15 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 const TAB_MAP = {
-  'Dashboard':    'section-dashboard',
-  'Users':        'section-users',
-  'Telecaller':   'section-telecaller',
-  'Visit':        'section-visit',
-  'Designer':     'section-designer',
-  'Production':   'section-production',
-  'Dispatch':     'section-dispatch',
+  'Dashboard': 'section-dashboard',
+  'Users': 'section-users',
+  'Telecaller': 'section-telecaller',
+  'Visit': 'section-visit',
+  'Designer': 'section-designer',
+  'Production': 'section-production',
+  'Dispatch': 'section-dispatch',
   'Installation': 'section-installation',
-  'Admin':        'section-admin',
+  'Admin': 'section-admin',
 };
 
 function switchTab(name, el) {
@@ -849,9 +715,6 @@ function switchTab(name, el) {
   if (name === 'Admin') loadAdminOverview();
 }
 
-// ============================================================
-// PERIOD
-// ============================================================
 function setPeriod(page, period, btn) {
   currentPeriod[page] = period;
   btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
@@ -862,142 +725,35 @@ function setPeriod(page, period, btn) {
 }
 
 // ============================================================
-// INIT
-// ============================================================
-(async function init() {
-  originalTitle = document.title;
-  renderDashboardStats();
-
-  if (session.role === 'Admin') {
-    loadUsers();
-    loadLeads();
-    loadCallLogs();
-  } else if (session.role === 'Telecaller') {
-    loadTelecallerData();
-  }
-
-  setTimeout(() => checkDailyCallbacks(), 1500);
-  pollNotifications();
-  setInterval(pollNotifications, 30000);
-  setInterval(() => checkDailyCallbacks(true), 60000);
-})();
-
-// ============================================================
-// USER MANAGEMENT
+// DATA LOADERS
 // ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
-  tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
+  if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
   const data = await apiGet('getUsers');
   const users = extractArray(data, ['users']);
-
   if (!data.success || !users.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found.</td></tr>';
+    if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found.</td></tr>';
     return;
   }
   allUsers = users;
-
-  tbody.innerHTML = users.map(u => `
-    <tr>
-      <td>${u.userId || '-'}</td>
-      <td><strong>${u.name}</strong></td>
-      <td><span class="badge role">${u.role}</span></td>
-      <td>${u.phone || '-'}</td>
-      <td>${u.username}</td>
-      <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
-      <td>
-        <button class="action-btn" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
-        <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
-        <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-function openUserModal() {
-  document.getElementById('modalTitle').textContent = 'Add New User';
-  document.getElementById('editUserId').value = '';
-  ['formName','formPhone','formUsername','formPassword','formEmail'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('formRole').value = '';
-  document.getElementById('formMsg').className = 'msg';
-  document.getElementById('userModal').classList.add('show');
-}
-
-function editUser(u) {
-  document.getElementById('modalTitle').textContent = 'Edit User';
-  document.getElementById('editUserId').value = u.userId;
-  document.getElementById('formName').value = u.name;
-  document.getElementById('formPhone').value = u.phone || '';
-  document.getElementById('formRole').value = u.role;
-  document.getElementById('formUsername').value = u.username;
-  document.getElementById('formPassword').value = u.password || '';
-  document.getElementById('formEmail').value = u.email || '';
-  document.getElementById('formMsg').className = 'msg';
-  document.getElementById('userModal').classList.add('show');
-}
-
-async function saveUser() {
-  const userId = document.getElementById('editUserId').value;
-  const name = document.getElementById('formName').value.trim();
-  const phone = document.getElementById('formPhone').value.trim();
-  const role = document.getElementById('formRole').value;
-  const username = document.getElementById('formUsername').value.trim();
-  const password = document.getElementById('formPassword').value;
-  const email = document.getElementById('formEmail').value.trim();
-
-  if (!name) return showFormMsg('Name is required');
-  if (!phone) return showFormMsg('Phone is required');
-  if (!role) return showFormMsg('Role is required');
-  if (!username) return showFormMsg('Username is required');
-  if (!password) return showFormMsg('Password is required');
-
-  const btn = document.getElementById('saveBtn');
-  btn.disabled = true; btn.textContent = 'Saving...';
-
-  const data = await apiPost(userId ? 'editUser' : 'addUser', {
-    userId, name, phone, role, username, password, email
-  });
-
-  btn.disabled = false; btn.textContent = 'Save User';
-
-  if (data.success) {
-    closeModal('userModal');
-    showToast(userId ? 'User updated' : 'User added');
-    loadUsers();
-  } else {
-    showFormMsg(data.error || 'Failed to save user');
+  if (tbody) {
+    tbody.innerHTML = users.map(u => `
+      <tr>
+        <td>${u.userId || '-'}</td>
+        <td><strong>${u.name}</strong></td>
+        <td><span class="badge role">${u.role}</span></td>
+        <td>${u.phone || '-'}</td>
+        <td>${u.username}</td>
+        <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
+        <td>
+          <button class="action-btn" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
+          <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
+          <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
+        </td>
+      </tr>
+    `).join('');
   }
-}
-
-function showFormMsg(text) {
-  const msg = document.getElementById('formMsg');
-  msg.textContent = text;
-  msg.className = 'msg error';
-}
-
-async function toggleUser(userId, currentStatus) {
-  const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
-  const data = await apiPost('toggleStatus', { userId, status: newStatus });
-  if (data.success) { showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`); loadUsers(); }
-  else showToast(data.error || 'Failed', 'error');
-}
-
-async function deleteUserConfirm(userId, name) {
-  if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
-  const data = await apiPost('deleteUser', { userId });
-  if (data.success) { showToast('User deleted'); loadUsers(); }
-  else showToast(data.error || 'Failed', 'error');
-}
-
-// ============================================================
-// TELECALLER DATA
-// ============================================================
-async function loadTelecallerData() {
-  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts()]);
-  renderTelecallerStats();
-  renderTelecallerLeads();
-  renderTelecallerCallbacks();
-  renderCallbackBanner();
 }
 
 async function loadLeads() {
@@ -1012,12 +768,62 @@ async function loadDailyAlerts() {
   const data = await apiGet('getDailyAlerts', { role: session.role, username: session.username || '' });
   if (data.success && data.alerts) allAlerts = data.alerts;
 }
+async function loadMaterials() {
+  const data = await apiGet('getMaterials');
+  allMaterials = extractArray(data, ['materials']);
+}
+async function loadProduction() {
+  const data = await apiGet('getProductionLog');
+  allProduction = extractArray(data, ['logs']);
+}
+async function loadDispatch() {
+  const data = await apiGet('getDispatchLog');
+  allDispatches = extractArray(data, ['logs']);
+}
+async function loadInstallation() {
+  const data = await apiGet('getInstallationLog');
+  allInstallations = extractArray(data, ['logs']);
+}
 
 // ============================================================
-// TELECALLER STATS
+// INIT
 // ============================================================
-function renderTelecallerStats() {
-  const period = currentPeriod.telecaller || 'day';
+(async function init() {
+  originalTitle = document.title;
+
+  if (session.role === 'Admin') {
+    // Load ALL department data for Admin dashboard
+    await Promise.all([
+      loadUsers(),
+      loadLeads(),
+      loadCallLogs(),
+      loadDailyAlerts(),
+      loadMaterials(),
+      loadProduction(),
+      loadDispatch(),
+      loadInstallation()
+    ]);
+    renderDashboardStats();
+    renderDashboardExtra();
+  } else if (session.role === 'Telecaller') {
+    await loadTelecallerData();
+    renderDashboardStats();
+  } else {
+    renderDashboardStats();
+  }
+
+  setTimeout(() => checkDailyCallbacks(), 1500);
+  pollNotifications();
+  setInterval(pollNotifications, 30000);
+  setInterval(() => checkDailyCallbacks(true), 60000);
+})();
+
+// ============================================================
+// DASHBOARD STATS (All Departments for Admin)
+// ============================================================
+function renderDashboardStats() {
+  const role = session.role;
+  const period = currentPeriod.dashboard || 'day';
   const today = getISTDate();
   const month = today.slice(0, 7);
   const year = today.slice(0, 4);
@@ -1030,7 +836,198 @@ function renderTelecallerStats() {
     if (period === 'year') return s.startsWith(year);
     return true;
   }
+  const periodLabel = period === 'day' ? "Today's" : period === 'month' ? "This Month's" : "This Year's";
 
+  let cards = [];
+  if (role === 'Admin') {
+    const totalCalls = allCallLogs.filter(c => inPeriod(c['Call Date'])).length;
+    const totalVisits = allAlerts.visit ? allAlerts.visit.length : 0;
+    const totalMaterials = allMaterials.length;
+    const totalProduced = allProduction.reduce((s, l) => s + (Number(l['Produced QTY']) || 0), 0);
+    const totalDispatched = allDispatches.length;
+    const totalInstalled = allInstallations.length;
+
+    cards = [
+      { value: totalCalls,       label: '📞 Calls',       cls: '' },
+      { value: totalVisits,      label: '🚗 Visits',      cls: 'cyan' },
+      { value: totalMaterials,   label: '🎨 Materials',   cls: 'amber' },
+      { value: totalProduced,    label: '🏭 Produced',    cls: 'green' },
+      { value: totalDispatched,  label: '🚚 Dispatched',  cls: 'cyan' },
+      { value: totalInstalled,   label: '🔧 Installed',   cls: 'green' },
+    ];
+  } else if (role === 'Telecaller') {
+    const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
+    cards = [
+      { value: myCalls.length, label: `${periodLabel} Calls`, cls: '' },
+      { value: myCalls.filter(c => c['Status'] === 'Interested').length, label: 'Interested', cls: 'green' },
+      { value: myCalls.filter(c => c['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
+      { value: myCalls.filter(c => c['Status'] === 'Call Later').length, label: 'Callbacks', cls: 'cyan' },
+    ];
+  } else if (role === 'Visit') {
+    cards = [
+      { value: allAlerts.visit ? allAlerts.visit.length : 0, label: 'Visits Today', cls: '' },
+      { value: 0, label: 'Done', cls: 'green' },
+      { value: 0, label: 'Pending', cls: 'amber' },
+    ];
+  } else if (role === 'Designer') {
+    cards = [
+      { value: allMaterials.length, label: 'Total Materials', cls: '' },
+      { value: allMaterials.filter(m => m.status === 'Pending').length, label: 'Pending', cls: 'amber' },
+      { value: allMaterials.filter(m => m.status === 'Installed').length, label: 'Completed', cls: 'green' },
+    ];
+  } else if (role === 'Production') {
+    cards = [
+      { value: allProduction.length, label: 'Total Logs', cls: '' },
+      { value: allProduction.reduce((s, l) => s + (Number(l['Produced QTY']) || 0), 0), label: 'Produced', cls: 'green' },
+    ];
+  } else if (role === 'Dispatch') {
+    cards = [
+      { value: allDispatches.length, label: 'Total Dispatches', cls: '' },
+      { value: allDispatches.filter(d => String(d['Date']).slice(0, 10) === today).length, label: 'Today', cls: 'cyan' },
+    ];
+  } else if (role === 'Installation') {
+    cards = [
+      { value: allInstallations.length, label: 'Total Installs', cls: '' },
+      { value: allInstallations.filter(i => String(i['Date']).slice(0, 10) === today).length, label: 'Today', cls: 'green' },
+    ];
+  }
+
+  document.getElementById('statsGrid').innerHTML = cards.map(c => `
+    <div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>
+  `).join('');
+}
+
+// Admin Dashboard — extra sections (Leaderboard + Alerts)
+function renderDashboardExtra() {
+  const el = document.getElementById('dashExtra');
+  if (session.role !== 'Admin') {
+    el.innerHTML = '<div class="empty-state">Your performance summary above.</div>';
+    return;
+  }
+  const month = getISTDate().slice(0, 7);
+
+  // Leaderboard
+  const callerCount = {};
+  allCallLogs.filter(c => String(c['Call Date']).startsWith(month)).forEach(c => {
+    const who = c['Caller'] || 'Unknown';
+    callerCount[who] = (callerCount[who] || 0) + 1;
+  });
+  const top = Object.entries(callerCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  // Alerts summary
+  const totalAlerts = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+  const alertLines = [];
+  if (allAlerts.telecaller.length) alertLines.push(`📞 Telecaller: ${allAlerts.telecaller.length} callbacks`);
+  if (allAlerts.visit.length) alertLines.push(`🚗 Visit: ${allAlerts.visit.length} visits`);
+  if (allAlerts.designer.length) alertLines.push(`🎨 Designer: ${allAlerts.designer.length} materials`);
+  if (allAlerts.production.length) alertLines.push(`🏭 Production: ${allAlerts.production.length} items`);
+  if (allAlerts.dispatch.length) alertLines.push(`🚚 Dispatch: ${allAlerts.dispatch.length} dispatches`);
+  if (allAlerts.installation.length) alertLines.push(`🔧 Installation: ${allAlerts.installation.length} installs`);
+
+  el.innerHTML = `
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">🏆 Top Performers (This Month)</h3>
+    ${top.length ? top.map(([name, count], i) => `
+      <div style="padding:8px 12px;background:#fafafa;border-radius:8px;margin-bottom:4px;font-size:13px;">
+        ${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}.`} <strong>${name}</strong> — ${count} calls
+      </div>
+    `).join('') : '<div class="empty-state">No data yet</div>'}
+
+    <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">⏰ Today's Alerts (${totalAlerts})</h3>
+    ${alertLines.length ? alertLines.map(l => `
+      <div style="padding:10px 12px;background:#FEF3C7;border-left:3px solid #F59E0B;border-radius:6px;margin-bottom:6px;font-size:13px;">
+        ${l}
+      </div>
+    `).join('') : '<div class="empty-state">No alerts today 🎉</div>'}
+  `;
+}
+
+// ============================================================
+// USER MANAGEMENT
+// ============================================================
+function openUserModal() {
+  document.getElementById('modalTitle').textContent = 'Add New User';
+  document.getElementById('editUserId').value = '';
+  ['formName','formPhone','formUsername','formPassword','formEmail'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('formRole').value = '';
+  document.getElementById('formMsg').className = 'msg';
+  document.getElementById('userModal').classList.add('show');
+}
+function editUser(u) {
+  document.getElementById('modalTitle').textContent = 'Edit User';
+  document.getElementById('editUserId').value = u.userId;
+  document.getElementById('formName').value = u.name;
+  document.getElementById('formPhone').value = u.phone || '';
+  document.getElementById('formRole').value = u.role;
+  document.getElementById('formUsername').value = u.username;
+  document.getElementById('formPassword').value = u.password || '';
+  document.getElementById('formEmail').value = u.email || '';
+  document.getElementById('formMsg').className = 'msg';
+  document.getElementById('userModal').classList.add('show');
+}
+async function saveUser() {
+  const userId = document.getElementById('editUserId').value;
+  const name = document.getElementById('formName').value.trim();
+  const phone = document.getElementById('formPhone').value.trim();
+  const role = document.getElementById('formRole').value;
+  const username = document.getElementById('formUsername').value.trim();
+  const password = document.getElementById('formPassword').value;
+  const email = document.getElementById('formEmail').value.trim();
+  if (!name) return showFormMsg('Name is required');
+  if (!phone) return showFormMsg('Phone is required');
+  if (!role) return showFormMsg('Role is required');
+  if (!username) return showFormMsg('Username is required');
+  if (!password) return showFormMsg('Password is required');
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  const data = await apiPost(userId ? 'editUser' : 'addUser', { userId, name, phone, role, username, password, email });
+  btn.disabled = false; btn.textContent = 'Save User';
+  if (data.success) {
+    closeModal('userModal');
+    showToast(userId ? 'User updated' : 'User added');
+    loadUsers();
+  } else showFormMsg(data.error || 'Failed to save user');
+}
+function showFormMsg(text) {
+  const msg = document.getElementById('formMsg');
+  msg.textContent = text; msg.className = 'msg error';
+}
+async function toggleUser(userId, currentStatus) {
+  const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
+  const data = await apiPost('toggleStatus', { userId, status: newStatus });
+  if (data.success) { showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`); loadUsers(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+async function deleteUserConfirm(userId, name) {
+  if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
+  const data = await apiPost('deleteUser', { userId });
+  if (data.success) { showToast('User deleted'); loadUsers(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// TELECALLER
+// ============================================================
+async function loadTelecallerData() {
+  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts()]);
+  renderTelecallerStats();
+  renderTelecallerLeads();
+  renderTelecallerCallbacks();
+  renderCallbackBanner();
+}
+
+function renderTelecallerStats() {
+  const period = currentPeriod.telecaller || 'day';
+  const today = getISTDate();
+  const month = today.slice(0, 7);
+  const year = today.slice(0, 4);
+  function inPeriod(d) {
+    if (!d) return false;
+    const s = String(d).slice(0, 10);
+    if (period === 'day') return s === today;
+    if (period === 'month') return s.startsWith(month);
+    if (period === 'year') return s.startsWith(year);
+    return true;
+  }
   const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
   const pending = allLeads.filter(l =>
     (l['Status'] === 'New' || l['Status'] === 'Call Later') &&
@@ -1039,7 +1036,6 @@ function renderTelecallerStats() {
   const interested = myCalls.filter(c => c['Status'] === 'Interested').length;
   const visitReady = myCalls.filter(c => c['Status'] === 'Visit Ready').length;
   const periodLabel = period === 'day' ? 'Today' : period === 'month' ? 'This Month' : 'This Year';
-
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${myCalls.length}</div><div class="stat-label">Calls (${periodLabel})</div></div>
     <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending Followups</div></div>
@@ -1048,9 +1044,6 @@ function renderTelecallerStats() {
   `;
 }
 
-// ============================================================
-// NEXT CALL CLASS
-// ============================================================
 function getNextCallClass(nextCall) {
   if (!nextCall) return 'next-call-normal';
   const today = getISTDate();
@@ -1060,14 +1053,10 @@ function getNextCallClass(nextCall) {
   return 'next-call-normal';
 }
 
-// ============================================================
-// TELECALLER LEADS
-// ============================================================
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
   const q = (document.getElementById('tcSearch').value || '').toLowerCase();
   const filter = document.getElementById('tcStatusFilter').value;
-
   let leads = allLeads.filter(l => {
     const assigned = l['Assigned To'] || '';
     if (session.role !== 'Admin' && assigned && assigned !== session.name) return false;
@@ -1079,12 +1068,10 @@ function renderTelecallerLeads() {
     }
     return true;
   });
-
   if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found. Try bulk upload.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found.</td></tr>';
     return;
   }
-
   tbody.innerHTML = leads.map(l => {
     const status = l['Status'] || 'New';
     const cls = statusToClass(status);
@@ -1112,9 +1099,6 @@ function statusToClass(status) {
   return map[status] || 'new';
 }
 
-// ============================================================
-// CALLBACK BANNER
-// ============================================================
 function renderCallbackBanner() {
   const el = document.getElementById('tcCallbackBanner');
   const today = getISTDate();
@@ -1124,12 +1108,9 @@ function renderCallbackBanner() {
     if (session.role !== 'Admin' && l['Assigned To'] !== session.name) return false;
     return nc <= today;
   });
-
   if (!due.length) { el.innerHTML = ''; return; }
-
   const overdueCount = due.filter(l => String(l['Next Call']).slice(0, 10) < today).length;
   const isOverdue = overdueCount > 0;
-
   el.innerHTML = `
     <div class="alert-banner ${isOverdue ? 'overdue' : ''}">
       <div>
@@ -1141,16 +1122,11 @@ function renderCallbackBanner() {
   `;
 }
 
-// ============================================================
-// CALLBACKS LIST
-// ============================================================
 function renderTelecallerCallbacks() {
   const el = document.getElementById('tcCallbacks');
   const pending = allCallLogs.filter(c => c['Status'] === 'Call Later' && c['Next Call Date'])
     .sort((a, b) => (a['Next Call Date'] + a['Next Call Time']).localeCompare(b['Next Call Date'] + b['Next Call Time']));
-
   if (!pending.length) { el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>'; return; }
-
   el.innerHTML = pending.map(c => `
     <div style="padding:12px;border-bottom:1px solid #f0f0f0;">
       <strong>${c['Lead ID'] || '-'}</strong> — ${c['Next Call Date']} ${c['Next Call Time'] || ''}
@@ -1158,99 +1134,6 @@ function renderTelecallerCallbacks() {
       <div style="font-size:12px;color:#888;margin-top:4px;">${c['Notes'] || ''}</div>
     </div>
   `).join('');
-}
-
-// ============================================================
-// DAILY CALLBACK ALERT
-// ============================================================
-async function checkDailyCallbacks(silent = false) {
-  await loadDailyAlerts();
-  const today = getISTDate();
-  const lastDismissed = localStorage.getItem('lifeasy_alert_dismissed');
-  if (lastDismissed === today) return;
-  const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
-  if (total === 0) return;
-  if (!silent) {
-    openCallbackAlert();
-    playRingSound();
-    blinkTitle(`${total} Alerts Today`);
-    showBrowserNotification('Lifeasy CRM — Daily Alerts', `You have ${total} tasks due today.`);
-  }
-}
-
-function openCallbackAlert() {
-  const body = document.getElementById('callbackAlertBody');
-  const role = session.role;
-  const sections = [];
-
-  if ((role === 'Admin' || role === 'Telecaller') && allAlerts.telecaller.length) {
-    sections.push(buildSection('📞 Callbacks Due', allAlerts.telecaller.map(c => ({
-      primary: `${c.overdue ? '🔴' : '🟡'} ${c.name || c.leadId} — ${c.phone || ''}`,
-      secondary: `Next Call: ${c.nextCall}${c.overdue ? ' (OVERDUE)' : ''} — Assigned: ${c.assignedTo || 'You'}`,
-      overdue: c.overdue,
-    }))));
-  }
-  if ((role === 'Admin' || role === 'Visit') && allAlerts.visit.length) {
-    sections.push(buildSection('🚗 Visits Today', allAlerts.visit.map(v => ({
-      primary: `⏰ ${v.visitTime || ''} — ${v.name || v.visitId}`,
-      secondary: `${v.address || ''} — ${v.phone || ''}`,
-    }))));
-  }
-  if ((role === 'Admin' || role === 'Designer') && allAlerts.designer.length) {
-    sections.push(buildSection('🎨 Materials Due', allAlerts.designer.map(m => ({
-      primary: `${m.overdue ? '🔴' : '🟡'} ${m.itemName} — ${m.qty} qty`,
-      secondary: `Client: ${m.clientName || ''} — Need by: ${m.needBy} (${m.urgency})`,
-      overdue: m.overdue,
-    }))));
-  }
-  if ((role === 'Admin' || role === 'Production') && allAlerts.production.length) {
-    sections.push(buildSection('🏭 Production Due', allAlerts.production.map(p => ({
-      primary: `${p.itemName} — ${p.pending} pending`,
-      secondary: `Log: ${p.logId}`,
-    }))));
-  }
-  if ((role === 'Admin' || role === 'Dispatch') && allAlerts.dispatch.length) {
-    sections.push(buildSection('🚚 Dispatches Today', allAlerts.dispatch.map(d => ({
-      primary: `${d.itemName} — Vehicle: ${d.vehicle || 'TBD'}`,
-      secondary: `Log: ${d.logId}`,
-    }))));
-  }
-  if ((role === 'Admin' || role === 'Installation') && allAlerts.installation.length) {
-    sections.push(buildSection('🔧 Installations Today', allAlerts.installation.map(i => ({
-      primary: `⏰ ${i.time || ''} — ${i.itemName}`,
-      secondary: `Log: ${i.logId}`,
-    }))));
-  }
-
-  if (!sections.length) {
-    body.innerHTML = '<div class="empty-state">No alerts for today. Great job! 🎉</div>';
-  } else {
-    const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
-    body.innerHTML = `<div style="padding:12px;background:#EBF3FC;border-radius:8px;margin-bottom:12px;"><strong>Total: ${total} alerts</strong></div>` + sections.join('');
-  }
-  document.getElementById('callbackAlertModal').classList.add('show');
-}
-
-function buildSection(title, items) {
-  return `
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700;margin-bottom:8px;font-size:15px;">${title} (${items.length})</div>
-      ${items.map(i => `
-        <div class="callback-item ${i.overdue ? 'overdue' : 'today'}">
-          <div class="callback-info">
-            <div class="name">${i.primary}</div>
-            ${i.secondary ? `<div class="meta">${i.secondary}</div>` : ''}
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function dismissCallbackAlert() {
-  localStorage.setItem('lifeasy_alert_dismissed', getISTDate());
-  closeModal('callbackAlertModal');
-  stopTitleBlink();
 }
 
 // ============================================================
@@ -1303,12 +1186,10 @@ async function submitCallStatus() {
     closeModal('callStatusModal');
     showToast('Call logged');
     await loadTelecallerData();
+    if (session.role === 'Admin') { await loadCallLogs(); renderDashboardStats(); renderDashboardExtra(); }
   } else showToast(data.error || 'Failed', 'error');
 }
 
-// ============================================================
-// CALL LATER
-// ============================================================
 function openCallLater() {
   document.getElementById('callLaterTitle').textContent = `⏰ Schedule Callback — ${currentLead['Name']}`;
   const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
@@ -1330,8 +1211,7 @@ async function submitCallLater() {
     leadId: currentLead['Lead ID'], leadName: currentLead['Name'],
     phone: currentLead['Phone'], caller: session.name,
     callDate: getISTDate(), callTime: getISTTime(),
-    status: 'Call Later', nextCallDate: date, nextCallTime: time,
-    priority, notes,
+    status: 'Call Later', nextCallDate: date, nextCallTime: time, priority, notes,
   };
   const data = await apiPost('saveCallLog', payload);
   if (data.success) {
@@ -1341,9 +1221,6 @@ async function submitCallLater() {
   } else showToast(data.error || 'Failed', 'error');
 }
 
-// ============================================================
-// VISIT READY
-// ============================================================
 function openVisitReady() {
   document.getElementById('visitReadyTitle').textContent = `🚗 Schedule Visit — ${currentLead['Name']}`;
   ['visitAddress','visitBudget','visitNotes'].forEach(id => document.getElementById(id).value = '');
@@ -1387,57 +1264,6 @@ function backToCallStatus() {
 }
 
 // ============================================================
-// DASHBOARD STATS
-// ============================================================
-function renderDashboardStats() {
-  const role = session.role;
-  const period = currentPeriod.dashboard || 'day';
-  const today = getISTDate();
-  const month = today.slice(0, 7);
-  const year = today.slice(0, 4);
-
-  function inPeriod(d) {
-    if (!d) return false;
-    const s = String(d).slice(0, 10);
-    if (period === 'day') return s === today;
-    if (period === 'month') return s.startsWith(month);
-    if (period === 'year') return s.startsWith(year);
-    return true;
-  }
-  const periodLabel = period === 'day' ? "Today's" : period === 'month' ? "This Month's" : "This Year's";
-
-  let cards = [];
-  if (role === 'Admin') {
-    cards = [
-      { value: allLeads.length, label: 'Total Leads', cls: '' },
-      { value: allCallLogs.filter(c => inPeriod(c['Call Date'])).length, label: `${periodLabel} Calls`, cls: 'cyan' },
-      { value: allLeads.filter(l => l['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
-      { value: allUsers.filter(u => u.status === 'Active').length, label: 'Active Users', cls: 'green' },
-    ];
-  } else if (role === 'Telecaller') {
-    const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
-    cards = [
-      { value: myCalls.length, label: `${periodLabel} Calls`, cls: '' },
-      { value: myCalls.filter(c => c['Status'] === 'Interested').length, label: 'Interested', cls: 'green' },
-      { value: myCalls.filter(c => c['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
-      { value: myCalls.filter(c => c['Status'] === 'Call Later').length, label: 'Callbacks', cls: 'cyan' },
-    ];
-  } else {
-    cards = [
-      { value: '—', label: 'Assigned', cls: '' },
-      { value: '—', label: 'In Progress', cls: 'amber' },
-      { value: '—', label: 'Completed', cls: 'green' },
-      { value: '—', label: 'Pending', cls: 'red' },
-    ];
-  }
-
-  document.getElementById('statsGrid').innerHTML = cards.map(c => `
-    <div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>
-  `).join('');
-  document.getElementById('dashEmpty').textContent = role === 'Admin' ? `Showing ${periodLabel} data.` : `Your ${periodLabel} performance above.`;
-}
-
-// ============================================================
 // VISIT TAB
 // ============================================================
 async function loadVisitData() {
@@ -1477,8 +1303,7 @@ async function completeVisit(visitId) {
 // DESIGNER TAB
 // ============================================================
 async function loadDesignerData() {
-  const data = await apiGet('getMaterials');
-  allMaterials = extractArray(data, ['materials']);
+  await loadMaterials();
   document.getElementById('designerStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${allMaterials.length}</div><div class="stat-label">Total Materials</div></div>
     <div class="stat-card amber"><div class="stat-value">${allMaterials.filter(m => m.status === 'Pending').length}</div><div class="stat-label">Pending</div></div>
@@ -1529,8 +1354,7 @@ async function submitMaterial() {
 // PRODUCTION TAB
 // ============================================================
 async function loadProductionData() {
-  const data = await apiGet('getProductionLog');
-  allProduction = extractArray(data, ['logs']);
+  await loadProduction();
   const pending = allProduction.reduce((s, l) => s + ((Number(l['Production QTY']) || 0) - (Number(l['Produced QTY']) || 0)), 0);
   const produced = allProduction.reduce((s, l) => s + (Number(l['Produced QTY']) || 0), 0);
   document.getElementById('productionStats').innerHTML = `
@@ -1582,8 +1406,7 @@ async function submitProduction() {
 // DISPATCH TAB
 // ============================================================
 async function loadDispatchData() {
-  const data = await apiGet('getDispatchLog');
-  allDispatches = extractArray(data, ['logs']);
+  await loadDispatch();
   const today = getISTDate();
   document.getElementById('dispatchStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${allDispatches.length}</div><div class="stat-label">Total Dispatches</div></div>
@@ -1628,8 +1451,7 @@ async function submitDispatch() {
 // INSTALLATION TAB
 // ============================================================
 async function loadInstallationData() {
-  const data = await apiGet('getInstallationLog');
-  allInstallations = extractArray(data, ['logs']);
+  await loadInstallation();
   const today = getISTDate();
   document.getElementById('installationStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${allInstallations.length}</div><div class="stat-label">Total Installations</div></div>
@@ -1672,7 +1494,7 @@ async function submitInstallation() {
 // ADMIN OVERVIEW
 // ============================================================
 async function loadAdminOverview() {
-  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts()]);
+  await Promise.all([loadLeads(), loadCallLogs(), loadDailyAlerts(), loadMaterials(), loadProduction(), loadDispatch(), loadInstallation()]);
   renderAdminStats();
   renderAdminAlerts();
   renderAdminPerformers();
@@ -1683,7 +1505,6 @@ function renderAdminStats() {
   const today = getISTDate();
   const month = today.slice(0, 7);
   const year = today.slice(0, 4);
-
   function inPeriod(d) {
     if (!d) return false;
     const s = String(d).slice(0, 10);
@@ -1693,14 +1514,14 @@ function renderAdminStats() {
     return true;
   }
   const calls = allCallLogs.filter(c => inPeriod(c['Call Date'])).length;
-  const visits = allLeads.filter(l => l['Status'] === 'Visit Ready').length;
-
+  const visits = allAlerts.visit ? allAlerts.visit.length : 0;
   document.getElementById('adminStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visits Ready</div></div>
-    <div class="stat-card amber"><div class="stat-value">${allAlerts.designer?.length || 0}</div><div class="stat-label">🎨 Materials Due</div></div>
-    <div class="stat-card green"><div class="stat-value">${allAlerts.production?.length || 0}</div><div class="stat-label">🏭 Production Due</div></div>
-    <div class="stat-card red"><div class="stat-value">${allAlerts.installation?.length || 0}</div><div class="stat-label">🔧 Installs</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visits</div></div>
+    <div class="stat-card amber"><div class="stat-value">${allMaterials.length}</div><div class="stat-label">🎨 Materials</div></div>
+    <div class="stat-card green"><div class="stat-value">${allProduction.reduce((s, l) => s + (Number(l['Produced QTY']) || 0), 0)}</div><div class="stat-label">🏭 Produced</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${allDispatches.length}</div><div class="stat-label">🚚 Dispatched</div></div>
+    <div class="stat-card purple"><div class="stat-value">${allInstallations.length}</div><div class="stat-label">🔧 Installed</div></div>
   `;
 }
 
@@ -1708,7 +1529,6 @@ function renderAdminAlerts() {
   const el = document.getElementById('adminCallbacks');
   const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
   if (!total) { el.innerHTML = '<div class="empty-state">No alerts today</div>'; return; }
-
   const lines = [];
   if (allAlerts.telecaller.length) lines.push(`📞 Telecaller: ${allAlerts.telecaller.length} callbacks`);
   if (allAlerts.visit.length) lines.push(`🚗 Visit: ${allAlerts.visit.length} visits`);
@@ -1716,7 +1536,6 @@ function renderAdminAlerts() {
   if (allAlerts.production.length) lines.push(`🏭 Production: ${allAlerts.production.length} items`);
   if (allAlerts.dispatch.length) lines.push(`🚚 Dispatch: ${allAlerts.dispatch.length} dispatches`);
   if (allAlerts.installation.length) lines.push(`🔧 Installation: ${allAlerts.installation.length} installs`);
-
   el.innerHTML = lines.map(l => `<div style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px;">${l}</div>`).join('');
 }
 
@@ -1736,6 +1555,97 @@ function renderAdminPerformers() {
         ${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}.`} <strong>${name}</strong> — ${count} calls
       </div>
     `).join('');
+}
+
+// ============================================================
+// DAILY CALLBACK ALERT
+// ============================================================
+async function checkDailyCallbacks(silent = false) {
+  await loadDailyAlerts();
+  const today = getISTDate();
+  const lastDismissed = localStorage.getItem('lifeasy_alert_dismissed');
+  if (lastDismissed === today) return;
+  const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+  if (total === 0) return;
+  if (!silent) {
+    openCallbackAlert();
+    playRingSound();
+    blinkTitle(`${total} Alerts Today`);
+    showBrowserNotification('Lifeasy CRM — Daily Alerts', `You have ${total} tasks due today.`);
+  }
+}
+
+function openCallbackAlert() {
+  const body = document.getElementById('callbackAlertBody');
+  const role = session.role;
+  const sections = [];
+  if ((role === 'Admin' || role === 'Telecaller') && allAlerts.telecaller.length) {
+    sections.push(buildSection('📞 Callbacks Due', allAlerts.telecaller.map(c => ({
+      primary: `${c.overdue ? '🔴' : '🟡'} ${c.name || c.leadId} — ${c.phone || ''}`,
+      secondary: `Next Call: ${c.nextCall}${c.overdue ? ' (OVERDUE)' : ''} — Assigned: ${c.assignedTo || 'You'}`,
+      overdue: c.overdue,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Visit') && allAlerts.visit.length) {
+    sections.push(buildSection('🚗 Visits Today', allAlerts.visit.map(v => ({
+      primary: `⏰ ${v.visitTime || ''} — ${v.name || v.visitId}`,
+      secondary: `${v.address || ''} — ${v.phone || ''}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Designer') && allAlerts.designer.length) {
+    sections.push(buildSection('🎨 Materials Due', allAlerts.designer.map(m => ({
+      primary: `${m.overdue ? '🔴' : '🟡'} ${m.itemName} — ${m.qty} qty`,
+      secondary: `Client: ${m.clientName || ''} — Need by: ${m.needBy} (${m.urgency})`,
+      overdue: m.overdue,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Production') && allAlerts.production.length) {
+    sections.push(buildSection('🏭 Production Due', allAlerts.production.map(p => ({
+      primary: `${p.itemName} — ${p.pending} pending`,
+      secondary: `Log: ${p.logId}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Dispatch') && allAlerts.dispatch.length) {
+    sections.push(buildSection('🚚 Dispatches Today', allAlerts.dispatch.map(d => ({
+      primary: `${d.itemName} — Vehicle: ${d.vehicle || 'TBD'}`,
+      secondary: `Log: ${d.logId}`,
+    }))));
+  }
+  if ((role === 'Admin' || role === 'Installation') && allAlerts.installation.length) {
+    sections.push(buildSection('🔧 Installations Today', allAlerts.installation.map(i => ({
+      primary: `⏰ ${i.time || ''} — ${i.itemName}`,
+      secondary: `Log: ${i.logId}`,
+    }))));
+  }
+  if (!sections.length) {
+    body.innerHTML = '<div class="empty-state">No alerts for today. Great job! 🎉</div>';
+  } else {
+    const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
+    body.innerHTML = `<div style="padding:12px;background:#EBF3FC;border-radius:8px;margin-bottom:12px;"><strong>Total: ${total} alerts</strong></div>` + sections.join('');
+  }
+  document.getElementById('callbackAlertModal').classList.add('show');
+}
+
+function buildSection(title, items) {
+  return `
+    <div style="margin-bottom:16px;">
+      <div style="font-weight:700;margin-bottom:8px;font-size:15px;">${title} (${items.length})</div>
+      ${items.map(i => `
+        <div class="callback-item ${i.overdue ? 'overdue' : 'today'}">
+          <div class="callback-info">
+            <div class="name">${i.primary}</div>
+            ${i.secondary ? `<div class="meta">${i.secondary}</div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function dismissCallbackAlert() {
+  localStorage.setItem('lifeasy_alert_dismissed', getISTDate());
+  closeModal('callbackAlertModal');
+  stopTitleBlink();
 }
 
 // ============================================================
@@ -1809,13 +1719,11 @@ function parseBulkText(text) {
     else if (h.includes('notes')) headerMap.notes = i;
     else if (h.includes('date')) headerMap.date = i;
   });
-
   if (headerMap.name === undefined || headerMap.phone === undefined) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">CSV must have "Name" and "Phone"</div>';
     document.getElementById('bulkImportBtn').disabled = true;
     return;
   }
-
   const parsed = [];
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(delim).map(c => c.trim());
@@ -1832,18 +1740,15 @@ function parseBulkText(text) {
     };
     if (lead.name && lead.phone) parsed.push(lead);
   }
-
   if (!parsed.length) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">No valid rows</div>';
     document.getElementById('bulkImportBtn').disabled = true;
     return;
   }
-
   const existingPhones = new Set(allLeads.map(l => String(l['Phone'] || '').trim()));
   const newOnes = parsed.filter(l => !existingPhones.has(String(l.phone).trim()));
   const dupes = parsed.length - newOnes.length;
   bulkParsedLeads = newOnes;
-
   document.getElementById('bulkPreview').innerHTML = `
     <div style="padding:12px;background:#EBF3FC;border-radius:8px;margin-bottom:10px;">
       <strong>Total: ${parsed.length}</strong> | Will add: <strong style="color:#27AE60;">${newOnes.length}</strong> | Duplicates: <strong style="color:#C0392B;">${dupes}</strong>
@@ -1877,6 +1782,7 @@ async function submitBulkUpload() {
     closeModal('bulkUploadModal');
     showToast(`${data.added || bulkParsedLeads.length} leads imported`);
     await loadTelecallerData();
+    if (session.role === 'Admin') { await loadLeads(); renderDashboardStats(); }
   } else {
     btn.disabled = false; btn.textContent = 'Retry';
     showToast(data.error || 'Upload failed', 'error');
@@ -1894,7 +1800,6 @@ async function pollNotifications() {
     updateBell(unread);
   } catch (err) {}
 }
-
 function updateBell(items) {
   const count = document.getElementById('bellCount');
   const dropdown = document.getElementById('bellDropdown');
@@ -1916,19 +1821,17 @@ function updateBell(items) {
     `).join('')}
   `;
 }
-
 function toggleBell(e) {
   e.stopPropagation();
   document.getElementById('bellDropdown').classList.toggle('show');
 }
-
 document.addEventListener('click', (e) => {
   const dd = document.getElementById('bellDropdown');
   if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show');
 });
 
 // ============================================================
-// SOUND + BLINK
+// SOUND + BLINK + NOTIFICATION
 // ============================================================
 function playRingSound() {
   try {
@@ -1951,7 +1854,6 @@ function playRingSound() {
     }, 500);
   } catch (err) {}
 }
-
 function blinkTitle(text) {
   if (titleBlinkInterval) return;
   let blink = true;
@@ -1961,11 +1863,9 @@ function blinkTitle(text) {
   }, 1000);
   setTimeout(stopTitleBlink, 15000);
 }
-
 function stopTitleBlink() {
   if (titleBlinkInterval) { clearInterval(titleBlinkInterval); titleBlinkInterval = null; document.title = originalTitle; }
 }
-
 function showBrowserNotification(title, body) {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') new Notification(title, { body });
@@ -1973,20 +1873,18 @@ function showBrowserNotification(title, body) {
 }
 
 // ============================================================
-// MODAL HELPERS
+// HELPERS
 // ============================================================
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('show'); });
 });
-
 function showToast(text, type = 'success') {
   const el = document.getElementById('toast');
   el.textContent = text;
   el.className = 'toast show' + (type === 'error' ? ' error' : '');
   setTimeout(() => el.classList.remove('show'), 3000);
 }
-
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.clear();
