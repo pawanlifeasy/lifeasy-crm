@@ -222,7 +222,7 @@ tr:hover { background: #fafafa; }
             <option>Call Later</option><option>Visit Ready</option><option>Wrong Number</option>
             <option>Switched Off</option><option>Already Purchased</option>
           </select>
-          <button class="btn-primary" onclick="openBulkUpload()">📤 Bulk Upload</button>
+          <button class="btn-primary" id="bulkUploadBtn" onclick="openBulkUpload()" style="display:none;">📤 Bulk Upload</button>
         </div>
         <table>
           <thead>
@@ -608,6 +608,12 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
+// Show Bulk Upload button only for Admin
+if (session.role === 'Admin') {
+  const bulkBtn = document.getElementById('bulkUploadBtn');
+  if (bulkBtn) bulkBtn.style.display = 'inline-flex';
+}
+
 let allLeads = [];
 let allCallLogs = [];
 let allUsers = [];
@@ -792,16 +798,9 @@ async function loadInstallation() {
   originalTitle = document.title;
 
   if (session.role === 'Admin') {
-    // Load ALL department data for Admin dashboard
     await Promise.all([
-      loadUsers(),
-      loadLeads(),
-      loadCallLogs(),
-      loadDailyAlerts(),
-      loadMaterials(),
-      loadProduction(),
-      loadDispatch(),
-      loadInstallation()
+      loadUsers(), loadLeads(), loadCallLogs(), loadDailyAlerts(),
+      loadMaterials(), loadProduction(), loadDispatch(), loadInstallation()
     ]);
     renderDashboardStats();
     renderDashboardExtra();
@@ -819,7 +818,7 @@ async function loadInstallation() {
 })();
 
 // ============================================================
-// DASHBOARD STATS (All Departments for Admin)
+// DASHBOARD STATS
 // ============================================================
 function renderDashboardStats() {
   const role = session.role;
@@ -897,7 +896,6 @@ function renderDashboardStats() {
   `).join('');
 }
 
-// Admin Dashboard — extra sections (Leaderboard + Alerts)
 function renderDashboardExtra() {
   const el = document.getElementById('dashExtra');
   if (session.role !== 'Admin') {
@@ -906,7 +904,6 @@ function renderDashboardExtra() {
   }
   const month = getISTDate().slice(0, 7);
 
-  // Leaderboard
   const callerCount = {};
   allCallLogs.filter(c => String(c['Call Date']).startsWith(month)).forEach(c => {
     const who = c['Caller'] || 'Unknown';
@@ -914,7 +911,6 @@ function renderDashboardExtra() {
   });
   const top = Object.entries(callerCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
 
-  // Alerts summary
   const totalAlerts = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
   const alertLines = [];
   if (allAlerts.telecaller.length) alertLines.push(`📞 Telecaller: ${allAlerts.telecaller.length} callbacks`);
@@ -1069,7 +1065,7 @@ function renderTelecallerLeads() {
     return true;
   });
   if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads assigned to you yet.</td></tr>';
     return;
   }
   tbody.innerHTML = leads.map(l => {
@@ -1186,7 +1182,6 @@ async function submitCallStatus() {
     closeModal('callStatusModal');
     showToast('Call logged');
     await loadTelecallerData();
-    if (session.role === 'Admin') { await loadCallLogs(); renderDashboardStats(); renderDashboardExtra(); }
   } else showToast(data.error || 'Failed', 'error');
 }
 
@@ -1652,6 +1647,10 @@ function dismissCallbackAlert() {
 // BULK UPLOAD
 // ============================================================
 function openBulkUpload() {
+  if (session.role !== 'Admin') {
+    showToast('Only Admin can bulk upload', 'error');
+    return;
+  }
   document.getElementById('bulkDate').value = getISTDate();
   document.getElementById('bulkFileInput').value = '';
   document.getElementById('bulkPasteArea').value = '';
@@ -1768,6 +1767,10 @@ function parseBulkText(text) {
 }
 
 async function submitBulkUpload() {
+  if (session.role !== 'Admin') {
+    showToast('Only Admin can bulk upload', 'error');
+    return;
+  }
   if (!bulkParsedLeads.length) return;
   const btn = document.getElementById('bulkImportBtn');
   btn.disabled = true; btn.textContent = 'Importing...';
@@ -1782,7 +1785,6 @@ async function submitBulkUpload() {
     closeModal('bulkUploadModal');
     showToast(`${data.added || bulkParsedLeads.length} leads imported`);
     await loadTelecallerData();
-    if (session.role === 'Admin') { await loadLeads(); renderDashboardStats(); }
   } else {
     btn.disabled = false; btn.textContent = 'Retry';
     showToast(data.error || 'Upload failed', 'error');
