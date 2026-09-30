@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Lifeasy CRM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: background 0.4s ease;
+  }
+  .container {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    padding: 40px 30px;
+    max-width: 440px;
+    width: 100%;
+  }
+  .portal-header { text-align: center; margin-bottom: 24px; }
+  .portal-icon {
+    font-size: 40px;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 0 auto 14px;
+  }
+  .portal-title { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .portal-subtitle { font-size: 12px; color: #666; }
+  .divider { height: 1px; background: #eee; margin: 20px 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  .input-wrap { position: relative; }
+  .input-wrap .icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #aaa;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 13px 14px 13px 42px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+    font-family: inherit;
+  }
+  input:focus { border-color: var(--accent); }
+  .toggle-pass {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+  }
+  .remember-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #555;
+  }
+  .remember-row input { width: auto; }
+
+  button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+  }
+  button:hover { filter: brightness(0.95); }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .msg {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: none;
+  }
+  .msg.error { display: block; background: #FDECEA; color: #C0392B; }
+  .msg.success { display: block; background: #E8F8EE; color: #27AE60; }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #888;
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="portal-header">
+    <div class="portal-icon" id="portalIcon">📞</div>
+    <div class="portal-title" id="portalTitle">TELECALLER PORTAL</div>
+    <div class="portal-subtitle" id="portalSubtitle">Lead Management System</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <form id="loginForm" onsubmit="handleLogin(event)">
+    <label>Username</label>
+    <div class="input-wrap">
+      <span class="icon">👤</span>
+      <input type="text" id="username" placeholder="Enter your username" autocomplete="username">
+    </div>
+
+    <label>Password</label>
+    <div class="input-wrap">
+      <span class="icon">🔒</span>
+      <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+      <span class="toggle-pass" onclick="togglePassword()">👁️</span>
+    </div>
+
+    <div class="remember-row">
+      <input type="checkbox" id="remember">
+      <label for="remember" style="margin:0; font-weight:400;">Remember me</label>
+    </div>
+
+    <button type="submit" id="loginBtn">Login</button>
+    <div class="msg" id="message"></div>
+  </form>
+
+  <a href="index.html" class="back-link">← Back to Home</a>
+</div>
+
+<script>
+// ============================================
+// CONFIG — REPLACE WITH YOUR WORKER URL
+// ============================================
+const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
+
+const ROLE_CONFIG = {
+  telecaller:   { color: '#4A90D9', light: '#EBF3FC', icon: '📞', title: 'TELECALLER PORTAL',     subtitle: 'Lead Management System' },
+  visit:        { color: '#27AE60', light: '#E8F8EE', icon: '🚗', title: 'VISIT TEAM PORTAL',     subtitle: 'Site Visit Management' },
+  designer:     { color: '#8E44AD', light: '#F3EAF7', icon: '🎨', title: 'DESIGNER PORTAL',       subtitle: 'Design and Material Planning' },
+  production:   { color: '#E67E22', light: '#FCF2E6', icon: '🏭', title: 'PRODUCTION PORTAL',     subtitle: 'Manufacturing Management' },
+  dispatch:     { color: '#F39C12', light: '#FEF8E7', icon: '🚚', title: 'DISPATCH PORTAL',       subtitle: 'Material Dispatch System' },
+  installation: { color: '#E74C3C', light: '#FDECEA', icon: '🔧', title: 'INSTALLATION PORTAL',   subtitle: 'Site Installation System' },
+  admin:        { color: '#2C3E50', light: '#ECF0F1', icon: '👤', title: 'ADMIN PORTAL',          subtitle: 'Full System Access' },
+};
+
+// ============================================
+// INIT
+// ============================================
+const params = new URLSearchParams(window.location.search);
+const role = (params.get('role') || 'admin').toLowerCase();
+const config = ROLE_CONFIG[role] || ROLE_CONFIG.admin;
+
+document.body.style.background = `linear-gradient(135deg, ${config.color} 0%, ${shadeColor(config.color, -25)} 100%)`;
+document.documentElement.style.setProperty('--accent', config.color);
+
+document.getElementById('portalIcon').textContent = config.icon;
+document.getElementById('portalIcon').style.background = config.light;
+document.getElementById('portalTitle').textContent = config.title;
+document.getElementById('portalTitle').style.color = config.color;
+document.getElementById('portalSubtitle').textContent = config.subtitle;
+
+// ============================================
+// HELPERS
+// ============================================
+function shadeColor(color, percent) {
+  const num = parseInt(color.replace('#',''), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = Math.max(0, Math.min(255, (num >> 16) + amt));
+  const G = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amt));
+  const B = Math.max(0, Math.min(255, (num & 0x0000FF) + amt));
+  return '#' + (0x1000000 + R*0x10000 + G*0x100 + B).toString(16).slice(1);
+}
+
+function togglePassword() {
+  const inp = document.getElementById('password');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function showMessage(text, type) {
+  const el = document.getElementById('message');
+  el.textContent = text;
+  el.className = 'msg ' + type;
+}
+
+// ============================================
+// LOGIN
+// ============================================
+async function handleLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('loginBtn');
+
+  if (!username) return showMessage('Username is required', 'error');
+  if (!password) return showMessage('Password is required', 'error');
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+  document.getElementById('message').className = 'msg';
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'login',
+        username: username,
+        password: password,
+        requestedRole: role
+      }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      localStorage.setItem('lifeasy_session', JSON.stringify({
+        userId: data.user.userId,
+        name: data.user.name,
+        role: data.user.role,
+        username: data.user.username,
+        loginTime: Date.now(),
+      }));
+      showMessage('Login successful. Redirecting...', 'success');
+      setTimeout(() => {
+        window.location.href = `dashboard.html?role=${data.user.role.toLowerCase()}`;
+      }, 600);
+    } else {
+      showMessage(data.error || 'Invalid username or password', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Login';
+    }
+  } catch (err) {
+    showMessage('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Login';
+  }
+}
+</script>
+
+</body>
+</html>

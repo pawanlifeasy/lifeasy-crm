@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifeasy CRM — Interior Design Management</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    padding: 40px 30px;
+    max-width: 480px;
+    width: 100%;
+  }
+  .header { text-align: center; margin-bottom: 24px; }
+  .logo { font-size: 48px; margin-bottom: 8px; }
+  .title { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { color: #666; font-size: 14px; }
+  .divider { height: 1px; background: #eee; margin: 24px 0; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .dept-grid { display: flex; flex-direction: column; gap: 10px; }
+  .dept-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 2px solid #f0f0f0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .dept-card:hover {
+    border-color: var(--c);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow);
+    background: var(--light);
+  }
+  .dept-icon {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .dept-info { flex: 1; }
+  .dept-name { font-weight: 600; font-size: 15px; color: #1a1a1a; margin-bottom: 2px; }
+  .dept-desc { font-size: 12px; color: #888; }
+  .arrow { color: #ccc; font-size: 18px; transition: 0.25s; }
+  .dept-card:hover .arrow { color: var(--c); transform: translateX(4px); }
+
+  .dept-card[data-role="telecaller"]   { --c: #4A90D9; --light: #EBF3FC; --shadow: rgba(74,144,217,0.15); }
+  .dept-card[data-role="visit"]        { --c: #27AE60; --light: #E8F8EE; --shadow: rgba(39,174,96,0.15); }
+  .dept-card[data-role="designer"]     { --c: #8E44AD; --light: #F3EAF7; --shadow: rgba(142,68,173,0.15); }
+  .dept-card[data-role="production"]   { --c: #E67E22; --light: #FCF2E6; --shadow: rgba(230,126,34,0.15); }
+  .dept-card[data-role="dispatch"]     { --c: #F39C12; --light: #FEF8E7; --shadow: rgba(243,156,18,0.15); }
+  .dept-card[data-role="installation"] { --c: #E74C3C; --light: #FDECEA; --shadow: rgba(231,76,60,0.15); }
+  .dept-card[data-role="admin"]        { --c: #2C3E50; --light: #ECF0F1; --shadow: rgba(44,62,80,0.15); }
+
+  .footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">🏢</div>
+    <div class="title">Lifeasy CRM</div>
+    <div class="subtitle">Interior Design Management System</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">Select Your Department</div>
+
+  <div class="dept-grid">
+    <a href="login.html?role=telecaller" class="dept-card" data-role="telecaller">
+      <div class="dept-icon">📞</div>
+      <div class="dept-info">
+        <div class="dept-name">Telecaller</div>
+        <div class="dept-desc">Manage customer calls</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=visit" class="dept-card" data-role="visit">
+      <div class="dept-icon">🚗</div>
+      <div class="dept-info">
+        <div class="dept-name">Visit Team</div>
+        <div class="dept-desc">Handle site visits</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=designer" class="dept-card" data-role="designer">
+      <div class="dept-icon">🎨</div>
+      <div class="dept-info">
+        <div class="dept-name">Designer</div>
+        <div class="dept-desc">Create designs and materials</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=production" class="dept-card" data-role="production">
+      <div class="dept-icon">🏭</div>
+      <div class="dept-info">
+        <div class="dept-name">Production</div>
+        <div class="dept-desc">Manufacturing and production</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=dispatch" class="dept-card" data-role="dispatch">
+      <div class="dept-icon">🚚</div>
+      <div class="dept-info">
+        <div class="dept-name">Dispatch</div>
+        <div class="dept-desc">Material delivery</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=installation" class="dept-card" data-role="installation">
+      <div class="dept-icon">🔧</div>
+      <div class="dept-info">
+        <div class="dept-name">Installation</div>
+        <div class="dept-desc">Site installation</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a href="login.html?role=admin" class="dept-card" data-role="admin">
+      <div class="dept-icon">👤</div>
+      <div class="dept-info">
+        <div class="dept-name">Admin</div>
+        <div class="dept-desc">Full system access</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </div>
+
+  <div class="footer">© 2025 Lifeasy CRM. All rights reserved.</div>
+</div>
+
+</body>
+</html>

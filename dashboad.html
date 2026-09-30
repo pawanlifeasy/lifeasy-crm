@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Lifeasy CRM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
+  body { background: #f0f2f5; min-height: 100vh; }
+
+  .topbar {
+    background: #fff;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .brand { font-weight: 700; font-size: 18px; color: #1a1a1a; }
+  .user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
+  .user-name { font-weight: 600; color: #1a1a1a; }
+  .user-role {
+    background: #EBF3FC;
+    color: #4A90D9;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .logout-btn {
+    background: #FDECEA;
+    color: #C0392B;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .tabs {
+    background: #fff;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    border-bottom: 1px solid #eee;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+  }
+  .tab.active { color: #4A90D9; border-bottom-color: #4A90D9; }
+  .tab:hover { color: #4A90D9; }
+
+  .content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
+
+  .btn-primary {
+    background: #4A90D9;
+    color: #fff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary:hover { background: #3a7bc8; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .stat-label { font-size: 13px; color: #888; }
+
+  .table-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
+  th { background: #fafafa; font-weight: 600; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  tr { border-bottom: 1px solid #f0f0f0; }
+  tr:last-child { border-bottom: none; }
+  tr:hover { background: #fafafa; }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.active { background: #E8F8EE; color: #27AE60; }
+  .badge.inactive { background: #FDECEA; color: #C0392B; }
+  .badge.role { background: #EBF3FC; color: #4A90D9; }
+
+  .action-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 4px;
+    font-family: inherit;
+  }
+  .action-btn:hover { background: #f0f0f0; }
+  .action-btn.delete { color: #C0392B; border-color: #f8d7da; }
+  .action-btn.delete:hover { background: #FDECEA; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 460px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .modal-title { font-size: 20px; font-weight: 700; }
+  .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #888; }
+
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+    transition: 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: #4A90D9; }
+
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .btn-cancel { background: #f0f0f0; color: #444; border: none; }
+  .btn-save { background: #4A90D9; color: #fff; border: none; }
+  .btn-save:hover { background: #3a7bc8; }
+
+  .msg {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+  }
+  .msg.error { display: block; background: #FDECEA; color: #C0392B; }
+  .msg.success { display: block; background: #E8F8EE; color: #27AE60; }
+
+  .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #27AE60;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    z-index: 2000;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.error { background: #C0392B; }
+
+  @media (max-width: 640px) {
+    .topbar { padding: 12px 16px; }
+    .tabs { padding: 0 12px; }
+    .content { padding: 16px; }
+    .user-name { display: none; }
+    .section-title { font-size: 18px; }
+    th, td { padding: 10px 12px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">🏢 Lifeasy CRM</div>
+  <div class="user-info">
+    <span class="user-name" id="userName">-</span>
+    <span class="user-role" id="userRole">-</span>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="content">
+  <!-- Dashboard Section -->
+  <div class="section active" id="section-dashboard">
+    <div class="section-header">
+      <h1 class="section-title">Dashboard</h1>
+    </div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="table-card">
+      <div class="empty-state">Dashboard analytics will appear here in Phase 2.</div>
+    </div>
+  </div>
+
+  <!-- Users Section (Admin only) -->
+  <div class="section" id="section-users">
+    <div class="section-header">
+      <h1 class="section-title">User Management</h1>
+      <button class="btn-primary" onclick="openUserModal()">+ Add New User</button>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Phone</th>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTbody">
+          <tr><td colspan="7" class="empty-state">Loading users...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Placeholder sections -->
+  <div class="section" id="section-other">
+    <div class="section-header">
+      <h1 class="section-title" id="otherTitle">Section</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">This section will be available in Phase 2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- User Modal -->
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">Add New User</h2>
+      <button class="modal-close" onclick="closeUserModal()">×</button>
+    </div>
+
+    <input type="hidden" id="editUserId">
+
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" id="formName" placeholder="Enter full name">
+    </div>
+
+    <div class="form-group">
+      <label>Phone Number *</label>
+      <input type="tel" id="formPhone" placeholder="Enter 10-digit phone">
+    </div>
+
+    <div class="form-group">
+      <label>Role *</label>
+      <select id="formRole">
+        <option value="">Select role</option>
+        <option value="Telecaller">Telecaller</option>
+        <option value="Visit">Visit Team</option>
+        <option value="Designer">Designer</option>
+        <option value="Production">Production</option>
+        <option value="Dispatch">Dispatch</option>
+        <option value="Installation">Installation</option>
+        <option value="Admin">Admin</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Username *</label>
+      <input type="text" id="formUsername" placeholder="Enter username">
+    </div>
+
+    <div class="form-group">
+      <label>Password *</label>
+      <input type="password" id="formPassword" placeholder="Enter password">
+    </div>
+
+    <div class="form-group">
+      <label>Email (optional)</label>
+      <input type="email" id="formEmail" placeholder="Enter email">
+    </div>
+
+    <div class="msg" id="formMsg"></div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeUserModal()">Cancel</button>
+      <button class="btn-save" id="saveBtn" onclick="saveUser()">Save User</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================
+// CONFIG — REPLACE WITH YOUR WORKER URL
+// ============================================
+const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
+
+// ============================================
+// SESSION CHECK
+// ============================================
+const sessionRaw = localStorage.getItem('lifeasy_session');
+if (!sessionRaw) {
+  window.location.href = 'index.html';
+}
+const session = JSON.parse(sessionRaw);
+
+if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
+  localStorage.clear();
+  window.location.href = 'index.html';
+}
+
+document.getElementById('userName').textContent = session.name;
+document.getElementById('userRole').textContent = session.role;
+
+// ============================================
+// TABS
+// ============================================
+const TABS_BY_ROLE = {
+  Admin:        ['Dashboard', 'Users', 'Telecaller', 'Visit', 'Designer', 'Production', 'Dispatch', 'Installation'],
+  Telecaller:   ['Dashboard', 'My Leads', 'Callbacks'],
+  Visit:        ['Dashboard', 'My Visits'],
+  Designer:     ['Dashboard', 'My Projects'],
+  Production:   ['Dashboard', 'Production Queue'],
+  Dispatch:     ['Dashboard', 'Dispatch Queue'],
+  Installation: ['Dashboard', 'Installation Queue'],
+};
+
+const userTabs = TABS_BY_ROLE[session.role] || ['Dashboard'];
+const tabsEl = document.getElementById('tabs');
+tabsEl.innerHTML = userTabs.map((t, i) =>
+  `<div class="tab ${i === 0 ? 'active' : ''}" data-tab="${t}">${t}</div>`
+).join('');
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab, tab));
+});
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+  if (name === 'Dashboard') {
+    document.getElementById('section-dashboard').classList.add('active');
+  } else if (name === 'Users') {
+    document.getElementById('section-users').classList.add('active');
+    loadUsers();
+  } else {
+    document.getElementById('otherTitle').textContent = name;
+    document.getElementById('section-other').classList.add('active');
+  }
+}
+
+// ============================================
+// STATS
+// ============================================
+const STATS = {
+  Admin: [
+    { value: '—', label: 'Total Leads' },
+    { value: '—', label: 'Visit Pending' },
+    { value: '—', label: 'Designer Stage' },
+    { value: '—', label: 'Production Stage' },
+  ],
+  Telecaller: [
+    { value: '—', label: "Today's Calls" },
+    { value: '—', label: 'Completed' },
+    { value: '—', label: 'Call Later' },
+    { value: '—', label: 'Visit Ready' },
+  ],
+  Visit: [
+    { value: '—', label: "Today's Visits" },
+    { value: '—', label: 'Done' },
+    { value: '—', label: 'Rescheduled' },
+    { value: '—', label: 'Closed' },
+  ],
+  Designer: [
+    { value: '—', label: 'Active Projects' },
+    { value: '—', label: 'Materials Added' },
+    { value: '—', label: 'Pending Approval' },
+    { value: '—', label: 'Completed' },
+  ],
+  Production: [
+    { value: '—', label: 'In Queue' },
+    { value: '—', label: 'In Progress' },
+    { value: '—', label: 'Completed Today' },
+    { value: '—', label: 'Overdue' },
+  ],
+  Dispatch: [
+    { value: '—', label: 'Ready to Send' },
+    { value: '—', label: 'Dispatched Today' },
+    { value: '—', label: 'Pending' },
+    { value: '—', label: 'Completed' },
+  ],
+  Installation: [
+    { value: '—', label: 'Active Sites' },
+    { value: '—', label: 'Installed Today' },
+    { value: '—', label: 'Pending' },
+    { value: '—', label: 'Completed' },
+  ],
+};
+
+const stats = STATS[session.role] || STATS.Telecaller;
+document.getElementById('statsGrid').innerHTML = stats.map(s => `
+  <div class="stat-card">
+    <div class="stat-value">${s.value}</div>
+    <div class="stat-label">${s.label}</div>
+  </div>
+`).join('');
+
+// ============================================
+// USERS MANAGEMENT (Admin)
+// ============================================
+async function loadUsers() {
+  const tbody = document.getElementById('usersTbody');
+  tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
+
+  try {
+    const res = await fetch(WORKER_URL + '?action=getUsers');
+    const data = await res.json();
+
+    if (!data.success || !data.users || !data.users.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found. Click "Add New User" to create one.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.users.map(u => `
+      <tr>
+        <td>${u.userId || '-'}</td>
+        <td><strong>${u.name}</strong></td>
+        <td><span class="badge role">${u.role}</span></td>
+        <td>${u.phone || '-'}</td>
+        <td>${u.username}</td>
+        <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
+        <td>
+          <button class="action-btn" onclick='editUser(${JSON.stringify(u)})'>Edit</button>
+          <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
+          <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Failed to load users</td></tr>';
+  }
+}
+
+// Modal
+function openUserModal() {
+  document.getElementById('modalTitle').textContent = 'Add New User';
+  document.getElementById('editUserId').value = '';
+  document.getElementById('formName').value = '';
+  document.getElementById('formPhone').value = '';
+  document.getElementById('formRole').value = '';
+  document.getElementById('formUsername').value = '';
+  document.getElementById('formPassword').value = '';
+  document.getElementById('formEmail').value = '';
+  document.getElementById('formMsg').className = 'msg';
+  document.getElementById('userModal').classList.add('show');
+}
+
+function closeUserModal() {
+  document.getElementById('userModal').classList.remove('show');
+}
+
+function editUser(u) {
+  document.getElementById('modalTitle').textContent = 'Edit User';
+  document.getElementById('editUserId').value = u.userId;
+  document.getElementById('formName').value = u.name;
+  document.getElementById('formPhone').value = u.phone || '';
+  document.getElementById('formRole').value = u.role;
+  document.getElementById('formUsername').value = u.username;
+  document.getElementById('formPassword').value = u.password || '';
+  document.getElementById('formEmail').value = u.email || '';
+  document.getElementById('formMsg').className = 'msg';
+  document.getElementById('userModal').classList.add('show');
+}
+
+async function saveUser() {
+  const userId = document.getElementById('editUserId').value;
+  const name = document.getElementById('formName').value.trim();
+  const phone = document.getElementById('formPhone').value.trim();
+  const role = document.getElementById('formRole').value;
+  const username = document.getElementById('formUsername').value.trim();
+  const password = document.getElementById('formPassword').value;
+  const email = document.getElementById('formEmail').value.trim();
+
+  const msg = document.getElementById('formMsg');
+
+  if (!name) return showFormMsg('Name is required');
+  if (!phone) return showFormMsg('Phone number is required');
+  if (!role) return showFormMsg('Role is required');
+  if (!username) return showFormMsg('Username is required');
+  if (!password) return showFormMsg('Password is required');
+
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  const action = userId ? 'editUser' : 'addUser';
+  const payload = {
+    action: action,
+    userId: userId,
+    name: name,
+    phone: phone,
+    role: role,
+    username: username,
+    password: password,
+    email: email,
+  };
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      closeUserModal();
+      showToast(userId ? 'User updated successfully' : 'User added successfully');
+      loadUsers();
+    } else {
+      showFormMsg(data.error || 'Failed to save user');
+    }
+  } catch (err) {
+    showFormMsg('Network error. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save User';
+  }
+}
+
+function showFormMsg(text) {
+  const msg = document.getElementById('formMsg');
+  msg.textContent = text;
+  msg.className = 'msg error';
+}
+
+async function toggleUser(userId, currentStatus) {
+  const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'toggleStatus', userId: userId, status: newStatus }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`);
+      loadUsers();
+    } else {
+      showToast(data.error || 'Failed to update status', 'error');
+    }
+  } catch (err) {
+    showToast('Network error', 'error');
+  }
+}
+
+async function deleteUserConfirm(userId, name) {
+  if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'deleteUser', userId: userId }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast('User deleted successfully');
+      loadUsers();
+    } else {
+      showToast(data.error || 'Failed to delete user', 'error');
+    }
+  } catch (err) {
+    showToast('Network error', 'error');
+  }
+}
+
+// ============================================
+// TOAST
+// ============================================
+function showToast(text, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = text;
+  el.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ============================================
+// LOGOUT
+// ============================================
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.clear();
+    window.location.href = 'index.html';
+  }
+}
+
+// ============================================
+// AUTO-LOAD USERS IF ADMIN
+// ============================================
+if (session.role === 'Admin') {
+  loadUsers();
+}
+</script>
+
+</body>
+</html>
