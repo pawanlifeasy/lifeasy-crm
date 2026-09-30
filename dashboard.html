@@ -8,166 +8,209 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
   body { background: #f0f2f5; min-height: 100vh; }
 
+  /* ---------- TOPBAR ---------- */
   .topbar {
-    background: #fff;
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: #fff; padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 100;
   }
   .brand { font-weight: 700; font-size: 18px; color: #1a1a1a; }
   .user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
   .user-name { font-weight: 600; color: #1a1a1a; }
   .user-role {
-    background: #EBF3FC;
-    color: #4A90D9;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
+    background: #EBF3FC; color: #4A90D9;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600;
   }
   .logout-btn {
-    background: #FDECEA;
-    color: #C0392B;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
+    background: #FDECEA; color: #C0392B; border: none;
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
   }
 
+  /* ---------- NOTIFICATION BELL ---------- */
+  .bell-wrap { position: relative; }
+  .bell {
+    position: relative; cursor: pointer; font-size: 20px;
+    padding: 6px 8px; border-radius: 8px;
+    background: #f5f5f5;
+  }
+  .bell:hover { background: #eee; }
+  .bell-count {
+    position: absolute; top: 0; right: 0;
+    background: #C0392B; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 6px; border-radius: 10px;
+    min-width: 18px; text-align: center;
+  }
+  .bell-count.hide { display: none; }
+  .bell-dropdown {
+    position: absolute; top: 100%; right: 0; margin-top: 8px;
+    width: 340px; background: #fff;
+    border: 1px solid #eee; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    display: none; z-index: 200;
+    max-height: 420px; overflow-y: auto;
+  }
+  .bell-dropdown.show { display: block; }
+  .bell-header {
+    padding: 12px 16px; border-bottom: 1px solid #eee;
+    font-weight: 700; font-size: 14px;
+  }
+  .bell-item {
+    padding: 12px 16px; border-bottom: 1px solid #f5f5f5;
+    font-size: 13px; cursor: pointer;
+  }
+  .bell-item:hover { background: #fafafa; }
+  .bell-item:last-child { border-bottom: none; }
+  .bell-item .time { color: #999; font-size: 11px; margin-top: 4px; }
+  .bell-empty { padding: 24px; text-align: center; color: #aaa; font-size: 13px; }
+
+  /* ---------- TABS ---------- */
   .tabs {
-    background: #fff;
-    padding: 0 24px;
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    border-bottom: 1px solid #eee;
-    scrollbar-width: none;
+    background: #fff; padding: 0 24px;
+    display: flex; gap: 4px; overflow-x: auto;
+    border-bottom: 1px solid #eee; scrollbar-width: none;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab {
-    padding: 14px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: 0.2s;
+    padding: 14px 16px; font-size: 14px; font-weight: 500;
+    color: #666; border-bottom: 3px solid transparent;
+    cursor: pointer; white-space: nowrap; transition: 0.2s;
   }
   .tab.active { color: #4A90D9; border-bottom-color: #4A90D9; }
   .tab:hover { color: #4A90D9; }
 
+  /* ---------- CONTENT ---------- */
   .content { padding: 24px; max-width: 1200px; margin: 0 auto; }
   .section { display: none; }
   .section.active { display: block; }
 
   .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 12px;
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 20px;
+    flex-wrap: wrap; gap: 12px;
   }
   .section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
 
+  /* ---------- PERIOD SELECTOR ---------- */
+  .period-selector {
+    display: flex; background: #fff;
+    border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;
+  }
+  .period-selector button {
+    padding: 8px 16px; background: transparent;
+    border: none; cursor: pointer; font-size: 13px;
+    color: #666; border-right: 1px solid #e0e0e0; font-family: inherit;
+  }
+  .period-selector button:last-child { border-right: none; }
+  .period-selector button.active {
+    background: #4A90D9; color: #fff; font-weight: 600;
+  }
+
+  /* ---------- BUTTONS ---------- */
   .btn-primary {
-    background: #4A90D9;
-    color: #fff;
-    border: none;
-    padding: 11px 18px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    background: #4A90D9; color: #fff; border: none;
+    padding: 11px 18px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px;
   }
   .btn-primary:hover { background: #3a7bc8; }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
+  .btn-sm {
+    padding: 6px 12px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    border: none; font-family: inherit;
+  }
+  .btn-call { background: #4A90D9; color: #fff; }
+  .btn-call:hover { background: #3a7bc8; }
+
+  /* ---------- STATS ---------- */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 16px; margin-bottom: 24px;
   }
   .stat-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 14px;
+    background: #fff; padding: 20px; border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 4px solid #4A90D9;
   }
+  .stat-card.green { border-left-color: #27AE60; }
+  .stat-card.amber { border-left-color: #F39C12; }
+  .stat-card.red { border-left-color: #C0392B; }
+  .stat-card.cyan { border-left-color: #17A2B8; }
   .stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
   .stat-label { font-size: 13px; color: #888; }
 
+  /* ---------- TABLE ---------- */
   .table-card {
-    background: #fff;
-    border-radius: 14px;
+    background: #fff; border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    overflow: hidden;
+    overflow: hidden; margin-bottom: 20px;
   }
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
-  th { background: #fafafa; font-weight: 600; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  th {
+    background: #fafafa; font-weight: 600; color: #666;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
   tr { border-bottom: 1px solid #f0f0f0; }
   tr:last-child { border-bottom: none; }
   tr:hover { background: #fafafa; }
 
+  /* ---------- BADGES ---------- */
   .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
+    display: inline-block; padding: 4px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
   }
   .badge.active { background: #E8F8EE; color: #27AE60; }
   .badge.inactive { background: #FDECEA; color: #C0392B; }
   .badge.role { background: #EBF3FC; color: #4A90D9; }
+  .badge.new { background: #EBF3FC; color: #4A90D9; }
+  .badge.interested { background: #E8F8EE; color: #27AE60; }
+  .badge.later { background: #FEF3C7; color: #92400E; }
+  .badge.visit { background: #CFFAFE; color: #155E75; }
+  .badge.not { background: #FDECEA; color: #C0392B; }
+  .badge.gray { background: #F3F4F6; color: #374151; }
 
+  /* ---------- ACTION BUTTONS ---------- */
   .action-btn {
-    background: transparent;
-    border: 1px solid #ddd;
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    margin-right: 4px;
-    font-family: inherit;
+    background: transparent; border: 1px solid #ddd;
+    padding: 6px 10px; border-radius: 8px;
+    cursor: pointer; font-size: 13px;
+    margin-right: 4px; font-family: inherit;
   }
   .action-btn:hover { background: #f0f0f0; }
   .action-btn.delete { color: #C0392B; border-color: #f8d7da; }
   .action-btn.delete:hover { background: #FDECEA; }
 
-  /* Modal */
+  /* ---------- TOOLBAR ---------- */
+  .toolbar {
+    display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .toolbar input, .toolbar select {
+    padding: 10px 14px; border: 2px solid #e8e8e8;
+    border-radius: 10px; font-size: 13px;
+    outline: none; font-family: inherit;
+  }
+  .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
+  .toolbar input { flex: 1; min-width: 200px; }
+
+  /* ---------- MODAL ---------- */
   .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000; padding: 20px;
   }
   .modal-overlay.show { display: flex; }
   .modal {
-    background: #fff;
-    border-radius: 16px;
-    padding: 28px;
-    max-width: 460px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    background: #fff; border-radius: 16px; padding: 28px;
+    max-width: 480px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
   }
   .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .modal-title { font-size: 20px; font-weight: 700; }
@@ -175,67 +218,66 @@
 
   .form-group { margin-bottom: 14px; }
   .form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 6px;
+    display: block; font-size: 13px; font-weight: 600;
+    color: #444; margin-bottom: 6px;
   }
-  .form-group input, .form-group select {
-    width: 100%;
-    padding: 11px 14px;
-    border: 2px solid #e8e8e8;
-    border-radius: 10px;
-    font-size: 14px;
-    outline: none;
-    font-family: inherit;
-    transition: 0.2s;
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 11px 14px;
+    border: 2px solid #e8e8e8; border-radius: 10px;
+    font-size: 14px; outline: none; font-family: inherit; transition: 0.2s;
   }
-  .form-group input:focus, .form-group select:focus { border-color: #4A90D9; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #4A90D9;
+  }
+  .form-group textarea { resize: vertical; min-height: 70px; }
+  .required { color: #C0392B; }
 
-  .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-  .modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  /* ---------- RADIO OPTIONS ---------- */
+  .radio-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border: 2px solid #e8e8e8;
+    border-radius: 10px; margin-bottom: 8px; cursor: pointer;
+    transition: 0.15s; font-size: 14px;
+  }
+  .radio-option:hover { background: #fafafa; }
+  .radio-option.selected {
+    border-color: #4A90D9; background: #EBF3FC;
+  }
+  .radio-option input { width: auto; margin: 0; }
+
+  .modal-actions {
+    display: flex; gap: 10px; margin-top: 20px;
+  }
+  .modal-actions button {
+    flex: 1; padding: 12px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
   .btn-cancel { background: #f0f0f0; color: #444; border: none; }
   .btn-save { background: #4A90D9; color: #fff; border: none; }
   .btn-save:hover { background: #3a7bc8; }
 
-  .msg {
-    margin-top: 12px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    display: none;
-  }
-  .msg.error { display: block; background: #FDECEA; color: #C0392B; }
-  .msg.success { display: block; background: #E8F8EE; color: #27AE60; }
-
+  /* ---------- EMPTY STATE ---------- */
   .empty-state {
-    padding: 40px 20px;
-    text-align: center;
-    color: #aaa;
-    font-size: 14px;
+    padding: 40px 20px; text-align: center;
+    color: #aaa; font-size: 14px;
   }
 
+  /* ---------- TOAST ---------- */
   .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #27AE60;
-    color: #fff;
-    padding: 14px 20px;
-    border-radius: 10px;
+    position: fixed; bottom: 24px; right: 24px;
+    background: #27AE60; color: #fff;
+    padding: 14px 20px; border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s;
-    z-index: 2000;
+    font-size: 14px; font-weight: 500;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.3s; z-index: 2000;
     pointer-events: none;
   }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.error { background: #C0392B; }
 
+  /* ---------- MOBILE ---------- */
   @media (max-width: 640px) {
     .topbar { padding: 12px 16px; }
     .tabs { padding: 0 12px; }
@@ -243,35 +285,61 @@
     .user-name { display: none; }
     .section-title { font-size: 18px; }
     th, td { padding: 10px 12px; font-size: 13px; }
+    .bell-dropdown { width: 280px; right: -60px; }
   }
 </style>
 </head>
 <body>
 
+<!-- ============================================================
+     TOPBAR
+     ============================================================ -->
 <div class="topbar">
   <div class="brand">🏢 Lifeasy CRM</div>
   <div class="user-info">
+    <div class="bell-wrap">
+      <div class="bell" onclick="toggleBell(event)">
+        🔔
+        <span class="bell-count hide" id="bellCount">0</span>
+      </div>
+      <div class="bell-dropdown" id="bellDropdown">
+        <div class="bell-header">Notifications</div>
+        <div class="bell-empty">No notifications</div>
+      </div>
+    </div>
     <span class="user-name" id="userName">-</span>
     <span class="user-role" id="userRole">-</span>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 </div>
 
+<!-- ============================================================
+     TABS
+     ============================================================ -->
 <div class="tabs" id="tabs"></div>
 
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
 <div class="content">
-  <!-- Dashboard Section -->
+
+  <!-- ========== DASHBOARD ========== -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">Dashboard</h1>
+      <div class="period-selector" id="dashPeriod">
+        <button class="active" onclick="setPeriod('dashboard','day',this)">Day</button>
+        <button onclick="setPeriod('dashboard','month',this)">Month</button>
+        <button onclick="setPeriod('dashboard','year',this)">Year</button>
+      </div>
     </div>
     <div class="stats-grid" id="statsGrid"></div>
     <div class="table-card">
-      <div class="empty-state">Dashboard analytics will appear here in Phase 2.</div>
+      <div class="empty-state" id="dashEmpty">Loading dashboard...</div>
     </div>
   </div>
 
-  <!-- Users Section (Admin only) -->
+  <!-- ========== USERS (Admin) ========== -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">User Management</h1>
@@ -281,13 +349,8 @@
       <table>
         <thead>
           <tr>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Phone</th>
-            <th>Username</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>User ID</th><th>Name</th><th>Role</th>
+            <th>Phone</th><th>Username</th><th>Status</th><th>Actions</th>
           </tr>
         </thead>
         <tbody id="usersTbody">
@@ -297,68 +360,152 @@
     </div>
   </div>
 
-  <!-- Placeholder sections -->
-  <div class="section" id="section-other">
+  <!-- ========== TELECALLER ========== -->
+  <div class="section" id="section-telecaller">
     <div class="section-header">
-      <h1 class="section-title" id="otherTitle">Section</h1>
+      <h1 class="section-title">📞 Telecaller</h1>
+      <div class="period-selector" id="tcPeriod">
+        <button class="active" onclick="setPeriod('telecaller','day',this)">Day</button>
+        <button onclick="setPeriod('telecaller','month',this)">Month</button>
+        <button onclick="setPeriod('telecaller','year',this)">Year</button>
+      </div>
     </div>
+    <div class="stats-grid" id="tcStats"></div>
+
     <div class="table-card">
-      <div class="empty-state">This section will be available in Phase 2.</div>
+      <div style="padding:16px;">
+        <div class="toolbar">
+          <input type="text" id="tcSearch" placeholder="🔍 Search name or phone..." oninput="renderTelecallerLeads()">
+          <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
+            <option value="">All Status</option>
+            <option>New</option>
+            <option>Interested</option>
+            <option>Not Interested</option>
+            <option>Call Later</option>
+            <option>Visit Ready</option>
+            <option>Wrong Number</option>
+            <option>Switched Off</option>
+            <option>Already Purchased</option>
+          </select>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Lead ID</th><th>Name</th><th>Phone</th>
+              <th>Status</th><th>Next Call</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tcLeadsBody">
+            <tr><td colspan="6" class="empty-state">Loading leads...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div style="padding:16px;">
+        <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">⏰ Upcoming Callbacks</h3>
+        <div id="tcCallbacks"><div class="empty-state">No callbacks scheduled</div></div>
+      </div>
     </div>
   </div>
+
+  <!-- ========== VISIT ========== -->
+  <div class="section" id="section-visit">
+    <div class="section-header">
+      <h1 class="section-title">🚗 Visit</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">Visit tab — coming soon</div>
+    </div>
+  </div>
+
+  <!-- ========== DESIGNER ========== -->
+  <div class="section" id="section-designer">
+    <div class="section-header">
+      <h1 class="section-title">🎨 Designer</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">Designer tab — coming soon</div>
+    </div>
+  </div>
+
+  <!-- ========== PRODUCTION ========== -->
+  <div class="section" id="section-production">
+    <div class="section-header">
+      <h1 class="section-title">🏭 Production</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">Production tab — coming soon</div>
+    </div>
+  </div>
+
+  <!-- ========== DISPATCH ========== -->
+  <div class="section" id="section-dispatch">
+    <div class="section-header">
+      <h1 class="section-title">🚚 Dispatch</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">Dispatch tab — coming soon</div>
+    </div>
+  </div>
+
+  <!-- ========== INSTALLATION ========== -->
+  <div class="section" id="section-installation">
+    <div class="section-header">
+      <h1 class="section-title">🔧 Installation</h1>
+    </div>
+    <div class="table-card">
+      <div class="empty-state">Installation tab — coming soon</div>
+    </div>
+  </div>
+
 </div>
 
-<!-- User Modal -->
+<!-- ============================================================
+     MODAL: USER
+     ============================================================ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
       <h2 class="modal-title" id="modalTitle">Add New User</h2>
       <button class="modal-close" onclick="closeUserModal()">×</button>
     </div>
-
     <input type="hidden" id="editUserId">
-
     <div class="form-group">
       <label>Full Name *</label>
       <input type="text" id="formName" placeholder="Enter full name">
     </div>
-
     <div class="form-group">
       <label>Phone Number *</label>
       <input type="tel" id="formPhone" placeholder="Enter 10-digit phone">
     </div>
-
     <div class="form-group">
       <label>Role *</label>
       <select id="formRole">
         <option value="">Select role</option>
-        <option value="Telecaller">Telecaller</option>
-        <option value="Visit">Visit Team</option>
-        <option value="Designer">Designer</option>
-        <option value="Production">Production</option>
-        <option value="Dispatch">Dispatch</option>
-        <option value="Installation">Installation</option>
-        <option value="Admin">Admin</option>
+        <option>Telecaller</option>
+        <option>Visit</option>
+        <option>Designer</option>
+        <option>Production</option>
+        <option>Dispatch</option>
+        <option>Installation</option>
+        <option>Admin</option>
       </select>
     </div>
-
     <div class="form-group">
       <label>Username *</label>
       <input type="text" id="formUsername" placeholder="Enter username">
     </div>
-
     <div class="form-group">
       <label>Password *</label>
       <input type="password" id="formPassword" placeholder="Enter password">
     </div>
-
     <div class="form-group">
       <label>Email (optional)</label>
       <input type="email" id="formEmail" placeholder="Enter email">
     </div>
-
     <div class="msg" id="formMsg"></div>
-
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeUserModal()">Cancel</button>
       <button class="btn-save" id="saveBtn" onclick="saveUser()">Save User</button>
@@ -366,47 +513,197 @@
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: CALL STATUS
+     ============================================================ -->
+<div class="modal-overlay" id="callStatusModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="callStatusTitle">📞 Call Status</h2>
+      <button class="modal-close" onclick="closeModal('callStatusModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Select Status <span class="required">*</span></label>
+      <div id="statusOptions"></div>
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="callNotes" placeholder="Optional notes..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('callStatusModal')">Cancel</button>
+      <button class="btn-save" onclick="submitCallStatus()">Save Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: CALL LATER
+     ============================================================ -->
+<div class="modal-overlay" id="callLaterModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="callLaterTitle">⏰ Schedule Callback</h2>
+      <button class="modal-close" onclick="closeModal('callLaterModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Next Call Date <span class="required">*</span></label>
+      <input type="date" id="nextCallDate">
+    </div>
+    <div class="form-group">
+      <label>Next Call Time <span class="required">*</span></label>
+      <input type="time" id="nextCallTime">
+    </div>
+    <div class="form-group">
+      <label>Priority</label>
+      <select id="nextCallPriority">
+        <option>Low</option>
+        <option selected>Medium</option>
+        <option>High</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="callLaterNotes" placeholder="Optional notes..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
+      <button class="btn-save" onclick="submitCallLater()">Schedule</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: VISIT READY
+     ============================================================ -->
+<div class="modal-overlay" id="visitReadyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="visitReadyTitle">🚗 Schedule Visit</h2>
+      <button class="modal-close" onclick="closeModal('visitReadyModal')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Address <span class="required">*</span></label>
+      <textarea id="visitAddress" placeholder="Full address..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Property Type <span class="required">*</span></label>
+      <select id="visitPropertyType">
+        <option value="">Select...</option>
+        <option>Apartment</option>
+        <option>Villa</option>
+        <option>Independent House</option>
+        <option>Office</option>
+        <option>Shop</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Budget (₹)</label>
+      <input type="number" id="visitBudget" placeholder="e.g. 500000">
+    </div>
+    <div class="form-group">
+      <label>Visit Date <span class="required">*</span></label>
+      <input type="date" id="visitDate">
+    </div>
+    <div class="form-group">
+      <label>Visit Time <span class="required">*</span></label>
+      <input type="time" id="visitTime">
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="visitNotes" placeholder="Optional notes..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
+      <button class="btn-save" onclick="submitVisitReady()">Assign to Visit Team</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================
-// CONFIG — REPLACE WITH YOUR WORKER URL
-// ============================================
+// ============================================================
+// CONFIG
+// ============================================================
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
 
-// ============================================
+// ============================================================
 // SESSION CHECK
-// ============================================
+// ============================================================
 const sessionRaw = localStorage.getItem('lifeasy_session');
-if (!sessionRaw) {
-  window.location.href = 'index.html';
-}
+if (!sessionRaw) window.location.href = 'index.html';
 const session = JSON.parse(sessionRaw);
-
 if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
   localStorage.clear();
   window.location.href = 'index.html';
 }
-
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
-// ============================================
+// ============================================================
+// STATE
+// ============================================================
+let allLeads = [];
+let allCallLogs = [];
+let allUsers = [];
+let currentLead = null;
+let selectedStatus = null;
+let currentPeriod = { dashboard: 'day', telecaller: 'day' };
+
+// ============================================================
+// API HELPER — FLEXIBLE PARSER
+// ============================================================
+async function apiGet(action, params = {}) {
+  const qs = new URLSearchParams({ action, ...params }).toString();
+  try {
+    const res = await fetch(WORKER_URL + '?' + qs);
+    return await res.json();
+  } catch (err) {
+    console.error('API error:', action, err);
+    return { success: false, error: err.message };
+  }
+}
+
+async function apiPost(action, payload = {}) {
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, ...payload })
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('API error:', action, err);
+    return { success: false, error: err.message };
+  }
+}
+
+// Flexible array extractor
+function extractArray(res, keys = []) {
+  if (!res) return [];
+  if (Array.isArray(res)) return res;
+  for (const k of keys) if (Array.isArray(res[k])) return res[k];
+  if (Array.isArray(res.data)) return res.data;
+  return [];
+}
+
+// ============================================================
 // TABS
-// ============================================
+// ============================================================
 const TABS_BY_ROLE = {
   Admin:        ['Dashboard', 'Users', 'Telecaller', 'Visit', 'Designer', 'Production', 'Dispatch', 'Installation'],
-  Telecaller:   ['Dashboard', 'My Leads', 'Callbacks'],
-  Visit:        ['Dashboard', 'My Visits'],
-  Designer:     ['Dashboard', 'My Projects'],
-  Production:   ['Dashboard', 'Production Queue'],
-  Dispatch:     ['Dashboard', 'Dispatch Queue'],
-  Installation: ['Dashboard', 'Installation Queue'],
+  Telecaller:   ['Dashboard', 'Telecaller'],
+  Visit:        ['Dashboard', 'Visit'],
+  Designer:     ['Dashboard', 'Designer'],
+  Production:   ['Dashboard', 'Production'],
+  Dispatch:     ['Dashboard', 'Dispatch'],
+  Installation: ['Dashboard', 'Installation'],
 };
 
 const userTabs = TABS_BY_ROLE[session.role] || ['Dashboard'];
-const tabsEl = document.getElementById('tabs');
-tabsEl.innerHTML = userTabs.map((t, i) =>
+document.getElementById('tabs').innerHTML = userTabs.map((t, i) =>
   `<div class="tab ${i === 0 ? 'active' : ''}" data-tab="${t}">${t}</div>`
 ).join('');
 
@@ -417,93 +714,65 @@ document.querySelectorAll('.tab').forEach(tab => {
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
 
-  if (name === 'Dashboard') {
-    document.getElementById('section-dashboard').classList.add('active');
-  } else if (name === 'Users') {
-    document.getElementById('section-users').classList.add('active');
-    loadUsers();
-  } else {
-    document.getElementById('otherTitle').textContent = name;
-    document.getElementById('section-other').classList.add('active');
+  const map = {
+    'Dashboard':    'section-dashboard',
+    'Users':        'section-users',
+    'Telecaller':   'section-telecaller',
+    'Visit':        'section-visit',
+    'Designer':     'section-designer',
+    'Production':   'section-production',
+    'Dispatch':     'section-dispatch',
+    'Installation': 'section-installation',
+    // Legacy names (Phase 1)
+    'My Leads':     'section-telecaller',
+    'Callbacks':    'section-telecaller',
+    'My Visits':    'section-visit',
+    'My Projects':  'section-designer',
+    'Production Queue':   'section-production',
+    'Dispatch Queue':     'section-dispatch',
+    'Installation Queue': 'section-installation',
+  };
+
+  const target = map[name] || 'section-dashboard';
+  document.getElementById(target).classList.add('active');
+
+  if (name === 'Users') loadUsers();
+  if (name === 'Telecaller' || name === 'My Leads' || name === 'Callbacks') {
+    loadTelecallerData();
   }
 }
 
-// ============================================
-// STATS
-// ============================================
-const STATS = {
-  Admin: [
-    { value: '—', label: 'Total Leads' },
-    { value: '—', label: 'Visit Pending' },
-    { value: '—', label: 'Designer Stage' },
-    { value: '—', label: 'Production Stage' },
-  ],
-  Telecaller: [
-    { value: '—', label: "Today's Calls" },
-    { value: '—', label: 'Completed' },
-    { value: '—', label: 'Call Later' },
-    { value: '—', label: 'Visit Ready' },
-  ],
-  Visit: [
-    { value: '—', label: "Today's Visits" },
-    { value: '—', label: 'Done' },
-    { value: '—', label: 'Rescheduled' },
-    { value: '—', label: 'Closed' },
-  ],
-  Designer: [
-    { value: '—', label: 'Active Projects' },
-    { value: '—', label: 'Materials Added' },
-    { value: '—', label: 'Pending Approval' },
-    { value: '—', label: 'Completed' },
-  ],
-  Production: [
-    { value: '—', label: 'In Queue' },
-    { value: '—', label: 'In Progress' },
-    { value: '—', label: 'Completed Today' },
-    { value: '—', label: 'Overdue' },
-  ],
-  Dispatch: [
-    { value: '—', label: 'Ready to Send' },
-    { value: '—', label: 'Dispatched Today' },
-    { value: '—', label: 'Pending' },
-    { value: '—', label: 'Completed' },
-  ],
-  Installation: [
-    { value: '—', label: 'Active Sites' },
-    { value: '—', label: 'Installed Today' },
-    { value: '—', label: 'Pending' },
-    { value: '—', label: 'Completed' },
-  ],
-};
+// ============================================================
+// PERIOD SELECTOR
+// ============================================================
+function setPeriod(page, period, btn) {
+  currentPeriod[page] = period;
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (page === 'dashboard') renderDashboardStats();
+  if (page === 'telecaller') renderTelecallerStats();
+}
 
-const stats = STATS[session.role] || STATS.Telecaller;
-document.getElementById('statsGrid').innerHTML = stats.map(s => `
-  <div class="stat-card">
-    <div class="stat-value">${s.value}</div>
-    <div class="stat-label">${s.label}</div>
-  </div>
-`).join('');
-
-// ============================================
-// USERS MANAGEMENT (Admin)
-// ============================================
+// ============================================================
+// USERS MANAGEMENT (Phase 1 — unchanged)
+// ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
 
   try {
-    const res = await fetch(WORKER_URL + '?action=getUsers');
-    const data = await res.json();
+    const data = await apiGet('getUsers');
+    const users = extractArray(data, ['users']);
 
-    if (!data.success || !data.users || !data.users.length) {
+    if (!data.success || !users.length) {
       tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found. Click "Add New User" to create one.</td></tr>';
       return;
     }
+    allUsers = users;
 
-    tbody.innerHTML = data.users.map(u => `
+    tbody.innerHTML = users.map(u => `
       <tr>
         <td>${u.userId || '-'}</td>
         <td><strong>${u.name}</strong></td>
@@ -512,7 +781,7 @@ async function loadUsers() {
         <td>${u.username}</td>
         <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
         <td>
-          <button class="action-btn" onclick='editUser(${JSON.stringify(u)})'>Edit</button>
+          <button class="action-btn" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
           <button class="action-btn" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
           <button class="action-btn delete" onclick='deleteUserConfirm("${u.userId}", "${u.name}")'>Delete</button>
         </td>
@@ -523,16 +792,11 @@ async function loadUsers() {
   }
 }
 
-// Modal
 function openUserModal() {
   document.getElementById('modalTitle').textContent = 'Add New User';
   document.getElementById('editUserId').value = '';
-  document.getElementById('formName').value = '';
-  document.getElementById('formPhone').value = '';
+  ['formName','formPhone','formUsername','formPassword','formEmail'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('formRole').value = '';
-  document.getElementById('formUsername').value = '';
-  document.getElementById('formPassword').value = '';
-  document.getElementById('formEmail').value = '';
   document.getElementById('formMsg').className = 'msg';
   document.getElementById('userModal').classList.add('show');
 }
@@ -563,8 +827,6 @@ async function saveUser() {
   const password = document.getElementById('formPassword').value;
   const email = document.getElementById('formEmail').value.trim();
 
-  const msg = document.getElementById('formMsg');
-
   if (!name) return showFormMsg('Name is required');
   if (!phone) return showFormMsg('Phone number is required');
   if (!role) return showFormMsg('Role is required');
@@ -572,41 +834,20 @@ async function saveUser() {
   if (!password) return showFormMsg('Password is required');
 
   const btn = document.getElementById('saveBtn');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
+  btn.disabled = true; btn.textContent = 'Saving...';
 
-  const action = userId ? 'editUser' : 'addUser';
-  const payload = {
-    action: action,
-    userId: userId,
-    name: name,
-    phone: phone,
-    role: role,
-    username: username,
-    password: password,
-    email: email,
-  };
+  const data = await apiPost(userId ? 'editUser' : 'addUser', {
+    userId, name, phone, role, username, password, email
+  });
 
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
+  btn.disabled = false; btn.textContent = 'Save User';
 
-    if (data.success) {
-      closeUserModal();
-      showToast(userId ? 'User updated successfully' : 'User added successfully');
-      loadUsers();
-    } else {
-      showFormMsg(data.error || 'Failed to save user');
-    }
-  } catch (err) {
-    showFormMsg('Network error. Please try again.');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Save User';
+  if (data.success) {
+    closeUserModal();
+    showToast(userId ? 'User updated successfully' : 'User added successfully');
+    loadUsers();
+  } else {
+    showFormMsg(data.error || 'Failed to save user');
   }
 }
 
@@ -618,48 +859,438 @@ function showFormMsg(text) {
 
 async function toggleUser(userId, currentStatus) {
   const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'toggleStatus', userId: userId, status: newStatus }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`);
-      loadUsers();
-    } else {
-      showToast(data.error || 'Failed to update status', 'error');
-    }
-  } catch (err) {
-    showToast('Network error', 'error');
+  const data = await apiPost('toggleStatus', { userId, status: newStatus });
+  if (data.success) {
+    showToast(`User ${newStatus === 'Active' ? 'unblocked' : 'blocked'}`);
+    loadUsers();
+  } else {
+    showToast(data.error || 'Failed to update status', 'error');
   }
 }
 
 async function deleteUserConfirm(userId, name) {
   if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
-
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'deleteUser', userId: userId }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      showToast('User deleted successfully');
-      loadUsers();
-    } else {
-      showToast(data.error || 'Failed to delete user', 'error');
-    }
-  } catch (err) {
-    showToast('Network error', 'error');
+  const data = await apiPost('deleteUser', { userId });
+  if (data.success) {
+    showToast('User deleted successfully');
+    loadUsers();
+  } else {
+    showToast(data.error || 'Failed to delete user', 'error');
   }
 }
 
-// ============================================
+// ============================================================
+// TELECALLER — DATA LOAD
+// ============================================================
+async function loadTelecallerData() {
+  await Promise.all([loadLeads(), loadCallLogs()]);
+  renderTelecallerStats();
+  renderTelecallerLeads();
+  renderTelecallerCallbacks();
+}
+
+async function loadLeads() {
+  const data = await apiGet('getLeads', { username: session.username || '' });
+  allLeads = extractArray(data, ['leads']);
+}
+
+async function loadCallLogs() {
+  const data = await apiGet('getCallLogs', { username: session.username || '' });
+  allCallLogs = extractArray(data, ['callLogs', 'logs']);
+}
+
+// ============================================================
+// TELECALLER — STATS
+// ============================================================
+function renderTelecallerStats() {
+  const period = currentPeriod.telecaller || 'day';
+  const today = new Date().toISOString().slice(0, 10);
+  const month = today.slice(0, 7);
+  const year = today.slice(0, 4);
+
+  function inPeriod(dateStr) {
+    if (!dateStr) return false;
+    if (period === 'day') return dateStr.startsWith(today);
+    if (period === 'month') return dateStr.startsWith(month);
+    if (period === 'year') return dateStr.startsWith(year);
+    return true;
+  }
+
+  const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && inPeriod(c['Call Date']));
+  const callsToday = myCalls.length;
+  const pending = allLeads.filter(l => l['Status'] === 'New' || l['Status'] === 'Call Later').length;
+  const visitReady = myCalls.filter(c => c['Status'] === 'Visit Ready').length;
+  const interested = myCalls.filter(c => c['Status'] === 'Interested').length;
+
+  document.getElementById('tcStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${callsToday}</div><div class="stat-label">Calls (${period})</div></div>
+    <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending Followups</div></div>
+    <div class="stat-card green"><div class="stat-value">${interested}</div><div class="stat-label">Interested</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${visitReady}</div><div class="stat-label">Visit Ready</div></div>
+  `;
+}
+
+// ============================================================
+// TELECALLER — LEADS
+// ============================================================
+function renderTelecallerLeads() {
+  const tbody = document.getElementById('tcLeadsBody');
+  const q = (document.getElementById('tcSearch').value || '').toLowerCase();
+  const filter = document.getElementById('tcStatusFilter').value;
+
+  let leads = allLeads.filter(l => {
+    const assigned = l['Assigned To'] || '';
+    if (session.role !== 'Admin' && assigned && assigned !== session.name) return false;
+    if (filter && l['Status'] !== filter) return false;
+    if (q) {
+      const name = (l['Name'] || '').toLowerCase();
+      const phone = (l['Phone'] || '').toLowerCase();
+      if (!name.includes(q) && !phone.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (!leads.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads found</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = leads.map(l => {
+    const status = l['Status'] || 'New';
+    const cls = statusToClass(status);
+    return `
+      <tr>
+        <td>${l['Lead ID'] || '-'}</td>
+        <td><strong>${l['Name'] || '-'}</strong></td>
+        <td>${l['Phone'] || '-'}</td>
+        <td><span class="badge ${cls}">${status}</span></td>
+        <td>${l['Next Call'] || '—'}</td>
+        <td><button class="btn-sm btn-call" onclick='openCallStatus(${JSON.stringify(l).replace(/'/g, "&apos;")})'>📞 Call</button></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function statusToClass(status) {
+  const map = {
+    'New': 'new',
+    'Interested': 'interested',
+    'Not Interested': 'not',
+    'Call Later': 'later',
+    'Visit Ready': 'visit',
+    'Wrong Number': 'gray',
+    'Switched Off': 'gray',
+    'Already Purchased': 'gray',
+  };
+  return map[status] || 'new';
+}
+
+// ============================================================
+// TELECALLER — CALLBACKS
+// ============================================================
+function renderTelecallerCallbacks() {
+  const el = document.getElementById('tcCallbacks');
+  const pending = allCallLogs.filter(c =>
+    c['Status'] === 'Call Later' && c['Next Call Date']
+  ).sort((a, b) => (a['Next Call Date'] + a['Next Call Time']).localeCompare(b['Next Call Date'] + b['Next Call Time']));
+
+  if (!pending.length) {
+    el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
+    return;
+  }
+
+  el.innerHTML = pending.map(c => `
+    <div style="padding:12px;border-bottom:1px solid #f0f0f0;">
+      <strong>${c['Lead ID'] || '-'}</strong> — ${c['Next Call Date']} ${c['Next Call Time'] || ''}
+      <span class="badge ${c['Priority'] === 'High' ? 'not' : c['Priority'] === 'Low' ? 'gray' : 'later'}" style="margin-left:8px;">${c['Priority'] || 'Medium'}</span>
+      <div style="font-size:12px;color:#888;margin-top:4px;">${c['Notes'] || ''}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// CALL STATUS MODAL
+// ============================================================
+const CALL_STATUSES = [
+  { value: 'Interested', label: '🟢 Interested' },
+  { value: 'Not Interested', label: '🔴 Not Interested' },
+  { value: 'Call Later', label: '🟡 Call Later' },
+  { value: 'Visit Ready', label: '🟠 Visit Ready' },
+  { value: 'Wrong Number', label: '⚫ Wrong Number' },
+  { value: 'Switched Off', label: '⚫ Switched Off' },
+  { value: 'Already Purchased', label: '⚫ Already Purchased' },
+];
+
+function openCallStatus(lead) {
+  currentLead = lead;
+  selectedStatus = null;
+  document.getElementById('callStatusTitle').textContent = `📞 Call Status — ${lead['Name'] || lead['Lead ID']}`;
+  document.getElementById('callNotes').value = '';
+
+  document.getElementById('statusOptions').innerHTML = CALL_STATUSES.map(s => `
+    <div class="radio-option" data-value="${s.value}" onclick="selectStatus('${s.value}', this)">
+      <input type="radio" name="callStatus">
+      <span>${s.label}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('callStatusModal').classList.add('show');
+}
+
+function selectStatus(value, el) {
+  selectedStatus = value;
+  document.querySelectorAll('#statusOptions .radio-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+
+  // auto-advance for Call Later / Visit Ready
+  if (value === 'Call Later') {
+    setTimeout(() => {
+      closeModal('callStatusModal');
+      openCallLater();
+    }, 300);
+  } else if (value === 'Visit Ready') {
+    setTimeout(() => {
+      closeModal('callStatusModal');
+      openVisitReady();
+    }, 300);
+  }
+}
+
+async function submitCallStatus() {
+  if (!selectedStatus) return showToast('Please select a status', 'error');
+  if (!currentLead) return;
+
+  const notes = document.getElementById('callNotes').value.trim();
+  const now = new Date();
+  const callDate = now.toISOString().slice(0, 10);
+  const callTime = now.toTimeString().slice(0, 5);
+
+  const payload = {
+    leadId: currentLead['Lead ID'],
+    caller: session.name,
+    callDate, callTime,
+    status: selectedStatus,
+    notes,
+  };
+
+  const data = await apiPost('saveCallLog', payload);
+
+  if (data.success) {
+    closeModal('callStatusModal');
+    showToast('Call logged successfully');
+    await loadTelecallerData();
+  } else {
+    showToast(data.error || 'Failed to save call', 'error');
+  }
+}
+
+// ============================================================
+// CALL LATER MODAL
+// ============================================================
+function openCallLater() {
+  document.getElementById('callLaterTitle').textContent = `⏰ Schedule Callback — ${currentLead['Name'] || currentLead['Lead ID']}`;
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+  document.getElementById('nextCallDate').value = tomorrow;
+  document.getElementById('nextCallTime').value = '10:00';
+  document.getElementById('nextCallPriority').value = 'Medium';
+  document.getElementById('callLaterNotes').value = '';
+  document.getElementById('callLaterModal').classList.add('show');
+}
+
+async function submitCallLater() {
+  const date = document.getElementById('nextCallDate').value;
+  const time = document.getElementById('nextCallTime').value;
+  const priority = document.getElementById('nextCallPriority').value;
+  const notes = document.getElementById('callLaterNotes').value.trim();
+
+  if (!date) return showToast('Please pick a date', 'error');
+  if (!time) return showToast('Please pick a time', 'error');
+
+  const now = new Date();
+  const payload = {
+    leadId: currentLead['Lead ID'],
+    caller: session.name,
+    callDate: now.toISOString().slice(0, 10),
+    callTime: now.toTimeString().slice(0, 5),
+    status: 'Call Later',
+    nextCallDate: date,
+    nextCallTime: time,
+    priority,
+    notes,
+  };
+
+  const data = await apiPost('saveCallLog', payload);
+  if (data.success) {
+    closeModal('callLaterModal');
+    showToast('Callback scheduled');
+    await loadTelecallerData();
+  } else {
+    showToast(data.error || 'Failed to schedule', 'error');
+  }
+}
+
+// ============================================================
+// VISIT READY MODAL
+// ============================================================
+function openVisitReady() {
+  document.getElementById('visitReadyTitle').textContent = `🚗 Schedule Visit — ${currentLead['Name'] || currentLead['Lead ID']}`;
+  ['visitAddress','visitBudget','visitNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('visitPropertyType').value = '';
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+  document.getElementById('visitDate').value = tomorrow;
+  document.getElementById('visitTime').value = '11:00';
+  document.getElementById('visitReadyModal').classList.add('show');
+}
+
+async function submitVisitReady() {
+  const address = document.getElementById('visitAddress').value.trim();
+  const propertyType = document.getElementById('visitPropertyType').value;
+  const budget = document.getElementById('visitBudget').value;
+  const date = document.getElementById('visitDate').value;
+  const time = document.getElementById('visitTime').value;
+  const notes = document.getElementById('visitNotes').value.trim();
+
+  if (!address) return showToast('Address is required', 'error');
+  if (!propertyType) return showToast('Property type is required', 'error');
+  if (!date) return showToast('Visit date is required', 'error');
+  if (!time) return showToast('Visit time is required', 'error');
+
+  const now = new Date();
+  const payload = {
+    leadId: currentLead['Lead ID'],
+    caller: session.name,
+    callDate: now.toISOString().slice(0, 10),
+    callTime: now.toTimeString().slice(0, 5),
+    status: 'Visit Ready',
+    address, propertyType, budget,
+    visitDate: date, visitTime: time,
+    notes,
+  };
+
+  const data = await apiPost('saveCallLog', payload);
+  if (data.success) {
+    closeModal('visitReadyModal');
+    showToast('Visit assigned to Visit Team');
+    await loadTelecallerData();
+  } else {
+    showToast(data.error || 'Failed to assign visit', 'error');
+  }
+}
+
+function backToCallStatus() {
+  closeModal('callLaterModal');
+  closeModal('visitReadyModal');
+  if (currentLead) openCallStatus(currentLead);
+}
+
+// ============================================================
+// DASHBOARD STATS
+// ============================================================
+function renderDashboardStats() {
+  const role = session.role;
+  const period = currentPeriod.dashboard || 'day';
+  const today = new Date().toISOString().slice(0, 10);
+
+  let cards = [];
+  if (role === 'Admin') {
+    cards = [
+      { value: allLeads.length, label: 'Total Leads', cls: '' },
+      { value: allCallLogs.filter(c => c['Call Date'] === today).length, label: "Today's Calls", cls: 'cyan' },
+      { value: allLeads.filter(l => l['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
+      { value: allUsers.filter(u => u.status === 'Active').length, label: 'Active Users', cls: 'green' },
+    ];
+  } else if (role === 'Telecaller') {
+    const myCalls = allCallLogs.filter(c => c['Caller'] === session.name && c['Call Date'] === today);
+    cards = [
+      { value: myCalls.length, label: "Today's Calls", cls: '' },
+      { value: myCalls.filter(c => c['Status'] === 'Interested').length, label: 'Interested', cls: 'green' },
+      { value: myCalls.filter(c => c['Status'] === 'Visit Ready').length, label: 'Visit Ready', cls: 'amber' },
+      { value: myCalls.filter(c => c['Status'] === 'Call Later').length, label: 'Callbacks', cls: 'cyan' },
+    ];
+  } else {
+    cards = [
+      { value: '—', label: 'Assigned', cls: '' },
+      { value: '—', label: 'In Progress', cls: 'amber' },
+      { value: '—', label: 'Completed', cls: 'green' },
+      { value: '—', label: 'Pending', cls: 'red' },
+    ];
+  }
+
+  document.getElementById('statsGrid').innerHTML = cards.map(c => `
+    <div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>
+  `).join('');
+
+  document.getElementById('dashEmpty').textContent =
+    role === 'Admin' ? 'Detailed analytics will appear here.' : 'Your performance summary appears above.';
+}
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+async function pollNotifications() {
+  try {
+    const data = await apiGet('checkNotifications', { role: session.role, username: session.username || '' });
+    const items = extractArray(data, ['notifications']);
+    const unread = items.filter(n => n['Status'] !== 'Read' && !n['Read At']);
+    updateBell(unread);
+  } catch (err) {
+    // silent
+  }
+}
+
+function updateBell(items) {
+  const count = document.getElementById('bellCount');
+  const dropdown = document.getElementById('bellDropdown');
+
+  if (items.length === 0) {
+    count.classList.add('hide');
+    dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>';
+    return;
+  }
+
+  count.textContent = items.length;
+  count.classList.remove('hide');
+
+  dropdown.innerHTML = `
+    <div class="bell-header">Notifications (${items.length})</div>
+    ${items.map(n => `
+      <div class="bell-item">
+        <div><strong>${n['Type'] || 'Alert'}</strong></div>
+        <div>${n['Details'] || n['Notes'] || ''}</div>
+        <div class="time">${n['Created At'] || ''}</div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function toggleBell(e) {
+  e.stopPropagation();
+  document.getElementById('bellDropdown').classList.toggle('show');
+}
+
+document.addEventListener('click', (e) => {
+  const dd = document.getElementById('bellDropdown');
+  if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show');
+});
+
+// ============================================================
+// MODAL HELPERS
+// ============================================================
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+});
+
+// ============================================================
 // TOAST
-// ============================================
+// ============================================================
 function showToast(text, type = 'success') {
   const el = document.getElementById('toast');
   el.textContent = text;
@@ -667,9 +1298,9 @@ function showToast(text, type = 'success') {
   setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-// ============================================
+// ============================================================
 // LOGOUT
-// ============================================
+// ============================================================
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.clear();
@@ -677,12 +1308,23 @@ function logout() {
   }
 }
 
-// ============================================
-// AUTO-LOAD USERS IF ADMIN
-// ============================================
-if (session.role === 'Admin') {
-  loadUsers();
-}
+// ============================================================
+// INIT
+// ============================================================
+(async function init() {
+  renderDashboardStats();
+
+  if (session.role === 'Admin') {
+    loadUsers();
+    loadLeads();
+    loadCallLogs();
+  } else if (session.role === 'Telecaller') {
+    loadTelecallerData();
+  }
+
+  pollNotifications();
+  setInterval(pollNotifications, 30000);
+})();
 </script>
 
 </body>
