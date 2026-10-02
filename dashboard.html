@@ -1391,18 +1391,20 @@ async function loadUsers() {
   if (tbody) {
     tbody.innerHTML = users.map(u => `
       <tr>
-        <td>${u.userId || '-'}</td>
-        <td><strong>${u.name}</strong></td>
-        <td><span class="badge role">${u.role}</span></td>
-        <td>${u.phone || '-'}</td>
-        <td>${u.username}</td>
-        <td><span class="badge ${u.status === 'Active' ? 'active' : 'inactive'}">${u.status}</span></td>
+        <td>${u['User ID'] || '-'}</td>
+        <td><strong>${u['Name'] || '-'}</strong></td>
+        <td><span class="badge role">${u['Role'] || '-'}</span></td>
+        <td>${u['Phone'] || '-'}</td>
+        <td>${u['Username'] || '-'}</td>
+        <td><span class="badge ${u['Status'] === 'Active' ? 'active' : 'inactive'}">${u['Status'] || '-'}</span></td>
         <td>
           <button class="btn-sm btn-call" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
-          <button class="btn-sm btn-warning" onclick='toggleUser("${u.userId}", "${u.status}")'>${u.status === 'Active' ? 'Block' : 'Unblock'}</button>
+          <button class="btn-sm btn-warning" onclick='toggleUser("${u['User ID']}", "${u['Status']}")'>${u['Status'] === 'Active' ? 'Block' : 'Unblock'}</button>
         </td>
       </tr>
     `).join('');
+  }
+}
   }
 }
 
@@ -1416,13 +1418,13 @@ function openUserModal() {
 
 function editUser(u) {
   document.getElementById('modalTitle').textContent = 'Edit User';
-  document.getElementById('editUserId').value = u.userId;
-  document.getElementById('formName').value = u.name;
-  document.getElementById('formPhone').value = u.phone || '';
-  document.getElementById('formRole').value = u.role;
-  document.getElementById('formUsername').value = u.username;
-  document.getElementById('formPassword').value = u.password || '';
-  document.getElementById('formEmail').value = u.email || '';
+  document.getElementById('editUserId').value = u['User ID'];
+  document.getElementById('formName').value = u['Name'];
+  document.getElementById('formPhone').value = u['Phone'] || '';
+  document.getElementById('formRole').value = u['Role'];
+  document.getElementById('formUsername').value = u['Username'];
+  document.getElementById('formPassword').value = u['Password'] || '';
+  document.getElementById('formEmail').value = u['Email'] || '';
   document.getElementById('userModal').classList.add('show');
 }
 
@@ -1780,7 +1782,7 @@ function parseBulkText(text) {
     if (h.includes('name')) headerMap.name = i;
     else if (h.includes('phone') || h.includes('contact') || h.includes('mobile')) headerMap.phone = i;
     else if (h.includes('source')) headerMap.source = i;
-    else if (h.includes('assigned') && h.includes('to')) headerMap.assignedTo = i;
+    else if (h.includes('assigned')) headerMap.assignedTo = i;
     else if (h.includes('address')) headerMap.address = i;
     else if (h.includes('date')) headerMap.date = i;
   });
