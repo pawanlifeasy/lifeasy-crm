@@ -1780,7 +1780,7 @@ function parseBulkText(text) {
     if (h.includes('name')) headerMap.name = i;
     else if (h.includes('phone') || h.includes('contact') || h.includes('mobile')) headerMap.phone = i;
     else if (h.includes('source')) headerMap.source = i;
-    else if (h.includes('assigned')) headerMap.assignedTo = i;
+    else if (h.includes('assigned') && h.includes('to')) headerMap.assignedTo = i;
     else if (h.includes('address')) headerMap.address = i;
     else if (h.includes('date')) headerMap.date = i;
   });
