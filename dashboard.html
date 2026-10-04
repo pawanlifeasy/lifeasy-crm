@@ -155,6 +155,21 @@ tr:hover { background: #F1F5F9; }
 .toast.success { background: #10B981; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
+
+/* Telecaller Summary Card */
+.tc-summary-card {
+  background: #FFFFFF; border-radius: 14px; padding: 18px 20px;
+  margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-left: 4px solid #4A90D9;
+}
+.tc-summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+.tc-summary-name { font-weight: 700; font-size: 16px; color: #0F172A; }
+.tc-summary-count { font-size: 12px; color: #64748B; background: #F1F5F9; padding: 4px 10px; border-radius: 8px; }
+.tc-summary-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.tc-summary-stat { text-align: center; padding: 10px 6px; background: #F8FAFC; border-radius: 8px; }
+.tc-summary-stat .val { font-size: 20px; font-weight: 700; color: #0F172A; }
+.tc-summary-stat .lbl { font-size: 10px; color: #64748B; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
+
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -168,6 +183,7 @@ tr:hover { background: #F1F5F9; }
   .modal.wide { max-width: 95vw; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .chart-container { height: 240px; }
+  .tc-summary-stats { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
@@ -233,7 +249,14 @@ tr:hover { background: #F1F5F9; }
     <div class="toolbar">
       <input type="text" id="leadsSearch" placeholder="🔍 Search name or phone..." oninput="renderLeads()">
       <select id="leadsFilter" onchange="renderLeads()">
-        <option value="">All Status</option><option>New</option><option>Call Completed</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option>
+        <option value="">All Status</option>
+        <option>New</option>
+        <option>Call Later</option>
+        <option>Interested</option>
+        <option>Visit Ready</option>
+        <option>Not Interested</option>
+        <option>Not Answered</option>
+        <option>Wrong Number</option>
       </select>
     </div>
     <div class="table-card">
@@ -261,18 +284,32 @@ tr:hover { background: #F1F5F9; }
       <div class="chart-title">📈 Call Progress</div>
       <div class="chart-container"><canvas id="telecallerChart"></canvas></div>
     </div>
+
+    <!-- Admin Only: All Telecallers Summary -->
+    <div id="adminTelecallerSection" style="display:none;">
+      <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">👥 All Telecallers Summary</h3>
+      <div id="tcSummaryContainer"></div>
+    </div>
+
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search..." oninput="renderTelecallerLeads()">
           <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
-            <option value="">All Status</option><option>New</option><option>Call Completed</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option>
+            <option value="">All Status</option>
+            <option>New</option>
+            <option>Call Later</option>
+            <option>Interested</option>
+            <option>Visit Ready</option>
+            <option>Not Interested</option>
+            <option>Not Answered</option>
+            <option>Wrong Number</option>
           </select>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
-            <tbody id="tcLeadsBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+            <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
+            <tbody id="tcLeadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -303,8 +340,8 @@ tr:hover { background: #F1F5F9; }
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading visits...</td></tr></tbody>
+            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Visitor</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="visitorBody"><tr><td colspan="7" class="empty-state">Loading visits...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -485,9 +522,13 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Call Status</label>
       <select id="editCallStatus">
         <option value="">Select...</option>
-        <option>New</option><option>Call Completed</option><option>Call Later</option>
-        <option>Interested</option><option>Visit Ready</option><option>Not Interested</option>
-        <option>Not Answered</option><option>Wrong Number</option>
+        <option>New</option>
+        <option>Call Later</option>
+        <option>Interested</option>
+        <option>Visit Ready</option>
+        <option>Not Interested</option>
+        <option>Not Answered</option>
+        <option>Wrong Number</option>
       </select>
     </div>
     <div class="form-group"><label>Next Call Date</label><input type="date" id="editNextCallDate"></div>
@@ -734,22 +775,24 @@ function renderDashboard() {
     const myLeads = allTelecallerData;
     const total = myLeads.length;
     const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const callComplete = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
     const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
     const callLater = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-    const notIntWrong = myLeads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number').length;
+    const notIntWrong = myLeads.filter(l =>
+      l['Call_Status'] === 'Not Interested' ||
+      l['Call_Status'] === 'Wrong Number' ||
+      l['Call_Status'] === 'Call Completed'
+    ).length;
     cards = [
       { value: total, label: 'Total Call', cls: '' },
       { value: done, label: 'Call Done', cls: 'green' },
-      { value: callComplete, label: 'Call Complete', cls: 'purple' },
       { value: visitReady, label: 'Visit Ready', cls: 'amber' },
       { value: callLater, label: 'Call Later', cls: 'cyan' },
       { value: notIntWrong, label: 'Not Int / Wrong', cls: 'red' },
     ];
     chartData = {
-      labels: ['Call Complete', 'Visit Ready', 'Call Later', 'Not Int/Wrong'],
-      data: [callComplete, visitReady, callLater, notIntWrong],
-      colors: ['#8B5CF6', '#F59E0B', '#06B6D4', '#EF4444']
+      labels: ['Visit Ready', 'Call Later', 'Not Int/Wrong'],
+      data: [visitReady, callLater, notIntWrong],
+      colors: ['#F59E0B', '#06B6D4', '#EF4444']
     };
   } else {
     cards = [
@@ -916,48 +959,109 @@ function statusToClass(status) {
   const map = {
     'New': 'new', 'Interested': 'interested', 'Not Interested': 'not',
     'Call Later': 'later', 'Visit Ready': 'visit', 'Wrong Number': 'gray',
-    'Call Completed': 'installed', 'Not Answered': 'gray',
+    'Call Completed': 'not', 'Not Answered': 'gray',
   };
   return map[status] || 'new';
 }
 
 async function loadTelecallerData() {
-  const data = await apiGet('getTelecallerData', { role: session.role, username: session.name });
-  allTelecallerData = extractArray(data, ['data']);
+  // ✅ Admin ko saare leads dikhenge, telecaller ko sirf apne
+  if (session.role === 'Admin') {
+    const data = await apiGet('getTelecallerData', { role: 'Admin', username: '' });
+    allTelecallerData = extractArray(data, ['data']);
+  } else {
+    const data = await apiGet('getTelecallerData', { role: session.role, username: session.name });
+    allTelecallerData = extractArray(data, ['data']);
+  }
   renderTelecallerStats();
   renderTelecallerLeads();
   renderTelecallerCallbacks();
   renderCallbackBanner();
+  if (session.role === 'Admin') renderTelecallerSummary();
 }
 
-// ✅ FIXED: 6 cards (Total / Call Done / Call Complete / Visit Ready / Call Later / Not Int-Wrong)
 function renderTelecallerStats() {
-  const myLeads = allTelecallerData;
+  const myLeads = session.role === 'Admin'
+    ? allTelecallerData
+    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+
   const total = myLeads.length;
   const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-  const callComplete = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
   const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
   const callLater = myLeads.filter(l =>
     l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
   ).length;
   const notIntWrong = myLeads.filter(l =>
-    l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number'
+    l['Call_Status'] === 'Not Interested' ||
+    l['Call_Status'] === 'Wrong Number' ||
+    l['Call_Status'] === 'Call Completed'
   ).length;
 
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
-    <div class="stat-card purple"><div class="stat-value">${callComplete}</div><div class="stat-label">Call Complete</div></div>
     <div class="stat-card amber"><div class="stat-value">${visitReady}</div><div class="stat-label">Visit Ready</div></div>
     <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
     <div class="stat-card red"><div class="stat-value">${notIntWrong}</div><div class="stat-label">Not Int / Wrong</div></div>
   `;
 
   drawChart('telecallerChart', {
-    labels: ['Call Complete', 'Visit Ready', 'Call Later', 'Not Int/Wrong'],
-    data: [callComplete, visitReady, callLater, notIntWrong],
-    colors: ['#8B5CF6', '#F59E0B', '#06B6D4', '#EF4444']
+    labels: ['Visit Ready', 'Call Later', 'Not Int/Wrong'],
+    data: [visitReady, callLater, notIntWrong],
+    colors: ['#F59E0B', '#06B6D4', '#EF4444']
   }, 'pie');
+}
+
+// ✅ NAYA: Admin ke liye saare telecallers ka summary
+function renderTelecallerSummary() {
+  const section = document.getElementById('adminTelecallerSection');
+  const container = document.getElementById('tcSummaryContainer');
+  if (!section || !container) return;
+  if (session.role !== 'Admin') { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  // Get all unique telecallers from data
+  const telecallers = {};
+  allTelecallerData.forEach(l => {
+    const name = l['Assigned To'] || 'Unassigned';
+    if (!telecallers[name]) telecallers[name] = [];
+    telecallers[name].push(l);
+  });
+
+  if (!Object.keys(telecallers).length) {
+    container.innerHTML = '<div class="empty-state">No telecallers with data</div>';
+    return;
+  }
+
+  container.innerHTML = Object.entries(telecallers).map(([name, leads]) => {
+    const total = leads.length;
+    const done = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+    const visitReady = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+    const callLater = leads.filter(l =>
+      l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
+    ).length;
+    const notIntWrong = leads.filter(l =>
+      l['Call_Status'] === 'Not Interested' ||
+      l['Call_Status'] === 'Wrong Number' ||
+      l['Call_Status'] === 'Call Completed'
+    ).length;
+
+    return `
+      <div class="tc-summary-card">
+        <div class="tc-summary-header">
+          <span class="tc-summary-name">👤 ${name}</span>
+          <span class="tc-summary-count">${total} leads assigned</span>
+        </div>
+        <div class="tc-summary-stats">
+          <div class="tc-summary-stat"><div class="val">${total}</div><div class="lbl">Total</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#10B981">${done}</div><div class="lbl">Done</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#F59E0B">${visitReady}</div><div class="lbl">Visit</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#06B6D4">${callLater}</div><div class="lbl">Later</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#EF4444">${notIntWrong}</div><div class="lbl">Not Int</div></div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function renderTelecallerLeads() {
@@ -965,7 +1069,13 @@ function renderTelecallerLeads() {
   if (!tbody) return;
   const q = (document.getElementById('tcSearch')?.value || '').toLowerCase();
   const filter = (document.getElementById('tcStatusFilter')?.value) || '';
-  let leads = allTelecallerData.filter(l => {
+
+  // ✅ Admin: saare leads, Telecaller: sirf apne
+  let baseData = session.role === 'Admin'
+    ? allTelecallerData
+    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+
+  let leads = baseData.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
       const name = (l['Customer_Name'] || '').toLowerCase();
@@ -975,7 +1085,7 @@ function renderTelecallerLeads() {
     return true;
   });
   if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads assigned to you</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>';
     return;
   }
   tbody.innerHTML = leads.map(l => {
@@ -986,6 +1096,7 @@ function renderTelecallerLeads() {
         <td>${l['Lead ID'] || '-'}</td>
         <td><strong>${l['Customer_Name'] || '-'}</strong></td>
         <td>${l['Contact_Number'] || '-'}</td>
+        <td>${l['Assigned To'] || '-'}</td>
         <td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status'] || 'New'}</span></td>
         <td class="${ncCls}">${nextCall || '—'}</td>
         <td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️ Edit</button></td>
@@ -993,10 +1104,14 @@ function renderTelecallerLeads() {
     `;
   }).join('');
 }
+
 function renderTelecallerCallbacks() {
   const el = document.getElementById('tcCallbacks');
   if (!el) return;
-  const pending = allTelecallerData.filter(l => l['Next Call Date'])
+  let baseData = session.role === 'Admin'
+    ? allTelecallerData
+    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+  const pending = baseData.filter(l => l['Next Call Date'])
     .sort((a, b) => String(a['Next Call Date']).localeCompare(String(b['Next Call Date'])));
   if (!pending.length) {
     el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
@@ -1014,11 +1129,15 @@ function renderTelecallerCallbacks() {
     `;
   }).join('');
 }
+
 function renderCallbackBanner() {
   const el = document.getElementById('tcCallbackBanner');
   if (!el) return;
   const today = getISTDate();
-  const due = allTelecallerData.filter(l => {
+  let baseData = session.role === 'Admin'
+    ? allTelecallerData
+    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+  const due = baseData.filter(l => {
     const nc = String(l['Next Call Date'] || '').slice(0, 10);
     return nc && nc <= today;
   });
@@ -1057,7 +1176,6 @@ async function saveEditedLead() {
   const address = document.getElementById('editAddress').value;
   const notes = document.getElementById('editNotes').value;
 
-  // ✅ Auto Next Call Date
   if ((callStatus === 'Call Later' || callStatus === 'Not Answered') && !nextCallDate) {
     nextCallDate = getTomorrowIST();
   }
@@ -1312,6 +1430,7 @@ async function loadVisitorData() {
   const data = await apiGet('getVisitorData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
   renderVisitorStats(rows);
+  renderVisitorTable(rows);
 }
 function renderVisitorStats(rows = []) {
   document.getElementById('visitorStats').innerHTML = `
@@ -1322,6 +1441,26 @@ function renderVisitorStats(rows = []) {
   `;
   drawChart('visitorChart', { labels: ['Pending','Confirm','Done'], data: [0,0,rows.length], colors: ['#F59E0B','#06B6D4','#10B981'] }, 'pie');
 }
+function renderVisitorTable(rows = []) {
+  const tbody = document.getElementById('visitorBody');
+  if (!tbody) return;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No visits assigned</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r['Visit ID'] || '-'}</td>
+      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+      <td>${r['Contact_Number'] || '-'}</td>
+      <td>${r['Visitor_Name'] || '-'}</td>
+      <td>${r['Visit Date'] || '-'}</td>
+      <td><span class="badge ${r['Visit_Status'] === 'Done' ? 'installed' : 'pending'}">${r['Visit_Status'] || 'Pending'}</span></td>
+      <td>${r['Visit_Status'] !== 'Done' ? `<button class="btn-sm btn-success" onclick="markVisitDone('${r['Visit ID']}')">✅ Done</button>` : '—'}</td>
+    </tr>
+  `).join('');
+}
+
 async function loadDesignerData() {
   const data = await apiGet('getDesignerData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
