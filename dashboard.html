@@ -66,6 +66,9 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-warning { background: #F59E0B; color: #fff; }
 .btn-warning:hover { background: #D97706; }
 .btn-success { background: #10B981; color: #fff; }
+.btn-success:hover { background: #059669; }
+.btn-info { background: #06B6D4; color: #fff; }
+.btn-info:hover { background: #0891B2; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -99,6 +102,8 @@ tr:hover { background: #F1F5F9; }
 .badge.gray { background: #F1F5F9; color: #475569; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
+.badge.orange { background: #FED7AA; color: #9A3412; }
+.badge.blue { background: #DBEAFE; color: #1E40AF; }
 .next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; border-left: 3px solid #F59E0B; }
 .next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; animation: pulse-bg 2s infinite; }
 @keyframes pulse-bg { 0%, 100% { background: #FEE2E2; } 50% { background: #FCA5A5; } }
@@ -124,6 +129,7 @@ tr:hover { background: #F1F5F9; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; background: #FFFFFF; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4A90D9; }
 .form-group textarea { resize: vertical; min-height: 80px; }
+.form-group input[readonly] { background: #F1F5F9; }
 .required { color: #EF4444; }
 .radio-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid #E2E8F0; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; font-size: 14px; }
 .radio-option:hover { background: #F8FAFC; border-color: #4A90D9; }
@@ -156,6 +162,14 @@ tr:hover { background: #F1F5F9; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
 
+/* View Details Modal */
+.detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
+.detail-row:last-child { border-bottom: none; }
+.detail-label { font-size: 13px; color: #64748B; font-weight: 500; width: 130px; flex-shrink: 0; }
+.detail-value { font-size: 14px; color: #0F172A; font-weight: 500; word-break: break-word; flex: 1; }
+.detail-section { margin-bottom: 20px; }
+.detail-section-title { font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
+
 /* Telecaller Summary Card */
 .tc-summary-card {
   background: #FFFFFF; border-radius: 14px; padding: 18px 20px;
@@ -184,6 +198,7 @@ tr:hover { background: #F1F5F9; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .chart-container { height: 240px; }
   .tc-summary-stats { grid-template-columns: repeat(3, 1fr); }
+  .detail-label { width: 100px; font-size: 12px; }
 }
 </style>
 </head>
@@ -250,13 +265,9 @@ tr:hover { background: #F1F5F9; }
       <input type="text" id="leadsSearch" placeholder="🔍 Search name or phone..." oninput="renderLeads()">
       <select id="leadsFilter" onchange="renderLeads()">
         <option value="">All Status</option>
-        <option>New</option>
-        <option>Call Later</option>
-        <option>Interested</option>
-        <option>Visit Ready</option>
-        <option>Not Interested</option>
-        <option>Not Answered</option>
-        <option>Wrong Number</option>
+        <option>New</option><option>Call Later</option><option>Interested</option>
+        <option>Visit Ready</option><option>Not Interested</option>
+        <option>Not Answered</option><option>Wrong Number</option>
       </select>
     </div>
     <div class="table-card">
@@ -284,26 +295,19 @@ tr:hover { background: #F1F5F9; }
       <div class="chart-title">📈 Call Progress</div>
       <div class="chart-container"><canvas id="telecallerChart"></canvas></div>
     </div>
-
-    <!-- Admin Only: All Telecallers Summary -->
     <div id="adminTelecallerSection" style="display:none;">
       <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">👥 All Telecallers Summary</h3>
       <div id="tcSummaryContainer"></div>
     </div>
-
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search..." oninput="renderTelecallerLeads()">
           <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
             <option value="">All Status</option>
-            <option>New</option>
-            <option>Call Later</option>
-            <option>Interested</option>
-            <option>Visit Ready</option>
-            <option>Not Interested</option>
-            <option>Not Answered</option>
-            <option>Wrong Number</option>
+            <option>New</option><option>Call Later</option><option>Interested</option>
+            <option>Visit Ready</option><option>Not Interested</option>
+            <option>Not Answered</option><option>Wrong Number</option>
           </select>
         </div>
         <div class="table-wrap">
@@ -325,11 +329,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-visitor">
     <div class="section-header">
       <h1 class="section-title">🚗 Visitor</h1>
-      <div class="period-selector" id="vsPeriod">
-        <button class="active" onclick="setPeriod('visitor','day',this)">Day</button>
-        <button onclick="setPeriod('visitor','month',this)">Month</button>
-        <button onclick="setPeriod('visitor','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="visitorStats"></div>
     <div class="chart-card">
@@ -340,8 +339,13 @@ tr:hover { background: #F1F5F9; }
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Visitor</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="visitorBody"><tr><td colspan="7" class="empty-state">Loading visits...</td></tr></tbody>
+            <thead>
+              <tr>
+                <th>Visit ID</th><th>Customer</th><th>Phone</th>
+                <th>Address</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading visits...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -351,11 +355,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
-      <div class="period-selector" id="dsPeriod">
-        <button class="active" onclick="setPeriod('designer','day',this)">Day</button>
-        <button onclick="setPeriod('designer','month',this)">Month</button>
-        <button onclick="setPeriod('designer','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="designerStats"></div>
     <div class="chart-card">
@@ -377,11 +376,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
-      <div class="period-selector" id="prPeriod">
-        <button class="active" onclick="setPeriod('production','day',this)">Day</button>
-        <button onclick="setPeriod('production','month',this)">Month</button>
-        <button onclick="setPeriod('production','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="productionStats"></div>
     <div class="chart-card">
@@ -403,11 +397,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
-      <div class="period-selector" id="dpPeriod">
-        <button class="active" onclick="setPeriod('dispatch','day',this)">Day</button>
-        <button onclick="setPeriod('dispatch','month',this)">Month</button>
-        <button onclick="setPeriod('dispatch','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="dispatchStats"></div>
     <div class="chart-card">
@@ -429,11 +418,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
-      <div class="period-selector" id="inPeriod">
-        <button class="active" onclick="setPeriod('installation','day',this)">Day</button>
-        <button onclick="setPeriod('installation','month',this)">Month</button>
-        <button onclick="setPeriod('installation','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="installationStats"></div>
     <div class="chart-card">
@@ -455,11 +439,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
-      <div class="period-selector" id="adPeriod">
-        <button class="active" onclick="setPeriod('admin','day',this)">Day</button>
-        <button onclick="setPeriod('admin','month',this)">Month</button>
-        <button onclick="setPeriod('admin','year',this)">Year</button>
-      </div>
     </div>
     <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#0F172A;">🔔 Pending Assignments</h3>
     <div class="table-card">
@@ -522,13 +501,9 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Call Status</label>
       <select id="editCallStatus">
         <option value="">Select...</option>
-        <option>New</option>
-        <option>Call Later</option>
-        <option>Interested</option>
-        <option>Visit Ready</option>
-        <option>Not Interested</option>
-        <option>Not Answered</option>
-        <option>Wrong Number</option>
+        <option>New</option><option>Call Later</option><option>Interested</option>
+        <option>Visit Ready</option><option>Not Interested</option>
+        <option>Not Answered</option><option>Wrong Number</option>
       </select>
     </div>
     <div class="form-group"><label>Next Call Date</label><input type="date" id="editNextCallDate"></div>
@@ -589,14 +564,89 @@ tr:hover { background: #F1F5F9; }
     </div>
     <input type="hidden" id="assignRequestId">
     <input type="hidden" id="assignRequestType">
-    <div class="form-group"><label>Customer</label><input type="text" id="assignCustomer" readonly style="background:#F1F5F9;"></div>
-    <div class="form-group"><label>Request Type</label><input type="text" id="assignTypeLabel" readonly style="background:#F1F5F9;"></div>
+    <div class="form-group"><label>Customer</label><input type="text" id="assignCustomer" readonly></div>
+    <div class="form-group"><label>Request Type</label><input type="text" id="assignTypeLabel" readonly></div>
     <div class="form-group"><label>Assign To <span class="required">*</span></label>
       <select id="assignUserSelect"><option value="">Select user...</option></select>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('assignModal')">Cancel</button>
       <button class="btn-save" onclick="submitAssignment()">✅ Assign</button>
+    </div>
+  </div>
+</div>
+
+<!-- VISITOR: View Details Modal -->
+<div class="modal-overlay" id="visitDetailsModal">
+  <div class="modal wide">
+    <div class="modal-header">
+      <h2 class="modal-title" id="visitDetailsTitle">👁️ Visit Details</h2>
+      <button class="modal-close" onclick="closeModal('visitDetailsModal')">×</button>
+    </div>
+    <div id="visitDetailsBody"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('visitDetailsModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- VISITOR: Mark Visit Done Modal -->
+<div class="modal-overlay" id="visitDoneModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="visitDoneTitle">✅ Mark Visit Done</h2>
+      <button class="modal-close" onclick="closeModal('visitDoneModal')">×</button>
+    </div>
+    <input type="hidden" id="visitDoneId">
+    <div class="form-group">
+      <label>Customer</label>
+      <input type="text" id="visitDoneCustomer" readonly>
+    </div>
+    <div class="form-group">
+      <label>Visit Done Date <span class="required">*</span></label>
+      <input type="date" id="visitDoneDate">
+    </div>
+    <div class="form-group">
+      <label>Property Type</label>
+      <select id="visitDoneProperty">
+        <option value="">Select...</option>
+        <option>Apartment</option><option>Villa</option>
+        <option>Independent House</option><option>Office</option>
+        <option>Shop</option><option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Budget (₹)</label>
+      <input type="number" id="visitDoneBudget" placeholder="e.g., 250000">
+    </div>
+    <div class="form-group">
+      <label>Address (verify/edit)</label>
+      <textarea id="visitDoneAddress" placeholder="Full address"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Customer Interested? <span class="required">*</span></label>
+      <div style="display:flex;gap:10px;">
+        <label class="radio-option" style="flex:1;" onclick="selectInterested('Yes', this)">
+          <input type="radio" name="interested" value="Yes">
+          <span>✅ Yes</span>
+        </label>
+        <label class="radio-option" style="flex:1;" onclick="selectInterested('No', this)">
+          <input type="radio" name="interested" value="No">
+          <span>❌ No</span>
+        </label>
+        <label class="radio-option" style="flex:1;" onclick="selectInterested('Maybe', this)">
+          <input type="radio" name="interested" value="Maybe">
+          <span>🤔 Maybe</span>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Visit Notes</label>
+      <textarea id="visitDoneNotes" placeholder="Customer ne kya bola, kya dekhna hai..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('visitDoneModal')">Cancel</button>
+      <button class="btn-save" id="visitDoneBtn" onclick="submitVisitDone()">✅ Save & Done</button>
     </div>
   </div>
 </div>
@@ -623,15 +673,18 @@ if (session.role === 'Admin') {
 let allLeads = [];
 let allTelecallerData = [];
 let allUsers = [];
+let allVisitorData = [];
 let allAlerts = { telecaller: [], visit: [], designer: [], production: [], dispatch: [], installation: [] };
 let allPendingAssignments = [];
 let currentLead = null;
+let currentVisit = null;
 let currentPeriod = { dashboard: 'day', telecaller: 'day', visitor: 'day', designer: 'day', production: 'day', dispatch: 'day', installation: 'day', admin: 'day' };
 let bulkParsedLeads = [];
 let originalTitle = document.title;
 let titleBlinkInterval = null;
 let audioCtx = null;
 let charts = {};
+let selectedInterested = '';
 
 function getISTDate() {
   const now = new Date();
@@ -642,6 +695,11 @@ function getTomorrowIST() {
   const now = new Date();
   const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000) + 24 * 60 * 60 * 1000);
   return ist.toISOString().slice(0, 10);
+}
+function truncate(text, len = 30) {
+  if (!text) return '—';
+  text = String(text);
+  return text.length > len ? text.slice(0, len) + '...' : text;
 }
 
 async function apiGet(action, params = {}) {
@@ -717,8 +775,6 @@ function setPeriod(page, period, btn) {
   currentPeriod[page] = period;
   btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  if (page === 'dashboard') renderDashboard();
-  if (page === 'telecaller') renderTelecallerStats();
 }
 
 (async function init() {
@@ -730,6 +786,10 @@ function setPeriod(page, period, btn) {
       hideLoader();
     } else if (session.role === 'Telecaller') {
       await loadTelecallerData();
+      renderDashboard();
+      hideLoader();
+    } else if (session.role === 'Visit') {
+      await loadVisitorData();
       renderDashboard();
       hideLoader();
     } else {
@@ -750,6 +810,9 @@ function hideLoader() {
   if (loader) loader.classList.add('hide');
 }
 
+// ============================================================
+// DASHBOARD
+// ============================================================
 function renderDashboard() {
   const role = session.role;
   let cards = [];
@@ -794,6 +857,22 @@ function renderDashboard() {
       data: [visitReady, callLater, notIntWrong],
       colors: ['#F59E0B', '#06B6D4', '#EF4444']
     };
+  } else if (role === 'Visit') {
+    const total = allVisitorData.length;
+    const pending = allVisitorData.filter(v => v['Visit_Status'] === 'Pending').length;
+    const done = allVisitorData.filter(v => v['Visit_Status'] === 'Done').length;
+    const close = allVisitorData.filter(v => v['Visit_Status'] === 'Close').length;
+    cards = [
+      { value: total, label: '📋 Assigned', cls: '' },
+      { value: pending, label: '⏳ In Progress', cls: 'amber' },
+      { value: done, label: '✅ Done', cls: 'cyan' },
+      { value: close, label: '🏁 Ready', cls: 'green' },
+    ];
+    chartData = {
+      labels: ['Pending', 'Done', 'Close'],
+      data: [pending, done, close],
+      colors: ['#F59E0B', '#06B6D4', '#10B981']
+    };
   } else {
     cards = [
       { value: '—', label: 'Assigned', cls: '' },
@@ -832,6 +911,9 @@ function drawChart(canvasId, data, type = 'pie') {
   });
 }
 
+// ============================================================
+// USERS
+// ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
@@ -908,6 +990,9 @@ async function toggleUser(userId, currentStatus) {
   if (data.success) { showToast('Status updated'); loadUsers(); }
 }
 
+// ============================================================
+// LEADS (Admin)
+// ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
   allLeads = extractArray(data, ['data']);
@@ -964,39 +1049,31 @@ function statusToClass(status) {
   return map[status] || 'new';
 }
 
+// ============================================================
+// TELECALLER
+// ============================================================
 async function loadTelecallerData() {
-  // ✅ Admin ko saare leads dikhenge, telecaller ko sirf apne
-  if (session.role === 'Admin') {
-    const data = await apiGet('getTelecallerData', { role: 'Admin', username: '' });
-    allTelecallerData = extractArray(data, ['data']);
-  } else {
-    const data = await apiGet('getTelecallerData', { role: session.role, username: session.name });
-    allTelecallerData = extractArray(data, ['data']);
-  }
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getTelecallerData', { role: roleParam, username: usernameParam });
+  allTelecallerData = extractArray(data, ['data']);
   renderTelecallerStats();
   renderTelecallerLeads();
   renderTelecallerCallbacks();
   renderCallbackBanner();
   if (session.role === 'Admin') renderTelecallerSummary();
 }
-
 function renderTelecallerStats() {
-  const myLeads = session.role === 'Admin'
-    ? allTelecallerData
-    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
-
+  const myLeads = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   const total = myLeads.length;
   const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
   const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-  const callLater = myLeads.filter(l =>
-    l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
-  ).length;
+  const callLater = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
   const notIntWrong = myLeads.filter(l =>
     l['Call_Status'] === 'Not Interested' ||
     l['Call_Status'] === 'Wrong Number' ||
     l['Call_Status'] === 'Call Completed'
   ).length;
-
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
@@ -1004,48 +1081,36 @@ function renderTelecallerStats() {
     <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
     <div class="stat-card red"><div class="stat-value">${notIntWrong}</div><div class="stat-label">Not Int / Wrong</div></div>
   `;
-
   drawChart('telecallerChart', {
     labels: ['Visit Ready', 'Call Later', 'Not Int/Wrong'],
     data: [visitReady, callLater, notIntWrong],
     colors: ['#F59E0B', '#06B6D4', '#EF4444']
   }, 'pie');
 }
-
-// ✅ NAYA: Admin ke liye saare telecallers ka summary
 function renderTelecallerSummary() {
   const section = document.getElementById('adminTelecallerSection');
   const container = document.getElementById('tcSummaryContainer');
   if (!section || !container) return;
   if (session.role !== 'Admin') { section.style.display = 'none'; return; }
   section.style.display = 'block';
-
-  // Get all unique telecallers from data
   const telecallers = {};
   allTelecallerData.forEach(l => {
     const name = l['Assigned To'] || 'Unassigned';
     if (!telecallers[name]) telecallers[name] = [];
     telecallers[name].push(l);
   });
-
   if (!Object.keys(telecallers).length) {
     container.innerHTML = '<div class="empty-state">No telecallers with data</div>';
     return;
   }
-
   container.innerHTML = Object.entries(telecallers).map(([name, leads]) => {
     const total = leads.length;
     const done = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
     const visitReady = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const callLater = leads.filter(l =>
-      l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
-    ).length;
+    const callLater = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
     const notIntWrong = leads.filter(l =>
-      l['Call_Status'] === 'Not Interested' ||
-      l['Call_Status'] === 'Wrong Number' ||
-      l['Call_Status'] === 'Call Completed'
+      l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed'
     ).length;
-
     return `
       <div class="tc-summary-card">
         <div class="tc-summary-header">
@@ -1063,18 +1128,12 @@ function renderTelecallerSummary() {
     `;
   }).join('');
 }
-
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
   if (!tbody) return;
   const q = (document.getElementById('tcSearch')?.value || '').toLowerCase();
   const filter = (document.getElementById('tcStatusFilter')?.value) || '';
-
-  // ✅ Admin: saare leads, Telecaller: sirf apne
-  let baseData = session.role === 'Admin'
-    ? allTelecallerData
-    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
-
+  let baseData = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   let leads = baseData.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
@@ -1104,13 +1163,10 @@ function renderTelecallerLeads() {
     `;
   }).join('');
 }
-
 function renderTelecallerCallbacks() {
   const el = document.getElementById('tcCallbacks');
   if (!el) return;
-  let baseData = session.role === 'Admin'
-    ? allTelecallerData
-    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+  let baseData = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   const pending = baseData.filter(l => l['Next Call Date'])
     .sort((a, b) => String(a['Next Call Date']).localeCompare(String(b['Next Call Date'])));
   if (!pending.length) {
@@ -1129,14 +1185,11 @@ function renderTelecallerCallbacks() {
     `;
   }).join('');
 }
-
 function renderCallbackBanner() {
   const el = document.getElementById('tcCallbackBanner');
   if (!el) return;
   const today = getISTDate();
-  let baseData = session.role === 'Admin'
-    ? allTelecallerData
-    : allTelecallerData.filter(l => l['Assigned To'] === session.name);
+  let baseData = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   const due = baseData.filter(l => {
     const nc = String(l['Next Call Date'] || '').slice(0, 10);
     return nc && nc <= today;
@@ -1153,6 +1206,9 @@ function renderCallbackBanner() {
   `;
 }
 
+// ============================================================
+// EDIT LEAD
+// ============================================================
 function openEditLead(lead) {
   currentLead = lead;
   document.getElementById('editLeadTitle').textContent = `✏️ Edit Lead — ${lead['Customer_Name'] || lead['Lead ID']}`;
@@ -1175,11 +1231,9 @@ async function saveEditedLead() {
   const visitDate = document.getElementById('editVisitDate').value;
   const address = document.getElementById('editAddress').value;
   const notes = document.getElementById('editNotes').value;
-
   if ((callStatus === 'Call Later' || callStatus === 'Not Answered') && !nextCallDate) {
     nextCallDate = getTomorrowIST();
   }
-
   const payload = {
     leadId: leadId,
     'Call_Status': callStatus,
@@ -1194,14 +1248,13 @@ async function saveEditedLead() {
     closeModal('editLeadModal');
     showToast('Lead updated' + (nextCallDate ? ` — Next call: ${nextCallDate}` : ''));
     await loadTelecallerData();
-    if (callStatus === 'Visit Ready' && visitStatus === 'Yes') {
+    if (callStatus === 'Visit Ready') {
       await apiPost('createAssignmentRequest', {
-        fromTeam: 'Telecaller',
-        fromUser: session.name,
+        fromTeam: 'Telecaller', fromUser: session.name,
         customerName: currentLead['Customer_Name'],
         contactNumber: currentLead['Contact_Number'],
         requestType: 'Assign Visitor',
-        notes: `Visit on ${visitDate} at ${address}`
+        notes: `Visit on ${visitDate || 'TBD'} at ${address || 'TBD'}`
       });
       showToast('Request sent to Admin');
     }
@@ -1210,6 +1263,9 @@ async function saveEditedLead() {
   }
 }
 
+// ============================================================
+// BULK UPLOAD
+// ============================================================
 function openBulkUpload() {
   if (session.role !== 'Admin') return showToast('Only Admin can upload', 'error');
   document.getElementById('bulkDate').value = getISTDate();
@@ -1326,6 +1382,226 @@ async function submitBulkUpload() {
   }
 }
 
+// ============================================================
+// VISITOR
+// ============================================================
+async function loadVisitorData() {
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getVisitorData', { role: roleParam, username: usernameParam });
+  allVisitorData = extractArray(data, ['data']);
+  renderVisitorStats();
+  renderVisitorTable();
+}
+function renderVisitorStats() {
+  const rows = allVisitorData;
+  const total = rows.length;
+  const pending = rows.filter(v => v['Visit_Status'] === 'Pending' || !v['Visit_Status']).length;
+  const done = rows.filter(v => v['Visit_Status'] === 'Done').length;
+  const close = rows.filter(v => v['Visit_Status'] === 'Close').length;
+  document.getElementById('visitorStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Visit Pending</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${done}</div><div class="stat-label">Visit Done</div></div>
+    <div class="stat-card green"><div class="stat-value">${close}</div><div class="stat-label">Visit Close</div></div>
+  `;
+  drawChart('visitorChart', {
+    labels: ['Pending', 'Done', 'Close'],
+    data: [pending, done, close],
+    colors: ['#F59E0B', '#06B6D4', '#10B981']
+  }, 'pie');
+}
+function renderVisitorTable() {
+  const tbody = document.getElementById('visitorBody');
+  if (!tbody) return;
+  if (!allVisitorData.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No visits assigned</td></tr>';
+    return;
+  }
+  tbody.innerHTML = allVisitorData.map(r => {
+    const status = r['Visit_Status'] || 'Pending';
+    const badgeCls = status === 'Close' ? 'installed' : status === 'Done' ? 'blue' : 'pending';
+    const addr = truncate(r['Address'] || '', 30);
+
+    let actionBtn = `<button class="btn-sm btn-info" onclick='openVisitDetails(${JSON.stringify(r).replace(/'/g, "&apos;")})'>👁️ View</button>`;
+    if (status === 'Pending') {
+      actionBtn += ` <button class="btn-sm btn-success" onclick='openVisitDone(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✅ Done</button>`;
+    } else if (status === 'Done') {
+      actionBtn += ` <button class="btn-sm btn-success" onclick='markVisitClose("${r['Visit ID']}")'>🏁 Close</button>`;
+    }
+
+    return `
+      <tr>
+        <td>${r['Visit ID'] || '-'}</td>
+        <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+        <td>${r['Contact_Number'] || '-'}</td>
+        <td style="font-size:13px;color:#64748B;">${addr}</td>
+        <td><span class="badge ${badgeCls}">${status}</span></td>
+        <td>${actionBtn}</td>
+      </tr>
+    `;
+  }).join('');
+}
+function openVisitDetails(row) {
+  currentVisit = row;
+  const notes = row['Notes'] || '';
+  // Parse notes for property/budget/interested
+  const propMatch = notes.match(/Property:\s*([^|]+)/);
+  const budgetMatch = notes.match(/Budget:\s*([^|]+)/);
+  const intMatch = notes.match(/Interested:\s*([^|]+)/);
+  const notesMatch = notes.match(/Notes:\s*(.+)$/);
+  const prop = propMatch ? propMatch[1].trim() : '—';
+  const budget = budgetMatch ? budgetMatch[1].trim() : '—';
+  const interested = intMatch ? intMatch[1].trim() : '—';
+  const extraNotes = notesMatch ? notesMatch[1].trim() : '';
+
+  document.getElementById('visitDetailsTitle').textContent = `👁️ Visit Details — ${row['Visit ID'] || ''}`;
+  document.getElementById('visitDetailsBody').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-section-title">📋 Customer Information</div>
+      <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${row['Customer_Name'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${row['Contact_Number'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${row['Address'] || '—'}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">📅 Visit Information</div>
+      <div class="detail-row"><div class="detail-label">Visit ID</div><div class="detail-value">${row['Visit ID'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Visit Date</div><div class="detail-value">${row['Visit Date'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Visit Time</div><div class="detail-value">${row['Visit Time'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Visitor</div><div class="detail-value">${row['Visitor_Name'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${row['Visit_Status'] || 'Pending'}</div></div>
+    </div>
+    ${prop !== '—' || budget !== '—' || interested !== '—' ? `
+    <div class="detail-section">
+      <div class="detail-section-title">🏠 Property Details</div>
+      <div class="detail-row"><div class="detail-label">Property Type</div><div class="detail-value">${prop}</div></div>
+      <div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${budget !== '—' ? '₹ ' + budget : '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${interested}</div></div>
+    </div>
+    ` : ''}
+    ${extraNotes ? `
+    <div class="detail-section">
+      <div class="detail-section-title">📝 Notes</div>
+      <div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${extraNotes}</div>
+    </div>
+    ` : ''}
+  `;
+  document.getElementById('visitDetailsModal').classList.add('show');
+}
+function openVisitDone(row) {
+  currentVisit = row;
+  document.getElementById('visitDoneTitle').textContent = `✅ Mark Visit Done — ${row['Customer_Name']}`;
+  document.getElementById('visitDoneId').value = row['Visit ID'];
+  document.getElementById('visitDoneCustomer').value = row['Customer_Name'];
+  document.getElementById('visitDoneDate').value = getISTDate();
+  document.getElementById('visitDoneProperty').value = '';
+  document.getElementById('visitDoneBudget').value = '';
+  document.getElementById('visitDoneAddress').value = row['Address'] || '';
+  document.getElementById('visitDoneNotes').value = '';
+  selectedInterested = '';
+  document.querySelectorAll('input[name="interested"]').forEach(r => { r.checked = false; r.parentElement.classList.remove('selected'); });
+  document.getElementById('visitDoneModal').classList.add('show');
+}
+function selectInterested(val, el) {
+  selectedInterested = val;
+  document.querySelectorAll('input[name="interested"]').forEach(r => r.parentElement.classList.remove('selected'));
+  el.classList.add('selected');
+}
+async function submitVisitDone() {
+  const visitId = document.getElementById('visitDoneId').value;
+  const visitDate = document.getElementById('visitDoneDate').value;
+  const propertyType = document.getElementById('visitDoneProperty').value;
+  const budget = document.getElementById('visitDoneBudget').value;
+  const address = document.getElementById('visitDoneAddress').value;
+  const notes = document.getElementById('visitDoneNotes').value;
+
+  if (!visitDate) return showToast('Visit date required', 'error');
+  if (!selectedInterested) return showToast('Select customer interested?', 'error');
+
+  const btn = document.getElementById('visitDoneBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+
+  const data = await apiPost('markVisitDone', {
+    visitId: visitId,
+    visitDate: visitDate,
+    propertyType: propertyType,
+    budget: budget,
+    address: address,
+    interested: selectedInterested,
+    notes: notes,
+    by: session.name
+  });
+
+  btn.disabled = false; btn.textContent = '✅ Save & Done';
+
+  if (data.success) {
+    closeModal('visitDoneModal');
+    showToast('Visit marked as Done ✅');
+    await loadVisitorData();
+    renderDashboard();
+  } else {
+    showToast(data.error || 'Failed', 'error');
+  }
+}
+async function markVisitClose(visitId) {
+  if (!confirm('Confirm: Ready for installation? This will forward to Designer team.')) return;
+  const data = await apiPost('markVisitClose', { visitId: visitId, by: session.name });
+  if (data.success) {
+    showToast('Visit Closed — Designer request sent ✅');
+    await loadVisitorData();
+    renderDashboard();
+  } else {
+    showToast(data.error || 'Failed', 'error');
+  }
+}
+
+// ============================================================
+// DESIGNER (stub)
+// ============================================================
+async function loadDesignerData() {
+  const data = await apiGet('getDesignerData', { role: session.role, username: session.name });
+  const rows = extractArray(data, ['data']);
+  document.getElementById('designerStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Materials</div></div>
+    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Complete</div></div>
+  `;
+  drawChart('designerChart', { labels: ['Complete', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+}
+async function loadProductionData() {
+  const data = await apiGet('getProductionData', { role: session.role, username: session.name });
+  const rows = extractArray(data, ['data']);
+  document.getElementById('productionStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Produced</div></div>
+    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
+  `;
+  drawChart('productionChart', { labels: ['Produced', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+}
+async function loadDispatchData() {
+  const data = await apiGet('getDispatchData', { role: session.role, username: session.name });
+  const rows = extractArray(data, ['data']);
+  document.getElementById('dispatchStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Dispatched</div></div>
+    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
+  `;
+  drawChart('dispatchChart', { labels: ['Dispatched', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+}
+async function loadInstallationData() {
+  const data = await apiGet('getInstallationData', { role: session.role, username: session.name });
+  const rows = extractArray(data, ['data']);
+  document.getElementById('installationStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Installed</div></div>
+    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
+  `;
+  drawChart('installationChart', { labels: ['Installed', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+}
+
+// ============================================================
+// ADMIN OVERVIEW
+// ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
   const data = await apiGet('getPendingAssignments');
@@ -1352,17 +1628,14 @@ function renderPendingAssignments() {
     </div>
   `).join('');
 }
-
 function openAssignModal(req) {
   document.getElementById('assignRequestId').value = req['Request ID'];
   document.getElementById('assignRequestType').value = req['Request Type'];
   document.getElementById('assignCustomer').value = req['Customer Name'];
   document.getElementById('assignTypeLabel').value = req['Request Type'];
   const roleMap = {
-    'Assign Visitor': 'Visit',
-    'Assign Designer': 'Designer',
-    'Assign Production': 'Production',
-    'Assign Dispatch': 'Dispatch',
+    'Assign Visitor': 'Visit', 'Assign Designer': 'Designer',
+    'Assign Production': 'Production', 'Assign Dispatch': 'Dispatch',
     'Assign Installation': 'Installation'
   };
   const targetRole = roleMap[req['Request Type']];
@@ -1375,11 +1648,7 @@ async function submitAssignment() {
   const requestId = document.getElementById('assignRequestId').value;
   const assignedTo = document.getElementById('assignUserSelect').value;
   if (!assignedTo) return showToast('Select a user', 'error');
-  const data = await apiPost('assignUser', {
-    requestId: requestId,
-    assignedTo: assignedTo,
-    assignedBy: session.name
-  });
+  const data = await apiPost('assignUser', { requestId, assignedTo, assignedBy: session.name });
   if (data.success) {
     closeModal('assignModal');
     showToast(`Assigned to ${assignedTo}`);
@@ -1426,94 +1695,9 @@ async function renderMasterSheet() {
   `).join('');
 }
 
-async function loadVisitorData() {
-  const data = await apiGet('getVisitorData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
-  renderVisitorStats(rows);
-  renderVisitorTable(rows);
-}
-function renderVisitorStats(rows = []) {
-  document.getElementById('visitorStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Visit Pending</div></div>
-    <div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">Visit Confirm</div></div>
-    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Visit Done</div></div>
-  `;
-  drawChart('visitorChart', { labels: ['Pending','Confirm','Done'], data: [0,0,rows.length], colors: ['#F59E0B','#06B6D4','#10B981'] }, 'pie');
-}
-function renderVisitorTable(rows = []) {
-  const tbody = document.getElementById('visitorBody');
-  if (!tbody) return;
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No visits assigned</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => `
-    <tr>
-      <td>${r['Visit ID'] || '-'}</td>
-      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
-      <td>${r['Contact_Number'] || '-'}</td>
-      <td>${r['Visitor_Name'] || '-'}</td>
-      <td>${r['Visit Date'] || '-'}</td>
-      <td><span class="badge ${r['Visit_Status'] === 'Done' ? 'installed' : 'pending'}">${r['Visit_Status'] || 'Pending'}</span></td>
-      <td>${r['Visit_Status'] !== 'Done' ? `<button class="btn-sm btn-success" onclick="markVisitDone('${r['Visit ID']}')">✅ Done</button>` : '—'}</td>
-    </tr>
-  `).join('');
-}
-
-async function loadDesignerData() {
-  const data = await apiGet('getDesignerData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
-  renderDesignerStats(rows);
-}
-function renderDesignerStats(rows = []) {
-  document.getElementById('designerStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Materials</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
-    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Complete</div></div>
-  `;
-  drawChart('designerChart', { labels: ['Complete', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
-}
-async function loadProductionData() {
-  const data = await apiGet('getProductionData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
-  renderProductionStats(rows);
-}
-function renderProductionStats(rows = []) {
-  document.getElementById('productionStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
-    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Produced</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
-  `;
-  drawChart('productionChart', { labels: ['Produced', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
-}
-async function loadDispatchData() {
-  const data = await apiGet('getDispatchData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
-  renderDispatchStats(rows);
-}
-function renderDispatchStats(rows = []) {
-  document.getElementById('dispatchStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
-    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Dispatched</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
-  `;
-  drawChart('dispatchChart', { labels: ['Dispatched', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
-}
-async function loadInstallationData() {
-  const data = await apiGet('getInstallationData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
-  renderInstallationStats(rows);
-}
-function renderInstallationStats(rows = []) {
-  document.getElementById('installationStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
-    <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Installed</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
-  `;
-  drawChart('installationChart', { labels: ['Installed', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
-}
-
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
 async function loadDailyAlerts() {
   const data = await apiGet('getDailyAlerts', { role: session.role, username: session.name });
   if (data.success && data.alerts) allAlerts = data.alerts;
@@ -1608,6 +1792,9 @@ function showBrowserNotification(title, body) {
   }
 }
 
+// ============================================================
+// HELPERS
+// ============================================================
 function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('show');
