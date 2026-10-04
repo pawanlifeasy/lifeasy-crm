@@ -25,7 +25,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
   --text-light: #64748B;
 }
 
-/* ---------- LOADING ---------- */
 .loading-overlay {
   position: fixed; inset: 0; background: rgba(255,255,255,0.95);
   display: flex; align-items: center; justify-content: center;
@@ -46,7 +45,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .loading-text { color: #64748B; font-size: 14px; font-weight: 500; }
 
-/* ---------- TOPBAR ---------- */
 .topbar {
   background: #FFFFFF; padding: 14px 24px;
   display: flex; justify-content: space-between; align-items: center;
@@ -71,7 +69,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .logout-btn:hover { background: #EF4444; color: #fff; }
 
-/* ---------- BELL ---------- */
 .bell-wrap { position: relative; }
 .bell {
   position: relative; cursor: pointer; font-size: 20px;
@@ -103,7 +100,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .bell-item .time { color: #64748B; font-size: 11px; margin-top: 4px; }
 .bell-empty { padding: 30px; text-align: center; color: #64748B; font-size: 13px; }
 
-/* ---------- TABS ---------- */
 .tabs {
   background: #FFFFFF; padding: 0 24px;
   display: flex; gap: 4px; overflow-x: auto;
@@ -118,7 +114,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .tab:hover { color: #4A90D9; }
 .tab.active { color: #2563EB; border-bottom-color: #4A90D9; font-weight: 600; }
 
-/* ---------- CONTENT ---------- */
 .content { padding: 24px; max-width: 1280px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
@@ -128,7 +123,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .section-title { font-size: 24px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 10px; }
 
-/* ---------- PERIOD SELECTOR ---------- */
 .period-selector {
   display: flex; background: #FFFFFF;
   border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;
@@ -145,7 +139,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
   background: #4A90D9; color: #fff; font-weight: 600;
 }
 
-/* ---------- BUTTONS ---------- */
 .btn {
   padding: 10px 18px; border-radius: 10px; font-size: 14px;
   font-weight: 600; cursor: pointer; font-family: inherit;
@@ -166,7 +159,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-warning:hover { background: #D97706; }
 .btn-success { background: #10B981; color: #fff; }
 
-/* ---------- STATS ---------- */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -187,7 +179,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .stat-value { font-size: 30px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
 .stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
 
-/* ---------- CHART ---------- */
 .chart-card {
   background: #FFFFFF; border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px;
@@ -196,7 +187,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .chart-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
 .chart-container { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
 
-/* ---------- TABLE ---------- */
 .table-card {
   background: #FFFFFF; border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -214,7 +204,6 @@ tr { border-bottom: 1px solid #E2E8F0; transition: background 0.15s; }
 tr:last-child { border-bottom: none; }
 tr:hover { background: #F1F5F9; }
 
-/* ---------- BADGES ---------- */
 .badge { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #D1FAE5; color: #065F46; }
 .badge.inactive { background: #FEE2E2; color: #991B1B; }
@@ -228,7 +217,6 @@ tr:hover { background: #F1F5F9; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
 
-/* ---------- NEXT CALL HIGHLIGHT ---------- */
 .next-call-today {
   background: #FEF3C7 !important; color: #92400E !important;
   font-weight: 700 !important; border-left: 3px solid #F59E0B;
@@ -244,7 +232,6 @@ tr:hover { background: #F1F5F9; }
 }
 .next-call-normal { color: #64748B; }
 
-/* ---------- TOOLBAR ---------- */
 .toolbar {
   display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
   padding: 16px; background: #F8FAFC; border-radius: 12px;
@@ -257,7 +244,6 @@ tr:hover { background: #F1F5F9; }
 .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
 .toolbar input { flex: 1; min-width: 200px; }
 
-/* ---------- ALERT BANNER ---------- */
 .alert-banner {
   background: #FEF3C7; border-left: 4px solid #F59E0B;
   padding: 16px 20px; border-radius: 12px;
@@ -269,7 +255,6 @@ tr:hover { background: #F1F5F9; }
 .alert-banner strong { color: #92400E; font-size: 14px; }
 .alert-banner.overdue strong { color: #991B1B; }
 
-/* ---------- MODAL ---------- */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(15,23,42,0.6);
   display: none; align-items: center; justify-content: center;
@@ -297,7 +282,6 @@ tr:hover { background: #F1F5F9; }
 }
 .modal-close:hover { background: #FEE2E2; color: #EF4444; }
 
-/* ---------- FORM ---------- */
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #0F172A; margin-bottom: 6px; }
 .form-group input, .form-group select, .form-group textarea {
@@ -309,7 +293,6 @@ tr:hover { background: #F1F5F9; }
 .form-group textarea { resize: vertical; min-height: 80px; }
 .required { color: #EF4444; }
 
-/* ---------- RADIO ---------- */
 .radio-option {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px; border: 2px solid #E2E8F0;
@@ -320,7 +303,6 @@ tr:hover { background: #F1F5F9; }
 .radio-option.selected { border-color: #4A90D9; background: #EFF6FF; font-weight: 600; }
 .radio-option input { width: auto; margin: 0; }
 
-/* ---------- MODAL ACTIONS ---------- */
 .modal-actions {
   display: flex; gap: 10px; margin-top: 24px;
   padding-top: 20px; border-top: 1px solid #E2E8F0;
@@ -336,7 +318,6 @@ tr:hover { background: #F1F5F9; }
 .btn-save:hover { background: #2563EB; }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* ---------- UPLOAD ---------- */
 .upload-zone {
   border: 2px dashed #E2E8F0; border-radius: 12px;
   padding: 40px 20px; text-align: center;
@@ -349,7 +330,6 @@ tr:hover { background: #F1F5F9; }
 .preview-table table { font-size: 12px; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
 
-/* ---------- CALLBACK ---------- */
 .callback-list { max-height: 400px; overflow-y: auto; margin: 12px 0; }
 .callback-item {
   padding: 14px 16px; border: 1px solid #E2E8F0;
@@ -363,10 +343,8 @@ tr:hover { background: #F1F5F9; }
 .callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
 .callback-info .meta { font-size: 12px; color: #64748B; margin-top: 4px; }
 
-/* ---------- EMPTY ---------- */
 .empty-state { padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; }
 
-/* ---------- TOAST ---------- */
 .toast {
   position: fixed; bottom: 28px; right: 28px;
   background: #0F172A; color: #fff;
@@ -382,7 +360,6 @@ tr:hover { background: #F1F5F9; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
 
-/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -400,9 +377,6 @@ tr:hover { background: #F1F5F9; }
 </style>
 </head>
 <body>
-<!-- ============================================================
-     LOADING OVERLAY
-     ============================================================ -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-dots">
     <span></span>
@@ -412,9 +386,6 @@ tr:hover { background: #F1F5F9; }
   <div class="loading-text">Loading Lifeasy CRM...</div>
 </div>
 
-<!-- ============================================================
-     TOPBAR
-     ============================================================ -->
 <div class="topbar">
   <div class="brand">
     <span class="brand-icon">🏢</span>
@@ -437,17 +408,10 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     TABS
-     ============================================================ -->
 <div class="tabs" id="tabs"></div>
 
-<!-- ============================================================
-     CONTENT
-     ============================================================ -->
 <div class="content">
 
-  <!-- ========== DASHBOARD ========== -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">📊 Dashboard</h1>
@@ -466,7 +430,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== USERS ========== -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">👤 User Management</h1>
@@ -489,7 +452,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== LEADS (Admin only) ========== -->
   <div class="section" id="section-leads">
     <div class="section-header">
       <h1 class="section-title">📋 All Leads</h1>
@@ -526,7 +488,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== TELECALLER ========== -->
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
@@ -583,7 +544,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== VISITOR ========== -->
   <div class="section" id="section-visitor">
     <div class="section-header">
       <h1 class="section-title">🚗 Visitor</h1>
@@ -619,7 +579,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== DESIGNER ========== -->
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
@@ -655,7 +614,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== PRODUCTION ========== -->
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
@@ -691,7 +649,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== DISPATCH ========== -->
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
@@ -727,7 +684,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== INSTALLATION ========== -->
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
@@ -763,7 +719,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== ADMIN ========== -->
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
@@ -813,9 +768,6 @@ tr:hover { background: #F1F5F9; }
 
 </div>
 
-<!-- ============================================================
-     MODAL: USER
-     ============================================================ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
@@ -842,9 +794,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: CALL STATUS
-     ============================================================ -->
 <div class="modal-overlay" id="callStatusModal">
   <div class="modal">
     <div class="modal-header">
@@ -863,9 +812,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: CALL LATER
-     ============================================================ -->
 <div class="modal-overlay" id="callLaterModal">
   <div class="modal">
     <div class="modal-header">
@@ -885,9 +831,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: VISIT READY
-     ============================================================ -->
 <div class="modal-overlay" id="visitReadyModal">
   <div class="modal">
     <div class="modal-header">
@@ -914,9 +857,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: EDIT LEAD
-     ============================================================ -->
 <div class="modal-overlay" id="editLeadModal">
   <div class="modal">
     <div class="modal-header">
@@ -957,9 +897,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: BULK UPLOAD
-     ============================================================ -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -1003,9 +940,6 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: ASSIGN USER
-     ============================================================ -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal">
     <div class="modal-header">
@@ -1035,9 +969,6 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: MATERIAL (Designer)
-     ============================================================ -->
 <div class="modal-overlay" id="materialModal">
   <div class="modal">
     <div class="modal-header">
@@ -1060,9 +991,6 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
-<!-- ============================================================
-     TOAST
-     ============================================================ -->
 <div class="toast" id="toast"></div>
 </body>
 <script>
@@ -1082,11 +1010,9 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
   window.location.href = 'index.html';
 }
 
-// Set user info
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
-// Show bulk upload only for Admin
 if (session.role === 'Admin') {
   const bulkBtn = document.getElementById('bulkUploadBtn');
   if (bulkBtn) bulkBtn.style.display = 'inline-flex';
@@ -1263,29 +1189,15 @@ function hideLoader() {
 }
 
 // ============================================================
-// DASHBOARD
+// DASHBOARD — ✅ FIXED: removed inPeriod filter
 // ============================================================
 function renderDashboard() {
   const role = session.role;
-  const period = currentPeriod.dashboard;
-  const today = getISTDate();
-  const month = today.slice(0, 7);
-  const year = today.slice(0, 4);
-  
-  function inPeriod(d) {
-    if (!d) return false;
-    const s = String(d).slice(0, 10);
-    if (period === 'day') return s === today;
-    if (period === 'month') return s.startsWith(month);
-    if (period === 'year') return s.startsWith(year);
-    return true;
-  }
-  
   let cards = [];
   let chartData = {};
   
   if (role === 'Admin') {
-    const calls = allLeads.filter(l => inPeriod(l['Date'])).length;
+    const calls = allLeads.length;
     const visitReady = allLeads.filter(l => l['Visit Status'] === 'Yes').length;
     
     cards = [
@@ -1463,7 +1375,7 @@ async function toggleUser(userId, currentStatus) {
 }
 
 // ============================================================
-// LEADS (Admin)
+// LEADS (Admin) — ✅ Uses getLeads (Leads sheet)
 // ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
@@ -1539,22 +1451,9 @@ async function loadTelecallerData() {
   renderCallbackBanner();
 }
 
+// ✅ FIXED: removed inPeriod filter
 function renderTelecallerStats() {
-  const period = currentPeriod.telecaller;
-  const today = getISTDate();
-  const month = today.slice(0, 7);
-  const year = today.slice(0, 4);
-  
-  function inPeriod(d) {
-    if (!d) return false;
-    const s = String(d).slice(0, 10);
-    if (period === 'day') return s === today;
-    if (period === 'month') return s.startsWith(month);
-    if (period === 'year') return s.startsWith(year);
-    return true;
-  }
-  
-  const myLeads = allTelecallerData.filter(l => inPeriod(l['Date']));
+  const myLeads = allTelecallerData;
   const total = myLeads.length;
   const done = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
   const visitConfirm = myLeads.filter(l => l['Visit Status'] === 'Yes').length;
@@ -1580,7 +1479,7 @@ function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
   if (!tbody) return;
   const q = (document.getElementById('tcSearch')?.value || '').toLowerCase();
-  const filter = document.getElementById('tcStatusFilter')?.value || '';
+  const filter = (document.getElementById('tcStatusFilter')?.value) || '';
   
   let leads = allTelecallerData.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
@@ -1846,7 +1745,8 @@ async function submitBulkUpload() {
   
   if (data.success) {
     closeModal('bulkUploadModal');
-    showToast(`${data.added || bulkParsedLeads.length} leads imported`);
+    const msg = `${data.added || 0} leads imported — Leads: ${data.mirrored || 0}, Skipped: ${data.skipped || 0}`;
+    showToast(msg);
     await loadLeadsForAdmin();
     await loadTelecallerData();
   } else {
