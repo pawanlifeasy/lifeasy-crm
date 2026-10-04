@@ -8,93 +8,34 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
 body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
-
 :root {
-  --primary: #4A90D9;
-  --primary-dark: #2563EB;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --info: #06B6D4;
-  --purple: #8B5CF6;
-  --bg: #F8FAFC;
-  --card: #FFFFFF;
-  --hover: #F1F5F9;
-  --border: #E2E8F0;
-  --text: #0F172A;
-  --text-light: #64748B;
+  --primary: #4A90D9; --primary-dark: #2563EB; --success: #10B981;
+  --warning: #F59E0B; --danger: #EF4444; --info: #06B6D4; --purple: #8B5CF6;
+  --bg: #F8FAFC; --card: #FFFFFF; --hover: #F1F5F9; --border: #E2E8F0;
+  --text: #0F172A; --text-light: #64748B;
 }
-
-/* ---------- LOADING ---------- */
-.loading-overlay {
-  position: fixed; inset: 0; background: rgba(255,255,255,0.95);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 20px; z-index: 9999;
-  transition: opacity 0.4s;
-}
+.loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; z-index: 9999; transition: opacity 0.4s; }
 .loading-overlay.hide { opacity: 0; pointer-events: none; }
 .loading-dots { display: flex; gap: 12px; }
-.loading-dots span {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: #4A90D9; animation: bounce 1.4s infinite;
-}
+.loading-dots span { width: 14px; height: 14px; border-radius: 50%; background: #4A90D9; animation: bounce 1.4s infinite; }
 .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
 .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-  40% { transform: scale(1.2); opacity: 1; }
-}
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; } 40% { transform: scale(1.2); opacity: 1; } }
 .loading-text { color: #64748B; font-size: 14px; font-weight: 500; }
-
-/* ---------- TOPBAR ---------- */
-.topbar {
-  background: #FFFFFF; padding: 14px 24px;
-  display: flex; justify-content: space-between; align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  position: sticky; top: 0; z-index: 100;
-  border-bottom: 1px solid #E2E8F0;
-}
+.topbar { background: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #E2E8F0; }
 .brand { font-weight: 700; font-size: 18px; color: #0F172A; display: flex; align-items: center; gap: 8px; }
 .brand-icon { font-size: 22px; }
 .user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
 .user-name { font-weight: 600; color: #0F172A; }
-.user-role {
-  background: #DBEAFE; color: #1E40AF;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 600;
-}
-.logout-btn {
-  background: #FEE2E2; color: #EF4444; border: none;
-  padding: 8px 16px; border-radius: 10px;
-  font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
-  transition: all 0.2s;
-}
+.user-role { background: #DBEAFE; color: #1E40AF; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.logout-btn { background: #FEE2E2; color: #EF4444; border: none; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
 .logout-btn:hover { background: #EF4444; color: #fff; }
-
-/* ---------- BELL ---------- */
 .bell-wrap { position: relative; }
-.bell {
-  position: relative; cursor: pointer; font-size: 20px;
-  padding: 8px 10px; border-radius: 10px; background: #F1F5F9;
-  transition: all 0.2s;
-}
+.bell { position: relative; cursor: pointer; font-size: 20px; padding: 8px 10px; border-radius: 10px; background: #F1F5F9; transition: all 0.2s; }
 .bell:hover { background: #E2E8F0; }
-.bell-count {
-  position: absolute; top: 2px; right: 2px;
-  background: #EF4444; color: #fff;
-  font-size: 10px; font-weight: 700;
-  padding: 2px 6px; border-radius: 10px;
-  min-width: 18px; text-align: center;
-}
+.bell-count { position: absolute; top: 2px; right: 2px; background: #EF4444; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center; }
 .bell-count.hide { display: none; }
-.bell-dropdown {
-  position: absolute; top: 100%; right: 0; margin-top: 10px;
-  width: 360px; background: #FFFFFF;
-  border: 1px solid #E2E8F0; border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-  display: none; z-index: 200;
-  max-height: 440px; overflow-y: auto;
-}
+.bell-dropdown { position: absolute; top: 100%; right: 0; margin-top: 10px; width: 360px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); display: none; z-index: 200; max-height: 440px; overflow-y: auto; }
 .bell-dropdown.show { display: block; }
 .bell-header { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; font-weight: 700; font-size: 14px; }
 .bell-item { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; }
@@ -102,82 +43,33 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .bell-item:last-child { border-bottom: none; }
 .bell-item .time { color: #64748B; font-size: 11px; margin-top: 4px; }
 .bell-empty { padding: 30px; text-align: center; color: #64748B; font-size: 13px; }
-
-/* ---------- TABS ---------- */
-.tabs {
-  background: #FFFFFF; padding: 0 24px;
-  display: flex; gap: 4px; overflow-x: auto;
-  border-bottom: 1px solid #E2E8F0; scrollbar-width: none;
-}
+.tabs { background: #FFFFFF; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid #E2E8F0; scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
-.tab {
-  padding: 16px 18px; font-size: 14px; font-weight: 500;
-  color: #64748B; border-bottom: 3px solid transparent;
-  cursor: pointer; white-space: nowrap; transition: all 0.2s;
-}
+.tab { padding: 16px 18px; font-size: 14px; font-weight: 500; color: #64748B; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
 .tab:hover { color: #4A90D9; }
 .tab.active { color: #2563EB; border-bottom-color: #4A90D9; font-weight: 600; }
-
-/* ---------- CONTENT ---------- */
 .content { padding: 24px; max-width: 1280px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
-.section-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 22px; flex-wrap: wrap; gap: 14px;
-}
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 14px; }
 .section-title { font-size: 24px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 10px; }
-
-/* ---------- PERIOD SELECTOR ---------- */
-.period-selector {
-  display: flex; background: #FFFFFF;
-  border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;
-}
-.period-selector button {
-  padding: 10px 18px; background: transparent; border: none;
-  cursor: pointer; font-size: 13px; color: #64748B;
-  border-right: 1px solid #E2E8F0; font-family: inherit;
-  font-weight: 500; transition: all 0.2s;
-}
+.period-selector { display: flex; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; }
+.period-selector button { padding: 10px 18px; background: transparent; border: none; cursor: pointer; font-size: 13px; color: #64748B; border-right: 1px solid #E2E8F0; font-family: inherit; font-weight: 500; transition: all 0.2s; }
 .period-selector button:last-child { border-right: none; }
 .period-selector button:hover { background: #F1F5F9; }
-.period-selector button.active {
-  background: #4A90D9; color: #fff; font-weight: 600;
-}
-
-/* ---------- BUTTONS ---------- */
-.btn {
-  padding: 10px 18px; border-radius: 10px; font-size: 14px;
-  font-weight: 600; cursor: pointer; font-family: inherit;
-  border: none; display: inline-flex; align-items: center;
-  gap: 6px; transition: all 0.2s;
-}
+.period-selector button.active { background: #4A90D9; color: #fff; font-weight: 600; }
+.btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
 .btn-primary { background: #4A90D9; color: #fff; }
 .btn-primary:hover { background: #2563EB; }
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-sm {
-  padding: 6px 12px; border-radius: 8px;
-  font-size: 12px; font-weight: 600; cursor: pointer;
-  border: none; font-family: inherit; transition: all 0.15s;
-}
+.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
 .btn-call { background: #4A90D9; color: #fff; }
 .btn-call:hover { background: #2563EB; }
 .btn-warning { background: #F59E0B; color: #fff; }
 .btn-warning:hover { background: #D97706; }
 .btn-success { background: #10B981; color: #fff; }
-
-/* ---------- STATS ---------- */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px; margin-bottom: 24px;
-}
-.stat-card {
-  background: #FFFFFF; padding: 22px;
-  border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  border-left: 4px solid #4A90D9;
-  transition: all 0.2s;
-}
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
 .stat-card.green { border-left-color: #10B981; }
 .stat-card.amber { border-left-color: #F59E0B; }
@@ -186,35 +78,17 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .stat-card.purple { border-left-color: #8B5CF6; }
 .stat-value { font-size: 30px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
 .stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
-
-/* ---------- CHART ---------- */
-.chart-card {
-  background: #FFFFFF; border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px;
-  margin-bottom: 20px;
-}
+.chart-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px; margin-bottom: 20px; }
 .chart-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
 .chart-container { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
-
-/* ---------- TABLE ---------- */
-.table-card {
-  background: #FFFFFF; border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  overflow: hidden; margin-bottom: 20px;
-}
+.table-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 20px; }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
-th {
-  background: #F8FAFC; font-weight: 600; color: #64748B;
-  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
-  border-bottom: 1px solid #E2E8F0;
-}
+th { background: #F8FAFC; font-weight: 600; color: #64748B; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #E2E8F0; }
 tr { border-bottom: 1px solid #E2E8F0; transition: background 0.15s; }
 tr:last-child { border-bottom: none; }
 tr:hover { background: #F1F5F9; }
-
-/* ---------- BADGES ---------- */
 .badge { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #D1FAE5; color: #065F46; }
 .badge.inactive { background: #FEE2E2; color: #991B1B; }
@@ -227,162 +101,62 @@ tr:hover { background: #F1F5F9; }
 .badge.gray { background: #F1F5F9; color: #475569; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
-
-/* ---------- NEXT CALL HIGHLIGHT ---------- */
-.next-call-today {
-  background: #FEF3C7 !important; color: #92400E !important;
-  font-weight: 700 !important; border-left: 3px solid #F59E0B;
-}
-.next-call-overdue {
-  background: #FEE2E2 !important; color: #991B1B !important;
-  font-weight: 700 !important; border-left: 3px solid #EF4444;
-  animation: pulse-bg 2s infinite;
-}
-@keyframes pulse-bg {
-  0%, 100% { background: #FEE2E2; }
-  50% { background: #FCA5A5; }
-}
+.next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; border-left: 3px solid #F59E0B; }
+.next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; animation: pulse-bg 2s infinite; }
+@keyframes pulse-bg { 0%, 100% { background: #FEE2E2; } 50% { background: #FCA5A5; } }
 .next-call-normal { color: #64748B; }
-
-/* ---------- TOOLBAR ---------- */
-.toolbar {
-  display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
-  padding: 16px; background: #F8FAFC; border-radius: 12px;
-}
-.toolbar input, .toolbar select {
-  padding: 10px 14px; border: 2px solid #E2E8F0;
-  border-radius: 10px; font-size: 13px;
-  outline: none; font-family: inherit; background: #FFFFFF;
-}
+.toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; padding: 16px; background: #F8FAFC; border-radius: 12px; }
+.toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
 .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
 .toolbar input { flex: 1; min-width: 200px; }
-
-/* ---------- ALERT BANNER ---------- */
-.alert-banner {
-  background: #FEF3C7; border-left: 4px solid #F59E0B;
-  padding: 16px 20px; border-radius: 12px;
-  margin-bottom: 18px; display: flex;
-  align-items: center; justify-content: space-between;
-  gap: 12px; flex-wrap: wrap;
-}
+.alert-banner { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 12px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .alert-banner.overdue { background: #FEE2E2; border-left-color: #EF4444; }
 .alert-banner strong { color: #92400E; font-size: 14px; }
 .alert-banner.overdue strong { color: #991B1B; }
-
-/* ---------- MODAL ---------- */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(15,23,42,0.6);
-  display: none; align-items: center; justify-content: center;
-  z-index: 1000; padding: 20px;
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .modal-overlay.show { display: flex; }
-.modal {
-  background: #FFFFFF; border-radius: 20px; padding: 28px;
-  max-width: 500px; width: 100%;
-  max-height: 90vh; overflow-y: auto;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
+.modal { background: #FFFFFF; border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
 .modal.wide { max-width: 750px; }
-.modal-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 22px; padding-bottom: 16px;
-  border-bottom: 1px solid #E2E8F0;
-}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid #E2E8F0; }
 .modal-title { font-size: 20px; font-weight: 700; color: #0F172A; }
-.modal-close {
-  background: #F8FAFC; border: none; font-size: 22px;
-  cursor: pointer; color: #64748B;
-  width: 34px; height: 34px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-}
+.modal-close { background: #F8FAFC; border: none; font-size: 22px; cursor: pointer; color: #64748B; width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .modal-close:hover { background: #FEE2E2; color: #EF4444; }
-
-/* ---------- FORM ---------- */
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #0F172A; margin-bottom: 6px; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; padding: 11px 14px;
-  border: 2px solid #E2E8F0; border-radius: 10px;
-  font-size: 14px; outline: none; font-family: inherit; background: #FFFFFF;
-}
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; background: #FFFFFF; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4A90D9; }
 .form-group textarea { resize: vertical; min-height: 80px; }
 .required { color: #EF4444; }
-
-/* ---------- RADIO ---------- */
-.radio-option {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px; border: 2px solid #E2E8F0;
-  border-radius: 12px; margin-bottom: 10px; cursor: pointer;
-  transition: all 0.15s; font-size: 14px;
-}
+.radio-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid #E2E8F0; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; font-size: 14px; }
 .radio-option:hover { background: #F8FAFC; border-color: #4A90D9; }
 .radio-option.selected { border-color: #4A90D9; background: #EFF6FF; font-weight: 600; }
 .radio-option input { width: auto; margin: 0; }
-
-/* ---------- MODAL ACTIONS ---------- */
-.modal-actions {
-  display: flex; gap: 10px; margin-top: 24px;
-  padding-top: 20px; border-top: 1px solid #E2E8F0;
-}
-.modal-actions button {
-  flex: 1; padding: 13px; border-radius: 10px;
-  font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
-}
+.modal-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #E2E8F0; }
+.modal-actions button { flex: 1; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-cancel { background: #F1F5F9; color: #0F172A; border: none; }
 .btn-cancel:hover { background: #E2E8F0; }
 .btn-save { background: #4A90D9; color: #fff; border: none; }
 .btn-save:hover { background: #2563EB; }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
-
-/* ---------- UPLOAD ---------- */
-.upload-zone {
-  border: 2px dashed #E2E8F0; border-radius: 12px;
-  padding: 40px 20px; text-align: center;
-  background: #F8FAFC; cursor: pointer;
-  transition: all 0.2s;
-}
+.upload-zone { border: 2px dashed #E2E8F0; border-radius: 12px; padding: 40px 20px; text-align: center; background: #F8FAFC; cursor: pointer; transition: all 0.2s; }
 .upload-zone:hover { border-color: #4A90D9; background: #EFF6FF; }
 .upload-zone input { display: none; }
 .preview-table { max-height: 240px; overflow: auto; border: 1px solid #E2E8F0; border-radius: 8px; margin: 12px 0; }
 .preview-table table { font-size: 12px; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
-
-/* ---------- CALLBACK ---------- */
 .callback-list { max-height: 400px; overflow-y: auto; margin: 12px 0; }
-.callback-item {
-  padding: 14px 16px; border: 1px solid #E2E8F0;
-  border-radius: 12px; margin-bottom: 10px;
-  display: flex; justify-content: space-between;
-  align-items: center; gap: 12px;
-}
+.callback-item { padding: 14px 16px; border: 1px solid #E2E8F0; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
 .callback-item.today { background: #FEF3C7; border-color: #FCD34D; }
 .callback-info { flex: 1; }
 .callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
 .callback-info .meta { font-size: 12px; color: #64748B; margin-top: 4px; }
-
-/* ---------- EMPTY ---------- */
 .empty-state { padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; }
-
-/* ---------- TOAST ---------- */
-.toast {
-  position: fixed; bottom: 28px; right: 28px;
-  background: #0F172A; color: #fff;
-  padding: 16px 22px; border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
-  font-size: 14px; font-weight: 500;
-  opacity: 0; transform: translateY(20px);
-  transition: all 0.3s; z-index: 2000;
-  pointer-events: none; max-width: 400px;
-}
+.toast { position: fixed; bottom: 28px; right: 28px; background: #0F172A; color: #fff; padding: 16px 22px; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; max-width: 400px; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.success { background: #10B981; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
-
-/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -400,36 +174,19 @@ tr:hover { background: #F1F5F9; }
 </style>
 </head>
 <body>
-<!-- ============================================================
-     LOADING OVERLAY
-     ============================================================ -->
+<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-dots">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  <div class="loading-dots"><span></span><span></span><span></span></div>
   <div class="loading-text">Loading Lifeasy CRM...</div>
 </div>
 
-<!-- ============================================================
-     TOPBAR
-     ============================================================ -->
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="brand">
-    <span class="brand-icon">🏢</span>
-    <span>Lifeasy CRM</span>
-  </div>
+  <div class="brand"><span class="brand-icon">🏢</span><span>Lifeasy CRM</span></div>
   <div class="user-info">
     <div class="bell-wrap">
-      <div class="bell" onclick="toggleBell(event)">
-        🔔
-        <span class="bell-count hide" id="bellCount">0</span>
-      </div>
-      <div class="bell-dropdown" id="bellDropdown">
-        <div class="bell-header">Notifications</div>
-        <div class="bell-empty">No notifications</div>
-      </div>
+      <div class="bell" onclick="toggleBell(event)">🔔<span class="bell-count hide" id="bellCount">0</span></div>
+      <div class="bell-dropdown" id="bellDropdown"><div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div></div>
     </div>
     <span class="user-name" id="userName">-</span>
     <span class="user-role" id="userRole">-</span>
@@ -437,17 +194,13 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     TABS
-     ============================================================ -->
+<!-- TABS -->
 <div class="tabs" id="tabs"></div>
 
-<!-- ============================================================
-     CONTENT
-     ============================================================ -->
+<!-- CONTENT -->
 <div class="content">
 
-  <!-- ========== DASHBOARD ========== -->
+  <!-- DASHBOARD -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">📊 Dashboard</h1>
@@ -460,13 +213,11 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="statsGrid"></div>
     <div class="chart-card">
       <div class="chart-title">📈 My Progress</div>
-      <div class="chart-container">
-        <canvas id="dashboardChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="dashboardChart"></canvas></div>
     </div>
   </div>
 
-  <!-- ========== USERS ========== -->
+  <!-- USERS -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">👤 User Management</h1>
@@ -475,21 +226,14 @@ tr:hover { background: #F1F5F9; }
     <div class="table-card">
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>User ID</th><th>Name</th><th>Role</th>
-              <th>Phone</th><th>Username</th><th>Status</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="usersTbody">
-            <tr><td colspan="7" class="empty-state">Loading users...</td></tr>
-          </tbody>
+          <thead><tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTbody"><tr><td colspan="7" class="empty-state">Loading users...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- ========== LEADS (Admin only) ========== -->
+  <!-- LEADS -->
   <div class="section" id="section-leads">
     <div class="section-header">
       <h1 class="section-title">📋 All Leads</h1>
@@ -498,35 +242,20 @@ tr:hover { background: #F1F5F9; }
     <div class="toolbar">
       <input type="text" id="leadsSearch" placeholder="🔍 Search name or phone..." oninput="renderLeads()">
       <select id="leadsFilter" onchange="renderLeads()">
-        <option value="">All Status</option>
-        <option>New</option>
-        <option>Call Completed</option>
-        <option>Call Later</option>
-        <option>Interested</option>
-        <option>Visit Ready</option>
-        <option>Not Interested</option>
-        <option>Not Answered</option>
-        <option>Wrong Number</option>
+        <option value="">All Status</option><option>New</option><option>Call Completed</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option>
       </select>
     </div>
     <div class="table-card">
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>Lead ID</th><th>Customer</th><th>Phone</th>
-              <th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="leadsBody">
-            <tr><td colspan="7" class="empty-state">Loading leads...</td></tr>
-          </tbody>
+          <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
+          <tbody id="leadsBody"><tr><td colspan="7" class="empty-state">Loading leads...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- ========== TELECALLER ========== -->
+  <!-- TELECALLER -->
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
@@ -540,37 +269,20 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="tcStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Call Progress</div>
-      <div class="chart-container">
-        <canvas id="telecallerChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="telecallerChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search..." oninput="renderTelecallerLeads()">
           <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
-            <option value="">All Status</option>
-            <option>New</option>
-            <option>Call Completed</option>
-            <option>Call Later</option>
-            <option>Interested</option>
-            <option>Visit Ready</option>
-            <option>Not Interested</option>
-            <option>Not Answered</option>
-            <option>Wrong Number</option>
+            <option value="">All Status</option><option>New</option><option>Call Completed</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option>
           </select>
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Lead ID</th><th>Customer</th><th>Phone</th>
-                <th>Status</th><th>Next Call</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="tcLeadsBody">
-              <tr><td colspan="6" class="empty-state">Loading...</td></tr>
-            </tbody>
+            <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
+            <tbody id="tcLeadsBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -583,7 +295,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ========== VISITOR ========== -->
+  <!-- VISITOR -->
   <div class="section" id="section-visitor">
     <div class="section-header">
       <h1 class="section-title">🚗 Visitor</h1>
@@ -596,30 +308,21 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="visitorStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Visit Progress</div>
-      <div class="chart-container">
-        <canvas id="visitorChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="visitorChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Visit ID</th><th>Customer</th><th>Phone</th>
-                <th>Date</th><th>Time</th><th>Status</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="visitorBody">
-              <tr><td colspan="7" class="empty-state">Loading visits...</td></tr>
-            </tbody>
+            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading visits...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ========== DESIGNER ========== -->
+  <!-- DESIGNER -->
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
@@ -632,30 +335,21 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="designerStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Material Progress</div>
-      <div class="chart-container">
-        <canvas id="designerChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="designerChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Customer</th><th>Designer</th><th>Material</th>
-                <th>Qty</th><th>UOM</th><th>Size</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="designerBody">
-              <tr><td colspan="7" class="empty-state">Loading materials...</td></tr>
-            </tbody>
+            <thead><tr><th>Customer</th><th>Designer</th><th>Material</th><th>Qty</th><th>UOM</th><th>Size</th><th>Action</th></tr></thead>
+            <tbody id="designerBody"><tr><td colspan="7" class="empty-state">Loading materials...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ========== PRODUCTION ========== -->
+  <!-- PRODUCTION -->
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
@@ -668,30 +362,21 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="productionStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Production Progress</div>
-      <div class="chart-container">
-        <canvas id="productionChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="productionChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Customer</th><th>Material</th><th>Qty</th>
-                <th>Available</th><th>Produced</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="productionBody">
-              <tr><td colspan="6" class="empty-state">Loading production...</td></tr>
-            </tbody>
+            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Available</th><th>Produced</th><th>Action</th></tr></thead>
+            <tbody id="productionBody"><tr><td colspan="6" class="empty-state">Loading production...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ========== DISPATCH ========== -->
+  <!-- DISPATCH -->
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
@@ -704,30 +389,21 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="dispatchStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Dispatch Progress</div>
-      <div class="chart-container">
-        <canvas id="dispatchChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="dispatchChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Customer</th><th>Material</th><th>Date</th>
-                <th>Qty</th><th>Vehicle</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="dispatchBody">
-              <tr><td colspan="6" class="empty-state">Loading dispatches...</td></tr>
-            </tbody>
+            <thead><tr><th>Customer</th><th>Material</th><th>Date</th><th>Qty</th><th>Vehicle</th><th>Action</th></tr></thead>
+            <tbody id="dispatchBody"><tr><td colspan="6" class="empty-state">Loading dispatches...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ========== INSTALLATION ========== -->
+  <!-- INSTALLATION -->
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
@@ -740,30 +416,21 @@ tr:hover { background: #F1F5F9; }
     <div class="stats-grid" id="installationStats"></div>
     <div class="chart-card">
       <div class="chart-title">📈 Installation Progress</div>
-      <div class="chart-container">
-        <canvas id="installationChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="installationChart"></canvas></div>
     </div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Customer</th><th>Material</th><th>Qty</th>
-                <th>Date</th><th>Final Date</th><th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="installationBody">
-              <tr><td colspan="6" class="empty-state">Loading installations...</td></tr>
-            </tbody>
+            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Date</th><th>Final Date</th><th>Action</th></tr></thead>
+            <tbody id="installationBody"><tr><td colspan="6" class="empty-state">Loading installations...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ========== ADMIN ========== -->
+  <!-- ADMIN -->
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
@@ -773,45 +440,28 @@ tr:hover { background: #F1F5F9; }
         <button onclick="setPeriod('admin','year',this)">Year</button>
       </div>
     </div>
-
     <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#0F172A;">🔔 Pending Assignments</h3>
     <div class="table-card">
-      <div style="padding:20px;" id="pendingAssignments">
-        <div class="empty-state">Loading...</div>
-      </div>
+      <div style="padding:20px;" id="pendingAssignments"><div class="empty-state">Loading...</div></div>
     </div>
-
     <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">📊 All Teams Progress</h3>
     <div class="stats-grid" id="adminStats"></div>
-
     <div class="chart-card">
       <div class="chart-title">📈 All Teams Overview</div>
-      <div class="chart-container" style="max-width:600px;">
-        <canvas id="adminChart"></canvas>
-      </div>
+      <div class="chart-container" style="max-width:600px;"><canvas id="adminChart"></canvas></div>
     </div>
-
     <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">📋 Master Sheet</h3>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Customer</th><th>Phone</th><th>Material</th>
-                <th>Stage</th><th>Status</th><th>Last Updated</th>
-              </tr>
-            </thead>
-            <tbody id="masterBody">
-              <tr><td colspan="6" class="empty-state">Loading master sheet...</td></tr>
-            </tbody>
+            <thead><tr><th>Customer</th><th>Phone</th><th>Material</th><th>Stage</th><th>Status</th><th>Last Updated</th></tr></thead>
+            <tbody id="masterBody"><tr><td colspan="6" class="empty-state">Loading master sheet...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-
-</div>
 
 <!-- ============================================================
      MODAL: USER
@@ -843,78 +493,6 @@ tr:hover { background: #F1F5F9; }
 </div>
 
 <!-- ============================================================
-     MODAL: CALL STATUS
-     ============================================================ -->
-<div class="modal-overlay" id="callStatusModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 class="modal-title" id="callStatusTitle">📞 Call Status</h2>
-      <button class="modal-close" onclick="closeModal('callStatusModal')">×</button>
-    </div>
-    <div class="form-group">
-      <label>Select Status <span class="required">*</span></label>
-      <div id="statusOptions"></div>
-    </div>
-    <div class="form-group"><label>Notes</label><textarea id="callNotes" placeholder="Optional notes..."></textarea></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal('callStatusModal')">Cancel</button>
-      <button class="btn-save" onclick="submitCallStatus()">Save</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODAL: CALL LATER
-     ============================================================ -->
-<div class="modal-overlay" id="callLaterModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 class="modal-title" id="callLaterTitle">⏰ Schedule Callback</h2>
-      <button class="modal-close" onclick="closeModal('callLaterModal')">×</button>
-    </div>
-    <div class="form-group"><label>Next Call Date <span class="required">*</span></label><input type="date" id="nextCallDate"></div>
-    <div class="form-group"><label>Next Call Time <span class="required">*</span></label><input type="time" id="nextCallTime"></div>
-    <div class="form-group"><label>Priority</label>
-      <select id="nextCallPriority"><option>Low</option><option selected>Medium</option><option>High</option></select>
-    </div>
-    <div class="form-group"><label>Notes</label><textarea id="callLaterNotes"></textarea></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
-      <button class="btn-save" onclick="submitCallLater()">Schedule</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODAL: VISIT READY
-     ============================================================ -->
-<div class="modal-overlay" id="visitReadyModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 class="modal-title" id="visitReadyTitle">🚗 Schedule Visit</h2>
-      <button class="modal-close" onclick="closeModal('visitReadyModal')">×</button>
-    </div>
-    <div class="form-group"><label>Address <span class="required">*</span></label><textarea id="visitAddress"></textarea></div>
-    <div class="form-group"><label>Property Type <span class="required">*</span></label>
-      <select id="visitPropertyType">
-        <option value="">Select...</option>
-        <option>Apartment</option><option>Villa</option>
-        <option>Independent House</option><option>Office</option>
-        <option>Shop</option><option>Other</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Budget (₹)</label><input type="number" id="visitBudget"></div>
-    <div class="form-group"><label>Visit Date <span class="required">*</span></label><input type="date" id="visitDate"></div>
-    <div class="form-group"><label>Visit Time <span class="required">*</span></label><input type="time" id="visitTime"></div>
-    <div class="form-group"><label>Notes</label><textarea id="visitNotes"></textarea></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="backToCallStatus()">← Back</button>
-      <button class="btn-save" onclick="submitVisitReady()">Assign Visit</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
      MODAL: EDIT LEAD
      ============================================================ -->
 <div class="modal-overlay" id="editLeadModal">
@@ -929,23 +507,14 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Call Status</label>
       <select id="editCallStatus">
         <option value="">Select...</option>
-        <option>New</option>
-        <option>Call Completed</option>
-        <option>Call Later</option>
-        <option>Interested</option>
-        <option>Visit Ready</option>
-        <option>Not Interested</option>
-        <option>Not Answered</option>
-        <option>Wrong Number</option>
+        <option>New</option><option>Call Completed</option><option>Call Later</option>
+        <option>Interested</option><option>Visit Ready</option><option>Not Interested</option>
+        <option>Not Answered</option><option>Wrong Number</option>
       </select>
     </div>
     <div class="form-group"><label>Next Call Date</label><input type="date" id="editNextCallDate"></div>
     <div class="form-group"><label>Visit Status</label>
-      <select id="editVisitStatus">
-        <option value="">Select...</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+      <select id="editVisitStatus"><option value="">Select...</option><option>Yes</option><option>No</option></select>
     </div>
     <div class="form-group"><label>Visit Date</label><input type="date" id="editVisitDate"></div>
     <div class="form-group"><label>Address</label><textarea id="editAddress"></textarea></div>
@@ -966,12 +535,8 @@ tr:hover { background: #F1F5F9; }
       <h2 class="modal-title">📤 Bulk Upload Leads</h2>
       <button class="modal-close" onclick="closeModal('bulkUploadModal')">×</button>
     </div>
-    <div class="form-group">
-      <label>Upload Date (Auto)</label>
-      <input type="text" id="bulkDate" readonly style="background:#F1F5F9;">
-    </div>
-    <div class="form-group">
-      <label>Upload Method</label>
+    <div class="form-group"><label>Upload Date (Auto)</label><input type="text" id="bulkDate" readonly style="background:#F1F5F9;"></div>
+    <div class="form-group"><label>Upload Method</label>
       <div style="display:flex;gap:10px;margin-bottom:12px;">
         <button class="btn btn-primary" id="bulkFileBtn" onclick="switchBulkTab('file')" style="flex:1;">📁 CSV File</button>
         <button class="btn btn-cancel" id="bulkPasteBtn" onclick="switchBulkTab('paste')" style="flex:1;">📋 Paste Data</button>
@@ -988,13 +553,10 @@ tr:hover { background: #F1F5F9; }
     <div id="bulkPasteSection" style="display:none;">
       <div class="form-group">
         <label>Paste from Excel (tab-separated)</label>
-        <textarea id="bulkPasteArea" rows="6" placeholder="Customer_Name	Contact_Number	Date	Source	Assigned To
-Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPaste()"></textarea>
+        <textarea id="bulkPasteArea" rows="6" placeholder="Customer_Name	Contact_Number	Date	Source	Assigned To" oninput="handleBulkPaste()"></textarea>
       </div>
     </div>
-    <div class="form-group">
-      <label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicate phone numbers</label>
-    </div>
+    <div class="form-group"><label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicate phone numbers</label></div>
     <div id="bulkPreview"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('bulkUploadModal')">Cancel</button>
@@ -1014,48 +576,14 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
     </div>
     <input type="hidden" id="assignRequestId">
     <input type="hidden" id="assignRequestType">
-    <div class="form-group">
-      <label>Customer</label>
-      <input type="text" id="assignCustomer" readonly style="background:#F1F5F9;">
-    </div>
-    <div class="form-group">
-      <label>Request Type</label>
-      <input type="text" id="assignTypeLabel" readonly style="background:#F1F5F9;">
-    </div>
-    <div class="form-group">
-      <label>Assign To <span class="required">*</span></label>
-      <select id="assignUserSelect">
-        <option value="">Select user...</option>
-      </select>
+    <div class="form-group"><label>Customer</label><input type="text" id="assignCustomer" readonly style="background:#F1F5F9;"></div>
+    <div class="form-group"><label>Request Type</label><input type="text" id="assignTypeLabel" readonly style="background:#F1F5F9;"></div>
+    <div class="form-group"><label>Assign To <span class="required">*</span></label>
+      <select id="assignUserSelect"><option value="">Select user...</option></select>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('assignModal')">Cancel</button>
       <button class="btn-save" onclick="submitAssignment()">✅ Assign</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODAL: MATERIAL (Designer)
-     ============================================================ -->
-<div class="modal-overlay" id="materialModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 class="modal-title" id="materialTitle">🎨 Material</h2>
-      <button class="modal-close" onclick="closeModal('materialModal')">×</button>
-    </div>
-    <input type="hidden" id="matRowIndex">
-    <div class="form-group"><label>Customer</label><input type="text" id="matCustomer" readonly style="background:#F1F5F9;"></div>
-    <div class="form-group"><label>Material Description <span class="required">*</span></label><input type="text" id="matItem"></div>
-    <div class="form-group"><label>QTY <span class="required">*</span></label><input type="number" id="matQty"></div>
-    <div class="form-group"><label>UOM</label>
-      <select id="matUom"><option>Pcs</option><option>Sq.ft</option><option>Meter</option><option>Kg</option></select>
-    </div>
-    <div class="form-group"><label>Size</label><input type="text" id="matSize"></div>
-    <div class="form-group"><label>Notes</label><textarea id="matNotes"></textarea></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal('materialModal')">Cancel</button>
-      <button class="btn-save" onclick="saveMaterial()">💾 Save</button>
     </div>
   </div>
 </div>
@@ -1082,11 +610,9 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
   window.location.href = 'index.html';
 }
 
-// Set user info
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
-// Show bulk upload only for Admin
 if (session.role === 'Admin') {
   const bulkBtn = document.getElementById('bulkUploadBtn');
   if (bulkBtn) bulkBtn.style.display = 'inline-flex';
@@ -1101,7 +627,6 @@ let allUsers = [];
 let allAlerts = { telecaller: [], visit: [], designer: [], production: [], dispatch: [], installation: [] };
 let allPendingAssignments = [];
 let currentLead = null;
-let selectedStatus = null;
 let currentPeriod = { dashboard: 'day', telecaller: 'day', visitor: 'day', designer: 'day', production: 'day', dispatch: 'day', installation: 'day', admin: 'day' };
 let bulkParsedLeads = [];
 let originalTitle = document.title;
@@ -1166,44 +691,33 @@ function extractArray(res, keys = []) {
 // TABS
 // ============================================================
 const TABS_BY_ROLE = {
-  Admin:        ['Dashboard', 'Users', 'Leads', 'Telecaller', 'Visitor', 'Designer', 'Production', 'Dispatch', 'Installation', 'Admin'],
-  Telecaller:   ['Dashboard', 'Telecaller'],
-  Visit:        ['Dashboard', 'Visitor'],
-  Designer:     ['Dashboard', 'Designer'],
-  Production:   ['Dashboard', 'Production'],
-  Dispatch:     ['Dashboard', 'Dispatch'],
+  Admin: ['Dashboard', 'Users', 'Leads', 'Telecaller', 'Visitor', 'Designer', 'Production', 'Dispatch', 'Installation', 'Admin'],
+  Telecaller: ['Dashboard', 'Telecaller'],
+  Visit: ['Dashboard', 'Visitor'],
+  Designer: ['Dashboard', 'Designer'],
+  Production: ['Dashboard', 'Production'],
+  Dispatch: ['Dashboard', 'Dispatch'],
   Installation: ['Dashboard', 'Installation'],
 };
-
 const userTabs = TABS_BY_ROLE[session.role] || ['Dashboard'];
 document.getElementById('tabs').innerHTML = userTabs.map((t, i) =>
   `<div class="tab ${i === 0 ? 'active' : ''}" data-tab="${t}">${t}</div>`
 ).join('');
-
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => switchTab(tab.dataset.tab, tab));
 });
-
 const TAB_MAP = {
-  'Dashboard': 'section-dashboard',
-  'Users': 'section-users',
-  'Leads': 'section-leads',
-  'Telecaller': 'section-telecaller',
-  'Visitor': 'section-visitor',
-  'Designer': 'section-designer',
-  'Production': 'section-production',
-  'Dispatch': 'section-dispatch',
-  'Installation': 'section-installation',
-  'Admin': 'section-admin',
+  'Dashboard': 'section-dashboard', 'Users': 'section-users', 'Leads': 'section-leads',
+  'Telecaller': 'section-telecaller', 'Visitor': 'section-visitor', 'Designer': 'section-designer',
+  'Production': 'section-production', 'Dispatch': 'section-dispatch',
+  'Installation': 'section-installation', 'Admin': 'section-admin',
 };
-
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   const target = TAB_MAP[name] || 'section-dashboard';
   document.getElementById(target).classList.add('active');
-
   if (name === 'Users') loadUsers();
   if (name === 'Leads') loadLeadsForAdmin();
   if (name === 'Telecaller') loadTelecallerData();
@@ -1214,22 +728,12 @@ function switchTab(name, el) {
   if (name === 'Installation') loadInstallationData();
   if (name === 'Admin') loadAdminOverview();
 }
-
-// ============================================================
-// PERIOD
-// ============================================================
 function setPeriod(page, period, btn) {
   currentPeriod[page] = period;
   btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   if (page === 'dashboard') renderDashboard();
   if (page === 'telecaller') renderTelecallerStats();
-  if (page === 'visitor') renderVisitorStats();
-  if (page === 'designer') renderDesignerStats();
-  if (page === 'production') renderProductionStats();
-  if (page === 'dispatch') renderDispatchStats();
-  if (page === 'installation') renderInstallationStats();
-  if (page === 'admin') renderAdminStats();
 }
 
 // ============================================================
@@ -1237,7 +741,6 @@ function setPeriod(page, period, btn) {
 // ============================================================
 (async function init() {
   originalTitle = document.title;
-
   try {
     if (session.role === 'Admin') {
       await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
@@ -1255,13 +758,11 @@ function setPeriod(page, period, btn) {
     console.error('Init error:', err);
     hideLoader();
   }
-
   setTimeout(() => checkDailyCallbacks(), 2000);
   pollNotifications();
   setInterval(pollNotifications, 30000);
   setInterval(() => checkDailyCallbacks(true), 60000);
 })();
-
 function hideLoader() {
   const loader = document.getElementById('loadingOverlay');
   if (loader) loader.classList.add('hide');
@@ -1278,7 +779,6 @@ function renderDashboard() {
   if (role === 'Admin') {
     const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
     const visitReady = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-
     cards = [
       { value: calls, label: '📞 Calls', cls: '' },
       { value: visitReady, label: '🚗 Visits', cls: 'cyan' },
@@ -1287,7 +787,6 @@ function renderDashboard() {
       { value: 0, label: '🚚 Dispatched', cls: 'cyan' },
       { value: 0, label: '🔧 Installed', cls: 'purple' },
     ];
-
     chartData = {
       labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
       data: [calls, visitReady, 0, 0, 0, 0],
@@ -1302,7 +801,6 @@ function renderDashboard() {
       l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
     ).length;
     const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
-
     cards = [
       { value: total, label: 'Total Call', cls: '' },
       { value: done, label: 'Call Done', cls: 'green' },
@@ -1310,7 +808,6 @@ function renderDashboard() {
       { value: callLater, label: 'Call Later', cls: 'cyan' },
       { value: pending, label: 'Pending', cls: 'red' },
     ];
-
     chartData = {
       labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
       data: [done, visitReady, callLater, pending],
@@ -1323,14 +820,12 @@ function renderDashboard() {
       { value: '—', label: 'Completed', cls: 'green' },
     ];
   }
-
   document.getElementById('statsGrid').innerHTML = cards.map(c => `
     <div class="stat-card ${c.cls}">
       <div class="stat-value">${c.value}</div>
       <div class="stat-label">${c.label}</div>
     </div>
   `).join('');
-
   drawChart('dashboardChart', chartData, 'doughnut');
 }
 
@@ -1341,7 +836,6 @@ function drawChart(canvasId, data, type = 'pie') {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return;
   if (charts[canvasId]) charts[canvasId].destroy();
-
   charts[canvasId] = new Chart(ctx, {
     type: type,
     data: {
@@ -1349,20 +843,13 @@ function drawChart(canvasId, data, type = 'pie') {
       datasets: [{
         data: data.data || [],
         backgroundColor: data.colors || ['#4A90D9', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'],
-        borderWidth: 3,
-        borderColor: '#fff'
+        borderWidth: 3, borderColor: '#fff'
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       animation: { animateScale: true, animateRotate: true, duration: 800 },
-      plugins: {
-        legend: {
-          position: 'right',
-          labels: { font: { size: 13, family: 'Poppins' }, padding: 14, usePointStyle: true }
-        }
-      }
+      plugins: { legend: { position: 'right', labels: { font: { size: 13, family: 'Poppins' }, padding: 14, usePointStyle: true } } }
     }
   });
 }
@@ -1373,16 +860,13 @@ function drawChart(canvasId, data, type = 'pie') {
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
-
   const data = await apiGet('getUsers');
   const users = extractArray(data, ['users']);
-
   if (!users.length) {
     if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found</td></tr>';
     return;
   }
   allUsers = users;
-
   if (tbody) {
     tbody.innerHTML = users.map(u => `
       <tr>
@@ -1407,7 +891,6 @@ function openUserModal() {
   document.getElementById('formRole').value = '';
   document.getElementById('userModal').classList.add('show');
 }
-
 function editUser(u) {
   document.getElementById('modalTitle').textContent = 'Edit User';
   document.getElementById('editUserId').value = u['User ID'];
@@ -1419,7 +902,6 @@ function editUser(u) {
   document.getElementById('formEmail').value = u['Email'] || '';
   document.getElementById('userModal').classList.add('show');
 }
-
 async function saveUser() {
   const userId = document.getElementById('editUserId').value;
   const name = document.getElementById('formName').value.trim();
@@ -1428,20 +910,15 @@ async function saveUser() {
   const username = document.getElementById('formUsername').value.trim();
   const password = document.getElementById('formPassword').value;
   const email = document.getElementById('formEmail').value.trim();
-
   if (!name || !phone || !role || !username || !password) {
     return showToast('All required fields must be filled', 'error');
   }
-
   const btn = document.getElementById('saveUserBtn');
   btn.disabled = true; btn.textContent = 'Saving...';
-
   const data = await apiPost(userId ? 'editUser' : 'addUser', {
     userId, name, phone, role, username, password, email
   });
-
   btn.disabled = false; btn.textContent = 'Save User';
-
   if (data.success) {
     closeModal('userModal');
     showToast(userId ? 'User updated' : 'User added');
@@ -1450,7 +927,6 @@ async function saveUser() {
     showToast(data.error || 'Failed', 'error');
   }
 }
-
 async function toggleUser(userId, currentStatus) {
   const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
   const data = await apiPost('toggleStatus', { userId, status: newStatus });
@@ -1458,20 +934,18 @@ async function toggleUser(userId, currentStatus) {
 }
 
 // ============================================================
-// LEADS (Admin) — ✅ Uses getLeads
+// LEADS (Admin) — Uses getLeads
 // ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
   allLeads = extractArray(data, ['data']);
   renderLeads();
 }
-
 function renderLeads() {
   const tbody = document.getElementById('leadsBody');
   if (!tbody) return;
   const q = (document.getElementById('leadsSearch')?.value || '').toLowerCase();
   const filter = document.getElementById('leadsFilter')?.value || '';
-
   let leads = allLeads.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
@@ -1481,12 +955,10 @@ function renderLeads() {
     }
     return true;
   });
-
   if (!leads.length) {
     tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads found</td></tr>';
     return;
   }
-
   tbody.innerHTML = leads.map(l => {
     const nextCall = l['Next Call Date'] || '';
     const ncCls = getNextCallClass(nextCall);
@@ -1503,7 +975,6 @@ function renderLeads() {
     `;
   }).join('');
 }
-
 function getNextCallClass(nextCall) {
   if (!nextCall) return 'next-call-normal';
   const today = getISTDate();
@@ -1512,7 +983,6 @@ function getNextCallClass(nextCall) {
   if (d < today) return 'next-call-overdue';
   return 'next-call-normal';
 }
-
 function statusToClass(status) {
   const map = {
     'New': 'new', 'Interested': 'interested', 'Not Interested': 'not',
@@ -1523,7 +993,7 @@ function statusToClass(status) {
 }
 
 // ============================================================
-// TELECALLER
+// TELECALLER — ✅ FIXED
 // ============================================================
 async function loadTelecallerData() {
   const data = await apiGet('getTelecallerData', { role: session.role, username: session.name });
@@ -1533,8 +1003,6 @@ async function loadTelecallerData() {
   renderTelecallerCallbacks();
   renderCallbackBanner();
 }
-
-// ✅ FIXED: Call Done = != New, Call Later = Call Later + Not Answered
 function renderTelecallerStats() {
   const myLeads = allTelecallerData;
   const total = myLeads.length;
@@ -1544,7 +1012,6 @@ function renderTelecallerStats() {
     l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
   ).length;
   const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
-
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
@@ -1552,20 +1019,17 @@ function renderTelecallerStats() {
     <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
     <div class="stat-card red"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>
   `;
-
   drawChart('telecallerChart', {
     labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
     data: [done, visitConfirm, callLater, pending],
     colors: ['#10B981', '#F59E0B', '#06B6D4', '#95A5A6']
   }, 'pie');
 }
-
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
   if (!tbody) return;
   const q = (document.getElementById('tcSearch')?.value || '').toLowerCase();
   const filter = (document.getElementById('tcStatusFilter')?.value) || '';
-
   let leads = allTelecallerData.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
@@ -1575,12 +1039,10 @@ function renderTelecallerLeads() {
     }
     return true;
   });
-
   if (!leads.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads assigned to you</td></tr>';
     return;
   }
-
   tbody.innerHTML = leads.map(l => {
     const nextCall = l['Next Call Date'] || '';
     const ncCls = getNextCallClass(nextCall);
@@ -1596,18 +1058,15 @@ function renderTelecallerLeads() {
     `;
   }).join('');
 }
-
 function renderTelecallerCallbacks() {
   const el = document.getElementById('tcCallbacks');
   if (!el) return;
   const pending = allTelecallerData.filter(l => l['Next Call Date'])
     .sort((a, b) => String(a['Next Call Date']).localeCompare(String(b['Next Call Date'])));
-
   if (!pending.length) {
     el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
     return;
   }
-
   el.innerHTML = pending.slice(0, 10).map(l => {
     const ncCls = getNextCallClass(l['Next Call Date']);
     return `
@@ -1620,7 +1079,6 @@ function renderTelecallerCallbacks() {
     `;
   }).join('');
 }
-
 function renderCallbackBanner() {
   const el = document.getElementById('tcCallbackBanner');
   if (!el) return;
@@ -1629,10 +1087,8 @@ function renderCallbackBanner() {
     const nc = String(l['Next Call Date'] || '').slice(0, 10);
     return nc && nc <= today;
   });
-
   if (!due.length) { el.innerHTML = ''; return; }
   const overdue = due.filter(l => String(l['Next Call Date']).slice(0, 10) < today).length;
-
   el.innerHTML = `
     <div class="alert-banner ${overdue > 0 ? 'overdue' : ''}">
       <div>
@@ -1644,7 +1100,7 @@ function renderCallbackBanner() {
 }
 
 // ============================================================
-// EDIT LEAD
+// EDIT LEAD — ✅ FIXED: Auto Next Day Call
 // ============================================================
 function openEditLead(lead) {
   currentLead = lead;
@@ -1660,8 +1116,6 @@ function openEditLead(lead) {
   document.getElementById('editNotes').value = lead['Notes'] || '';
   document.getElementById('editLeadModal').classList.add('show');
 }
-
-// ✅ FIXED: Auto Next Call Date for Call Later / Not Answered
 async function saveEditedLead() {
   const leadId = document.getElementById('editLeadId').value;
   const callStatus = document.getElementById('editCallStatus').value;
@@ -1671,7 +1125,7 @@ async function saveEditedLead() {
   const address = document.getElementById('editAddress').value;
   const notes = document.getElementById('editNotes').value;
 
-  // ✅ Auto Next Call Date: agar Call Later ya Not Answered hai aur date khaali hai
+  // ✅ Auto Next Call Date
   if ((callStatus === 'Call Later' || callStatus === 'Not Answered') && !nextCallDate) {
     nextCallDate = getTomorrowIST();
   }
@@ -1685,13 +1139,11 @@ async function saveEditedLead() {
     'Address': address,
     'Notes': notes
   };
-
   const data = await apiPost('updateLead', payload);
   if (data.success) {
     closeModal('editLeadModal');
     showToast('Lead updated' + (nextCallDate ? ` — Next call: ${nextCallDate}` : ''));
     await loadTelecallerData();
-
     if (callStatus === 'Visit Ready' && visitStatus === 'Yes') {
       await apiPost('createAssignmentRequest', {
         fromTeam: 'Telecaller',
@@ -1723,13 +1175,11 @@ function openBulkUpload() {
   switchBulkTab('file');
   document.getElementById('bulkUploadModal').classList.add('show');
 }
-
 function switchBulkTab(method) {
   const fileBtn = document.getElementById('bulkFileBtn');
   const pasteBtn = document.getElementById('bulkPasteBtn');
   const fileSec = document.getElementById('bulkFileSection');
   const pasteSec = document.getElementById('bulkPasteSection');
-
   if (method === 'file') {
     fileBtn.className = 'btn btn-primary'; fileBtn.style.flex = '1';
     pasteBtn.className = 'btn btn-cancel'; pasteBtn.style.flex = '1';
@@ -1740,7 +1190,6 @@ function switchBulkTab(method) {
     pasteSec.style.display = 'block'; fileSec.style.display = 'none';
   }
 }
-
 function handleBulkFile(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -1748,20 +1197,17 @@ function handleBulkFile(e) {
   reader.onload = (ev) => parseBulkText(ev.target.result);
   reader.readAsText(file);
 }
-
 function handleBulkPaste() {
   const text = document.getElementById('bulkPasteArea').value;
   if (!text.trim()) return;
   parseBulkText(text);
 }
-
 function parseBulkText(text) {
   const lines = text.trim().split('\n').filter(l => l.trim());
   if (lines.length < 2) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need header + at least 1 row</div>';
     return;
   }
-
   const delim = lines[0].includes('\t') ? '\t' : ',';
   const headers = lines[0].split(delim).map(h => h.trim().toLowerCase().replace(/\s+/g, ''));
   const headerMap = {};
@@ -1773,12 +1219,10 @@ function parseBulkText(text) {
     else if (h.includes('address')) headerMap.address = i;
     else if (h.includes('date')) headerMap.date = i;
   });
-
   if (headerMap.name === undefined || headerMap.phone === undefined) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">CSV must have "Customer_Name" and "Contact_Number"</div>';
     return;
   }
-
   const parsed = [];
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(delim).map(c => c.trim());
@@ -1792,14 +1236,9 @@ function parseBulkText(text) {
     };
     if (lead.name && lead.phone) parsed.push(lead);
   }
-
   bulkParsedLeads = parsed;
-
   const distribution = {};
-  parsed.forEach(l => {
-    if (l.assignedTo) distribution[l.assignedTo] = (distribution[l.assignedTo] || 0) + 1;
-  });
-
+  parsed.forEach(l => { if (l.assignedTo) distribution[l.assignedTo] = (distribution[l.assignedTo] || 0) + 1; });
   document.getElementById('bulkPreview').innerHTML = `
     <div style="padding:14px;background:#EFF6FF;border-radius:10px;margin-bottom:12px;">
       <strong>Total: ${parsed.length} rows</strong>
@@ -1810,30 +1249,24 @@ function parseBulkText(text) {
     <div class="preview-table">
       <table>
         <thead><tr><th>Name</th><th>Phone</th><th>Assigned To</th><th>Date</th></tr></thead>
-        <tbody>
-          ${parsed.slice(0, 10).map(l => `<tr><td>${l.name}</td><td>${l.phone}</td><td>${l.assignedTo || '-'}</td><td>${l.date}</td></tr>`).join('')}
-        </tbody>
+        <tbody>${parsed.slice(0, 10).map(l => `<tr><td>${l.name}</td><td>${l.phone}</td><td>${l.assignedTo || '-'}</td><td>${l.date}</td></tr>`).join('')}</tbody>
       </table>
     </div>
     ${parsed.length > 10 ? `<div style="font-size:12px;color:#64748B;margin-top:8px;">...and ${parsed.length - 10} more</div>` : ''}
   `;
-
   document.getElementById('bulkImportBtn').disabled = parsed.length === 0;
   document.getElementById('bulkImportBtn').textContent = `Import ${parsed.length} Leads`;
 }
-
 async function submitBulkUpload() {
   if (!bulkParsedLeads.length) return;
   const btn = document.getElementById('bulkImportBtn');
   btn.disabled = true; btn.textContent = 'Importing...';
-
   const data = await apiPost('bulkUploadLeads', {
     leads: bulkParsedLeads,
     skipDuplicates: document.getElementById('bulkSkipDuplicates').checked,
     uploadedBy: session.name,
     uploadDate: getISTDate(),
   });
-
   if (data.success) {
     closeModal('bulkUploadModal');
     const msg = `${data.added || 0} leads imported — Leads: ${data.mirrored || 0}, Skipped: ${data.skipped || 0}`;
@@ -1851,24 +1284,19 @@ async function submitBulkUpload() {
 // ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
-
   const data = await apiGet('getPendingAssignments');
   allPendingAssignments = data.pending || [];
   renderPendingAssignments();
-
   renderAdminStats();
   renderMasterSheet();
 }
-
 function renderPendingAssignments() {
   const el = document.getElementById('pendingAssignments');
   if (!el) return;
-
   if (!allPendingAssignments.length) {
     el.innerHTML = '<div class="empty-state">No pending assignments</div>';
     return;
   }
-
   el.innerHTML = allPendingAssignments.map(req => `
     <div class="callback-item today" style="margin-bottom:12px;">
       <div class="callback-info" style="flex:1;">
@@ -1881,13 +1309,12 @@ function renderPendingAssignments() {
   `).join('');
 }
 
-// ✅ FIXED: u.Role, u.Status, u.Name (capital letters)
+// ✅ FIXED: u.Role, u.Status, u.Name (capital)
 function openAssignModal(req) {
   document.getElementById('assignRequestId').value = req['Request ID'];
   document.getElementById('assignRequestType').value = req['Request Type'];
   document.getElementById('assignCustomer').value = req['Customer Name'];
   document.getElementById('assignTypeLabel').value = req['Request Type'];
-
   const roleMap = {
     'Assign Visitor': 'Visit',
     'Assign Designer': 'Designer',
@@ -1897,25 +1324,19 @@ function openAssignModal(req) {
   };
   const targetRole = roleMap[req['Request Type']];
   const matching = allUsers.filter(u => u.Role === targetRole && u.Status === 'Active');
-
   document.getElementById('assignUserSelect').innerHTML = '<option value="">Select user...</option>' +
     matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
-
   document.getElementById('assignModal').classList.add('show');
 }
-
 async function submitAssignment() {
   const requestId = document.getElementById('assignRequestId').value;
   const assignedTo = document.getElementById('assignUserSelect').value;
-
   if (!assignedTo) return showToast('Select a user', 'error');
-
   const data = await apiPost('assignUser', {
     requestId: requestId,
     assignedTo: assignedTo,
     assignedBy: session.name
   });
-
   if (data.success) {
     closeModal('assignModal');
     showToast(`Assigned to ${assignedTo}`);
@@ -1924,11 +1345,9 @@ async function submitAssignment() {
     showToast(data.error || 'Failed', 'error');
   }
 }
-
 function renderAdminStats() {
   const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
   const visits = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-
   document.getElementById('adminStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls Done</div></div>
     <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visit Ready</div></div>
@@ -1937,25 +1356,21 @@ function renderAdminStats() {
     <div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">🚚 Dispatched</div></div>
     <div class="stat-card purple"><div class="stat-value">0</div><div class="stat-label">🔧 Installed</div></div>
   `;
-
   drawChart('adminChart', {
     labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
     data: [calls, visits, 0, 0, 0, 0],
     colors: ['#4A90D9', '#06B6D4', '#F59E0B', '#10B981', '#17A2B8', '#8B5CF6']
   }, 'doughnut');
 }
-
 async function renderMasterSheet() {
   const tbody = document.getElementById('masterBody');
   if (!tbody) return;
   const data = await apiGet('getMasterSheet');
   const rows = extractArray(data, ['data']);
-
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No master data yet</td></tr>';
     return;
   }
-
   tbody.innerHTML = rows.slice(0, 20).map(r => `
     <tr>
       <td><strong>${r['Customer Name'] || '-'}</strong></td>
@@ -1969,7 +1384,7 @@ async function renderMasterSheet() {
 }
 
 // ============================================================
-// TEAM STUBS
+// TEAM LOADERS
 // ============================================================
 async function loadVisitorData() {
   const data = await apiGet('getVisitorData', { role: session.role, username: session.name });
@@ -1985,7 +1400,6 @@ function renderVisitorStats(rows = []) {
   `;
   drawChart('visitorChart', { labels: ['Pending','Confirm','Done'], data: [0,0,rows.length], colors: ['#F59E0B','#06B6D4','#10B981'] }, 'pie');
 }
-
 async function loadDesignerData() {
   const data = await apiGet('getDesignerData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
@@ -1999,7 +1413,6 @@ function renderDesignerStats(rows = []) {
   `;
   drawChart('designerChart', { labels: ['Complete', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
 }
-
 async function loadProductionData() {
   const data = await apiGet('getProductionData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
@@ -2013,7 +1426,6 @@ function renderProductionStats(rows = []) {
   `;
   drawChart('productionChart', { labels: ['Produced', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
 }
-
 async function loadDispatchData() {
   const data = await apiGet('getDispatchData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
@@ -2027,7 +1439,6 @@ function renderDispatchStats(rows = []) {
   `;
   drawChart('dispatchChart', { labels: ['Dispatched', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
 }
-
 async function loadInstallationData() {
   const data = await apiGet('getInstallationData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
@@ -2049,7 +1460,6 @@ async function loadDailyAlerts() {
   const data = await apiGet('getDailyAlerts', { role: session.role, username: session.name });
   if (data.success && data.alerts) allAlerts = data.alerts;
 }
-
 async function checkDailyCallbacks(silent = false) {
   await loadDailyAlerts();
   const today = getISTDate();
@@ -2060,7 +1470,6 @@ async function checkDailyCallbacks(silent = false) {
   blinkTitle(`${total} Alerts`);
   showBrowserNotification('Lifeasy CRM', `${total} tasks due today`);
 }
-
 async function pollNotifications() {
   try {
     const data = await apiGet('checkNotifications', { role: session.role, username: session.name });
@@ -2069,12 +1478,10 @@ async function pollNotifications() {
     updateBell(unread);
   } catch (err) {}
 }
-
 function updateBell(items) {
   const count = document.getElementById('bellCount');
   const dropdown = document.getElementById('bellDropdown');
   if (!count || !dropdown) return;
-
   if (!items.length) {
     count.classList.add('hide');
     dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>';
@@ -2093,12 +1500,10 @@ function updateBell(items) {
     `).join('')}
   `;
 }
-
 function toggleBell(e) {
   e.stopPropagation();
   document.getElementById('bellDropdown').classList.toggle('show');
 }
-
 document.addEventListener('click', (e) => {
   const dd = document.getElementById('bellDropdown');
   if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show');
@@ -2121,11 +1526,9 @@ function playRingSound() {
         osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
       }, delay);
     };
-    playBeep(800, 0);
-    playBeep(1000, 400);
+    playBeep(800, 0); playBeep(1000, 400);
   } catch (err) {}
 }
-
 function blinkTitle(text) {
   if (titleBlinkInterval) return;
   let blink = true;
@@ -2139,7 +1542,6 @@ function blinkTitle(text) {
     document.title = originalTitle;
   }, 15000);
 }
-
 function showBrowserNotification(title, body) {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
@@ -2158,13 +1560,11 @@ function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('show');
 }
-
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) overlay.classList.remove('show');
   });
 });
-
 function showToast(text, type = 'success') {
   const el = document.getElementById('toast');
   if (!el) return;
@@ -2172,7 +1572,6 @@ function showToast(text, type = 'success') {
   el.className = 'toast show ' + (type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'success');
   setTimeout(() => el.classList.remove('show'), 3000);
 }
-
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.clear();
@@ -2182,3 +1581,5 @@ function logout() {
 </script>
 </body>
 </html>
+  
+</div>
