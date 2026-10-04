@@ -1466,7 +1466,7 @@ async function toggleUser(userId, currentStatus) {
 // LEADS (Admin)
 // ============================================================
 async function loadLeadsForAdmin() {
-  const data = await apiGet('getTelecallerData', { role: 'Admin', username: '' });
+  const data = await apiGet('getLeads', { role: 'Admin', username: '' });
   allLeads = extractArray(data, ['data']);
   renderLeads();
 }
