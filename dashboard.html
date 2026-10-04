@@ -25,6 +25,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
   --text-light: #64748B;
 }
 
+/* ---------- LOADING ---------- */
 .loading-overlay {
   position: fixed; inset: 0; background: rgba(255,255,255,0.95);
   display: flex; align-items: center; justify-content: center;
@@ -45,6 +46,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .loading-text { color: #64748B; font-size: 14px; font-weight: 500; }
 
+/* ---------- TOPBAR ---------- */
 .topbar {
   background: #FFFFFF; padding: 14px 24px;
   display: flex; justify-content: space-between; align-items: center;
@@ -69,6 +71,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .logout-btn:hover { background: #EF4444; color: #fff; }
 
+/* ---------- BELL ---------- */
 .bell-wrap { position: relative; }
 .bell {
   position: relative; cursor: pointer; font-size: 20px;
@@ -100,6 +103,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .bell-item .time { color: #64748B; font-size: 11px; margin-top: 4px; }
 .bell-empty { padding: 30px; text-align: center; color: #64748B; font-size: 13px; }
 
+/* ---------- TABS ---------- */
 .tabs {
   background: #FFFFFF; padding: 0 24px;
   display: flex; gap: 4px; overflow-x: auto;
@@ -114,6 +118,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .tab:hover { color: #4A90D9; }
 .tab.active { color: #2563EB; border-bottom-color: #4A90D9; font-weight: 600; }
 
+/* ---------- CONTENT ---------- */
 .content { padding: 24px; max-width: 1280px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
@@ -123,6 +128,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 }
 .section-title { font-size: 24px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 10px; }
 
+/* ---------- PERIOD SELECTOR ---------- */
 .period-selector {
   display: flex; background: #FFFFFF;
   border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;
@@ -139,6 +145,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
   background: #4A90D9; color: #fff; font-weight: 600;
 }
 
+/* ---------- BUTTONS ---------- */
 .btn {
   padding: 10px 18px; border-radius: 10px; font-size: 14px;
   font-weight: 600; cursor: pointer; font-family: inherit;
@@ -159,6 +166,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-warning:hover { background: #D97706; }
 .btn-success { background: #10B981; color: #fff; }
 
+/* ---------- STATS ---------- */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -179,6 +187,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .stat-value { font-size: 30px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
 .stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
 
+/* ---------- CHART ---------- */
 .chart-card {
   background: #FFFFFF; border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px;
@@ -187,6 +196,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .chart-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
 .chart-container { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
 
+/* ---------- TABLE ---------- */
 .table-card {
   background: #FFFFFF; border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -204,6 +214,7 @@ tr { border-bottom: 1px solid #E2E8F0; transition: background 0.15s; }
 tr:last-child { border-bottom: none; }
 tr:hover { background: #F1F5F9; }
 
+/* ---------- BADGES ---------- */
 .badge { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #D1FAE5; color: #065F46; }
 .badge.inactive { background: #FEE2E2; color: #991B1B; }
@@ -217,6 +228,7 @@ tr:hover { background: #F1F5F9; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
 
+/* ---------- NEXT CALL HIGHLIGHT ---------- */
 .next-call-today {
   background: #FEF3C7 !important; color: #92400E !important;
   font-weight: 700 !important; border-left: 3px solid #F59E0B;
@@ -232,6 +244,7 @@ tr:hover { background: #F1F5F9; }
 }
 .next-call-normal { color: #64748B; }
 
+/* ---------- TOOLBAR ---------- */
 .toolbar {
   display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
   padding: 16px; background: #F8FAFC; border-radius: 12px;
@@ -244,6 +257,7 @@ tr:hover { background: #F1F5F9; }
 .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
 .toolbar input { flex: 1; min-width: 200px; }
 
+/* ---------- ALERT BANNER ---------- */
 .alert-banner {
   background: #FEF3C7; border-left: 4px solid #F59E0B;
   padding: 16px 20px; border-radius: 12px;
@@ -255,6 +269,7 @@ tr:hover { background: #F1F5F9; }
 .alert-banner strong { color: #92400E; font-size: 14px; }
 .alert-banner.overdue strong { color: #991B1B; }
 
+/* ---------- MODAL ---------- */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(15,23,42,0.6);
   display: none; align-items: center; justify-content: center;
@@ -282,6 +297,7 @@ tr:hover { background: #F1F5F9; }
 }
 .modal-close:hover { background: #FEE2E2; color: #EF4444; }
 
+/* ---------- FORM ---------- */
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #0F172A; margin-bottom: 6px; }
 .form-group input, .form-group select, .form-group textarea {
@@ -293,6 +309,7 @@ tr:hover { background: #F1F5F9; }
 .form-group textarea { resize: vertical; min-height: 80px; }
 .required { color: #EF4444; }
 
+/* ---------- RADIO ---------- */
 .radio-option {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px; border: 2px solid #E2E8F0;
@@ -303,6 +320,7 @@ tr:hover { background: #F1F5F9; }
 .radio-option.selected { border-color: #4A90D9; background: #EFF6FF; font-weight: 600; }
 .radio-option input { width: auto; margin: 0; }
 
+/* ---------- MODAL ACTIONS ---------- */
 .modal-actions {
   display: flex; gap: 10px; margin-top: 24px;
   padding-top: 20px; border-top: 1px solid #E2E8F0;
@@ -318,6 +336,7 @@ tr:hover { background: #F1F5F9; }
 .btn-save:hover { background: #2563EB; }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* ---------- UPLOAD ---------- */
 .upload-zone {
   border: 2px dashed #E2E8F0; border-radius: 12px;
   padding: 40px 20px; text-align: center;
@@ -330,6 +349,7 @@ tr:hover { background: #F1F5F9; }
 .preview-table table { font-size: 12px; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
 
+/* ---------- CALLBACK ---------- */
 .callback-list { max-height: 400px; overflow-y: auto; margin: 12px 0; }
 .callback-item {
   padding: 14px 16px; border: 1px solid #E2E8F0;
@@ -343,8 +363,10 @@ tr:hover { background: #F1F5F9; }
 .callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
 .callback-info .meta { font-size: 12px; color: #64748B; margin-top: 4px; }
 
+/* ---------- EMPTY ---------- */
 .empty-state { padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; }
 
+/* ---------- TOAST ---------- */
 .toast {
   position: fixed; bottom: 28px; right: 28px;
   background: #0F172A; color: #fff;
@@ -360,6 +382,7 @@ tr:hover { background: #F1F5F9; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
 
+/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -377,6 +400,9 @@ tr:hover { background: #F1F5F9; }
 </style>
 </head>
 <body>
+<!-- ============================================================
+     LOADING OVERLAY
+     ============================================================ -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-dots">
     <span></span>
@@ -386,6 +412,9 @@ tr:hover { background: #F1F5F9; }
   <div class="loading-text">Loading Lifeasy CRM...</div>
 </div>
 
+<!-- ============================================================
+     TOPBAR
+     ============================================================ -->
 <div class="topbar">
   <div class="brand">
     <span class="brand-icon">🏢</span>
@@ -408,10 +437,17 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     TABS
+     ============================================================ -->
 <div class="tabs" id="tabs"></div>
 
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
 <div class="content">
 
+  <!-- ========== DASHBOARD ========== -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">📊 Dashboard</h1>
@@ -430,6 +466,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== USERS ========== -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">👤 User Management</h1>
@@ -452,6 +489,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== LEADS (Admin only) ========== -->
   <div class="section" id="section-leads">
     <div class="section-header">
       <h1 class="section-title">📋 All Leads</h1>
@@ -488,6 +526,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== TELECALLER ========== -->
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
@@ -544,6 +583,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== VISITOR ========== -->
   <div class="section" id="section-visitor">
     <div class="section-header">
       <h1 class="section-title">🚗 Visitor</h1>
@@ -579,6 +619,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== DESIGNER ========== -->
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
@@ -614,6 +655,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== PRODUCTION ========== -->
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
@@ -649,6 +691,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== DISPATCH ========== -->
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
@@ -684,6 +727,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== INSTALLATION ========== -->
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
@@ -719,6 +763,7 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
+  <!-- ========== ADMIN ========== -->
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
@@ -768,6 +813,9 @@ tr:hover { background: #F1F5F9; }
 
 </div>
 
+<!-- ============================================================
+     MODAL: USER
+     ============================================================ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
@@ -794,6 +842,9 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: CALL STATUS
+     ============================================================ -->
 <div class="modal-overlay" id="callStatusModal">
   <div class="modal">
     <div class="modal-header">
@@ -812,6 +863,9 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: CALL LATER
+     ============================================================ -->
 <div class="modal-overlay" id="callLaterModal">
   <div class="modal">
     <div class="modal-header">
@@ -831,6 +885,9 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: VISIT READY
+     ============================================================ -->
 <div class="modal-overlay" id="visitReadyModal">
   <div class="modal">
     <div class="modal-header">
@@ -857,6 +914,9 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: EDIT LEAD
+     ============================================================ -->
 <div class="modal-overlay" id="editLeadModal">
   <div class="modal">
     <div class="modal-header">
@@ -897,6 +957,9 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: BULK UPLOAD
+     ============================================================ -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -940,6 +1003,9 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: ASSIGN USER
+     ============================================================ -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal">
     <div class="modal-header">
@@ -969,6 +1035,9 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
+<!-- ============================================================
+     MODAL: MATERIAL (Designer)
+     ============================================================ -->
 <div class="modal-overlay" id="materialModal">
   <div class="modal">
     <div class="modal-header">
@@ -991,6 +1060,9 @@ Rajesh Kumar	9876543210	02-10-2026	Website	Sachin Kumar" oninput="handleBulkPast
   </div>
 </div>
 
+<!-- ============================================================
+     TOAST
+     ============================================================ -->
 <div class="toast" id="toast"></div>
 </body>
 <script>
@@ -1010,9 +1082,11 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
   window.location.href = 'index.html';
 }
 
+// Set user info
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
+// Show bulk upload only for Admin
 if (session.role === 'Admin') {
   const bulkBtn = document.getElementById('bulkUploadBtn');
   if (bulkBtn) bulkBtn.style.display = 'inline-flex';
@@ -1041,6 +1115,11 @@ let charts = {};
 function getISTDate() {
   const now = new Date();
   const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  return ist.toISOString().slice(0, 10);
+}
+function getTomorrowIST() {
+  const now = new Date();
+  const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000) + 24 * 60 * 60 * 1000);
   return ist.toISOString().slice(0, 10);
 }
 function getISTTime() {
@@ -1124,7 +1203,7 @@ function switchTab(name, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   const target = TAB_MAP[name] || 'section-dashboard';
   document.getElementById(target).classList.add('active');
-  
+
   if (name === 'Users') loadUsers();
   if (name === 'Leads') loadLeadsForAdmin();
   if (name === 'Telecaller') loadTelecallerData();
@@ -1158,7 +1237,7 @@ function setPeriod(page, period, btn) {
 // ============================================================
 (async function init() {
   originalTitle = document.title;
-  
+
   try {
     if (session.role === 'Admin') {
       await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
@@ -1176,7 +1255,7 @@ function setPeriod(page, period, btn) {
     console.error('Init error:', err);
     hideLoader();
   }
-  
+
   setTimeout(() => checkDailyCallbacks(), 2000);
   pollNotifications();
   setInterval(pollNotifications, 30000);
@@ -1189,17 +1268,17 @@ function hideLoader() {
 }
 
 // ============================================================
-// DASHBOARD — ✅ FIXED: removed inPeriod filter
+// DASHBOARD — ✅ FIXED: Call Done = != New
 // ============================================================
 function renderDashboard() {
   const role = session.role;
   let cards = [];
   let chartData = {};
-  
+
   if (role === 'Admin') {
-    const calls = allLeads.length;
-    const visitReady = allLeads.filter(l => l['Visit Status'] === 'Yes').length;
-    
+    const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+    const visitReady = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+
     cards = [
       { value: calls, label: '📞 Calls', cls: '' },
       { value: visitReady, label: '🚗 Visits', cls: 'cyan' },
@@ -1208,7 +1287,7 @@ function renderDashboard() {
       { value: 0, label: '🚚 Dispatched', cls: 'cyan' },
       { value: 0, label: '🔧 Installed', cls: 'purple' },
     ];
-    
+
     chartData = {
       labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
       data: [calls, visitReady, 0, 0, 0, 0],
@@ -1217,20 +1296,24 @@ function renderDashboard() {
   } else if (role === 'Telecaller') {
     const myLeads = allTelecallerData;
     const total = myLeads.length;
-    const done = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
+    const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
     const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const pending = myLeads.filter(l => l['Call_Status'] === 'Call Later').length;
-    
+    const callLater = myLeads.filter(l =>
+      l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
+    ).length;
+    const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
+
     cards = [
-      { value: total, label: 'Total Assigned', cls: '' },
+      { value: total, label: 'Total Call', cls: '' },
       { value: done, label: 'Call Done', cls: 'green' },
       { value: visitReady, label: 'Visit Ready', cls: 'amber' },
-      { value: pending, label: 'Call Later', cls: 'cyan' },
+      { value: callLater, label: 'Call Later', cls: 'cyan' },
+      { value: pending, label: 'Pending', cls: 'red' },
     ];
-    
+
     chartData = {
       labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
-      data: [done, visitReady, pending, Math.max(0, total - done - visitReady - pending)],
+      data: [done, visitReady, callLater, pending],
       colors: ['#10B981', '#F59E0B', '#06B6D4', '#95A5A6']
     };
   } else {
@@ -1240,14 +1323,14 @@ function renderDashboard() {
       { value: '—', label: 'Completed', cls: 'green' },
     ];
   }
-  
+
   document.getElementById('statsGrid').innerHTML = cards.map(c => `
     <div class="stat-card ${c.cls}">
       <div class="stat-value">${c.value}</div>
       <div class="stat-label">${c.label}</div>
     </div>
   `).join('');
-  
+
   drawChart('dashboardChart', chartData, 'doughnut');
 }
 
@@ -1258,7 +1341,7 @@ function drawChart(canvasId, data, type = 'pie') {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return;
   if (charts[canvasId]) charts[canvasId].destroy();
-  
+
   charts[canvasId] = new Chart(ctx, {
     type: type,
     data: {
@@ -1290,16 +1373,16 @@ function drawChart(canvasId, data, type = 'pie') {
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
-  
+
   const data = await apiGet('getUsers');
   const users = extractArray(data, ['users']);
-  
+
   if (!users.length) {
     if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found</td></tr>';
     return;
   }
   allUsers = users;
-  
+
   if (tbody) {
     tbody.innerHTML = users.map(u => `
       <tr>
@@ -1345,20 +1428,20 @@ async function saveUser() {
   const username = document.getElementById('formUsername').value.trim();
   const password = document.getElementById('formPassword').value;
   const email = document.getElementById('formEmail').value.trim();
-  
+
   if (!name || !phone || !role || !username || !password) {
     return showToast('All required fields must be filled', 'error');
   }
-  
+
   const btn = document.getElementById('saveUserBtn');
   btn.disabled = true; btn.textContent = 'Saving...';
-  
+
   const data = await apiPost(userId ? 'editUser' : 'addUser', {
     userId, name, phone, role, username, password, email
   });
-  
+
   btn.disabled = false; btn.textContent = 'Save User';
-  
+
   if (data.success) {
     closeModal('userModal');
     showToast(userId ? 'User updated' : 'User added');
@@ -1375,7 +1458,7 @@ async function toggleUser(userId, currentStatus) {
 }
 
 // ============================================================
-// LEADS (Admin) — ✅ Uses getLeads (Leads sheet)
+// LEADS (Admin) — ✅ Uses getLeads
 // ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
@@ -1388,7 +1471,7 @@ function renderLeads() {
   if (!tbody) return;
   const q = (document.getElementById('leadsSearch')?.value || '').toLowerCase();
   const filter = document.getElementById('leadsFilter')?.value || '';
-  
+
   let leads = allLeads.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
@@ -1398,12 +1481,12 @@ function renderLeads() {
     }
     return true;
   });
-  
+
   if (!leads.length) {
     tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads found</td></tr>';
     return;
   }
-  
+
   tbody.innerHTML = leads.map(l => {
     const nextCall = l['Next Call Date'] || '';
     const ncCls = getNextCallClass(nextCall);
@@ -1451,27 +1534,29 @@ async function loadTelecallerData() {
   renderCallbackBanner();
 }
 
-// ✅ FIXED: removed inPeriod filter
+// ✅ FIXED: Call Done = != New, Call Later = Call Later + Not Answered
 function renderTelecallerStats() {
   const myLeads = allTelecallerData;
   const total = myLeads.length;
-  const done = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
-  const visitConfirm = myLeads.filter(l => l['Visit Status'] === 'Yes').length;
-  const reschedule = myLeads.filter(l => l['Call_Status'] === 'Call Later').length;
-  const notResponse = myLeads.filter(l => l['Call_Status'] === 'Not Answered').length;
-  
+  const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+  const visitConfirm = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+  const callLater = myLeads.filter(l =>
+    l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
+  ).length;
+  const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
+
   document.getElementById('tcStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Assign Calls</div></div>
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
-    <div class="stat-card amber"><div class="stat-value">${visitConfirm}</div><div class="stat-label">Visit Confirm</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${reschedule}</div><div class="stat-label">Reschedule Call</div></div>
-    <div class="stat-card red"><div class="stat-value">${notResponse}</div><div class="stat-label">Not Response</div></div>
+    <div class="stat-card amber"><div class="stat-value">${visitConfirm}</div><div class="stat-label">Visit Ready</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
+    <div class="stat-card red"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>
   `;
-  
+
   drawChart('telecallerChart', {
-    labels: ['Call Done', 'Visit Confirm', 'Reschedule', 'Not Response', 'Pending'],
-    data: [done, visitConfirm, reschedule, notResponse, Math.max(0, total - done - visitConfirm - reschedule - notResponse)],
-    colors: ['#10B981', '#4A90D9', '#F59E0B', '#EF4444', '#95A5A6']
+    labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
+    data: [done, visitConfirm, callLater, pending],
+    colors: ['#10B981', '#F59E0B', '#06B6D4', '#95A5A6']
   }, 'pie');
 }
 
@@ -1480,7 +1565,7 @@ function renderTelecallerLeads() {
   if (!tbody) return;
   const q = (document.getElementById('tcSearch')?.value || '').toLowerCase();
   const filter = (document.getElementById('tcStatusFilter')?.value) || '';
-  
+
   let leads = allTelecallerData.filter(l => {
     if (filter && l['Call_Status'] !== filter) return false;
     if (q) {
@@ -1490,12 +1575,12 @@ function renderTelecallerLeads() {
     }
     return true;
   });
-  
+
   if (!leads.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No leads assigned to you</td></tr>';
     return;
   }
-  
+
   tbody.innerHTML = leads.map(l => {
     const nextCall = l['Next Call Date'] || '';
     const ncCls = getNextCallClass(nextCall);
@@ -1517,12 +1602,12 @@ function renderTelecallerCallbacks() {
   if (!el) return;
   const pending = allTelecallerData.filter(l => l['Next Call Date'])
     .sort((a, b) => String(a['Next Call Date']).localeCompare(String(b['Next Call Date'])));
-  
+
   if (!pending.length) {
     el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
     return;
   }
-  
+
   el.innerHTML = pending.slice(0, 10).map(l => {
     const ncCls = getNextCallClass(l['Next Call Date']);
     return `
@@ -1544,10 +1629,10 @@ function renderCallbackBanner() {
     const nc = String(l['Next Call Date'] || '').slice(0, 10);
     return nc && nc <= today;
   });
-  
+
   if (!due.length) { el.innerHTML = ''; return; }
   const overdue = due.filter(l => String(l['Next Call Date']).slice(0, 10) < today).length;
-  
+
   el.innerHTML = `
     <div class="alert-banner ${overdue > 0 ? 'overdue' : ''}">
       <div>
@@ -1576,15 +1661,21 @@ function openEditLead(lead) {
   document.getElementById('editLeadModal').classList.add('show');
 }
 
+// ✅ FIXED: Auto Next Call Date for Call Later / Not Answered
 async function saveEditedLead() {
   const leadId = document.getElementById('editLeadId').value;
   const callStatus = document.getElementById('editCallStatus').value;
-  const nextCallDate = document.getElementById('editNextCallDate').value;
+  let nextCallDate = document.getElementById('editNextCallDate').value;
   const visitStatus = document.getElementById('editVisitStatus').value;
   const visitDate = document.getElementById('editVisitDate').value;
   const address = document.getElementById('editAddress').value;
   const notes = document.getElementById('editNotes').value;
-  
+
+  // ✅ Auto Next Call Date: agar Call Later ya Not Answered hai aur date khaali hai
+  if ((callStatus === 'Call Later' || callStatus === 'Not Answered') && !nextCallDate) {
+    nextCallDate = getTomorrowIST();
+  }
+
   const payload = {
     leadId: leadId,
     'Call_Status': callStatus,
@@ -1594,13 +1685,13 @@ async function saveEditedLead() {
     'Address': address,
     'Notes': notes
   };
-  
+
   const data = await apiPost('updateLead', payload);
   if (data.success) {
     closeModal('editLeadModal');
-    showToast('Lead updated');
+    showToast('Lead updated' + (nextCallDate ? ` — Next call: ${nextCallDate}` : ''));
     await loadTelecallerData();
-    
+
     if (callStatus === 'Visit Ready' && visitStatus === 'Yes') {
       await apiPost('createAssignmentRequest', {
         fromTeam: 'Telecaller',
@@ -1638,7 +1729,7 @@ function switchBulkTab(method) {
   const pasteBtn = document.getElementById('bulkPasteBtn');
   const fileSec = document.getElementById('bulkFileSection');
   const pasteSec = document.getElementById('bulkPasteSection');
-  
+
   if (method === 'file') {
     fileBtn.className = 'btn btn-primary'; fileBtn.style.flex = '1';
     pasteBtn.className = 'btn btn-cancel'; pasteBtn.style.flex = '1';
@@ -1670,7 +1761,7 @@ function parseBulkText(text) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need header + at least 1 row</div>';
     return;
   }
-  
+
   const delim = lines[0].includes('\t') ? '\t' : ',';
   const headers = lines[0].split(delim).map(h => h.trim().toLowerCase().replace(/\s+/g, ''));
   const headerMap = {};
@@ -1682,12 +1773,12 @@ function parseBulkText(text) {
     else if (h.includes('address')) headerMap.address = i;
     else if (h.includes('date')) headerMap.date = i;
   });
-  
+
   if (headerMap.name === undefined || headerMap.phone === undefined) {
     document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">CSV must have "Customer_Name" and "Contact_Number"</div>';
     return;
   }
-  
+
   const parsed = [];
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(delim).map(c => c.trim());
@@ -1701,14 +1792,14 @@ function parseBulkText(text) {
     };
     if (lead.name && lead.phone) parsed.push(lead);
   }
-  
+
   bulkParsedLeads = parsed;
-  
+
   const distribution = {};
   parsed.forEach(l => {
     if (l.assignedTo) distribution[l.assignedTo] = (distribution[l.assignedTo] || 0) + 1;
   });
-  
+
   document.getElementById('bulkPreview').innerHTML = `
     <div style="padding:14px;background:#EFF6FF;border-radius:10px;margin-bottom:12px;">
       <strong>Total: ${parsed.length} rows</strong>
@@ -1726,7 +1817,7 @@ function parseBulkText(text) {
     </div>
     ${parsed.length > 10 ? `<div style="font-size:12px;color:#64748B;margin-top:8px;">...and ${parsed.length - 10} more</div>` : ''}
   `;
-  
+
   document.getElementById('bulkImportBtn').disabled = parsed.length === 0;
   document.getElementById('bulkImportBtn').textContent = `Import ${parsed.length} Leads`;
 }
@@ -1735,14 +1826,14 @@ async function submitBulkUpload() {
   if (!bulkParsedLeads.length) return;
   const btn = document.getElementById('bulkImportBtn');
   btn.disabled = true; btn.textContent = 'Importing...';
-  
+
   const data = await apiPost('bulkUploadLeads', {
     leads: bulkParsedLeads,
     skipDuplicates: document.getElementById('bulkSkipDuplicates').checked,
     uploadedBy: session.name,
     uploadDate: getISTDate(),
   });
-  
+
   if (data.success) {
     closeModal('bulkUploadModal');
     const msg = `${data.added || 0} leads imported — Leads: ${data.mirrored || 0}, Skipped: ${data.skipped || 0}`;
@@ -1760,11 +1851,11 @@ async function submitBulkUpload() {
 // ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
-  
+
   const data = await apiGet('getPendingAssignments');
   allPendingAssignments = data.pending || [];
   renderPendingAssignments();
-  
+
   renderAdminStats();
   renderMasterSheet();
 }
@@ -1772,12 +1863,12 @@ async function loadAdminOverview() {
 function renderPendingAssignments() {
   const el = document.getElementById('pendingAssignments');
   if (!el) return;
-  
+
   if (!allPendingAssignments.length) {
     el.innerHTML = '<div class="empty-state">No pending assignments</div>';
     return;
   }
-  
+
   el.innerHTML = allPendingAssignments.map(req => `
     <div class="callback-item today" style="margin-bottom:12px;">
       <div class="callback-info" style="flex:1;">
@@ -1790,12 +1881,13 @@ function renderPendingAssignments() {
   `).join('');
 }
 
+// ✅ FIXED: u.Role, u.Status, u.Name (capital letters)
 function openAssignModal(req) {
   document.getElementById('assignRequestId').value = req['Request ID'];
   document.getElementById('assignRequestType').value = req['Request Type'];
   document.getElementById('assignCustomer').value = req['Customer Name'];
   document.getElementById('assignTypeLabel').value = req['Request Type'];
-  
+
   const roleMap = {
     'Assign Visitor': 'Visit',
     'Assign Designer': 'Designer',
@@ -1804,26 +1896,26 @@ function openAssignModal(req) {
     'Assign Installation': 'Installation'
   };
   const targetRole = roleMap[req['Request Type']];
-  const matching = allUsers.filter(u => u.role === targetRole && u.status === 'Active');
-  
+  const matching = allUsers.filter(u => u.Role === targetRole && u.Status === 'Active');
+
   document.getElementById('assignUserSelect').innerHTML = '<option value="">Select user...</option>' +
-    matching.map(u => `<option value="${u.name}">${u.name}</option>`).join('');
-  
+    matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
+
   document.getElementById('assignModal').classList.add('show');
 }
 
 async function submitAssignment() {
   const requestId = document.getElementById('assignRequestId').value;
   const assignedTo = document.getElementById('assignUserSelect').value;
-  
+
   if (!assignedTo) return showToast('Select a user', 'error');
-  
+
   const data = await apiPost('assignUser', {
     requestId: requestId,
     assignedTo: assignedTo,
     assignedBy: session.name
   });
-  
+
   if (data.success) {
     closeModal('assignModal');
     showToast(`Assigned to ${assignedTo}`);
@@ -1834,20 +1926,20 @@ async function submitAssignment() {
 }
 
 function renderAdminStats() {
-  const calls = allLeads.length;
-  const visits = allLeads.filter(l => l['Visit Status'] === 'Yes').length;
-  
+  const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+  const visits = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+
   document.getElementById('adminStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Total Leads</div></div>
+    <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls Done</div></div>
     <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visit Ready</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">🎨 Materials</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">🏭 Produced</div></div>
     <div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">🚚 Dispatched</div></div>
     <div class="stat-card purple"><div class="stat-value">0</div><div class="stat-label">🔧 Installed</div></div>
   `;
-  
+
   drawChart('adminChart', {
-    labels: ['Leads', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
+    labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
     data: [calls, visits, 0, 0, 0, 0],
     colors: ['#4A90D9', '#06B6D4', '#F59E0B', '#10B981', '#17A2B8', '#8B5CF6']
   }, 'doughnut');
@@ -1858,12 +1950,12 @@ async function renderMasterSheet() {
   if (!tbody) return;
   const data = await apiGet('getMasterSheet');
   const rows = extractArray(data, ['data']);
-  
+
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No master data yet</td></tr>';
     return;
   }
-  
+
   tbody.innerHTML = rows.slice(0, 20).map(r => `
     <tr>
       <td><strong>${r['Customer Name'] || '-'}</strong></td>
@@ -1887,10 +1979,11 @@ async function loadVisitorData() {
 function renderVisitorStats(rows = []) {
   document.getElementById('visitorStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Visit Pending</div></div>
+    <div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">Visit Confirm</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Visit Done</div></div>
-    <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
   `;
-  drawChart('visitorChart', { labels: ['Done', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+  drawChart('visitorChart', { labels: ['Pending','Confirm','Done'], data: [0,0,rows.length], colors: ['#F59E0B','#06B6D4','#10B981'] }, 'pie');
 }
 
 async function loadDesignerData() {
@@ -1981,7 +2074,7 @@ function updateBell(items) {
   const count = document.getElementById('bellCount');
   const dropdown = document.getElementById('bellDropdown');
   if (!count || !dropdown) return;
-  
+
   if (!items.length) {
     count.classList.add('hide');
     dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>';
