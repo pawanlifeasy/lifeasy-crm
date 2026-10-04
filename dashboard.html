@@ -11,8 +11,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 :root {
   --primary: #4A90D9; --primary-dark: #2563EB; --success: #10B981;
   --warning: #F59E0B; --danger: #EF4444; --info: #06B6D4; --purple: #8B5CF6;
-  --bg: #F8FAFC; --card: #FFFFFF; --hover: #F1F5F9; --border: #E2E8F0;
-  --text: #0F172A; --text-light: #64748B;
 }
 .loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; z-index: 9999; transition: opacity 0.4s; }
 .loading-overlay.hide { opacity: 0; pointer-events: none; }
@@ -68,7 +66,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-warning { background: #F59E0B; color: #fff; }
 .btn-warning:hover { background: #D97706; }
 .btn-success { background: #10B981; color: #fff; }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
 .stat-card.green { border-left-color: #10B981; }
@@ -174,13 +172,11 @@ tr:hover { background: #F1F5F9; }
 </style>
 </head>
 <body>
-<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-dots"><span></span><span></span><span></span></div>
   <div class="loading-text">Loading Lifeasy CRM...</div>
 </div>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="brand"><span class="brand-icon">🏢</span><span>Lifeasy CRM</span></div>
   <div class="user-info">
@@ -194,13 +190,10 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs" id="tabs"></div>
 
-<!-- CONTENT -->
 <div class="content">
 
-  <!-- DASHBOARD -->
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">📊 Dashboard</h1>
@@ -217,7 +210,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- USERS -->
   <div class="section" id="section-users">
     <div class="section-header">
       <h1 class="section-title">👤 User Management</h1>
@@ -233,7 +225,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- LEADS -->
   <div class="section" id="section-leads">
     <div class="section-header">
       <h1 class="section-title">📋 All Leads</h1>
@@ -255,7 +246,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- TELECALLER -->
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
@@ -295,7 +285,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- VISITOR -->
   <div class="section" id="section-visitor">
     <div class="section-header">
       <h1 class="section-title">🚗 Visitor</h1>
@@ -322,7 +311,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- DESIGNER -->
   <div class="section" id="section-designer">
     <div class="section-header">
       <h1 class="section-title">🎨 Designer</h1>
@@ -349,7 +337,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- PRODUCTION -->
   <div class="section" id="section-production">
     <div class="section-header">
       <h1 class="section-title">🏭 Production</h1>
@@ -376,7 +363,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- DISPATCH -->
   <div class="section" id="section-dispatch">
     <div class="section-header">
       <h1 class="section-title">🚚 Dispatch</h1>
@@ -403,7 +389,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- INSTALLATION -->
   <div class="section" id="section-installation">
     <div class="section-header">
       <h1 class="section-title">🔧 Installation</h1>
@@ -430,7 +415,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-  <!-- ADMIN -->
   <div class="section" id="section-admin">
     <div class="section-header">
       <h1 class="section-title">👤 Admin Overview</h1>
@@ -463,9 +447,6 @@ tr:hover { background: #F1F5F9; }
     </div>
   </div>
 
-<!-- ============================================================
-     MODAL: USER
-     ============================================================ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
@@ -492,9 +473,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: EDIT LEAD
-     ============================================================ -->
 <div class="modal-overlay" id="editLeadModal">
   <div class="modal">
     <div class="modal-header">
@@ -526,9 +504,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: BULK UPLOAD
-     ============================================================ -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -565,9 +540,6 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     MODAL: ASSIGN USER
-     ============================================================ -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal">
     <div class="modal-header">
@@ -588,20 +560,11 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- ============================================================
-     TOAST
-     ============================================================ -->
 <div class="toast" id="toast"></div>
 </body>
 <script>
-// ============================================================
-// CONFIG
-// ============================================================
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
 
-// ============================================================
-// SESSION CHECK
-// ============================================================
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) { window.location.href = 'index.html'; }
 const session = JSON.parse(sessionRaw);
@@ -609,18 +572,13 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) {
   localStorage.clear();
   window.location.href = 'index.html';
 }
-
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
-
 if (session.role === 'Admin') {
   const bulkBtn = document.getElementById('bulkUploadBtn');
   if (bulkBtn) bulkBtn.style.display = 'inline-flex';
 }
 
-// ============================================================
-// STATE
-// ============================================================
 let allLeads = [];
 let allTelecallerData = [];
 let allUsers = [];
@@ -634,9 +592,6 @@ let titleBlinkInterval = null;
 let audioCtx = null;
 let charts = {};
 
-// ============================================================
-// UTILS
-// ============================================================
 function getISTDate() {
   const now = new Date();
   const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
@@ -647,15 +602,7 @@ function getTomorrowIST() {
   const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000) + 24 * 60 * 60 * 1000);
   return ist.toISOString().slice(0, 10);
 }
-function getISTTime() {
-  const now = new Date();
-  const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
-  return ist.toISOString().slice(11, 16);
-}
 
-// ============================================================
-// API
-// ============================================================
 async function apiGet(action, params = {}) {
   const qs = new URLSearchParams({ action, ...params }).toString();
   try {
@@ -687,9 +634,6 @@ function extractArray(res, keys = []) {
   return [];
 }
 
-// ============================================================
-// TABS
-// ============================================================
 const TABS_BY_ROLE = {
   Admin: ['Dashboard', 'Users', 'Leads', 'Telecaller', 'Visitor', 'Designer', 'Production', 'Dispatch', 'Installation', 'Admin'],
   Telecaller: ['Dashboard', 'Telecaller'],
@@ -736,9 +680,6 @@ function setPeriod(page, period, btn) {
   if (page === 'telecaller') renderTelecallerStats();
 }
 
-// ============================================================
-// INIT
-// ============================================================
 (async function init() {
   originalTitle = document.title;
   try {
@@ -768,9 +709,6 @@ function hideLoader() {
   if (loader) loader.classList.add('hide');
 }
 
-// ============================================================
-// DASHBOARD — ✅ FIXED: Call Done = != New
-// ============================================================
 function renderDashboard() {
   const role = session.role;
   let cards = [];
@@ -796,22 +734,22 @@ function renderDashboard() {
     const myLeads = allTelecallerData;
     const total = myLeads.length;
     const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+    const callComplete = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
     const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const callLater = myLeads.filter(l =>
-      l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
-    ).length;
-    const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
+    const callLater = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
+    const notIntWrong = myLeads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number').length;
     cards = [
       { value: total, label: 'Total Call', cls: '' },
       { value: done, label: 'Call Done', cls: 'green' },
+      { value: callComplete, label: 'Call Complete', cls: 'purple' },
       { value: visitReady, label: 'Visit Ready', cls: 'amber' },
       { value: callLater, label: 'Call Later', cls: 'cyan' },
-      { value: pending, label: 'Pending', cls: 'red' },
+      { value: notIntWrong, label: 'Not Int / Wrong', cls: 'red' },
     ];
     chartData = {
-      labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
-      data: [done, visitReady, callLater, pending],
-      colors: ['#10B981', '#F59E0B', '#06B6D4', '#95A5A6']
+      labels: ['Call Complete', 'Visit Ready', 'Call Later', 'Not Int/Wrong'],
+      data: [callComplete, visitReady, callLater, notIntWrong],
+      colors: ['#8B5CF6', '#F59E0B', '#06B6D4', '#EF4444']
     };
   } else {
     cards = [
@@ -829,9 +767,6 @@ function renderDashboard() {
   drawChart('dashboardChart', chartData, 'doughnut');
 }
 
-// ============================================================
-// CHART
-// ============================================================
 function drawChart(canvasId, data, type = 'pie') {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return;
@@ -854,9 +789,6 @@ function drawChart(canvasId, data, type = 'pie') {
   });
 }
 
-// ============================================================
-// USERS
-// ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
@@ -933,9 +865,6 @@ async function toggleUser(userId, currentStatus) {
   if (data.success) { showToast('Status updated'); loadUsers(); }
 }
 
-// ============================================================
-// LEADS (Admin) — Uses getLeads
-// ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
   allLeads = extractArray(data, ['data']);
@@ -992,9 +921,6 @@ function statusToClass(status) {
   return map[status] || 'new';
 }
 
-// ============================================================
-// TELECALLER — ✅ FIXED
-// ============================================================
 async function loadTelecallerData() {
   const data = await apiGet('getTelecallerData', { role: session.role, username: session.name });
   allTelecallerData = extractArray(data, ['data']);
@@ -1003,28 +929,37 @@ async function loadTelecallerData() {
   renderTelecallerCallbacks();
   renderCallbackBanner();
 }
+
+// ✅ FIXED: 6 cards (Total / Call Done / Call Complete / Visit Ready / Call Later / Not Int-Wrong)
 function renderTelecallerStats() {
   const myLeads = allTelecallerData;
   const total = myLeads.length;
   const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-  const visitConfirm = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+  const callComplete = myLeads.filter(l => l['Call_Status'] === 'Call Completed').length;
+  const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
   const callLater = myLeads.filter(l =>
     l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered'
   ).length;
-  const pending = myLeads.filter(l => !l['Call_Status'] || l['Call_Status'] === 'New').length;
+  const notIntWrong = myLeads.filter(l =>
+    l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number'
+  ).length;
+
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
-    <div class="stat-card amber"><div class="stat-value">${visitConfirm}</div><div class="stat-label">Visit Ready</div></div>
+    <div class="stat-card purple"><div class="stat-value">${callComplete}</div><div class="stat-label">Call Complete</div></div>
+    <div class="stat-card amber"><div class="stat-value">${visitReady}</div><div class="stat-label">Visit Ready</div></div>
     <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
-    <div class="stat-card red"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card red"><div class="stat-value">${notIntWrong}</div><div class="stat-label">Not Int / Wrong</div></div>
   `;
+
   drawChart('telecallerChart', {
-    labels: ['Call Done', 'Visit Ready', 'Call Later', 'Pending'],
-    data: [done, visitConfirm, callLater, pending],
-    colors: ['#10B981', '#F59E0B', '#06B6D4', '#95A5A6']
+    labels: ['Call Complete', 'Visit Ready', 'Call Later', 'Not Int/Wrong'],
+    data: [callComplete, visitReady, callLater, notIntWrong],
+    colors: ['#8B5CF6', '#F59E0B', '#06B6D4', '#EF4444']
   }, 'pie');
 }
+
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
   if (!tbody) return;
@@ -1099,9 +1034,6 @@ function renderCallbackBanner() {
   `;
 }
 
-// ============================================================
-// EDIT LEAD — ✅ FIXED: Auto Next Day Call
-// ============================================================
 function openEditLead(lead) {
   currentLead = lead;
   document.getElementById('editLeadTitle').textContent = `✏️ Edit Lead — ${lead['Customer_Name'] || lead['Lead ID']}`;
@@ -1160,9 +1092,6 @@ async function saveEditedLead() {
   }
 }
 
-// ============================================================
-// BULK UPLOAD
-// ============================================================
 function openBulkUpload() {
   if (session.role !== 'Admin') return showToast('Only Admin can upload', 'error');
   document.getElementById('bulkDate').value = getISTDate();
@@ -1279,9 +1208,6 @@ async function submitBulkUpload() {
   }
 }
 
-// ============================================================
-// ADMIN OVERVIEW
-// ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin(), loadDailyAlerts()]);
   const data = await apiGet('getPendingAssignments');
@@ -1309,7 +1235,6 @@ function renderPendingAssignments() {
   `).join('');
 }
 
-// ✅ FIXED: u.Role, u.Status, u.Name (capital)
 function openAssignModal(req) {
   document.getElementById('assignRequestId').value = req['Request ID'];
   document.getElementById('assignRequestType').value = req['Request Type'];
@@ -1383,9 +1308,6 @@ async function renderMasterSheet() {
   `).join('');
 }
 
-// ============================================================
-// TEAM LOADERS
-// ============================================================
 async function loadVisitorData() {
   const data = await apiGet('getVisitorData', { role: session.role, username: session.name });
   const rows = extractArray(data, ['data']);
@@ -1453,9 +1375,6 @@ function renderInstallationStats(rows = []) {
   drawChart('installationChart', { labels: ['Installed', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
 }
 
-// ============================================================
-// NOTIFICATIONS
-// ============================================================
 async function loadDailyAlerts() {
   const data = await apiGet('getDailyAlerts', { role: session.role, username: session.name });
   if (data.success && data.alerts) allAlerts = data.alerts;
@@ -1509,9 +1428,6 @@ document.addEventListener('click', (e) => {
   if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show');
 });
 
-// ============================================================
-// SOUND
-// ============================================================
 function playRingSound() {
   try {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1553,9 +1469,6 @@ function showBrowserNotification(title, body) {
   }
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
 function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('show');
@@ -1581,5 +1494,4 @@ function logout() {
 </script>
 </body>
 </html>
-  
 </div>
