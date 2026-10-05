@@ -65,8 +65,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-purple:hover { background: #7C3AED; }
 .btn-danger { background: #EF4444; color: #fff; }
 .btn-danger:hover { background: #DC2626; }
-.btn-grey { background: #F1F5F9; color: #0F172A; border: 1px solid #E2E8F0; }
-.btn-grey:hover { background: #E2E8F0; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -109,10 +107,6 @@ tr:hover { background: #F1F5F9; }
 .toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
 .toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
 .toolbar input { flex: 1; min-width: 200px; }
-.alert-banner { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 12px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.alert-banner.overdue { background: #FEE2E2; border-left-color: #EF4444; }
-.alert-banner strong { color: #92400E; font-size: 14px; }
-.alert-banner.overdue strong { color: #991B1B; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal { background: #FFFFFF; border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
@@ -141,13 +135,6 @@ tr:hover { background: #F1F5F9; }
 .preview-table { max-height: 240px; overflow: auto; border: 1px solid #E2E8F0; border-radius: 8px; margin: 12px 0; }
 .preview-table table { font-size: 12px; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
-.callback-list { max-height: 400px; overflow-y: auto; margin: 12px 0; }
-.callback-item { padding: 14px 16px; border: 1px solid #E2E8F0; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
-.callback-item.today { background: #FEF3C7; border-color: #FCD34D; }
-.callback-info { flex: 1; }
-.callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
-.callback-info .meta { font-size: 12px; color: #64748B; margin-top: 4px; }
 .empty-state { padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; }
 .toast { position: fixed; bottom: 28px; right: 28px; background: #0F172A; color: #fff; padding: 16px 22px; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; max-width: 400px; }
 .toast.show { opacity: 1; transform: translateY(0); }
@@ -168,96 +155,18 @@ tr:hover { background: #F1F5F9; }
 .tc-summary-stat { text-align: center; padding: 10px 6px; background: #F8FAFC; border-radius: 8px; }
 .tc-summary-stat .val { font-size: 20px; font-weight: 700; color: #0F172A; }
 .tc-summary-stat .lbl { font-size: 10px; color: #64748B; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
-
-/* Designer Customer Cards */
-.designer-card {
-  background: #FFFFFF;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  margin-bottom: 20px;
-  overflow: hidden;
-  border-left: 4px solid #8B5CF6;
-}
-.designer-card-header {
-  padding: 18px 22px;
-  background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
-  border-bottom: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.designer-card-customer {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0F172A;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.designer-card-count {
-  font-size: 12px;
-  color: #8B5CF6;
-  background: #EDE9FE;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-weight: 600;
-}
-.designer-card-materials {
-  padding: 12px 22px;
-}
-.designer-material-row {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #F1F5F9;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.designer-material-row:last-child {
-  border-bottom: none;
-}
-.designer-material-num {
-  width: 28px;
-  height: 28px;
-  background: #8B5CF6;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.designer-material-name {
-  font-weight: 600;
-  font-size: 14px;
-  color: #0F172A;
-  flex: 1;
-  min-width: 120px;
-}
-.designer-material-info {
-  font-size: 13px;
-  color: #64748B;
-  min-width: 100px;
-}
-.designer-material-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
-.designer-card-footer {
-  padding: 16px 22px;
-  background: #F8FAFC;
-  border-top: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
+.designer-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; overflow: hidden; border-left: 4px solid #8B5CF6; }
+.designer-card-header { padding: 18px 22px; background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.designer-card-customer { font-size: 18px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 8px; }
+.designer-card-count { font-size: 12px; color: #8B5CF6; background: #EDE9FE; padding: 5px 12px; border-radius: 20px; font-weight: 600; }
+.designer-card-materials { padding: 12px 22px; }
+.designer-material-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #F1F5F9; gap: 12px; flex-wrap: wrap; }
+.designer-material-row:last-child { border-bottom: none; }
+.designer-material-num { width: 28px; height: 28px; background: #8B5CF6; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.designer-material-name { font-weight: 600; font-size: 14px; color: #0F172A; flex: 1; min-width: 120px; }
+.designer-material-info { font-size: 13px; color: #64748B; min-width: 100px; }
+.designer-material-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.designer-card-footer { padding: 16px 22px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -490,12 +399,12 @@ tr:hover { background: #F1F5F9; }
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Material</h2><button class="modal-close" onclick="closeModal('designerEditModal')">×</button></div>
     <input type="hidden" id="dsEditOldMaterial">
+    <input type="hidden" id="dsEditDesigner">
     <div class="form-group"><label>Customer</label><input type="text" id="dsEditCustomer" readonly></div>
     <div class="form-group"><label>Material *</label><input type="text" id="dsEditMaterial"></div>
     <div class="form-group"><label>QTY</label><input type="number" id="dsEditQty"></div>
     <div class="form-group"><label>UOM</label><select id="dsEditUom"><option>Pcs</option><option>Sq.ft</option><option>Meter</option><option>Kg</option></select></div>
     <div class="form-group"><label>Size</label><input type="text" id="dsEditSize"></div>
-    <div class="form-group"><label>Notes</label><textarea id="dsEditNotes"></textarea></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('designerEditModal')">Cancel</button><button class="btn-save" onclick="submitDesignerEdit()">💾 Save</button></div>
   </div>
 </div>
@@ -508,7 +417,6 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>QTY *</label><input type="number" id="dsAddQty" placeholder="1"></div>
     <div class="form-group"><label>UOM *</label><select id="dsAddUom"><option>Pcs</option><option>Sq.ft</option><option>Meter</option><option>Kg</option></select></div>
     <div class="form-group"><label>Size</label><input type="text" id="dsAddSize" placeholder="e.g., 4x6 ft"></div>
-    <div class="form-group"><label>Notes</label><textarea id="dsAddNotes"></textarea></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('designerAddMaterialModal')">Cancel</button><button class="btn-save" id="dsAddBtn" onclick="submitAddDesignerMaterial()">➕ Add Material</button></div>
   </div>
 </div>
@@ -555,7 +463,7 @@ const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) { window.location.href = 'index.html'; }
 const session = JSON.parse(sessionRaw);
-if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) { localStorage.clear(); window.location.href = 'index.html'; }
+if (Date.now() - session.loginTime > 8*60*60*1000) { localStorage.clear(); window.location.href = 'index.html'; }
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 if (session.role === 'Admin') { const b = document.getElementById('bulkUploadBtn'); if (b) b.style.display = 'inline-flex'; }
@@ -660,7 +568,29 @@ function renderDashboard() {
     cards = [{value:total,label:'Assigned',cls:''},{value:p,label:'Pending',cls:'amber'},{value:d,label:'Done',cls:'cyan'},{value:c,label:'Close',cls:'green'}];
     chartData = { labels:['Pending','Done','Close'], data:[p,d,c], colors:['#F59E0B','#06B6D4','#10B981'] };
   } else if (role === 'Designer') {
-    cards = [{value:allDesignerData.length,label:'Materials',cls:'purple'},{value:0,label:'Pending',cls:'amber'},{value:0,label:'Complete',cls:'green'}];
+    const total = allDesignerData.length;
+    const withMat = allDesignerData.filter(d => d['Material_Description'] && String(d['Material_Description']).trim() !== '').length;
+    const empty = total - withMat;
+    cards = [{value:total,label:'📦 Total Rows',cls:'purple'},{value:withMat,label:'✅ With Material',cls:'green'},{value:empty,label:'⏳ Empty',cls:'amber'}];
+    chartData = { labels:['With Material','Empty'], data:[withMat,empty], colors:['#10B981','#F59E0B'] };
+  } else if (role === 'Production') {
+    const total = allProductionData.length;
+    const produced = allProductionData.filter(p => p['Produced QTY'] && String(p['Produced QTY']).trim() !== '').length;
+    const pending = total - produced;
+    cards = [{value:total,label:'📦 Assigned',cls:''},{value:produced,label:'✅ Produced',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
+    chartData = { labels:['Produced','Pending'], data:[produced,pending], colors:['#10B981','#F59E0B'] };
+  } else if (role === 'Dispatch') {
+    const total = allDispatchData.length;
+    const dispatched = allDispatchData.filter(d => d['Dispatched QTY'] && String(d['Dispatched QTY']).trim() !== '').length;
+    const pending = total - dispatched;
+    cards = [{value:total,label:'🚚 Assigned',cls:''},{value:dispatched,label:'✅ Dispatched',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
+    chartData = { labels:['Dispatched','Pending'], data:[dispatched,pending], colors:['#10B981','#F59E0B'] };
+  } else if (role === 'Installation') {
+    const total = allInstallationData.length;
+    const installed = allInstallationData.filter(i => i['Installed QTY'] && String(i['Installed QTY']).trim() !== '').length;
+    const pending = total - installed;
+    cards = [{value:total,label:'🔧 Assigned',cls:''},{value:installed,label:'✅ Installed',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
+    chartData = { labels:['Installed','Pending'], data:[installed,pending], colors:['#10B981','#F59E0B'] };
   } else {
     cards = [{value:'—',label:'Assigned',cls:''},{value:'—',label:'In Progress',cls:'amber'},{value:'—',label:'Completed',cls:'green'}];
   }
@@ -685,16 +615,7 @@ async function loadUsers() {
   const users = exArr(data, ['users']);
   if (!users.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users</td></tr>'; return; }
   allUsers = users;
-  tbody.innerHTML = users.map(u => `
-    <tr>
-      <td>${u['User ID'] || '-'}</td>
-      <td><strong>${u['Name'] || '-'}</strong></td>
-      <td><span class="badge role">${u['Role'] || '-'}</span></td>
-      <td>${u['Phone'] || '-'}</td>
-      <td>${u['Username'] || '-'}</td>
-      <td><span class="badge ${u['Status'] === 'Active' ? 'active' : 'inactive'}">${u['Status'] || '-'}</span></td>
-      <td><button class="btn-sm btn-call" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button><button class="btn-sm btn-warning" onclick='toggleUser("${u['User ID']}", "${u['Status']}")'>${u['Status'] === 'Active' ? 'Block' : 'Unblock'}</button></td>
-    </tr>`).join('');
+  tbody.innerHTML = users.map(u => `<tr><td>${u['User ID']}</td><td><strong>${u['Name']}</strong></td><td><span class="badge role">${u['Role']}</span></td><td>${u['Phone']||'-'}</td><td>${u['Username']||'-'}</td><td><span class="badge ${u['Status']==='Active'?'active':'inactive'}">${u['Status']}</span></td><td><button class="btn-sm btn-call" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button><button class="btn-sm btn-warning" onclick='toggleUser("${u['User ID']}", "${u['Status']}")'>${u['Status']==='Active'?'Block':'Unblock'}</button></td></tr>`).join('');
 }
 function openUserModal() {
   document.getElementById('modalTitle').textContent = 'Add New User';
@@ -707,11 +628,11 @@ function editUser(u) {
   document.getElementById('modalTitle').textContent = 'Edit User';
   document.getElementById('editUserId').value = u['User ID'];
   document.getElementById('formName').value = u['Name'];
-  document.getElementById('formPhone').value = u['Phone'] || '';
+  document.getElementById('formPhone').value = u['Phone']||'';
   document.getElementById('formRole').value = u['Role'];
   document.getElementById('formUsername').value = u['Username'];
-  document.getElementById('formPassword').value = u['Password'] || '';
-  document.getElementById('formEmail').value = u['Email'] || '';
+  document.getElementById('formPassword').value = u['Password']||'';
+  document.getElementById('formEmail').value = u['Email']||'';
   document.getElementById('userModal').classList.add('show');
 }
 async function saveUser() {
@@ -748,14 +669,11 @@ function renderLeads() {
   const f = document.getElementById('leadsFilter')?.value || '';
   let leads = allLeads.filter(l => {
     if (f && l['Call_Status'] !== f) return false;
-    if (q) { const n = (l['Customer_Name'] || '').toLowerCase(); const p = (l['Contact_Number'] || '').toLowerCase(); if (!n.includes(q) && !p.includes(q)) return false; }
+    if (q) { const n = (l['Customer_Name']||'').toLowerCase(); const p = (l['Contact_Number']||'').toLowerCase(); if (!n.includes(q) && !p.includes(q)) return false; }
     return true;
   });
   if (!leads.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>'; return; }
-  tbody.innerHTML = leads.map(l => {
-    const nc = l['Next Call Date'] || '';
-    return `<tr><td>${l['Lead ID']}</td><td><strong>${l['Customer_Name']}</strong></td><td>${l['Contact_Number']}</td><td>${l['Assigned To'] || 'Unassigned'}</td><td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status'] || 'New'}</span></td><td class="${getNextCallClass(nc)}">${nc || '—'}</td><td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️</button></td></tr>`;
-  }).join('');
+  tbody.innerHTML = leads.map(l => { const nc = l['Next Call Date'] || ''; return `<tr><td>${l['Lead ID']}</td><td><strong>${l['Customer_Name']}</strong></td><td>${l['Contact_Number']}</td><td>${l['Assigned To']||'Unassigned'}</td><td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status']||'New'}</span></td><td class="${getNextCallClass(nc)}">${nc||'—'}</td><td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️</button></td></tr>`; }).join('');
 }
 function getNextCallClass(nc) { if (!nc) return 'next-call-normal'; const t = getISTDate(); const d = String(nc).slice(0,10); if (d === t) return 'next-call-today'; if (d < t) return 'next-call-overdue'; return 'next-call-normal'; }
 function statusToClass(s) { const m = {'New':'new','Interested':'interested','Not Interested':'not','Call Later':'later','Visit Ready':'visit','Wrong Number':'gray','Call Completed':'not','Not Answered':'gray'}; return m[s] || 'new'; }
@@ -777,26 +695,18 @@ function renderTelecallerStats() {
   const vr = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
   const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
   const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
-  document.getElementById('tcStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total Call</div></div>
-    <div class="stat-card green"><div class="stat-value">${d}</div><div class="stat-label">Call Done</div></div>
-    <div class="stat-card amber"><div class="stat-value">${vr}</div><div class="stat-label">Visit Ready</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${cl}</div><div class="stat-label">Call Later</div></div>
-    <div class="stat-card red"><div class="stat-value">${ni}</div><div class="stat-label">Not Int / Wrong</div></div>`;
+  document.getElementById('tcStats').innerHTML = `<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total Call</div></div><div class="stat-card green"><div class="stat-value">${d}</div><div class="stat-label">Call Done</div></div><div class="stat-card amber"><div class="stat-value">${vr}</div><div class="stat-label">Visit Ready</div></div><div class="stat-card cyan"><div class="stat-value">${cl}</div><div class="stat-label">Call Later</div></div><div class="stat-card red"><div class="stat-value">${ni}</div><div class="stat-label">Not Int / Wrong</div></div>`;
   drawChart('telecallerChart', { labels:['Visit Ready','Call Later','Not Int/Wrong'], data:[vr,cl,ni], colors:['#F59E0B','#06B6D4','#EF4444'] }, 'pie');
 }
 function renderTelecallerSummary() {
-  const s = document.getElementById('adminTelecallerSection');
-  const c = document.getElementById('tcSummaryContainer');
-  if (!s || !c) return;
-  if (session.role !== 'Admin') { s.style.display = 'none'; return; }
+  const s = document.getElementById('adminTelecallerSection'), c = document.getElementById('tcSummaryContainer');
+  if (!s || !c || session.role !== 'Admin') { if (s) s.style.display = 'none'; return; }
   s.style.display = 'block';
   const map = {};
   allTelecallerData.forEach(l => { const n = l['Assigned To'] || 'Unassigned'; if (!map[n]) map[n] = []; map[n].push(l); });
   if (!Object.keys(map).length) { c.innerHTML = '<div class="empty-state">No data</div>'; return; }
   c.innerHTML = Object.entries(map).map(([n, leads]) => {
-    const t = leads.length;
-    const d = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+    const t = leads.length, d = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
     const vr = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
     const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
     const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
@@ -810,27 +720,24 @@ function renderTelecallerLeads() {
   let base = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   let leads = base.filter(l => {
     if (f && l['Call_Status'] !== f) return false;
-    if (q) { const n = (l['Customer_Name'] || '').toLowerCase(); const p = (l['Contact_Number'] || '').toLowerCase(); if (!n.includes(q) && !p.includes(q)) return false; }
+    if (q) { const n = (l['Customer_Name']||'').toLowerCase(); const p = (l['Contact_Number']||'').toLowerCase(); if (!n.includes(q) && !p.includes(q)) return false; }
     return true;
   });
   if (!leads.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>'; return; }
-  tbody.innerHTML = leads.map(l => {
-    const nc = l['Next Call Date'] || '';
-    return `<tr><td>${l['Lead ID']}</td><td><strong>${l['Customer_Name']}</strong></td><td>${l['Contact_Number']}</td><td>${l['Assigned To'] || '-'}</td><td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status'] || 'New'}</span></td><td class="${getNextCallClass(nc)}">${nc || '—'}</td><td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️ Edit</button></td></tr>`;
-  }).join('');
+  tbody.innerHTML = leads.map(l => { const nc = l['Next Call Date'] || ''; return `<tr><td>${l['Lead ID']}</td><td><strong>${l['Customer_Name']}</strong></td><td>${l['Contact_Number']}</td><td>${l['Assigned To']||'-'}</td><td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status']||'New'}</span></td><td class="${getNextCallClass(nc)}">${nc||'—'}</td><td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️ Edit</button></td></tr>`; }).join('');
 }
 
 function openEditLead(lead) {
   currentLead = lead;
   document.getElementById('editLeadId').value = lead['Lead ID'];
-  document.getElementById('editCustomerName').value = lead['Customer_Name'] || '';
-  document.getElementById('editContactNumber').value = lead['Contact_Number'] || '';
-  document.getElementById('editCallStatus').value = lead['Call_Status'] || '';
-  document.getElementById('editNextCallDate').value = lead['Next Call Date'] || '';
-  document.getElementById('editVisitStatus').value = lead['Visit Status'] || '';
-  document.getElementById('editVisitDate').value = lead['Visit Date'] || '';
-  document.getElementById('editAddress').value = lead['Address'] || '';
-  document.getElementById('editNotes').value = lead['Notes'] || '';
+  document.getElementById('editCustomerName').value = lead['Customer_Name']||'';
+  document.getElementById('editContactNumber').value = lead['Contact_Number']||'';
+  document.getElementById('editCallStatus').value = lead['Call_Status']||'';
+  document.getElementById('editNextCallDate').value = lead['Next Call Date']||'';
+  document.getElementById('editVisitStatus').value = lead['Visit Status']||'';
+  document.getElementById('editVisitDate').value = lead['Visit Date']||'';
+  document.getElementById('editAddress').value = lead['Address']||'';
+  document.getElementById('editNotes').value = lead['Notes']||'';
   document.getElementById('editLeadModal').classList.add('show');
 }
 async function saveEditedLead() {
@@ -938,11 +845,7 @@ function renderVisitorTable() {
 function openVisitDetails(row) {
   const notes = row['Notes'] || '';
   const pm = notes.match(/Property:\s*([^|]+)/), bm = notes.match(/Budget:\s*([^|]+)/), im = notes.match(/Interested:\s*([^|]+)/), nm = notes.match(/Notes:\s*(.+)$/);
-  document.getElementById('visitDetailsBody').innerHTML = `
-    <div class="detail-section"><div class="detail-section-title">📋 Customer</div><div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${row['Customer_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${row['Contact_Number']||'—'}</div></div><div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${row['Address']||'—'}</div></div></div>
-    <div class="detail-section"><div class="detail-section-title">📅 Visit</div><div class="detail-row"><div class="detail-label">ID</div><div class="detail-value">${row['Visit ID']||'—'}</div></div><div class="detail-row"><div class="detail-label">Date</div><div class="detail-value">${row['Visit Date']||'—'}</div></div><div class="detail-row"><div class="detail-label">Visitor</div><div class="detail-value">${row['Visitor_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${row['Visit_Status']||'Pending'}</div></div></div>
-    ${pm||bm||im ? `<div class="detail-section"><div class="detail-section-title">🏠 Property</div><div class="detail-row"><div class="detail-label">Type</div><div class="detail-value">${pm?pm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${bm?'₹ '+bm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${im?im[1].trim():'—'}</div></div></div>` : ''}
-    ${nm ? `<div class="detail-section"><div class="detail-section-title">📝 Notes</div><div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${nm[1]}</div></div>` : ''}`;
+  document.getElementById('visitDetailsBody').innerHTML = `<div class="detail-section"><div class="detail-section-title">📋 Customer</div><div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${row['Customer_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${row['Contact_Number']||'—'}</div></div><div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${row['Address']||'—'}</div></div></div><div class="detail-section"><div class="detail-section-title">📅 Visit</div><div class="detail-row"><div class="detail-label">ID</div><div class="detail-value">${row['Visit ID']||'—'}</div></div><div class="detail-row"><div class="detail-label">Date</div><div class="detail-value">${row['Visit Date']||'—'}</div></div><div class="detail-row"><div class="detail-label">Visitor</div><div class="detail-value">${row['Visitor_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${row['Visit_Status']||'Pending'}</div></div></div>${pm||bm||im ? `<div class="detail-section"><div class="detail-section-title">🏠 Property</div><div class="detail-row"><div class="detail-label">Type</div><div class="detail-value">${pm?pm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${bm?'₹ '+bm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${im?im[1].trim():'—'}</div></div></div>` : ''}${nm ? `<div class="detail-section"><div class="detail-section-title">📝 Notes</div><div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${nm[1]}</div></div>` : ''}`;
   document.getElementById('visitDetailsModal').classList.add('show');
 }
 function openVisitDone(row) {
@@ -996,7 +899,7 @@ async function submitVisitorEdit() {
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ DESIGNER (NEW — Customer Cards) ============
+// ============ DESIGNER ============
 async function loadDesignerData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -1007,82 +910,44 @@ async function loadDesignerData() {
 }
 function renderDesignerStats() {
   const rows = allDesignerData;
-  document.getElementById('designerStats').innerHTML = `<div class="stat-card purple"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Materials</div></div><div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div><div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Complete</div></div>`;
+  const total = rows.length;
+  const withMat = rows.filter(d => d['Material_Description'] && String(d['Material_Description']).trim() !== '').length;
+  const empty = total - withMat;
+  document.getElementById('designerStats').innerHTML = `<div class="stat-card purple"><div class="stat-value">${total}</div><div class="stat-label">Total Rows</div></div><div class="stat-card green"><div class="stat-value">${withMat}</div><div class="stat-label">With Material</div></div><div class="stat-card amber"><div class="stat-value">${empty}</div><div class="stat-label">Empty</div></div>`;
 }
 function renderDesignerCards() {
   const container = document.getElementById('designerCardsContainer');
-  if (!allDesignerData.length) {
-    container.innerHTML = '<div class="table-card"><div class="empty-state">No materials assigned</div></div>';
-    return;
-  }
-  // Group by customer + designer
+  if (!allDesignerData.length) { container.innerHTML = '<div class="table-card"><div class="empty-state">No materials assigned</div></div>'; return; }
   const groups = {};
   allDesignerData.forEach(r => {
     const key = `${r['Customer_Name']}||${r['Designer_Name']}`;
     if (!groups[key]) groups[key] = { customer: r['Customer_Name'], designer: r['Designer_Name'], contact: r['Contact_Number'], materials: [] };
     if (r['Material_Description']) {
-      groups[key].materials.push({
-        material: r['Material_Description'],
-        qty: r['QTY'],
-        uom: r['UOM'],
-        size: r['Size']
-      });
+      groups[key].materials.push({ material: r['Material_Description'], qty: r['QTY'], uom: r['UOM'], size: r['Size'] });
     }
   });
-
   container.innerHTML = Object.entries(groups).map(([key, g]) => {
     const matCount = g.materials.length;
-    const materialRows = matCount > 0
-      ? g.materials.map((m, i) => `
-        <div class="designer-material-row">
-          <div class="designer-material-num">${i + 1}</div>
-          <div class="designer-material-name">${m.material || '—'}</div>
-          <div class="designer-material-info">Qty: ${m.qty || '—'} ${m.uom || ''}</div>
-          <div class="designer-material-info">Size: ${m.size || '—'}</div>
-          <div class="designer-material-actions">
-            <button class="btn-sm btn-warning" onclick='openDesignerEdit(${JSON.stringify({customerName: g.customer, designerName: g.designer, materialDescription: m.material, qty: m.qty, uom: m.uom, size: m.size}).replace(/'/g, "&apos;")})'>✏️ Edit</button>
-            <button class="btn-sm btn-danger" onclick='deleteDesignerMaterial("${g.customer}", "${g.designer}", "${m.material}")'>🗑️</button>
-          </div>
-        </div>`).join('')
-      : `<div class="designer-material-row" style="color:#94A3B8;font-style:italic;">No materials yet — click Add Material below</div>`;
-
-    return `
-      <div class="designer-card">
-        <div class="designer-card-header">
-          <div class="designer-card-customer">👤 ${g.customer}</div>
-          <div class="designer-card-count">${matCount} material${matCount !== 1 ? 's' : ''}</div>
-        </div>
-        <div class="designer-card-materials">${materialRows}</div>
-        <div class="designer-card-footer">
-          <button class="btn btn-primary" onclick='openAddMaterialModal("${g.customer}", "${g.designer}")'>➕ Add Material</button>
-          <button class="btn btn-purple" onclick='requestNextTeamFn("Designer","${g.customer}","${g.contact || ''}")'>📤 Request Production</button>
-        </div>
-      </div>`;
+    const materialRows = matCount > 0 ? g.materials.map((m, i) => `<div class="designer-material-row"><div class="designer-material-num">${i + 1}</div><div class="designer-material-name">${m.material || '—'}</div><div class="designer-material-info">Qty: ${m.qty || '—'} ${m.uom || ''}</div><div class="designer-material-info">Size: ${m.size || '—'}</div><div class="designer-material-actions"><button class="btn-sm btn-warning" onclick='openDesignerEdit(${JSON.stringify({customerName: g.customer, designerName: g.designer, materialDescription: m.material, qty: m.qty, uom: m.uom, size: m.size}).replace(/'/g, "&apos;")})'>✏️ Edit</button><button class="btn-sm btn-danger" onclick='deleteDesignerMaterial("${g.customer}", "${g.designer}", "${m.material}")'>🗑️</button></div></div>`).join('') : `<div class="designer-material-row" style="color:#94A3B8;font-style:italic;">No materials yet — click Add Material below</div>`;
+    return `<div class="designer-card"><div class="designer-card-header"><div class="designer-card-customer">👤 ${g.customer}</div><div class="designer-card-count">${matCount} material${matCount !== 1 ? 's' : ''}</div></div><div class="designer-card-materials">${materialRows}</div><div class="designer-card-footer"><button class="btn btn-primary" onclick='openAddMaterialModal("${g.customer}", "${g.designer}")'>➕ Add Material</button><button class="btn btn-purple" onclick='requestNextTeamFn("Designer","${g.customer}","${g.contact || ''}")'>📤 Request Production</button></div></div>`;
   }).join('');
 }
 function openDesignerEdit(row) {
   document.getElementById('dsEditOldMaterial').value = row.materialDescription || '';
+  document.getElementById('dsEditDesigner').value = row.designerName || '';
   document.getElementById('dsEditCustomer').value = row.customerName || '';
   document.getElementById('dsEditMaterial').value = row.materialDescription || '';
   document.getElementById('dsEditQty').value = row.qty || '';
   document.getElementById('dsEditUom').value = row.uom || 'Pcs';
   document.getElementById('dsEditSize').value = row.size || '';
-  document.getElementById('dsEditNotes').value = '';
   document.getElementById('designerEditModal').classList.add('show');
 }
 async function submitDesignerEdit() {
-  const customerName = document.getElementById('dsEditCustomer').value;
-  const oldMaterial = document.getElementById('dsEditOldMaterial').value;
-  const newMaterial = document.getElementById('dsEditMaterial').value;
-  // Find designer name from data
-  const rec = allDesignerData.find(r => r['Customer_Name'] === customerName && r['Material_Description'] === oldMaterial);
-  const designerName = rec ? rec['Designer_Name'] : session.name;
-  
   const data = await apiPost('updateDesigner', {
-    customerName: customerName,
-    designerName: designerName,
-    oldMaterial: oldMaterial,
-    'Material_Description': newMaterial,
+    customerName: document.getElementById('dsEditCustomer').value,
+    designerName: document.getElementById('dsEditDesigner').value,
+    oldMaterial: document.getElementById('dsEditOldMaterial').value,
+    'Material_Description': document.getElementById('dsEditMaterial').value,
     'QTY': document.getElementById('dsEditQty').value,
     'UOM': document.getElementById('dsEditUom').value,
     'Size': document.getElementById('dsEditSize').value
@@ -1096,7 +961,6 @@ function openAddMaterialModal(customer, designer) {
   document.getElementById('dsAddQty').value = '';
   document.getElementById('dsAddUom').value = 'Pcs';
   document.getElementById('dsAddSize').value = '';
-  document.getElementById('dsAddNotes').value = '';
   document.getElementById('designerAddMaterialModal').dataset.designer = designer;
   document.getElementById('designerAddMaterialModal').classList.add('show');
 }
@@ -1109,11 +973,7 @@ async function submitAddDesignerMaterial() {
   if (!qty) return showToast('QTY required', 'error');
   const btn = document.getElementById('dsAddBtn');
   btn.disabled = true; btn.textContent = 'Adding...';
-  const data = await apiPost('addDesignerMaterial', {
-    customerName, designerName, materialDescription, qty,
-    uom: document.getElementById('dsAddUom').value,
-    size: document.getElementById('dsAddSize').value
-  });
+  const data = await apiPost('addDesignerMaterial', { customerName, designerName, materialDescription, qty, uom: document.getElementById('dsAddUom').value, size: document.getElementById('dsAddSize').value });
   btn.disabled = false; btn.textContent = '➕ Add Material';
   if (data.success) { closeModal('designerAddMaterialModal'); showToast('Material added ✅'); await loadDesignerData(); }
   else showToast(data.error || 'Failed', 'error');
@@ -1136,7 +996,10 @@ async function loadProductionData() {
 }
 function renderProductionStats() {
   const r = allProductionData;
-  document.getElementById('productionStats').innerHTML = `<div class="stat-card"><div class="stat-value">${r.length}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Produced</div></div><div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>`;
+  const total = r.length;
+  const produced = r.filter(p => p['Produced QTY'] && String(p['Produced QTY']).trim() !== '').length;
+  const pending = total - produced;
+  document.getElementById('productionStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${produced}</div><div class="stat-label">Produced</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderProductionTable() {
   const tbody = document.getElementById('productionBody');
@@ -1165,7 +1028,10 @@ async function loadDispatchData() {
 }
 function renderDispatchStats() {
   const r = allDispatchData;
-  document.getElementById('dispatchStats').innerHTML = `<div class="stat-card"><div class="stat-value">${r.length}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Dispatched</div></div><div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>`;
+  const total = r.length;
+  const dis = r.filter(d => d['Dispatched QTY'] && String(d['Dispatched QTY']).trim() !== '').length;
+  const pending = total - dis;
+  document.getElementById('dispatchStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${dis}</div><div class="stat-label">Dispatched</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderDispatchTable() {
   const tbody = document.getElementById('dispatchBody');
@@ -1196,7 +1062,10 @@ async function loadInstallationData() {
 }
 function renderInstallationStats() {
   const r = allInstallationData;
-  document.getElementById('installationStats').innerHTML = `<div class="stat-card"><div class="stat-value">${r.length}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Installed</div></div><div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>`;
+  const total = r.length;
+  const inst = r.filter(i => i['Installed QTY'] && String(i['Installed QTY']).trim() !== '').length;
+  const pending = total - inst;
+  document.getElementById('installationStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${inst}</div><div class="stat-label">Installed</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderInstallationTable() {
   const tbody = document.getElementById('installationBody');
