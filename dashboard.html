@@ -631,7 +631,8 @@ td { color: #334155; }
 // ============================================================
 // CONFIG
 // ============================================================
-const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
+// ✅ FIXED: Correct Worker URL (was 'lifeasy-api', now 'lifeasy-crm-api')
+const WORKER_URL = 'https://lifeasy-crm-api.lifeasyinteriorcrm.workers.dev';
 
 // ============================================================
 // SESSION
@@ -697,12 +698,19 @@ async function apiGet(a, p={}) {
   try { const r = await fetch(WORKER_URL + '/?' + qs); return await r.json(); }
   catch(e) { return {success:false, error:e.message, data:[]}; }
 }
+
+// ✅ FIXED: POST uses text/plain (GAS-compatible)
 async function apiPost(a, p={}) {
   try {
-    const r = await fetch(WORKER_URL + '/', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:a, ...p})});
+    const r = await fetch(WORKER_URL + '/', {
+      method: 'POST',
+      headers: {'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:a, ...p})
+    });
     return await r.json();
   } catch(e) { return {success:false, error:e.message}; }
 }
+
 function exArr(res, keys=[]) {
   if (!res) return [];
   if (Array.isArray(res)) return res;
@@ -1617,4 +1625,3 @@ function logout() { if (confirm('Logout?')) { localStorage.clear(); window.locat
 </script>
 </body>
 </html>
-</div>
