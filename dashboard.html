@@ -117,7 +117,13 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .stat-card.orange { border-left-color: #F97316; }
 .stat-value { font-size: 32px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
 .stat-label { font-size: 13px; color: var(--grey); font-weight: 500; }
-.stat-date { font-size: 11px; color: #94A3B8; margin-top: 6px; font-weight: 500; }
+.stat-today { font-size: 12px; color: var(--red); margin-top: 6px; font-weight: 600; display: inline-block; padding: 3px 10px; background: #FEF2F2; border-radius: 12px; }
+.stat-today.green { color: #065F46; background: #D1FAE5; }
+.stat-today.amber { color: #92400E; background: #FEF3C7; }
+.stat-today.cyan { color: #155E75; background: #CFFAFE; }
+.stat-today.purple { color: #6B21A8; background: #F5F3FF; }
+.stat-today.blue { color: #1E40AF; background: #DBEAFE; }
+.stat-today.orange { color: #9A3412; background: #FED7AA; }
 
 .team-dashboard.admin { background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); }
 .team-dashboard.telecaller { background: linear-gradient(135deg, #FFFFFF 0%, #ECFEFF 100%); }
@@ -178,6 +184,12 @@ td { color: #334155; }
 .btn-purple:hover { background: #7C3AED; }
 .btn-danger { background: var(--danger); color: #fff; }
 .btn-danger:hover { background: #DC2626; }
+
+.pending-card { background: #FFFFFF; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid var(--red); display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pending-info { flex: 1; min-width: 200px; }
+.pending-user { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-weight: 700; font-size: 15px; color: #0F172A; }
+.pending-detail { font-size: 14px; color: #334155; margin-bottom: 4px; }
+.pending-time { font-size: 12px; color: #64748B; }
 
 .toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; padding: 16px; background: #F8FAFC; border-radius: 12px; }
 .toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
@@ -421,6 +433,11 @@ td { color: #334155; }
   <!-- ADMIN -->
   <div class="section" id="section-admin">
     <div class="section-header"><h1 class="section-title">👤 Admin Overview</h1></div>
+
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;color:#0F172A;">🔔 Pending Assignments</h3>
+    <div id="pendingAssignmentsContainer" style="margin-bottom:28px;"></div>
+
+    <h3 style="font-size:18px;font-weight:700;margin:20px 0 14px;color:#0F172A;">📊 All Teams Progress</h3>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setAdminFilter('month', this)">📅 Month</button>
       <button class="filter-btn" onclick="setAdminFilter('week', this)">📆 Week</button>
@@ -670,6 +687,10 @@ let teamFilters = { telecaller: 'month', visitor: 'month', designer: 'month', pr
 function getISTDate() { const n = new Date(); const ist = new Date(n.getTime() + 5.5*60*60*1000); return ist.toISOString().slice(0,10); }
 function getTomorrowIST() { const n = new Date(); const ist = new Date(n.getTime() + 5.5*60*60*1000 + 24*60*60*1000); return ist.toISOString().slice(0,10); }
 function truncate(t, len=30) { if (!t) return '—'; t = String(t); return t.length>len ? t.slice(0,len)+'...' : t; }
+function todayBadge(value, colorCls) {
+  if (!value || value === 0) return '';
+  return `<div class="stat-today ${colorCls || ''}">Today: ${value}</div>`;
+}
 
 async function apiGet(a, p={}) {
   const qs = new URLSearchParams({action:a, ...p}).toString();
@@ -725,7 +746,7 @@ function switchTab(name, el) {
 }
 
 // ============================================================
-// TEAM STATS — SINGLE SOURCE (same as Admin)
+// TEAM STATS — shared, with Today count
 // ============================================================
 async function renderTeamStats(teamKey, containerId, filterType) {
   const params = {
@@ -743,53 +764,52 @@ async function renderTeamStats(teamKey, containerId, filterType) {
   if (!data.success) { container.innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
   
   const d = data.data;
-  const rangeText = data.rangeStart + ' to ' + data.rangeEnd;
   let html = '';
   
   if (teamKey === 'designer' && d.designer) {
     const x = d.designer;
     html = `
-      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal, 'purple')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div>${todayBadge(x.todayReady, 'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div>${todayBadge(x.todayPending, 'amber')}</div>
     `;
   } else if (teamKey === 'production' && d.production) {
     const x = d.production;
     html = `
-      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal, 'green')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div>${todayBadge(x.todayReady, 'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div>${todayBadge(x.todayPending, 'amber')}</div>
     `;
   } else if (teamKey === 'dispatch' && d.dispatch) {
     const x = d.dispatch;
     html = `
-      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal, 'orange')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div>${todayBadge(x.todayCompleted, 'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div>${todayBadge(x.todayPending, 'amber')}</div>
     `;
   } else if (teamKey === 'installation' && d.installation) {
     const x = d.installation;
     html = `
-      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div>${todayBadge(x.todayTotal, 'blue')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div>${todayBadge(x.todayCompleted, 'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div>${todayBadge(x.todayPending, 'amber')}</div>
     `;
   } else if (teamKey === 'telecaller' && d.telecaller) {
     const t = d.telecaller;
     html = `
-      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div>${todayBadge(t.todayTotal, 'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div>${todayBadge(t.todayCallDone, 'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div>${todayBadge(t.todayVisitReady, 'amber')}</div>
+      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div>${todayBadge(t.todayCallLater, 'blue')}</div>
+      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div>${todayBadge(t.todayNotInt, '')}</div>
     `;
   } else if (teamKey === 'visitor' && d.visitor) {
     const v = d.visitor;
     html = `
-      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div>${todayBadge(v.todayTotal, 'amber')}</div>
+      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div>${todayBadge(v.todayPending, 'amber')}</div>
+      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div>${todayBadge(v.todayDone, 'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div>${todayBadge(v.todayClose, 'green')}</div>
     `;
   }
   
@@ -871,57 +891,110 @@ async function loadDashboard() {
   const data = await apiGet('getDashboardData', params);
   if (!data.success) { document.getElementById('dashboardContent').innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
   const d = data.data;
-  const rangeText = data.rangeStart + ' to ' + data.rangeEnd;
   let html = '';
   
-  if (session.role === 'Admin') { html = renderAdminAllTeams(d, rangeText); }
+  if (session.role === 'Admin') { html = renderAdminAllTeams(d); }
   else if (session.role === 'Telecaller' && d.telecaller) {
     const t = d.telecaller;
-    html = `<div class="stats-grid"><div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div><div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div><div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div>${todayBadge(t.todayTotal,'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div>${todayBadge(t.todayCallDone,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div>${todayBadge(t.todayVisitReady,'amber')}</div>
+      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div>${todayBadge(t.todayCallLater,'blue')}</div>
+      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div>${todayBadge(t.todayNotInt,'')}</div>
+    </div>`;
   } else if (session.role === 'Visit' && d.visitor) {
     const v = d.visitor;
-    html = `<div class="stats-grid"><div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div><div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div>${todayBadge(v.todayTotal,'amber')}</div>
+      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div>${todayBadge(v.todayPending,'amber')}</div>
+      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div>${todayBadge(v.todayDone,'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div>${todayBadge(v.todayClose,'green')}</div>
+    </div>`;
   } else if (session.role === 'Designer' && d.designer) {
     const x = d.designer;
-    html = `<div class="stats-grid"><div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'purple')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div>${todayBadge(x.todayReady,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div>`;
   } else if (session.role === 'Production' && d.production) {
     const x = d.production;
-    html = `<div class="stats-grid"><div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'green')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div>${todayBadge(x.todayReady,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div>`;
   } else if (session.role === 'Dispatch' && d.dispatch) {
     const x = d.dispatch;
-    html = `<div class="stats-grid"><div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'orange')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div>${todayBadge(x.todayCompleted,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div>`;
   } else if (session.role === 'Installation' && d.installation) {
     const x = d.installation;
-    html = `<div class="stats-grid"><div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
+    html = `<div class="stats-grid">
+      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div>${todayBadge(x.todayTotal,'blue')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div>${todayBadge(x.todayCompleted,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div>`;
   }
   document.getElementById('dashboardContent').innerHTML = html;
 }
 
-function renderAdminAllTeams(d, rangeText) {
+function renderAdminAllTeams(d) {
   let html = '';
   if (d.telecaller) {
     const t = d.telecaller;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">📞</span><span class="team-section-title">Telecaller</span></div><div class="stats-grid"><div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div><div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div><div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">📞</span><span class="team-section-title">Telecaller</span></div><div class="stats-grid">
+      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div>${todayBadge(t.todayTotal,'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div>${todayBadge(t.todayCallDone,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div>${todayBadge(t.todayVisitReady,'amber')}</div>
+      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div>${todayBadge(t.todayCallLater,'blue')}</div>
+      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div>${todayBadge(t.todayNotInt,'')}</div>
+    </div></div>`;
   }
   if (d.visitor) {
     const v = d.visitor;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚗</span><span class="team-section-title">Visitor</span></div><div class="stats-grid"><div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div><div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚗</span><span class="team-section-title">Visitor</span></div><div class="stats-grid">
+      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div>${todayBadge(v.todayTotal,'amber')}</div>
+      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div>${todayBadge(v.todayPending,'amber')}</div>
+      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div>${todayBadge(v.todayDone,'cyan')}</div>
+      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div>${todayBadge(v.todayClose,'green')}</div>
+    </div></div>`;
   }
   if (d.designer) {
     const x = d.designer;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🎨</span><span class="team-section-title">Designing Team</span></div><div class="stats-grid"><div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🎨</span><span class="team-section-title">Designing Team</span></div><div class="stats-grid">
+      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'purple')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div>${todayBadge(x.todayReady,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div></div>`;
   }
   if (d.production) {
     const x = d.production;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🏭</span><span class="team-section-title">Production Team</span></div><div class="stats-grid"><div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🏭</span><span class="team-section-title">Production Team</span></div><div class="stats-grid">
+      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'green')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div>${todayBadge(x.todayReady,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div></div>`;
   }
   if (d.dispatch) {
     const x = d.dispatch;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚚</span><span class="team-section-title">Dispatch Team</span></div><div class="stats-grid"><div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚚</span><span class="team-section-title">Dispatch Team</span></div><div class="stats-grid">
+      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div>${todayBadge(x.todayTotal,'orange')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div>${todayBadge(x.todayCompleted,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div></div>`;
   }
   if (d.installation) {
     const x = d.installation;
-    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🔧</span><span class="team-section-title">Installation</span></div><div class="stats-grid"><div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🔧</span><span class="team-section-title">Installation</span></div><div class="stats-grid">
+      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div>${todayBadge(x.todayTotal,'blue')}</div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div>${todayBadge(x.todayCompleted,'green')}</div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div>${todayBadge(x.todayPending,'amber')}</div>
+    </div></div>`;
   }
   return html;
 }
@@ -931,7 +1004,72 @@ async function loadAdminDashboard() {
   if (currentAdminFilter === 'custom') { params.fromDate = adminFrom; params.toDate = adminTo; }
   const data = await apiGet('getDashboardData', params);
   if (!data.success) { document.getElementById('adminDashboardContent').innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
-  document.getElementById('adminDashboardContent').innerHTML = renderAdminAllTeams(data.data, data.rangeStart + ' to ' + data.rangeEnd);
+  document.getElementById('adminDashboardContent').innerHTML = renderAdminAllTeams(data.data);
+}
+
+// ============================================================
+// PENDING ASSIGNMENTS
+// ============================================================
+function renderPendingAssignments() {
+  const el = document.getElementById('pendingAssignmentsContainer');
+  if (!el) return;
+  if (!allPendingAssignments.length) {
+    el.innerHTML = '<div class="table-card"><div class="empty-state">No pending assignments ✅</div></div>';
+    return;
+  }
+  el.innerHTML = allPendingAssignments.map(req => {
+    const fromTeam = req['From Team'] || '';
+    const fromUser = req['From User'] || '';
+    const customer = req['Customer Name'] || '';
+    const reqType = req['Request Type'] || '';
+    const reqAt = req['Requested At'] || '';
+    let icon = '📋';
+    if (reqType.includes('Visitor')) icon = '🚗';
+    else if (reqType.includes('Designer')) icon = '🎨';
+    else if (reqType.includes('Production')) icon = '🏭';
+    else if (reqType.includes('Dispatch')) icon = '🚚';
+    else if (reqType.includes('Installation')) icon = '🔧';
+    return `
+      <div class="pending-card">
+        <div class="pending-info">
+          <div class="pending-user">${icon} ${fromUser} <span style="color:#64748B;font-weight:500;">(${fromTeam})</span></div>
+          <div class="pending-detail"><strong>${reqType}</strong> — ${customer}</div>
+          <div class="pending-time">📅 ${reqAt}</div>
+        </div>
+        <button class="btn btn-primary" onclick='openAssignModal(${JSON.stringify(req).replace(/'/g, "&apos;")})'>Assign</button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function loadPendingAssignments() {
+  const data = await apiGet('getPendingAssignments');
+  allPendingAssignments = data.pending || [];
+  renderPendingAssignments();
+}
+
+function openAssignModal(req) {
+  document.getElementById('assignRequestId').value = req['Request ID'];
+  document.getElementById('assignCustomer').value = req['Customer Name'];
+  document.getElementById('assignTypeLabel').value = req['Request Type'];
+  const rm = { 'Assign Visitor': 'Visit', 'Assign Designer': 'Designer', 'Assign Production': 'Production', 'Assign Dispatch': 'Dispatch', 'Assign Installation': 'Installation' };
+  const tr = rm[req['Request Type']];
+  const matching = allUsers.filter(u => u.Role === tr && u.Status === 'Active');
+  document.getElementById('assignUserSelect').innerHTML = '<option value="">Select...</option>' + matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
+  document.getElementById('assignModal').classList.add('show');
+}
+
+async function submitAssignment() {
+  const requestId = document.getElementById('assignRequestId').value;
+  const assignedTo = document.getElementById('assignUserSelect').value;
+  if (!assignedTo) return showToast('Select user', 'error');
+  const data = await apiPost('assignUser', { requestId, assignedTo, assignedBy: session.name });
+  if (data.success) {
+    closeModal('assignModal');
+    showToast(`Assigned to ${assignedTo} ✅`);
+    await loadPendingAssignments();
+    await loadAdminDashboard();
+  } else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
@@ -1061,7 +1199,7 @@ async function saveEditedLead() {
     await loadTelecallerData();
     if (cs === 'Visit Ready') {
       await apiPost('createAssignmentRequest', { fromTeam: 'Telecaller', fromUser: session.name, customerName: currentLead['Customer_Name'], contactNumber: currentLead['Contact_Number'], requestType: 'Assign Visitor', notes: `Visit on ${vd || 'TBD'} at ${addr || 'TBD'}` });
-      showToast('Request sent to Admin');
+      showToast('Request sent to Admin ✅');
     }
   } else showToast(data.error || 'Failed', 'error');
 }
@@ -1438,9 +1576,8 @@ async function requestNextTeamFn(fromTeam, customerName, contactNumber) {
 // ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin()]);
-  const data = await apiGet('getPendingAssignments');
-  allPendingAssignments = data.pending || [];
-  loadAdminDashboard();
+  await loadPendingAssignments();
+  await loadAdminDashboard();
 }
 
 // ============================================================
