@@ -25,7 +25,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
   --border: #E2E8F0;
 }
 
-/* ============ LOADING ============ */
 .loading-overlay { position: fixed; inset: 0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; z-index: 9999; transition: opacity 0.5s; }
 .loading-overlay.hide { opacity: 0; pointer-events: none; }
 .loading-logo { display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -43,7 +42,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .loading-text { color: #94A3B8; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.5s; }
 .loading-text.show { opacity: 1; }
 
-/* ============ TOPBAR ============ */
 .topbar { background: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); border-bottom-width: 3px; }
 .topbar.admin { border-bottom-color: var(--grey-dark); }
 .topbar.telecaller { border-bottom-color: #06B6D4; }
@@ -85,22 +83,18 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .bell-item .time { color: var(--grey); font-size: 11px; margin-top: 4px; }
 .bell-empty { padding: 30px; text-align: center; color: var(--grey); font-size: 13px; }
 
-/* ============ TABS ============ */
 .tabs { background: #FFFFFF; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--border); scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
 .tab { padding: 16px 18px; font-size: 14px; font-weight: 500; color: var(--grey); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
 .tab:hover { color: var(--red); }
 .tab.active { color: var(--red); border-bottom-color: var(--red); font-weight: 600; }
 
-/* ============ CONTENT ============ */
 .content { padding: 24px; max-width: 1400px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
-
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 14px; }
 .section-title { font-size: 24px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 10px; }
 
-/* ============ FILTER ============ */
 .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; background: #FFFFFF; padding: 12px; border-radius: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 .filter-btn { padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; border: 2px solid var(--border); background: #FFFFFF; color: var(--grey); transition: all 0.2s; }
 .filter-btn:hover { border-color: var(--red); color: var(--red); }
@@ -111,7 +105,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .filter-custom input:focus { border-color: var(--red); }
 .filter-apply { padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; background: var(--red); color: #FFFFFF; }
 
-/* ============ STATS ============ */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid var(--grey-dark); transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -126,7 +119,6 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .stat-label { font-size: 13px; color: var(--grey); font-weight: 500; }
 .stat-date { font-size: 11px; color: #94A3B8; margin-top: 6px; font-weight: 500; }
 
-/* Team-specific dashboard bg */
 .team-dashboard.admin { background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); }
 .team-dashboard.telecaller { background: linear-gradient(135deg, #FFFFFF 0%, #ECFEFF 100%); }
 .team-dashboard.visit { background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%); }
@@ -135,18 +127,11 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .team-dashboard.dispatch { background: linear-gradient(135deg, #FFFFFF 0%, #FFF7ED 100%); }
 .team-dashboard.installation { background: linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%); }
 
-/* Team section card */
 .team-section { background: #FFFFFF; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
 .team-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
 .team-section-icon { font-size: 24px; }
 .team-section-title { font-size: 18px; font-weight: 700; color: #0F172A; }
 
-/* ============ CHART ============ */
-.chart-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px; margin-bottom: 20px; }
-.chart-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
-.chart-container { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
-
-/* ============ TABLE ============ */
 .table-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 20px; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; min-width: 700px; }
@@ -157,7 +142,6 @@ tr:last-child { border-bottom: none; }
 tr:hover { background: #F8FAFC; }
 td { color: #334155; }
 
-/* ============ BADGES ============ */
 .badge { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #D1FAE5; color: #065F46; }
 .badge.inactive { background: #FEE2E2; color: #991B1B; }
@@ -179,7 +163,6 @@ td { color: #334155; }
 .next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; }
 .next-call-normal { color: var(--grey); }
 
-/* ============ BUTTONS ============ */
 .btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
 .btn-primary { background: var(--red); color: #fff; }
 .btn-primary:hover { background: var(--red-dark); }
@@ -196,13 +179,11 @@ td { color: #334155; }
 .btn-danger { background: var(--danger); color: #fff; }
 .btn-danger:hover { background: #DC2626; }
 
-/* ============ TOOLBAR ============ */
 .toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; padding: 16px; background: #F8FAFC; border-radius: 12px; }
 .toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
 .toolbar input:focus, .toolbar select:focus { border-color: var(--red); }
 .toolbar input { flex: 1; min-width: 200px; }
 
-/* ============ MODAL ============ */
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal { background: #FFFFFF; border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
@@ -225,7 +206,6 @@ td { color: #334155; }
 .btn-save:hover { background: var(--red-dark); }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* ============ UPLOAD ============ */
 .upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; background: #F8FAFC; cursor: pointer; transition: all 0.2s; }
 .upload-zone:hover { border-color: var(--red); background: #FEF2F2; }
 .upload-zone input { display: none; }
@@ -233,15 +213,6 @@ td { color: #334155; }
 .preview-table table { font-size: 12px; min-width: auto; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
 
-/* ============ CALLBACK ============ */
-.callback-item { padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
-.callback-item.today { background: #FEF3C7; border-color: #FCD34D; }
-.callback-info { flex: 1; }
-.callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
-.callback-info .meta { font-size: 12px; color: var(--grey); margin-top: 4px; }
-
-/* ============ EMPTY + TOAST ============ */
 .empty-state { padding: 50px 20px; text-align: center; color: var(--grey); font-size: 14px; }
 .toast { position: fixed; bottom: 28px; right: 28px; background: #0F172A; color: #fff; padding: 16px 22px; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; max-width: 400px; }
 .toast.show { opacity: 1; transform: translateY(0); }
@@ -249,7 +220,6 @@ td { color: #334155; }
 .toast.error { background: var(--danger); }
 .toast.warning { background: var(--warning); }
 
-/* ============ DESIGNER CARDS ============ */
 .designer-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; overflow: hidden; border-left: 4px solid var(--purple); }
 .designer-card-header { padding: 18px 22px; background: linear-gradient(135deg, #F8FAFC 0%, #F5F3FF 100%); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .designer-card-customer { font-size: 18px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 8px; }
@@ -263,7 +233,6 @@ td { color: #334155; }
 .designer-material-actions { display: flex; gap: 6px; flex-shrink: 0; }
 .designer-card-footer { padding: 16px 22px; background: #F8FAFC; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
-/* ============ MOBILE ============ */
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand-logo { max-height: 32px; }
@@ -276,7 +245,6 @@ td { color: #334155; }
   .section-title { font-size: 20px; }
   .stat-value { font-size: 26px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .chart-container { height: 240px; }
   .bell-dropdown { width: 290px; right: -60px; }
   .modal.wide { max-width: 95vw; }
   th, td { padding: 10px 12px; font-size: 13px; }
@@ -290,7 +258,6 @@ td { color: #334155; }
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-logo">
     <div class="line1" id="loadLine1"></div>
@@ -300,7 +267,6 @@ td { color: #334155; }
   <div class="loading-text" id="loadText">Loading Lifeasy INTERIOR...</div>
 </div>
 
-<!-- TOPBAR -->
 <div class="topbar" id="topbar">
   <div class="brand">
     <img src="https://lifeasyinterior.com/wp-content/uploads/2024/01/lifeasy-interior-logo.png" alt="Lifeasy INTERIOR" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
@@ -317,24 +283,18 @@ td { color: #334155; }
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs" id="tabs"></div>
 
-<!-- CONTENT -->
 <div class="content">
 
   <!-- DASHBOARD -->
   <div class="section active" id="section-dashboard">
-    <div class="section-header">
-      <h1 class="section-title">📊 Dashboard</h1>
-    </div>
-
-    <!-- Date Filter -->
+    <div class="section-header"><h1 class="section-title">📊 Dashboard</h1></div>
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="month" onclick="setFilter('month', this)">📅 Month</button>
-      <button class="filter-btn" data-filter="week" onclick="setFilter('week', this)">📆 Week</button>
-      <button class="filter-btn" data-filter="year" onclick="setFilter('year', this)">📅 Year</button>
-      <button class="filter-btn" data-filter="custom" onclick="setFilter('custom', this)">🎯 Custom</button>
+      <button class="filter-btn active" onclick="setFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setFilter('year', this)">📅 Year</button>
+      <button class="filter-btn" onclick="setFilter('custom', this)">🎯 Custom</button>
       <div class="filter-custom" id="customFilter">
         <input type="date" id="filterFrom">
         <span>to</span>
@@ -342,73 +302,42 @@ td { color: #334155; }
         <button class="filter-apply" onclick="applyCustomFilter()">Apply</button>
       </div>
     </div>
-
     <div id="dashboardContent"></div>
   </div>
 
   <!-- USERS -->
   <div class="section" id="section-users">
-    <div class="section-header">
-      <h1 class="section-title">👤 User Management</h1>
-      <button class="btn btn-primary" onclick="openUserModal()">+ Add New User</button>
-    </div>
-    <div class="table-card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="usersTbody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="section-header"><h1 class="section-title">👤 User Management</h1><button class="btn btn-primary" onclick="openUserModal()">+ Add New User</button></div>
+    <div class="table-card"><div class="table-wrap"><table><thead><tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead><tbody id="usersTbody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div></div>
   </div>
 
   <!-- LEADS -->
   <div class="section" id="section-leads">
-    <div class="section-header">
-      <h1 class="section-title">📋 All Leads</h1>
-      <button class="btn btn-primary" id="bulkUploadBtn" onclick="openBulkUpload()" style="display:none;">📤 Bulk Upload</button>
-    </div>
+    <div class="section-header"><h1 class="section-title">📋 All Leads</h1><button class="btn btn-primary" id="bulkUploadBtn" onclick="openBulkUpload()" style="display:none;">📤 Bulk Upload</button></div>
     <div class="toolbar">
-      <input type="text" id="leadsSearch" placeholder="🔍 Search name or phone..." oninput="renderLeads()">
-      <select id="leadsFilter" onchange="renderLeads()">
-        <option value="">All Status</option>
-        <option>New</option><option>Call Later</option><option>Interested</option>
-        <option>Visit Ready</option><option>Not Interested</option>
-        <option>Not Answered</option><option>Wrong Number</option>
-      </select>
+      <input type="text" id="leadsSearch" placeholder="🔍 Search..." oninput="renderLeads()">
+      <select id="leadsFilter" onchange="renderLeads()"><option value="">All</option><option>New</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option></select>
     </div>
-    <div class="table-card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
-          <tbody id="leadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="table-card"><div class="table-wrap"><table><thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead><tbody id="leadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div></div>
   </div>
 
   <!-- TELECALLER -->
   <div class="section" id="section-telecaller">
     <div class="section-header"><h1 class="section-title">📞 Telecaller</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div id="tcCallbackBanner"></div>
     <div class="stats-grid" id="tcStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search..." oninput="renderTelecallerLeads()">
-          <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
-            <option value="">All Status</option>
-            <option>New</option><option>Call Later</option><option>Interested</option>
-            <option>Visit Ready</option><option>Not Interested</option>
-            <option>Not Answered</option><option>Wrong Number</option>
-          </select>
+          <select id="tcStatusFilter" onchange="renderTelecallerLeads()"><option value="">All</option><option>New</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option></select>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
-            <tbody id="tcLeadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-          </table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead><tbody id="tcLeadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -416,15 +345,15 @@ td { color: #334155; }
   <!-- VISITOR -->
   <div class="section" id="section-visitor">
     <div class="section-header"><h1 class="section-title">🚗 Visitor</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div class="stats-grid" id="visitorStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
-          </table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Status</th><th>Action</th></tr></thead><tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -432,6 +361,11 @@ td { color: #334155; }
   <!-- DESIGNER -->
   <div class="section" id="section-designer">
     <div class="section-header"><h1 class="section-title">🎨 Designer</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div class="stats-grid" id="designerStats"></div>
     <div id="designerCardsContainer"></div>
   </div>
@@ -439,15 +373,15 @@ td { color: #334155; }
   <!-- PRODUCTION -->
   <div class="section" id="section-production">
     <div class="section-header"><h1 class="section-title">🏭 Production</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div class="stats-grid" id="productionStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Available</th><th>Produced</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="productionBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-          </table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Available</th><th>Produced</th><th>Status</th><th>Action</th></tr></thead><tbody id="productionBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -455,15 +389,15 @@ td { color: #334155; }
   <!-- DISPATCH -->
   <div class="section" id="section-dispatch">
     <div class="section-header"><h1 class="section-title">🚚 Dispatch</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div class="stats-grid" id="dispatchStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Customer</th><th>Material</th><th>Date</th><th>Qty</th><th>Vehicle</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="dispatchBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-          </table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Date</th><th>Qty</th><th>Vehicle</th><th>Status</th><th>Action</th></tr></thead><tbody id="dispatchBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -471,15 +405,15 @@ td { color: #334155; }
   <!-- INSTALLATION -->
   <div class="section" id="section-installation">
     <div class="section-header"><h1 class="section-title">🔧 Installation</h1></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setTeamFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setTeamFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setTeamFilter('year', this)">📅 Year</button>
+    </div>
     <div class="stats-grid" id="installationStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Date</th><th>Final Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="installationBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
-          </table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Date</th><th>Final Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="installationBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div>
       </div>
     </div>
   </div>
@@ -487,12 +421,11 @@ td { color: #334155; }
   <!-- ADMIN -->
   <div class="section" id="section-admin">
     <div class="section-header"><h1 class="section-title">👤 Admin Overview</h1></div>
-
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="month" onclick="setAdminFilter('month', this)">📅 Month</button>
-      <button class="filter-btn" data-filter="week" onclick="setAdminFilter('week', this)">📆 Week</button>
-      <button class="filter-btn" data-filter="year" onclick="setAdminFilter('year', this)">📅 Year</button>
-      <button class="filter-btn" data-filter="custom" onclick="setAdminFilter('custom', this)">🎯 Custom</button>
+      <button class="filter-btn active" onclick="setAdminFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" onclick="setAdminFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" onclick="setAdminFilter('year', this)">📅 Year</button>
+      <button class="filter-btn" onclick="setAdminFilter('custom', this)">🎯 Custom</button>
       <div class="filter-custom" id="adminCustomFilter">
         <input type="date" id="adminFilterFrom">
         <span>to</span>
@@ -500,7 +433,6 @@ td { color: #334155; }
         <button class="filter-apply" onclick="applyAdminCustomFilter()">Apply</button>
       </div>
     </div>
-
     <div id="adminDashboardContent"></div>
   </div>
 
@@ -695,7 +627,6 @@ if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) { localStorage.clear();
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
 
-// Team class apply
 const roleClassMap = { 'Admin': 'admin', 'Telecaller': 'telecaller', 'Visit': 'visit', 'Designer': 'designer', 'Production': 'production', 'Dispatch': 'dispatch', 'Installation': 'installation' };
 const teamClass = roleClassMap[session.role] || 'admin';
 document.getElementById('topbar').classList.add(teamClass);
@@ -728,11 +659,10 @@ let allDesignerData = [], allProductionData = [], allDispatchData = [], allInsta
 let allPendingAssignments = [];
 let currentLead = null, currentVisit = null;
 let bulkParsedLeads = [];
-let charts = {};
 let currentFilter = 'month';
 let currentAdminFilter = 'month';
-let customFrom = '', customTo = '';
-let adminFrom = '', adminTo = '';
+let customFrom = '', customTo = '', adminFrom = '', adminTo = '';
+let teamFilters = { telecaller: 'month', visitor: 'month', designer: 'month', production: 'month', dispatch: 'month', installation: 'month' };
 
 // ============================================================
 // UTILS
@@ -795,10 +725,82 @@ function switchTab(name, el) {
 }
 
 // ============================================================
-// FILTER
+// TEAM STATS — SINGLE SOURCE (same as Admin)
+// ============================================================
+async function renderTeamStats(teamKey, containerId, filterType) {
+  const params = {
+    role: session.role === 'Admin' ? 'Admin' : session.role,
+    username: session.role === 'Admin' ? '' : session.name,
+    filterType: filterType || teamFilters[teamKey] || 'month'
+  };
+  if ((filterType || teamFilters[teamKey]) === 'custom') {
+    params.fromDate = customFrom; params.toDate = customTo;
+  }
+  
+  const data = await apiGet('getDashboardData', params);
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!data.success) { container.innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
+  
+  const d = data.data;
+  const rangeText = data.rangeStart + ' to ' + data.rangeEnd;
+  let html = '';
+  
+  if (teamKey === 'designer' && d.designer) {
+    const x = d.designer;
+    html = `
+      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  } else if (teamKey === 'production' && d.production) {
+    const x = d.production;
+    html = `
+      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  } else if (teamKey === 'dispatch' && d.dispatch) {
+    const x = d.dispatch;
+    html = `
+      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  } else if (teamKey === 'installation' && d.installation) {
+    const x = d.installation;
+    html = `
+      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  } else if (teamKey === 'telecaller' && d.telecaller) {
+    const t = d.telecaller;
+    html = `
+      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  } else if (teamKey === 'visitor' && d.visitor) {
+    const v = d.visitor;
+    html = `
+      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
+    `;
+  }
+  
+  container.innerHTML = html;
+}
+
+// ============================================================
+// FILTERS
 // ============================================================
 function setFilter(type, btn) {
-  document.querySelectorAll('.filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#section-dashboard .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentFilter = type;
   const customEl = document.getElementById('customFilter');
@@ -827,6 +829,19 @@ function applyAdminCustomFilter() {
   adminFrom = from; adminTo = to;
   loadAdminDashboard();
 }
+function setTeamFilter(filter, btn) {
+  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const activeSection = document.querySelector('.section.active');
+  if (!activeSection) return;
+  const id = activeSection.id;
+  if (id === 'section-telecaller') { teamFilters.telecaller = filter; renderTeamStats('telecaller', 'tcStats', filter); }
+  if (id === 'section-visitor') { teamFilters.visitor = filter; renderTeamStats('visitor', 'visitorStats', filter); }
+  if (id === 'section-designer') { teamFilters.designer = filter; renderTeamStats('designer', 'designerStats', filter); }
+  if (id === 'section-production') { teamFilters.production = filter; renderTeamStats('production', 'productionStats', filter); }
+  if (id === 'section-dispatch') { teamFilters.dispatch = filter; renderTeamStats('dispatch', 'dispatchStats', filter); }
+  if (id === 'section-installation') { teamFilters.installation = filter; renderTeamStats('installation', 'installationStats', filter); }
+}
 
 // ============================================================
 // INIT
@@ -851,157 +866,66 @@ function hideLoader() { const l = document.getElementById('loadingOverlay'); if 
 // DASHBOARD (Team-specific)
 // ============================================================
 async function loadDashboard() {
-  const params = {
-    role: session.role,
-    username: session.name,
-    filterType: currentFilter
-  };
+  const params = { role: session.role, username: session.name, filterType: currentFilter };
   if (currentFilter === 'custom') { params.fromDate = customFrom; params.toDate = customTo; }
-
   const data = await apiGet('getDashboardData', params);
-  if (!data.success) { document.getElementById('dashboardContent').innerHTML = '<div class="empty-state">Failed to load dashboard</div>'; return; }
-
+  if (!data.success) { document.getElementById('dashboardContent').innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
   const d = data.data;
   const rangeText = data.rangeStart + ' to ' + data.rangeEnd;
   let html = '';
-
-  if (session.role === 'Admin') {
-    // Admin — all teams
-    html += renderAdminAllTeams(d, rangeText);
-  } else if (session.role === 'Telecaller' && d.telecaller) {
+  
+  if (session.role === 'Admin') { html = renderAdminAllTeams(d, rangeText); }
+  else if (session.role === 'Telecaller' && d.telecaller) {
     const t = d.telecaller;
-    html += `<div class="stats-grid">
-      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
-    </div>
-    <div class="chart-card"><div class="chart-title">📈 Call Progress</div><div class="chart-container"><canvas id="dashChart"></canvas></div></div>`;
+    html = `<div class="stats-grid"><div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div><div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div><div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div></div>`;
   } else if (session.role === 'Visit' && d.visitor) {
     const v = d.visitor;
-    html += `<div class="stats-grid">
-      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
-    </div>`;
+    html = `<div class="stats-grid"><div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div><div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div></div>`;
   } else if (session.role === 'Designer' && d.designer) {
     const x = d.designer;
-    html += `<div class="stats-grid">
-      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
-    </div>`;
+    html = `<div class="stats-grid"><div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div></div>`;
   } else if (session.role === 'Production' && d.production) {
     const x = d.production;
-    html += `<div class="stats-grid">
-      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
-    </div>`;
+    html = `<div class="stats-grid"><div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
   } else if (session.role === 'Dispatch' && d.dispatch) {
     const x = d.dispatch;
-    html += `<div class="stats-grid">
-      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
-    </div>`;
+    html = `<div class="stats-grid"><div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
   } else if (session.role === 'Installation' && d.installation) {
     const x = d.installation;
-    html += `<div class="stats-grid">
-      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
-      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
-    </div>`;
+    html = `<div class="stats-grid"><div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div></div>`;
   }
-
   document.getElementById('dashboardContent').innerHTML = html;
 }
 
 function renderAdminAllTeams(d, rangeText) {
   let html = '';
-  // Telecaller
   if (d.telecaller) {
     const t = d.telecaller;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">📞</span><span class="team-section-title">Telecaller</span></div>
-      <div class="stats-grid">
-        <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">📞</span><span class="team-section-title">Telecaller</span></div><div class="stats-grid"><div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div><div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div><div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
-  // Visitor
   if (d.visitor) {
     const v = d.visitor;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">🚗</span><span class="team-section-title">Visitor</span></div>
-      <div class="stats-grid">
-        <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚗</span><span class="team-section-title">Visitor</span></div><div class="stats-grid"><div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div><div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
-  // Designer
   if (d.designer) {
     const x = d.designer;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">🎨</span><span class="team-section-title">Designing Team</span></div>
-      <div class="stats-grid">
-        <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🎨</span><span class="team-section-title">Designing Team</span></div><div class="stats-grid"><div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
-  // Production
   if (d.production) {
     const x = d.production;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">🏭</span><span class="team-section-title">Production Team</span></div>
-      <div class="stats-grid">
-        <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🏭</span><span class="team-section-title">Production Team</span></div><div class="stats-grid"><div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
-  // Dispatch
   if (d.dispatch) {
     const x = d.dispatch;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">🚚</span><span class="team-section-title">Dispatch Team</span></div>
-      <div class="stats-grid">
-        <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🚚</span><span class="team-section-title">Dispatch Team</span></div><div class="stats-grid"><div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
-  // Installation
   if (d.installation) {
     const x = d.installation;
-    html += `<div class="team-section">
-      <div class="team-section-header"><span class="team-section-icon">🔧</span><span class="team-section-title">Installation</span></div>
-      <div class="stats-grid">
-        <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
-        <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
-        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
-      </div>
-    </div>`;
+    html += `<div class="team-section"><div class="team-section-header"><span class="team-section-icon">🔧</span><span class="team-section-title">Installation</span></div><div class="stats-grid"><div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div><div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div><div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div></div></div>`;
   }
   return html;
 }
 
-// ============================================================
-// ADMIN DASHBOARD (Sab teams summary)
-// ============================================================
 async function loadAdminDashboard() {
   const params = { role: 'Admin', filterType: currentAdminFilter };
   if (currentAdminFilter === 'custom') { params.fromDate = adminFrom; params.toDate = adminTo; }
@@ -1092,17 +1016,8 @@ async function loadTelecallerData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getTelecallerData', { role: rp, username: up });
   allTelecallerData = exArr(data, ['data']);
-  renderTelecallerStats();
+  await renderTeamStats('telecaller', 'tcStats');
   renderTelecallerLeads();
-}
-function renderTelecallerStats() {
-  const leads = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
-  const t = leads.length;
-  const d = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-  const vr = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-  const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-  const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
-  document.getElementById('tcStats').innerHTML = `<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total Call</div></div><div class="stat-card green"><div class="stat-value">${d}</div><div class="stat-label">Call Done</div></div><div class="stat-card amber"><div class="stat-value">${vr}</div><div class="stat-label">Visit Ready</div></div><div class="stat-card cyan"><div class="stat-value">${cl}</div><div class="stat-label">Call Later</div></div><div class="stat-card red"><div class="stat-value">${ni}</div><div class="stat-label">Not Int / Wrong</div></div>`;
 }
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
@@ -1211,16 +1126,8 @@ async function loadVisitorData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getVisitorData', { role: rp, username: up });
   allVisitorData = exArr(data, ['data']);
-  renderVisitorStats();
+  await renderTeamStats('visitor', 'visitorStats');
   renderVisitorTable();
-}
-function renderVisitorStats() {
-  const r = allVisitorData;
-  const t = r.length;
-  const p = r.filter(v => v['Visit_Status'] === 'Pending' || !v['Visit_Status']).length;
-  const d = r.filter(v => v['Visit_Status'] === 'Done').length;
-  const c = r.filter(v => v['Visit_Status'] === 'Close').length;
-  document.getElementById('visitorStats').innerHTML = `<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total</div></div><div class="stat-card amber"><div class="stat-value">${p}</div><div class="stat-label">Pending</div></div><div class="stat-card cyan"><div class="stat-value">${d}</div><div class="stat-label">Done</div></div><div class="stat-card green"><div class="stat-value">${c}</div><div class="stat-label">Close</div></div>`;
 }
 function renderVisitorTable() {
   const tbody = document.getElementById('visitorBody');
@@ -1229,9 +1136,9 @@ function renderVisitorTable() {
     const s = r['Visit_Status'] || 'Pending';
     const bc = s === 'Close' ? 'installed' : s === 'Done' ? 'blue' : 'pending';
     const a = truncate(r['Address'] || '', 30);
-    let act = `<button class="btn-sm btn-info" onclick='openVisitDetails(${JSON.stringify(r).replace(/'/g, "&apos;")})'>👁️ View</button> <button class="btn-sm btn-warning" onclick='openVisitorEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>`;
-    if (s === 'Pending') act += ` <button class="btn-sm btn-success" onclick='openVisitDone(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✅ Done</button>`;
-    else if (s === 'Done') act += ` <button class="btn-sm btn-success" onclick='markVisitClose("${r['Visit ID']}")'>🏁 Close</button>`;
+    let act = `<button class="btn-sm btn-info" onclick='openVisitDetails(${JSON.stringify(r).replace(/'/g, "&apos;")})'>👁️</button> <button class="btn-sm btn-warning" onclick='openVisitorEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️</button>`;
+    if (s === 'Pending') act += ` <button class="btn-sm btn-success" onclick='openVisitDone(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✅</button>`;
+    else if (s === 'Done') act += ` <button class="btn-sm btn-success" onclick='markVisitClose("${r['Visit ID']}")'>🏁</button>`;
     return `<tr><td>${r['Visit ID']}</td><td><strong>${r['Customer_Name']}</strong></td><td>${r['Contact_Number']}</td><td style="font-size:13px;color:#64748B;">${a}</td><td><span class="badge ${bc}">${s}</span></td><td>${act}</td></tr>`;
   }).join('');
 }
@@ -1270,9 +1177,9 @@ async function submitVisitDone() {
   else showToast(data.error || 'Failed', 'error');
 }
 async function markVisitClose(visitId) {
-  if (!confirm('Ready for installation? Forward to Designer.')) return;
+  if (!confirm('Ready for installation?')) return;
   const data = await apiPost('markVisitClose', { visitId, by: session.name });
-  if (data.success) { showToast('Closed — Designer requested ✅'); await loadVisitorData(); }
+  if (data.success) { showToast('Closed ✅'); await loadVisitorData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 function openVisitorEdit(row) {
@@ -1300,15 +1207,8 @@ async function loadDesignerData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getDesignerData', { role: rp, username: up });
   allDesignerData = exArr(data, ['data']);
-  renderDesignerStats();
+  await renderTeamStats('designer', 'designerStats');
   renderDesignerCards();
-}
-function renderDesignerStats() {
-  const rows = allDesignerData;
-  const total = rows.length;
-  const withMat = rows.filter(d => d['Material_Description'] && String(d['Material_Description']).trim() !== '').length;
-  const empty = total - withMat;
-  document.getElementById('designerStats').innerHTML = `<div class="stat-card purple"><div class="stat-value">${total}</div><div class="stat-label">Total Rows</div></div><div class="stat-card green"><div class="stat-value">${withMat}</div><div class="stat-label">With Material</div></div><div class="stat-card amber"><div class="stat-value">${empty}</div><div class="stat-label">Empty</div></div>`;
 }
 function renderDesignerCards() {
   const container = document.getElementById('designerCardsContainer');
@@ -1390,15 +1290,8 @@ async function loadProductionData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getProductionData', { role: rp, username: up });
   allProductionData = exArr(data, ['data']);
-  renderProductionStats();
+  await renderTeamStats('production', 'productionStats');
   renderProductionTable();
-}
-function renderProductionStats() {
-  const r = allProductionData;
-  const total = r.length;
-  const produced = r.filter(p => p['Produced QTY'] && String(p['Produced QTY']).trim() !== '').length;
-  const pending = total - produced;
-  document.getElementById('productionStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${produced}</div><div class="stat-label">Produced</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderProductionTable() {
   const tbody = document.getElementById('productionBody');
@@ -1440,15 +1333,8 @@ async function loadDispatchData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getDispatchData', { role: rp, username: up });
   allDispatchData = exArr(data, ['data']);
-  renderDispatchStats();
+  await renderTeamStats('dispatch', 'dispatchStats');
   renderDispatchTable();
-}
-function renderDispatchStats() {
-  const r = allDispatchData;
-  const total = r.length;
-  const dis = r.filter(d => d['Dispatched QTY'] && String(d['Dispatched QTY']).trim() !== '').length;
-  const pending = total - dis;
-  document.getElementById('dispatchStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${dis}</div><div class="stat-label">Dispatched</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderDispatchTable() {
   const tbody = document.getElementById('dispatchBody');
@@ -1495,15 +1381,8 @@ async function loadInstallationData() {
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getInstallationData', { role: rp, username: up });
   allInstallationData = exArr(data, ['data']);
-  renderInstallationStats();
+  await renderTeamStats('installation', 'installationStats');
   renderInstallationTable();
-}
-function renderInstallationStats() {
-  const r = allInstallationData;
-  const total = r.length;
-  const inst = r.filter(i => i['Installed QTY'] && String(i['Installed QTY']).trim() !== '').length;
-  const pending = total - inst;
-  document.getElementById('installationStats').innerHTML = `<div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div><div class="stat-card green"><div class="stat-value">${inst}</div><div class="stat-label">Installed</div></div><div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>`;
 }
 function renderInstallationTable() {
   const tbody = document.getElementById('installationBody');
@@ -1561,12 +1440,7 @@ async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin()]);
   const data = await apiGet('getPendingAssignments');
   allPendingAssignments = data.pending || [];
-  renderPendingAssignments();
   loadAdminDashboard();
-}
-function renderPendingAssignments() {
-  const el = document.getElementById('adminDashboardContent');
-  // Pending assignments integrated with admin dashboard — nothing to render here separately
 }
 
 // ============================================================
