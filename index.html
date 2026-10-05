@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lifeasy INTERIOR</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Lifeasy INTERIOR — Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
 body {
-  min-height: 100vh;
   background: linear-gradient(135deg, #FEF2F2 0%, #F8FAFC 50%, #EFF6FF 100%);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,409 +17,426 @@ body {
   color: #0F172A;
 }
 
-/* ============ LOADING OVERLAY ============ */
-.loading-overlay {
-  position: fixed; inset: 0;
-  background: #FFFFFF;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 24px;
-  z-index: 9999;
-  transition: opacity 0.5s;
-}
-.loading-overlay.hide { opacity: 0; pointer-events: none; }
-
-.loading-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.loading-logo .line1 {
-  font-size: 52px;
-  font-weight: 800;
-  color: #E63946;
-  letter-spacing: -1px;
-  display: flex;
-}
-.loading-logo .line2 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #6B7280;
-  letter-spacing: 8px;
-  display: flex;
-  margin-top: -8px;
-  margin-left: 8px;
-}
-.loading-letter {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: letterIn 0.4s ease forwards;
-}
-@keyframes letterIn {
-  to { opacity: 1; transform: translateY(0); }
+:root {
+  --red: #E63946;
+  --red-dark: #C8102E;
+  --grey: #6B7280;
+  --border: #E2E8F0;
+  --success: #10B981;
+  --danger: #EF4444;
 }
 
-.loading-dots {
-  display: flex; gap: 8px;
-  margin-top: 10px;
-}
-.loading-dots span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: #E63946;
-  animation: bounce 1.4s infinite;
-  opacity: 0;
-}
-.loading-dots span:nth-child(1) { animation-delay: 1.8s, 0s; }
-.loading-dots span:nth-child(2) { animation-delay: 1.8s, 0.2s; }
-.loading-dots span:nth-child(3) { animation-delay: 1.8s, 0.4s; }
-@keyframes bounce {
-  0% { opacity: 1; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1.2); }
-  80%, 100% { opacity: 1; transform: scale(0.8); }
-}
-.loading-dots.show span { opacity: 1; }
-
-.loading-text {
-  color: #94A3B8;
-  font-size: 13px;
-  font-weight: 500;
-  opacity: 0;
-  transition: opacity 0.5s;
-  margin-top: 4px;
-}
-.loading-text.show { opacity: 1; }
-
-/* ============ LOGIN CARD ============ */
 .login-card {
   background: #FFFFFF;
-  border-radius: 24px;
-  padding: 48px 40px;
-  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
   max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(230, 57, 70, 0.05);
-  position: relative;
+  width: 100%;
+  padding: 0;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
-.login-card.show { opacity: 1; transform: translateY(0); }
 
 .login-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #E63946 0%, #F87171 50%, #E63946 100%);
+  height: 6px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
 }
 
-.logo-wrap {
+.login-inner {
+  padding: 48px 42px 36px;
+}
+
+.brand {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
-.logo-wrap img {
-  max-width: 240px;
-  height: auto;
+
+.brand-logo {
+  max-height: 56px;
+  width: auto;
+  margin-bottom: 8px;
 }
-.logo-fallback {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-.logo-fallback .l1 {
-  font-size: 40px;
+
+.brand-fallback {
+  font-size: 32px;
   font-weight: 800;
-  color: #E63946;
+  color: var(--red);
   letter-spacing: -1px;
   line-height: 1;
 }
-.logo-fallback .l2 {
-  font-size: 12px;
-  font-weight: 600;
-  color: #6B7280;
-  letter-spacing: 6px;
-  margin-left: 6px;
-}
 
-.form-group {
-  margin-bottom: 20px;
-}
-.form-group label {
+.brand-fallback small {
   display: block;
-  font-size: 13px;
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 7px;
   font-weight: 600;
-  color: #334155;
-  margin-bottom: 8px;
-}
-.form-group input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid #E2E8F0;
-  border-radius: 12px;
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: all 0.2s;
-  background: #FFFFFF;
-  color: #0F172A;
-}
-.form-group input:focus {
-  border-color: #E63946;
-  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.08);
-}
-.form-group input::placeholder {
-  color: #94A3B8;
+  margin-top: 4px;
 }
 
-.login-btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #E63946 0%, #C8102E 100%);
-  color: #FFFFFF;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
-}
-.login-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
-}
-.login-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-.login-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.brand-tagline {
+  font-size: 13px;
+  color: var(--grey);
+  margin-top: 12px;
+  font-weight: 500;
 }
 
-.error-msg {
+.error-box {
   background: #FEF2F2;
+  border-left: 4px solid var(--danger);
   color: #991B1B;
   padding: 12px 16px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   display: none;
-  border-left: 4px solid #EF4444;
+  animation: shake 0.4s;
 }
-.error-msg.show { display: block; }
+
+.error-box.show { display: block; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s;
+  background: #FFFFFF;
+  color: #0F172A;
+}
+
+.form-group input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.08);
+}
+
+.form-group input:disabled {
+  background: #F8FAFC;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--grey);
+  user-select: none;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.password-toggle:hover {
+  background: #F1F5F9;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 10px;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(230, 57, 70, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+
+.login-btn.loading .spinner { display: block; }
+.login-btn.loading .btn-text { opacity: 0.8; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 .footer {
   text-align: center;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid #F1F5F9;
-}
-.footer p {
+  padding: 22px 42px 28px;
   font-size: 12px;
   color: #94A3B8;
-  font-weight: 500;
+  border-top: 1px solid #F1F5F9;
+  background: #FAFBFC;
 }
 
-/* Mobile */
+.footer strong {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.help-text {
+  text-align: center;
+  font-size: 12px;
+  color: var(--grey);
+  margin-top: 18px;
+}
+
 @media (max-width: 480px) {
-  .login-card { padding: 36px 24px; }
-  .logo-wrap img { max-width: 200px; }
-  .loading-logo .line1 { font-size: 42px; }
-  .loading-logo .line2 { font-size: 13px; letter-spacing: 6px; }
+  .login-inner { padding: 36px 26px 28px; }
+  .brand-logo { max-height: 44px; }
+  .brand-fallback { font-size: 26px; }
+  .brand-fallback small { font-size: 9px; letter-spacing: 5px; }
+  .footer { padding: 18px 26px 22px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ LOADING OVERLAY ============ -->
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-logo">
-    <div class="line1" id="loadLine1"></div>
-    <div class="line2" id="loadLine2"></div>
-  </div>
-  <div class="loading-dots" id="loadDots">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="loading-text" id="loadText">Loading Lifeasy INTERIOR...</div>
-</div>
-
-<!-- ============ LOGIN CARD ============ -->
-<div class="login-card" id="loginCard">
-  <div class="logo-wrap">
-    <img src="https://lifeasyinterior.com/wp-content/uploads/2024/01/lifeasy-interior-logo.png" alt="Lifeasy INTERIOR" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="logo-fallback">
-      <div class="l1">Lifeasy</div>
-      <div class="l2">INTERIOR</div>
+<div class="login-card">
+  <div class="login-inner">
+    <div class="brand">
+      <img src="https://lifeasyinterior.com/wp-content/uploads/2024/01/lifeasy-interior-logo.png" alt="Lifeasy INTERIOR" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="brand-fallback" style="display:none;">Lifeasy<small>INTERIOR</small></div>
+      <div class="brand-tagline">CRM Login</div>
     </div>
+
+    <div class="error-box" id="errorBox"></div>
+
+    <form id="loginForm" autocomplete="on" onsubmit="event.preventDefault(); handleLogin();">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+          <span class="password-toggle" onclick="togglePassword()" id="pwToggle">👁️</span>
+        </div>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">
+        <span class="spinner"></span>
+        <span class="btn-text">Login</span>
+      </button>
+    </form>
+
+    <div class="help-text">Forgot password? Contact your Admin</div>
   </div>
 
-  <div class="error-msg" id="errorMsg"></div>
-
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" id="username" placeholder="Enter your username" autocomplete="username">
-  </div>
-
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
-  </div>
-
-  <button class="login-btn" id="loginBtn" onclick="doLogin()">Login</button>
-
-  <div class="footer">
-    <p>© Lifeasy INTERIOR</p>
-  </div>
+  <div class="footer">© <strong>Lifeasy INTERIOR</strong> — All rights reserved</div>
 </div>
 
 <script>
 // ============================================================
-// CONFIG
+// CONFIG — ✅ FIXED: correct Worker URL
 // ============================================================
-const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
+const WORKER_URL = 'https://lifeasy-crm-api.lifeasyinteriorcrm.workers.dev';
 
 // ============================================================
-// LOADING ANIMATION — Letter by letter
+// SESSION CHECK — if already logged in, skip to dashboard
 // ============================================================
-const line1Text = 'Lifeasy';
-const line2Text = 'INTERIOR';
-const line1El = document.getElementById('loadLine1');
-const line2El = document.getElementById('loadLine2');
+(function checkSession() {
+  try {
+    const raw = localStorage.getItem('lifeasy_session');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s && s.loginTime && (Date.now() - s.loginTime) < 8 * 60 * 60 * 1000) {
+      window.location.href = 'dashboard.html';
+    } else {
+      localStorage.removeItem('lifeasy_session');
+    }
+  } catch(e) { localStorage.removeItem('lifeasy_session'); }
+})();
 
-line1Text.split('').forEach((ch, i) => {
-  const span = document.createElement('span');
-  span.className = 'loading-letter';
-  span.textContent = ch;
-  span.style.animationDelay = (i * 0.1) + 's';
-  line1El.appendChild(span);
-});
+// ============================================================
+// PASSWORD TOGGLE
+// ============================================================
+function togglePassword() {
+  const pw = document.getElementById('password');
+  const tg = document.getElementById('pwToggle');
+  if (pw.type === 'password') {
+    pw.type = 'text';
+    tg.textContent = '🙈';
+  } else {
+    pw.type = 'password';
+    tg.textContent = '👁️';
+  }
+}
 
-line2Text.split('').forEach((ch, i) => {
-  const span = document.createElement('span');
-  span.className = 'loading-letter';
-  span.textContent = ch;
-  span.style.animationDelay = (0.9 + i * 0.08) + 's';
-  line2El.appendChild(span);
-});
+// ============================================================
+// ERROR HANDLER
+// ============================================================
+function showError(msg) {
+  const box = document.getElementById('errorBox');
+  box.textContent = msg;
+  box.classList.add('show');
+  clearTimeout(box._timer);
+  box._timer = setTimeout(() => box.classList.remove('show'), 5000);
+}
 
-// After letters appear, show dots + text
-setTimeout(() => {
-  document.getElementById('loadDots').classList.add('show');
-  document.getElementById('loadText').classList.add('show');
-}, 1800);
-
-// Hide loading, show login card
-setTimeout(() => {
-  document.getElementById('loadingOverlay').classList.add('hide');
-  document.getElementById('loginCard').classList.add('show');
-}, 2400);
+function hideError() {
+  document.getElementById('errorBox').classList.remove('show');
+}
 
 // ============================================================
 // LOGIN
 // ============================================================
-async function doLogin() {
+async function handleLogin() {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
   const btn = document.getElementById('loginBtn');
-  const errEl = document.getElementById('errorMsg');
 
-  errEl.classList.remove('show');
+  hideError();
 
   if (!username || !password) {
-    errEl.textContent = 'Please enter username and password';
-    errEl.classList.add('show');
+    showError('Please enter both username and password');
     return;
   }
 
   btn.disabled = true;
-  btn.textContent = 'Logging in...';
+  btn.classList.add('loading');
+  btn.querySelector('.btn-text').textContent = 'Logging in...';
 
   try {
+    // ✅ FIXED: text/plain content type (GAS compatible)
     const res = await fetch(WORKER_URL + '/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'login', username, password })
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'login',
+        username: username,
+        password: password
+      })
     });
+
+    if (!res.ok) {
+      throw new Error('Server responded with ' + res.status);
+    }
+
     const data = await res.json();
 
-    if (data.success) {
+    if (data.success && data.user) {
       // Save session
       const session = {
-        userId: data.user.userId,
-        name: data.user.name,
-        role: data.user.role,
-        username: data.user.username,
-        phone: data.user.phone,
-        email: data.user.email,
+        userId: data.user.userId || '',
+        name: data.user.name || '',
+        role: data.user.role || '',
+        phone: data.user.phone || '',
+        username: data.user.username || username,
+        email: data.user.email || '',
         loginTime: Date.now()
       };
       localStorage.setItem('lifeasy_session', JSON.stringify(session));
 
-      btn.textContent = 'Success! Redirecting...';
-
-      // Role-based redirect
-      const role = data.user.role;
-      const roleMap = {
-        'Admin': 'admin',
-        'Telecaller': 'telecaller',
-        'Visit': 'visit',
-        'Designer': 'designer',
-        'Production': 'production',
-        'Dispatch': 'dispatch',
-        'Installation': 'installation'
-      };
-      const roleParam = roleMap[role] || 'admin';
+      btn.querySelector('.btn-text').textContent = 'Success! Redirecting...';
 
       setTimeout(() => {
-        window.location.href = 'dashboard.html?role=' + roleParam;
+        window.location.href = 'dashboard.html';
       }, 500);
-
     } else {
-      errEl.textContent = data.error || 'Invalid credentials';
-      errEl.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Login';
-      document.getElementById('password').value = '';
+      showError(data.error || 'Invalid username or password');
+      resetBtn();
     }
   } catch (err) {
-    errEl.textContent = 'Connection error. Please try again.';
-    errEl.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Login';
+    console.error('Login error:', err);
+    if (err.message && err.message.includes('Failed to fetch')) {
+      showError('Connection error. Please check your internet and try again.');
+    } else if (err.message && err.message.includes('Server responded')) {
+      showError('Server error. Please try again in a moment.');
+    } else {
+      showError('Connection error. Please try again.');
+    }
+    resetBtn();
   }
 }
 
-// Enter key to login
-document.getElementById('username').addEventListener('keypress', e => {
-  if (e.key === 'Enter') document.getElementById('password').focus();
-});
-document.getElementById('password').addEventListener('keypress', e => {
-  if (e.key === 'Enter') doLogin();
+function resetBtn() {
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = false;
+  btn.classList.remove('loading');
+  btn.querySelector('.btn-text').textContent = 'Login';
+}
+
+// ============================================================
+// AUTO-FILL REMEMBERED USERNAME
+// ============================================================
+(function rememberUsername() {
+  const lastUser = localStorage.getItem('lifeasy_last_username');
+  if (lastUser) document.getElementById('username').value = lastUser;
+})();
+
+document.getElementById('username').addEventListener('input', (e) => {
+  localStorage.setItem('lifeasy_last_username', e.target.value.trim());
 });
 
 // ============================================================
-// SESSION CHECK — agar already logged in
+// ENTER KEY (already handled by form submit, but ensure)
 // ============================================================
-(function checkSession() {
-  const raw = localStorage.getItem('lifeasy_session');
-  if (!raw) return;
-  try {
-    const session = JSON.parse(raw);
-    if (Date.now() - session.loginTime < 8 * 60 * 60 * 1000) {
-      const roleMap = { 'Admin': 'admin', 'Telecaller': 'telecaller', 'Visit': 'visit', 'Designer': 'designer', 'Production': 'production', 'Dispatch': 'dispatch', 'Installation': 'installation' };
-      const roleParam = roleMap[session.role] || 'admin';
-      setTimeout(() => {
-        window.location.href = 'dashboard.html?role=' + roleParam;
-      }, 2400);
-    }
-  } catch (e) { localStorage.clear(); }
-})();
+document.getElementById('password').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleLogin();
+  }
+});
 </script>
 </body>
 </html>
