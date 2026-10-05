@@ -60,7 +60,7 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-primary { background: #4A90D9; color: #fff; }
 .btn-primary:hover { background: #2563EB; }
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
+.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 4px; }
 .btn-call { background: #4A90D9; color: #fff; }
 .btn-call:hover { background: #2563EB; }
 .btn-warning { background: #F59E0B; color: #fff; }
@@ -69,6 +69,8 @@ body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
 .btn-success:hover { background: #059669; }
 .btn-info { background: #06B6D4; color: #fff; }
 .btn-info:hover { background: #0891B2; }
+.btn-purple { background: #8B5CF6; color: #fff; }
+.btn-purple:hover { background: #7C3AED; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -102,7 +104,6 @@ tr:hover { background: #F1F5F9; }
 .badge.gray { background: #F1F5F9; color: #475569; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
-.badge.orange { background: #FED7AA; color: #9A3412; }
 .badge.blue { background: #DBEAFE; color: #1E40AF; }
 .next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; border-left: 3px solid #F59E0B; }
 .next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; animation: pulse-bg 2s infinite; }
@@ -131,10 +132,6 @@ tr:hover { background: #F1F5F9; }
 .form-group textarea { resize: vertical; min-height: 80px; }
 .form-group input[readonly] { background: #F1F5F9; }
 .required { color: #EF4444; }
-.radio-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid #E2E8F0; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; font-size: 14px; }
-.radio-option:hover { background: #F8FAFC; border-color: #4A90D9; }
-.radio-option.selected { border-color: #4A90D9; background: #EFF6FF; font-weight: 600; }
-.radio-option input { width: auto; margin: 0; }
 .modal-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #E2E8F0; }
 .modal-actions button { flex: 1; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-cancel { background: #F1F5F9; color: #0F172A; border: none; }
@@ -161,21 +158,13 @@ tr:hover { background: #F1F5F9; }
 .toast.success { background: #10B981; }
 .toast.error { background: #EF4444; }
 .toast.warning { background: #F59E0B; }
-
-/* View Details Modal */
 .detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
 .detail-row:last-child { border-bottom: none; }
 .detail-label { font-size: 13px; color: #64748B; font-weight: 500; width: 130px; flex-shrink: 0; }
 .detail-value { font-size: 14px; color: #0F172A; font-weight: 500; word-break: break-word; flex: 1; }
 .detail-section { margin-bottom: 20px; }
 .detail-section-title { font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
-
-/* Telecaller Summary Card */
-.tc-summary-card {
-  background: #FFFFFF; border-radius: 14px; padding: 18px 20px;
-  margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  border-left: 4px solid #4A90D9;
-}
+.tc-summary-card { background: #FFFFFF; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; }
 .tc-summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
 .tc-summary-name { font-weight: 700; font-size: 16px; color: #0F172A; }
 .tc-summary-count { font-size: 12px; color: #64748B; background: #F1F5F9; padding: 4px 10px; border-radius: 8px; }
@@ -183,7 +172,6 @@ tr:hover { background: #F1F5F9; }
 .tc-summary-stat { text-align: center; padding: 10px 6px; background: #F8FAFC; border-radius: 8px; }
 .tc-summary-stat .val { font-size: 20px; font-weight: 700; color: #0F172A; }
 .tc-summary-stat .lbl { font-size: 10px; color: #64748B; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
-
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
   .brand { font-size: 16px; }
@@ -224,15 +212,9 @@ tr:hover { background: #F1F5F9; }
 <div class="tabs" id="tabs"></div>
 
 <div class="content">
-
   <div class="section active" id="section-dashboard">
     <div class="section-header">
       <h1 class="section-title">📊 Dashboard</h1>
-      <div class="period-selector" id="dashPeriod">
-        <button class="active" onclick="setPeriod('dashboard','day',this)">Day</button>
-        <button onclick="setPeriod('dashboard','month',this)">Month</button>
-        <button onclick="setPeriod('dashboard','year',this)">Year</button>
-      </div>
     </div>
     <div class="stats-grid" id="statsGrid"></div>
     <div class="chart-card">
@@ -283,11 +265,6 @@ tr:hover { background: #F1F5F9; }
   <div class="section" id="section-telecaller">
     <div class="section-header">
       <h1 class="section-title">📞 Telecaller</h1>
-      <div class="period-selector" id="tcPeriod">
-        <button class="active" onclick="setPeriod('telecaller','day',this)">Day</button>
-        <button onclick="setPeriod('telecaller','month',this)">Month</button>
-        <button onclick="setPeriod('telecaller','year',this)">Year</button>
-      </div>
     </div>
     <div id="tcCallbackBanner"></div>
     <div class="stats-grid" id="tcStats"></div>
@@ -318,12 +295,6 @@ tr:hover { background: #F1F5F9; }
         </div>
       </div>
     </div>
-    <div class="table-card">
-      <div style="padding:16px;">
-        <div class="chart-title">⏰ Upcoming Callbacks</div>
-        <div id="tcCallbacks"><div class="empty-state">No callbacks scheduled</div></div>
-      </div>
-    </div>
   </div>
 
   <div class="section" id="section-visitor">
@@ -339,12 +310,7 @@ tr:hover { background: #F1F5F9; }
       <div style="padding:16px;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Visit ID</th><th>Customer</th><th>Phone</th>
-                <th>Address</th><th>Status</th><th>Action</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Status</th><th>Action</th></tr></thead>
             <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading visits...</td></tr></tbody>
           </table>
         </div>
@@ -462,7 +428,8 @@ tr:hover { background: #F1F5F9; }
       </div>
     </div>
   </div>
-
+</div>
+<!-- USER MODAL -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header">
@@ -489,6 +456,7 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- EDIT LEAD MODAL -->
 <div class="modal-overlay" id="editLeadModal">
   <div class="modal">
     <div class="modal-header">
@@ -520,13 +488,14 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- BULK UPLOAD MODAL -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
     <div class="modal-header">
       <h2 class="modal-title">📤 Bulk Upload Leads</h2>
       <button class="modal-close" onclick="closeModal('bulkUploadModal')">×</button>
     </div>
-    <div class="form-group"><label>Upload Date (Auto)</label><input type="text" id="bulkDate" readonly style="background:#F1F5F9;"></div>
+    <div class="form-group"><label>Upload Date (Auto)</label><input type="text" id="bulkDate" readonly></div>
     <div class="form-group"><label>Upload Method</label>
       <div style="display:flex;gap:10px;margin-bottom:12px;">
         <button class="btn btn-primary" id="bulkFileBtn" onclick="switchBulkTab('file')" style="flex:1;">📁 CSV File</button>
@@ -537,14 +506,13 @@ tr:hover { background: #F1F5F9; }
       <div class="upload-zone" onclick="document.getElementById('bulkFileInput').click()">
         <div style="font-size:36px;margin-bottom:10px;">📁</div>
         <div style="font-weight:600;margin-bottom:4px;">Click to choose CSV file</div>
-        <div style="font-size:12px;color:#64748B;">Or drag & drop</div>
         <input type="file" id="bulkFileInput" accept=".csv,.txt" onchange="handleBulkFile(event)">
       </div>
     </div>
     <div id="bulkPasteSection" style="display:none;">
       <div class="form-group">
         <label>Paste from Excel (tab-separated)</label>
-        <textarea id="bulkPasteArea" rows="6" placeholder="Customer_Name	Contact_Number	Date	Source	Assigned To" oninput="handleBulkPaste()"></textarea>
+        <textarea id="bulkPasteArea" rows="6" oninput="handleBulkPaste()"></textarea>
       </div>
     </div>
     <div class="form-group"><label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicate phone numbers</label></div>
@@ -556,10 +524,11 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ASSIGN MODAL -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal">
     <div class="modal-header">
-      <h2 class="modal-title" id="assignModalTitle">👤 Assign User</h2>
+      <h2 class="modal-title">👤 Assign User</h2>
       <button class="modal-close" onclick="closeModal('assignModal')">×</button>
     </div>
     <input type="hidden" id="assignRequestId">
@@ -576,7 +545,7 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- VISITOR: View Details Modal -->
+<!-- VISITOR VIEW DETAILS MODAL -->
 <div class="modal-overlay" id="visitDetailsModal">
   <div class="modal wide">
     <div class="modal-header">
@@ -590,24 +559,17 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
-<!-- VISITOR: Mark Visit Done Modal -->
+<!-- VISITOR DONE MODAL -->
 <div class="modal-overlay" id="visitDoneModal">
   <div class="modal">
     <div class="modal-header">
-      <h2 class="modal-title" id="visitDoneTitle">✅ Mark Visit Done</h2>
+      <h2 class="modal-title">✅ Mark Visit Done</h2>
       <button class="modal-close" onclick="closeModal('visitDoneModal')">×</button>
     </div>
     <input type="hidden" id="visitDoneId">
-    <div class="form-group">
-      <label>Customer</label>
-      <input type="text" id="visitDoneCustomer" readonly>
-    </div>
-    <div class="form-group">
-      <label>Visit Done Date <span class="required">*</span></label>
-      <input type="date" id="visitDoneDate">
-    </div>
-    <div class="form-group">
-      <label>Property Type</label>
+    <div class="form-group"><label>Customer</label><input type="text" id="visitDoneCustomer" readonly></div>
+    <div class="form-group"><label>Visit Done Date <span class="required">*</span></label><input type="date" id="visitDoneDate"></div>
+    <div class="form-group"><label>Property Type</label>
       <select id="visitDoneProperty">
         <option value="">Select...</option>
         <option>Apartment</option><option>Villa</option>
@@ -615,38 +577,121 @@ tr:hover { background: #F1F5F9; }
         <option>Shop</option><option>Other</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Budget (₹)</label>
-      <input type="number" id="visitDoneBudget" placeholder="e.g., 250000">
+    <div class="form-group"><label>Budget (₹)</label><input type="number" id="visitDoneBudget"></div>
+    <div class="form-group"><label>Address (verify/edit)</label><textarea id="visitDoneAddress"></textarea></div>
+    <div class="form-group"><label>Customer Interested? <span class="required">*</span></label>
+      <select id="visitDoneInterested">
+        <option value="">Select...</option>
+        <option>Yes</option><option>No</option><option>Maybe</option>
+      </select>
     </div>
-    <div class="form-group">
-      <label>Address (verify/edit)</label>
-      <textarea id="visitDoneAddress" placeholder="Full address"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Customer Interested? <span class="required">*</span></label>
-      <div style="display:flex;gap:10px;">
-        <label class="radio-option" style="flex:1;" onclick="selectInterested('Yes', this)">
-          <input type="radio" name="interested" value="Yes">
-          <span>✅ Yes</span>
-        </label>
-        <label class="radio-option" style="flex:1;" onclick="selectInterested('No', this)">
-          <input type="radio" name="interested" value="No">
-          <span>❌ No</span>
-        </label>
-        <label class="radio-option" style="flex:1;" onclick="selectInterested('Maybe', this)">
-          <input type="radio" name="interested" value="Maybe">
-          <span>🤔 Maybe</span>
-        </label>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Visit Notes</label>
-      <textarea id="visitDoneNotes" placeholder="Customer ne kya bola, kya dekhna hai..."></textarea>
-    </div>
+    <div class="form-group"><label>Visit Notes</label><textarea id="visitDoneNotes"></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('visitDoneModal')">Cancel</button>
       <button class="btn-save" id="visitDoneBtn" onclick="submitVisitDone()">✅ Save & Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- VISITOR EDIT MODAL -->
+<div class="modal-overlay" id="visitorEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Edit Visit</h2>
+      <button class="modal-close" onclick="closeModal('visitorEditModal')">×</button>
+    </div>
+    <input type="hidden" id="visEditId">
+    <div class="form-group"><label>Customer</label><input type="text" id="visEditCustomer" readonly></div>
+    <div class="form-group"><label>Visit Date</label><input type="date" id="visEditDate"></div>
+    <div class="form-group"><label>Visit Time</label><input type="time" id="visEditTime"></div>
+    <div class="form-group"><label>Visit Status</label>
+      <select id="visEditStatus">
+        <option>Pending</option><option>Done</option><option>Close</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Address</label><textarea id="visEditAddress"></textarea></div>
+    <div class="form-group"><label>Notes</label><textarea id="visEditNotes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('visitorEditModal')">Cancel</button>
+      <button class="btn-save" onclick="submitVisitorEdit()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DESIGNER EDIT MODAL -->
+<div class="modal-overlay" id="designerEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Edit Material</h2>
+      <button class="modal-close" onclick="closeModal('designerEditModal')">×</button>
+    </div>
+    <input type="hidden" id="dsEditId">
+    <div class="form-group"><label>Customer</label><input type="text" id="dsEditCustomer" readonly></div>
+    <div class="form-group"><label>Material Description</label><input type="text" id="dsEditMaterial"></div>
+    <div class="form-group"><label>QTY</label><input type="number" id="dsEditQty"></div>
+    <div class="form-group"><label>UOM</label>
+      <select id="dsEditUom"><option>Pcs</option><option>Sq.ft</option><option>Meter</option><option>Kg</option></select>
+    </div>
+    <div class="form-group"><label>Size</label><input type="text" id="dsEditSize"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('designerEditModal')">Cancel</button>
+      <button class="btn-save" onclick="submitDesignerEdit()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTION EDIT MODAL -->
+<div class="modal-overlay" id="productionEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Edit Production</h2>
+      <button class="modal-close" onclick="closeModal('productionEditModal')">×</button>
+    </div>
+    <div class="form-group"><label>Customer</label><input type="text" id="prEditCustomer" readonly></div>
+    <div class="form-group"><label>Material</label><input type="text" id="prEditMaterial" readonly></div>
+    <div class="form-group"><label>Available Material</label><input type="number" id="prEditAvailable"></div>
+    <div class="form-group"><label>Produced QTY</label><input type="number" id="prEditProduced"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('productionEditModal')">Cancel</button>
+      <button class="btn-save" onclick="submitProductionEdit()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DISPATCH EDIT MODAL -->
+<div class="modal-overlay" id="dispatchEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Edit Dispatch</h2>
+      <button class="modal-close" onclick="closeModal('dispatchEditModal')">×</button>
+    </div>
+    <div class="form-group"><label>Customer</label><input type="text" id="dpEditCustomer" readonly></div>
+    <div class="form-group"><label>Dispatch Date</label><input type="date" id="dpEditDate"></div>
+    <div class="form-group"><label>Dispatched QTY</label><input type="number" id="dpEditQty"></div>
+    <div class="form-group"><label>Vehicle</label><input type="text" id="dpEditVehicle"></div>
+    <div class="form-group"><label>Received By</label><input type="text" id="dpEditReceived"></div>
+    <div class="form-group"><label>Notes</label><textarea id="dpEditNotes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('dispatchEditModal')">Cancel</button>
+      <button class="btn-save" onclick="submitDispatchEdit()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- INSTALLATION EDIT MODAL -->
+<div class="modal-overlay" id="installationEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">✏️ Edit Installation</h2>
+      <button class="modal-close" onclick="closeModal('installationEditModal')">×</button>
+    </div>
+    <div class="form-group"><label>Customer</label><input type="text" id="inEditCustomer" readonly></div>
+    <div class="form-group"><label>Installed QTY</label><input type="number" id="inEditQty"></div>
+    <div class="form-group"><label>Installation Date</label><input type="date" id="inEditDate"></div>
+    <div class="form-group"><label>Final Installation Date</label><input type="date" id="inEditFinalDate"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('installationEditModal')">Cancel</button>
+      <button class="btn-save" onclick="submitInstallationEdit()">💾 Save</button>
     </div>
   </div>
 </div>
@@ -655,7 +700,6 @@ tr:hover { background: #F1F5F9; }
 </body>
 <script>
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
-
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) { window.location.href = 'index.html'; }
 const session = JSON.parse(sessionRaw);
@@ -670,21 +714,17 @@ if (session.role === 'Admin') {
   if (bulkBtn) bulkBtn.style.display = 'inline-flex';
 }
 
-let allLeads = [];
-let allTelecallerData = [];
-let allUsers = [];
-let allVisitorData = [];
+let allLeads = [], allTelecallerData = [], allUsers = [], allVisitorData = [];
+let allDesignerData = [], allProductionData = [], allDispatchData = [], allInstallationData = [];
 let allAlerts = { telecaller: [], visit: [], designer: [], production: [], dispatch: [], installation: [] };
 let allPendingAssignments = [];
-let currentLead = null;
-let currentVisit = null;
-let currentPeriod = { dashboard: 'day', telecaller: 'day', visitor: 'day', designer: 'day', production: 'day', dispatch: 'day', installation: 'day', admin: 'day' };
+let currentLead = null, currentVisit = null, currentDs = null, currentPr = null, currentDp = null, currentIn = null;
+let currentPeriod = { dashboard: 'day' };
 let bulkParsedLeads = [];
 let originalTitle = document.title;
 let titleBlinkInterval = null;
 let audioCtx = null;
 let charts = {};
-let selectedInterested = '';
 
 function getISTDate() {
   const now = new Date();
@@ -771,11 +811,6 @@ function switchTab(name, el) {
   if (name === 'Installation') loadInstallationData();
   if (name === 'Admin') loadAdminOverview();
 }
-function setPeriod(page, period, btn) {
-  currentPeriod[page] = period;
-  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
 
 (async function init() {
   originalTitle = document.title;
@@ -792,6 +827,22 @@ function setPeriod(page, period, btn) {
       await loadVisitorData();
       renderDashboard();
       hideLoader();
+    } else if (session.role === 'Designer') {
+      await loadDesignerData();
+      renderDashboard();
+      hideLoader();
+    } else if (session.role === 'Production') {
+      await loadProductionData();
+      renderDashboard();
+      hideLoader();
+    } else if (session.role === 'Dispatch') {
+      await loadDispatchData();
+      renderDashboard();
+      hideLoader();
+    } else if (session.role === 'Installation') {
+      await loadInstallationData();
+      renderDashboard();
+      hideLoader();
     } else {
       renderDashboard();
       hideLoader();
@@ -803,7 +854,6 @@ function setPeriod(page, period, btn) {
   setTimeout(() => checkDailyCallbacks(), 2000);
   pollNotifications();
   setInterval(pollNotifications, 30000);
-  setInterval(() => checkDailyCallbacks(true), 60000);
 })();
 function hideLoader() {
   const loader = document.getElementById('loadingOverlay');
@@ -815,8 +865,7 @@ function hideLoader() {
 // ============================================================
 function renderDashboard() {
   const role = session.role;
-  let cards = [];
-  let chartData = {};
+  let cards = [], chartData = {};
 
   if (role === 'Admin') {
     const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
@@ -829,50 +878,39 @@ function renderDashboard() {
       { value: 0, label: '🚚 Dispatched', cls: 'cyan' },
       { value: 0, label: '🔧 Installed', cls: 'purple' },
     ];
-    chartData = {
-      labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
-      data: [calls, visitReady, 0, 0, 0, 0],
-      colors: ['#4A90D9', '#06B6D4', '#F59E0B', '#10B981', '#17A2B8', '#8B5CF6']
-    };
+    chartData = { labels: ['Calls','Visits','Materials','Produced','Dispatched','Installed'], data: [calls,visitReady,0,0,0,0], colors: ['#4A90D9','#06B6D4','#F59E0B','#10B981','#17A2B8','#8B5CF6'] };
   } else if (role === 'Telecaller') {
-    const myLeads = allTelecallerData;
-    const total = myLeads.length;
-    const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const callLater = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-    const notIntWrong = myLeads.filter(l =>
-      l['Call_Status'] === 'Not Interested' ||
-      l['Call_Status'] === 'Wrong Number' ||
-      l['Call_Status'] === 'Call Completed'
-    ).length;
+    const total = allTelecallerData.length;
+    const done = allTelecallerData.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
+    const vr = allTelecallerData.filter(l => l['Call_Status'] === 'Visit Ready').length;
+    const cl = allTelecallerData.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
+    const ni = allTelecallerData.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
     cards = [
       { value: total, label: 'Total Call', cls: '' },
       { value: done, label: 'Call Done', cls: 'green' },
-      { value: visitReady, label: 'Visit Ready', cls: 'amber' },
-      { value: callLater, label: 'Call Later', cls: 'cyan' },
-      { value: notIntWrong, label: 'Not Int / Wrong', cls: 'red' },
+      { value: vr, label: 'Visit Ready', cls: 'amber' },
+      { value: cl, label: 'Call Later', cls: 'cyan' },
+      { value: ni, label: 'Not Int / Wrong', cls: 'red' },
     ];
-    chartData = {
-      labels: ['Visit Ready', 'Call Later', 'Not Int/Wrong'],
-      data: [visitReady, callLater, notIntWrong],
-      colors: ['#F59E0B', '#06B6D4', '#EF4444']
-    };
+    chartData = { labels: ['Visit Ready','Call Later','Not Int/Wrong'], data: [vr,cl,ni], colors: ['#F59E0B','#06B6D4','#EF4444'] };
   } else if (role === 'Visit') {
     const total = allVisitorData.length;
-    const pending = allVisitorData.filter(v => v['Visit_Status'] === 'Pending').length;
+    const pending = allVisitorData.filter(v => v['Visit_Status'] === 'Pending' || !v['Visit_Status']).length;
     const done = allVisitorData.filter(v => v['Visit_Status'] === 'Done').length;
     const close = allVisitorData.filter(v => v['Visit_Status'] === 'Close').length;
     cards = [
-      { value: total, label: '📋 Assigned', cls: '' },
-      { value: pending, label: '⏳ In Progress', cls: 'amber' },
-      { value: done, label: '✅ Done', cls: 'cyan' },
-      { value: close, label: '🏁 Ready', cls: 'green' },
+      { value: total, label: 'Assigned', cls: '' },
+      { value: pending, label: 'Pending', cls: 'amber' },
+      { value: done, label: 'Done', cls: 'cyan' },
+      { value: close, label: 'Close', cls: 'green' },
     ];
-    chartData = {
-      labels: ['Pending', 'Done', 'Close'],
-      data: [pending, done, close],
-      colors: ['#F59E0B', '#06B6D4', '#10B981']
-    };
+    chartData = { labels: ['Pending','Done','Close'], data: [pending,done,close], colors: ['#F59E0B','#06B6D4','#10B981'] };
+  } else if (role === 'Designer') {
+    cards = [
+      { value: allDesignerData.length, label: 'Materials', cls: '' },
+      { value: 0, label: 'Pending', cls: 'amber' },
+      { value: 0, label: 'Complete', cls: 'green' },
+    ];
   } else {
     cards = [
       { value: '—', label: 'Assigned', cls: '' },
@@ -881,10 +919,7 @@ function renderDashboard() {
     ];
   }
   document.getElementById('statsGrid').innerHTML = cards.map(c => `
-    <div class="stat-card ${c.cls}">
-      <div class="stat-value">${c.value}</div>
-      <div class="stat-label">${c.label}</div>
-    </div>
+    <div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>
   `).join('');
   drawChart('dashboardChart', chartData, 'doughnut');
 }
@@ -903,11 +938,7 @@ function drawChart(canvasId, data, type = 'pie') {
         borderWidth: 3, borderColor: '#fff'
       }]
     },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: { animateScale: true, animateRotate: true, duration: 800 },
-      plugins: { legend: { position: 'right', labels: { font: { size: 13, family: 'Poppins' }, padding: 14, usePointStyle: true } } }
-    }
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 13 }, padding: 14, usePointStyle: true } } } }
   });
 }
 
@@ -916,13 +947,10 @@ function drawChart(canvasId, data, type = 'pie') {
 // ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
-  if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading users...</td></tr>';
+  if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading...</td></tr>';
   const data = await apiGet('getUsers');
   const users = extractArray(data, ['users']);
-  if (!users.length) {
-    if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found</td></tr>';
-    return;
-  }
+  if (!users.length) { if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users</td></tr>'; return; }
   allUsers = users;
   if (tbody) {
     tbody.innerHTML = users.map(u => `
@@ -937,8 +965,7 @@ async function loadUsers() {
           <button class="btn-sm btn-call" onclick='editUser(${JSON.stringify(u).replace(/'/g, "&apos;")})'>Edit</button>
           <button class="btn-sm btn-warning" onclick='toggleUser("${u['User ID']}", "${u['Status']}")'>${u['Status'] === 'Active' ? 'Block' : 'Unblock'}</button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
   }
 }
 function openUserModal() {
@@ -967,31 +994,22 @@ async function saveUser() {
   const username = document.getElementById('formUsername').value.trim();
   const password = document.getElementById('formPassword').value;
   const email = document.getElementById('formEmail').value.trim();
-  if (!name || !phone || !role || !username || !password) {
-    return showToast('All required fields must be filled', 'error');
-  }
+  if (!name || !phone || !role || !username || !password) return showToast('Fill required fields', 'error');
   const btn = document.getElementById('saveUserBtn');
   btn.disabled = true; btn.textContent = 'Saving...';
-  const data = await apiPost(userId ? 'editUser' : 'addUser', {
-    userId, name, phone, role, username, password, email
-  });
+  const data = await apiPost(userId ? 'editUser' : 'addUser', { userId, name, phone, role, username, password, email });
   btn.disabled = false; btn.textContent = 'Save User';
-  if (data.success) {
-    closeModal('userModal');
-    showToast(userId ? 'User updated' : 'User added');
-    loadUsers();
-  } else {
-    showToast(data.error || 'Failed', 'error');
-  }
+  if (data.success) { closeModal('userModal'); showToast(userId ? 'User updated' : 'User added'); loadUsers(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 async function toggleUser(userId, currentStatus) {
   const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
   const data = await apiPost('toggleStatus', { userId, status: newStatus });
-  if (data.success) { showToast('Status updated'); loadUsers(); }
+  if (data.success) { showToast('Updated'); loadUsers(); }
 }
 
 // ============================================================
-// LEADS (Admin)
+// LEADS
 // ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
@@ -1012,13 +1030,9 @@ function renderLeads() {
     }
     return true;
   });
-  if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads found</td></tr>';
-    return;
-  }
+  if (!leads.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>'; return; }
   tbody.innerHTML = leads.map(l => {
-    const nextCall = l['Next Call Date'] || '';
-    const ncCls = getNextCallClass(nextCall);
+    const nc = l['Next Call Date'] || '';
     return `
       <tr>
         <td>${l['Lead ID'] || '-'}</td>
@@ -1026,10 +1040,9 @@ function renderLeads() {
         <td>${l['Contact_Number'] || '-'}</td>
         <td>${l['Assigned To'] || 'Unassigned'}</td>
         <td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status'] || 'New'}</span></td>
-        <td class="${ncCls}">${nextCall || '—'}</td>
+        <td class="${getNextCallClass(nc)}">${nc || '—'}</td>
         <td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️</button></td>
-      </tr>
-    `;
+      </tr>`;
   }).join('');
 }
 function getNextCallClass(nextCall) {
@@ -1041,11 +1054,7 @@ function getNextCallClass(nextCall) {
   return 'next-call-normal';
 }
 function statusToClass(status) {
-  const map = {
-    'New': 'new', 'Interested': 'interested', 'Not Interested': 'not',
-    'Call Later': 'later', 'Visit Ready': 'visit', 'Wrong Number': 'gray',
-    'Call Completed': 'not', 'Not Answered': 'gray',
-  };
+  const map = { 'New': 'new', 'Interested': 'interested', 'Not Interested': 'not', 'Call Later': 'later', 'Visit Ready': 'visit', 'Wrong Number': 'gray', 'Call Completed': 'not', 'Not Answered': 'gray' };
   return map[status] || 'new';
 }
 
@@ -1059,33 +1068,23 @@ async function loadTelecallerData() {
   allTelecallerData = extractArray(data, ['data']);
   renderTelecallerStats();
   renderTelecallerLeads();
-  renderTelecallerCallbacks();
-  renderCallbackBanner();
   if (session.role === 'Admin') renderTelecallerSummary();
 }
 function renderTelecallerStats() {
   const myLeads = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
   const total = myLeads.length;
   const done = myLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-  const visitReady = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-  const callLater = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-  const notIntWrong = myLeads.filter(l =>
-    l['Call_Status'] === 'Not Interested' ||
-    l['Call_Status'] === 'Wrong Number' ||
-    l['Call_Status'] === 'Call Completed'
-  ).length;
+  const vr = myLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+  const cl = myLeads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
+  const ni = myLeads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
   document.getElementById('tcStats').innerHTML = `
     <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Call</div></div>
     <div class="stat-card green"><div class="stat-value">${done}</div><div class="stat-label">Call Done</div></div>
-    <div class="stat-card amber"><div class="stat-value">${visitReady}</div><div class="stat-label">Visit Ready</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${callLater}</div><div class="stat-label">Call Later</div></div>
-    <div class="stat-card red"><div class="stat-value">${notIntWrong}</div><div class="stat-label">Not Int / Wrong</div></div>
+    <div class="stat-card amber"><div class="stat-value">${vr}</div><div class="stat-label">Visit Ready</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${cl}</div><div class="stat-label">Call Later</div></div>
+    <div class="stat-card red"><div class="stat-value">${ni}</div><div class="stat-label">Not Int / Wrong</div></div>
   `;
-  drawChart('telecallerChart', {
-    labels: ['Visit Ready', 'Call Later', 'Not Int/Wrong'],
-    data: [visitReady, callLater, notIntWrong],
-    colors: ['#F59E0B', '#06B6D4', '#EF4444']
-  }, 'pie');
+  drawChart('telecallerChart', { labels: ['Visit Ready','Call Later','Not Int/Wrong'], data: [vr,cl,ni], colors: ['#F59E0B','#06B6D4','#EF4444'] }, 'pie');
 }
 function renderTelecallerSummary() {
   const section = document.getElementById('adminTelecallerSection');
@@ -1094,38 +1093,25 @@ function renderTelecallerSummary() {
   if (session.role !== 'Admin') { section.style.display = 'none'; return; }
   section.style.display = 'block';
   const telecallers = {};
-  allTelecallerData.forEach(l => {
-    const name = l['Assigned To'] || 'Unassigned';
-    if (!telecallers[name]) telecallers[name] = [];
-    telecallers[name].push(l);
-  });
-  if (!Object.keys(telecallers).length) {
-    container.innerHTML = '<div class="empty-state">No telecallers with data</div>';
-    return;
-  }
+  allTelecallerData.forEach(l => { const n = l['Assigned To'] || 'Unassigned'; if (!telecallers[n]) telecallers[n] = []; telecallers[n].push(l); });
+  if (!Object.keys(telecallers).length) { container.innerHTML = '<div class="empty-state">No data</div>'; return; }
   container.innerHTML = Object.entries(telecallers).map(([name, leads]) => {
     const total = leads.length;
     const done = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const visitReady = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const callLater = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-    const notIntWrong = leads.filter(l =>
-      l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed'
-    ).length;
+    const vr = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
+    const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
+    const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
     return `
       <div class="tc-summary-card">
-        <div class="tc-summary-header">
-          <span class="tc-summary-name">👤 ${name}</span>
-          <span class="tc-summary-count">${total} leads assigned</span>
-        </div>
+        <div class="tc-summary-header"><span class="tc-summary-name">👤 ${name}</span><span class="tc-summary-count">${total} leads</span></div>
         <div class="tc-summary-stats">
           <div class="tc-summary-stat"><div class="val">${total}</div><div class="lbl">Total</div></div>
           <div class="tc-summary-stat"><div class="val" style="color:#10B981">${done}</div><div class="lbl">Done</div></div>
-          <div class="tc-summary-stat"><div class="val" style="color:#F59E0B">${visitReady}</div><div class="lbl">Visit</div></div>
-          <div class="tc-summary-stat"><div class="val" style="color:#06B6D4">${callLater}</div><div class="lbl">Later</div></div>
-          <div class="tc-summary-stat"><div class="val" style="color:#EF4444">${notIntWrong}</div><div class="lbl">Not Int</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#F59E0B">${vr}</div><div class="lbl">Visit</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#06B6D4">${cl}</div><div class="lbl">Later</div></div>
+          <div class="tc-summary-stat"><div class="val" style="color:#EF4444">${ni}</div><div class="lbl">Not Int</div></div>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 function renderTelecallerLeads() {
@@ -1143,13 +1129,9 @@ function renderTelecallerLeads() {
     }
     return true;
   });
-  if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>';
-    return;
-  }
+  if (!leads.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>'; return; }
   tbody.innerHTML = leads.map(l => {
-    const nextCall = l['Next Call Date'] || '';
-    const ncCls = getNextCallClass(nextCall);
+    const nc = l['Next Call Date'] || '';
     return `
       <tr>
         <td>${l['Lead ID'] || '-'}</td>
@@ -1157,53 +1139,10 @@ function renderTelecallerLeads() {
         <td>${l['Contact_Number'] || '-'}</td>
         <td>${l['Assigned To'] || '-'}</td>
         <td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status'] || 'New'}</span></td>
-        <td class="${ncCls}">${nextCall || '—'}</td>
+        <td class="${getNextCallClass(nc)}">${nc || '—'}</td>
         <td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️ Edit</button></td>
-      </tr>
-    `;
+      </tr>`;
   }).join('');
-}
-function renderTelecallerCallbacks() {
-  const el = document.getElementById('tcCallbacks');
-  if (!el) return;
-  let baseData = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
-  const pending = baseData.filter(l => l['Next Call Date'])
-    .sort((a, b) => String(a['Next Call Date']).localeCompare(String(b['Next Call Date'])));
-  if (!pending.length) {
-    el.innerHTML = '<div class="empty-state">No callbacks scheduled</div>';
-    return;
-  }
-  el.innerHTML = pending.slice(0, 10).map(l => {
-    const ncCls = getNextCallClass(l['Next Call Date']);
-    return `
-      <div class="callback-item ${ncCls === 'next-call-overdue' ? 'overdue' : ncCls === 'next-call-today' ? 'today' : ''}">
-        <div class="callback-info">
-          <div class="name">${l['Customer_Name'] || l['Lead ID']}</div>
-          <div class="meta">📞 ${l['Contact_Number'] || ''} — 📅 ${l['Next Call Date']}</div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-function renderCallbackBanner() {
-  const el = document.getElementById('tcCallbackBanner');
-  if (!el) return;
-  const today = getISTDate();
-  let baseData = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
-  const due = baseData.filter(l => {
-    const nc = String(l['Next Call Date'] || '').slice(0, 10);
-    return nc && nc <= today;
-  });
-  if (!due.length) { el.innerHTML = ''; return; }
-  const overdue = due.filter(l => String(l['Next Call Date']).slice(0, 10) < today).length;
-  el.innerHTML = `
-    <div class="alert-banner ${overdue > 0 ? 'overdue' : ''}">
-      <div>
-        <strong>⏰ ${due.length} callback${due.length > 1 ? 's' : ''} due today</strong>
-        ${overdue > 0 ? ` — ${overdue} overdue` : ''}
-      </div>
-    </div>
-  `;
 }
 
 // ============================================================
@@ -1211,7 +1150,7 @@ function renderCallbackBanner() {
 // ============================================================
 function openEditLead(lead) {
   currentLead = lead;
-  document.getElementById('editLeadTitle').textContent = `✏️ Edit Lead — ${lead['Customer_Name'] || lead['Lead ID']}`;
+  document.getElementById('editLeadTitle').textContent = `✏️ Edit — ${lead['Customer_Name']}`;
   document.getElementById('editLeadId').value = lead['Lead ID'] || '';
   document.getElementById('editCustomerName').value = lead['Customer_Name'] || '';
   document.getElementById('editContactNumber').value = lead['Contact_Number'] || '';
@@ -1234,19 +1173,14 @@ async function saveEditedLead() {
   if ((callStatus === 'Call Later' || callStatus === 'Not Answered') && !nextCallDate) {
     nextCallDate = getTomorrowIST();
   }
-  const payload = {
-    leadId: leadId,
-    'Call_Status': callStatus,
-    'Next Call Date': nextCallDate,
-    'Visit Status': visitStatus,
-    'Visit Date': visitDate,
-    'Address': address,
-    'Notes': notes
-  };
-  const data = await apiPost('updateLead', payload);
+  const data = await apiPost('updateLead', {
+    leadId, 'Call_Status': callStatus, 'Next Call Date': nextCallDate,
+    'Visit Status': visitStatus, 'Visit Date': visitDate,
+    'Address': address, 'Notes': notes
+  });
   if (data.success) {
     closeModal('editLeadModal');
-    showToast('Lead updated' + (nextCallDate ? ` — Next call: ${nextCallDate}` : ''));
+    showToast('Updated' + (nextCallDate ? ` — Next: ${nextCallDate}` : ''));
     await loadTelecallerData();
     if (callStatus === 'Visit Ready') {
       await apiPost('createAssignmentRequest', {
@@ -1258,16 +1192,14 @@ async function saveEditedLead() {
       });
       showToast('Request sent to Admin');
     }
-  } else {
-    showToast(data.error || 'Failed', 'error');
-  }
+  } else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
 // BULK UPLOAD
 // ============================================================
 function openBulkUpload() {
-  if (session.role !== 'Admin') return showToast('Only Admin can upload', 'error');
+  if (session.role !== 'Admin') return showToast('Only Admin', 'error');
   document.getElementById('bulkDate').value = getISTDate();
   document.getElementById('bulkFileInput').value = '';
   document.getElementById('bulkPasteArea').value = '';
@@ -1279,84 +1211,61 @@ function openBulkUpload() {
   document.getElementById('bulkUploadModal').classList.add('show');
 }
 function switchBulkTab(method) {
-  const fileBtn = document.getElementById('bulkFileBtn');
-  const pasteBtn = document.getElementById('bulkPasteBtn');
-  const fileSec = document.getElementById('bulkFileSection');
-  const pasteSec = document.getElementById('bulkPasteSection');
-  if (method === 'file') {
-    fileBtn.className = 'btn btn-primary'; fileBtn.style.flex = '1';
-    pasteBtn.className = 'btn btn-cancel'; pasteBtn.style.flex = '1';
-    fileSec.style.display = 'block'; pasteSec.style.display = 'none';
-  } else {
-    pasteBtn.className = 'btn btn-primary'; pasteBtn.style.flex = '1';
-    fileBtn.className = 'btn btn-cancel'; fileBtn.style.flex = '1';
-    pasteSec.style.display = 'block'; fileSec.style.display = 'none';
-  }
+  const fb = document.getElementById('bulkFileBtn'), pb = document.getElementById('bulkPasteBtn');
+  const fs = document.getElementById('bulkFileSection'), ps = document.getElementById('bulkPasteSection');
+  if (method === 'file') { fb.className = 'btn btn-primary'; pb.className = 'btn btn-cancel'; fs.style.display = 'block'; ps.style.display = 'none'; }
+  else { pb.className = 'btn btn-primary'; fb.className = 'btn btn-cancel'; ps.style.display = 'block'; fs.style.display = 'none'; }
 }
 function handleBulkFile(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+  const f = e.target.files[0]; if (!f) return;
   const reader = new FileReader();
   reader.onload = (ev) => parseBulkText(ev.target.result);
-  reader.readAsText(file);
+  reader.readAsText(f);
 }
 function handleBulkPaste() {
-  const text = document.getElementById('bulkPasteArea').value;
-  if (!text.trim()) return;
-  parseBulkText(text);
+  const t = document.getElementById('bulkPasteArea').value;
+  if (!t.trim()) return;
+  parseBulkText(t);
 }
 function parseBulkText(text) {
   const lines = text.trim().split('\n').filter(l => l.trim());
-  if (lines.length < 2) {
-    document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need header + at least 1 row</div>';
-    return;
-  }
+  if (lines.length < 2) { document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need header + rows</div>'; return; }
   const delim = lines[0].includes('\t') ? '\t' : ',';
   const headers = lines[0].split(delim).map(h => h.trim().toLowerCase().replace(/\s+/g, ''));
-  const headerMap = {};
+  const hm = {};
   headers.forEach((h, i) => {
-    if (h.includes('name')) headerMap.name = i;
-    else if (h.includes('phone') || h.includes('contact') || h.includes('mobile')) headerMap.phone = i;
-    else if (h.includes('source')) headerMap.source = i;
-    else if (h.includes('assigned')) headerMap.assignedTo = i;
-    else if (h.includes('address')) headerMap.address = i;
-    else if (h.includes('date')) headerMap.date = i;
+    if (h.includes('name')) hm.name = i;
+    else if (h.includes('phone') || h.includes('contact')) hm.phone = i;
+    else if (h.includes('source')) hm.source = i;
+    else if (h.includes('assigned')) hm.assignedTo = i;
+    else if (h.includes('address')) hm.address = i;
+    else if (h.includes('date')) hm.date = i;
   });
-  if (headerMap.name === undefined || headerMap.phone === undefined) {
-    document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">CSV must have "Customer_Name" and "Contact_Number"</div>';
-    return;
-  }
+  if (hm.name === undefined || hm.phone === undefined) { document.getElementById('bulkPreview').innerHTML = '<div class="empty-state">Need Customer_Name + Contact_Number</div>'; return; }
   const parsed = [];
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(delim).map(c => c.trim());
     const lead = {
-      name: cols[headerMap.name] || '',
-      phone: cols[headerMap.phone] || '',
-      source: headerMap.source !== undefined ? cols[headerMap.source] : '',
-      assignedTo: headerMap.assignedTo !== undefined ? cols[headerMap.assignedTo] : '',
-      address: headerMap.address !== undefined ? cols[headerMap.address] : '',
-      date: headerMap.date !== undefined ? cols[headerMap.date] : getISTDate(),
+      name: cols[hm.name] || '', phone: cols[hm.phone] || '',
+      source: hm.source !== undefined ? cols[hm.source] : '',
+      assignedTo: hm.assignedTo !== undefined ? cols[hm.assignedTo] : '',
+      address: hm.address !== undefined ? cols[hm.address] : '',
+      date: hm.date !== undefined ? cols[hm.date] : getISTDate()
     };
     if (lead.name && lead.phone) parsed.push(lead);
   }
   bulkParsedLeads = parsed;
-  const distribution = {};
-  parsed.forEach(l => { if (l.assignedTo) distribution[l.assignedTo] = (distribution[l.assignedTo] || 0) + 1; });
+  const dist = {};
+  parsed.forEach(l => { if (l.assignedTo) dist[l.assignedTo] = (dist[l.assignedTo] || 0) + 1; });
   document.getElementById('bulkPreview').innerHTML = `
     <div style="padding:14px;background:#EFF6FF;border-radius:10px;margin-bottom:12px;">
-      <strong>Total: ${parsed.length} rows</strong>
-      <div style="margin-top:8px;font-size:13px;color:#1E40AF;">
-        ${Object.entries(distribution).map(([name, count]) => `📞 ${name}: ${count} leads`).join('<br>')}
-      </div>
+      <strong>Total: ${parsed.length}</strong>
+      <div style="margin-top:8px;font-size:13px;color:#1E40AF;">${Object.entries(dist).map(([n,c]) => `📞 ${n}: ${c}`).join('<br>')}</div>
     </div>
-    <div class="preview-table">
-      <table>
-        <thead><tr><th>Name</th><th>Phone</th><th>Assigned To</th><th>Date</th></tr></thead>
-        <tbody>${parsed.slice(0, 10).map(l => `<tr><td>${l.name}</td><td>${l.phone}</td><td>${l.assignedTo || '-'}</td><td>${l.date}</td></tr>`).join('')}</tbody>
-      </table>
-    </div>
-    ${parsed.length > 10 ? `<div style="font-size:12px;color:#64748B;margin-top:8px;">...and ${parsed.length - 10} more</div>` : ''}
-  `;
+    <div class="preview-table"><table>
+      <thead><tr><th>Name</th><th>Phone</th><th>Assigned</th></tr></thead>
+      <tbody>${parsed.slice(0,10).map(l => `<tr><td>${l.name}</td><td>${l.phone}</td><td>${l.assignedTo || '-'}</td></tr>`).join('')}</tbody>
+    </table></div>`;
   document.getElementById('bulkImportBtn').disabled = parsed.length === 0;
   document.getElementById('bulkImportBtn').textContent = `Import ${parsed.length} Leads`;
 }
@@ -1365,21 +1274,14 @@ async function submitBulkUpload() {
   const btn = document.getElementById('bulkImportBtn');
   btn.disabled = true; btn.textContent = 'Importing...';
   const data = await apiPost('bulkUploadLeads', {
-    leads: bulkParsedLeads,
-    skipDuplicates: document.getElementById('bulkSkipDuplicates').checked,
-    uploadedBy: session.name,
-    uploadDate: getISTDate(),
+    leads: bulkParsedLeads, skipDuplicates: document.getElementById('bulkSkipDuplicates').checked,
+    uploadedBy: session.name, uploadDate: getISTDate()
   });
   if (data.success) {
     closeModal('bulkUploadModal');
-    const msg = `${data.added || 0} leads imported — Leads: ${data.mirrored || 0}, Skipped: ${data.skipped || 0}`;
-    showToast(msg);
-    await loadLeadsForAdmin();
-    await loadTelecallerData();
-  } else {
-    btn.disabled = false; btn.textContent = 'Retry';
-    showToast(data.error || 'Upload failed', 'error');
-  }
+    showToast(`${data.added} imported — Leads: ${data.mirrored}, Skipped: ${data.skipped}`);
+    await loadLeadsForAdmin(); await loadTelecallerData();
+  } else { btn.disabled = false; btn.textContent = 'Retry'; showToast(data.error || 'Failed', 'error'); }
 }
 
 // ============================================================
@@ -1400,36 +1302,28 @@ function renderVisitorStats() {
   const done = rows.filter(v => v['Visit_Status'] === 'Done').length;
   const close = rows.filter(v => v['Visit_Status'] === 'Close').length;
   document.getElementById('visitorStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Assigned</div></div>
-    <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Visit Pending</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${done}</div><div class="stat-label">Visit Done</div></div>
-    <div class="stat-card green"><div class="stat-value">${close}</div><div class="stat-label">Visit Close</div></div>
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div>
+    <div class="stat-card amber"><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${done}</div><div class="stat-label">Done</div></div>
+    <div class="stat-card green"><div class="stat-value">${close}</div><div class="stat-label">Close</div></div>
   `;
-  drawChart('visitorChart', {
-    labels: ['Pending', 'Done', 'Close'],
-    data: [pending, done, close],
-    colors: ['#F59E0B', '#06B6D4', '#10B981']
-  }, 'pie');
+  drawChart('visitorChart', { labels: ['Pending','Done','Close'], data: [pending,done,close], colors: ['#F59E0B','#06B6D4','#10B981'] }, 'pie');
 }
 function renderVisitorTable() {
   const tbody = document.getElementById('visitorBody');
   if (!tbody) return;
-  if (!allVisitorData.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No visits assigned</td></tr>';
-    return;
-  }
+  if (!allVisitorData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No visits</td></tr>'; return; }
   tbody.innerHTML = allVisitorData.map(r => {
     const status = r['Visit_Status'] || 'Pending';
     const badgeCls = status === 'Close' ? 'installed' : status === 'Done' ? 'blue' : 'pending';
     const addr = truncate(r['Address'] || '', 30);
-
-    let actionBtn = `<button class="btn-sm btn-info" onclick='openVisitDetails(${JSON.stringify(r).replace(/'/g, "&apos;")})'>👁️ View</button>`;
+    let action = `<button class="btn-sm btn-info" onclick='openVisitDetails(${JSON.stringify(r).replace(/'/g, "&apos;")})'>👁️ View</button>`;
+    action += ` <button class="btn-sm btn-warning" onclick='openVisitorEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>`;
     if (status === 'Pending') {
-      actionBtn += ` <button class="btn-sm btn-success" onclick='openVisitDone(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✅ Done</button>`;
+      action += ` <button class="btn-sm btn-success" onclick='openVisitDone(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✅ Done</button>`;
     } else if (status === 'Done') {
-      actionBtn += ` <button class="btn-sm btn-success" onclick='markVisitClose("${r['Visit ID']}")'>🏁 Close</button>`;
+      action += ` <button class="btn-sm btn-success" onclick='markVisitClose("${r['Visit ID']}")'>🏁 Close</button>`;
     }
-
     return `
       <tr>
         <td>${r['Visit ID'] || '-'}</td>
@@ -1437,75 +1331,53 @@ function renderVisitorTable() {
         <td>${r['Contact_Number'] || '-'}</td>
         <td style="font-size:13px;color:#64748B;">${addr}</td>
         <td><span class="badge ${badgeCls}">${status}</span></td>
-        <td>${actionBtn}</td>
-      </tr>
-    `;
+        <td>${action}</td>
+      </tr>`;
   }).join('');
 }
 function openVisitDetails(row) {
-  currentVisit = row;
   const notes = row['Notes'] || '';
-  // Parse notes for property/budget/interested
-  const propMatch = notes.match(/Property:\s*([^|]+)/);
-  const budgetMatch = notes.match(/Budget:\s*([^|]+)/);
-  const intMatch = notes.match(/Interested:\s*([^|]+)/);
-  const notesMatch = notes.match(/Notes:\s*(.+)$/);
-  const prop = propMatch ? propMatch[1].trim() : '—';
-  const budget = budgetMatch ? budgetMatch[1].trim() : '—';
-  const interested = intMatch ? intMatch[1].trim() : '—';
-  const extraNotes = notesMatch ? notesMatch[1].trim() : '';
-
-  document.getElementById('visitDetailsTitle').textContent = `👁️ Visit Details — ${row['Visit ID'] || ''}`;
+  const propM = notes.match(/Property:\s*([^|]+)/);
+  const budM = notes.match(/Budget:\s*([^|]+)/);
+  const intM = notes.match(/Interested:\s*([^|]+)/);
+  const noteM = notes.match(/Notes:\s*(.+)$/);
+  document.getElementById('visitDetailsTitle').textContent = `👁️ Details — ${row['Visit ID']}`;
   document.getElementById('visitDetailsBody').innerHTML = `
     <div class="detail-section">
-      <div class="detail-section-title">📋 Customer Information</div>
+      <div class="detail-section-title">📋 Customer</div>
       <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${row['Customer_Name'] || '—'}</div></div>
       <div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${row['Contact_Number'] || '—'}</div></div>
       <div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${row['Address'] || '—'}</div></div>
     </div>
     <div class="detail-section">
-      <div class="detail-section-title">📅 Visit Information</div>
+      <div class="detail-section-title">📅 Visit</div>
       <div class="detail-row"><div class="detail-label">Visit ID</div><div class="detail-value">${row['Visit ID'] || '—'}</div></div>
-      <div class="detail-row"><div class="detail-label">Visit Date</div><div class="detail-value">${row['Visit Date'] || '—'}</div></div>
-      <div class="detail-row"><div class="detail-label">Visit Time</div><div class="detail-value">${row['Visit Time'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Date</div><div class="detail-value">${row['Visit Date'] || '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Time</div><div class="detail-value">${row['Visit Time'] || '—'}</div></div>
       <div class="detail-row"><div class="detail-label">Visitor</div><div class="detail-value">${row['Visitor_Name'] || '—'}</div></div>
       <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${row['Visit_Status'] || 'Pending'}</div></div>
     </div>
-    ${prop !== '—' || budget !== '—' || interested !== '—' ? `
+    ${propM || budM || intM ? `
     <div class="detail-section">
-      <div class="detail-section-title">🏠 Property Details</div>
-      <div class="detail-row"><div class="detail-label">Property Type</div><div class="detail-value">${prop}</div></div>
-      <div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${budget !== '—' ? '₹ ' + budget : '—'}</div></div>
-      <div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${interested}</div></div>
-    </div>
-    ` : ''}
-    ${extraNotes ? `
-    <div class="detail-section">
-      <div class="detail-section-title">📝 Notes</div>
-      <div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${extraNotes}</div>
-    </div>
-    ` : ''}
+      <div class="detail-section-title">🏠 Property</div>
+      <div class="detail-row"><div class="detail-label">Type</div><div class="detail-value">${propM ? propM[1].trim() : '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${budM ? '₹ ' + budM[1].trim() : '—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${intM ? intM[1].trim() : '—'}</div></div>
+    </div>` : ''}
+    ${noteM ? `<div class="detail-section"><div class="detail-section-title">📝 Notes</div><div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${noteM[1]}</div></div>` : ''}
   `;
   document.getElementById('visitDetailsModal').classList.add('show');
 }
 function openVisitDone(row) {
-  currentVisit = row;
-  document.getElementById('visitDoneTitle').textContent = `✅ Mark Visit Done — ${row['Customer_Name']}`;
   document.getElementById('visitDoneId').value = row['Visit ID'];
   document.getElementById('visitDoneCustomer').value = row['Customer_Name'];
   document.getElementById('visitDoneDate').value = getISTDate();
   document.getElementById('visitDoneProperty').value = '';
   document.getElementById('visitDoneBudget').value = '';
   document.getElementById('visitDoneAddress').value = row['Address'] || '';
+  document.getElementById('visitDoneInterested').value = '';
   document.getElementById('visitDoneNotes').value = '';
-  selectedInterested = '';
-  document.querySelectorAll('input[name="interested"]').forEach(r => { r.checked = false; r.parentElement.classList.remove('selected'); });
   document.getElementById('visitDoneModal').classList.add('show');
-}
-function selectInterested(val, el) {
-  selectedInterested = val;
-  document.querySelectorAll('input[name="interested"]').forEach(r => r.parentElement.classList.remove('selected'));
-  el.classList.add('selected');
 }
 async function submitVisitDone() {
   const visitId = document.getElementById('visitDoneId').value;
@@ -1513,90 +1385,301 @@ async function submitVisitDone() {
   const propertyType = document.getElementById('visitDoneProperty').value;
   const budget = document.getElementById('visitDoneBudget').value;
   const address = document.getElementById('visitDoneAddress').value;
+  const interested = document.getElementById('visitDoneInterested').value;
   const notes = document.getElementById('visitDoneNotes').value;
-
-  if (!visitDate) return showToast('Visit date required', 'error');
-  if (!selectedInterested) return showToast('Select customer interested?', 'error');
-
+  if (!visitDate) return showToast('Date required', 'error');
+  if (!interested) return showToast('Select interested', 'error');
   const btn = document.getElementById('visitDoneBtn');
   btn.disabled = true; btn.textContent = 'Saving...';
-
-  const data = await apiPost('markVisitDone', {
-    visitId: visitId,
-    visitDate: visitDate,
-    propertyType: propertyType,
-    budget: budget,
-    address: address,
-    interested: selectedInterested,
-    notes: notes,
-    by: session.name
-  });
-
+  const data = await apiPost('markVisitDone', { visitId, visitDate, propertyType, budget, address, interested, notes, by: session.name });
   btn.disabled = false; btn.textContent = '✅ Save & Done';
-
-  if (data.success) {
-    closeModal('visitDoneModal');
-    showToast('Visit marked as Done ✅');
-    await loadVisitorData();
-    renderDashboard();
-  } else {
-    showToast(data.error || 'Failed', 'error');
-  }
+  if (data.success) { closeModal('visitDoneModal'); showToast('Visit Done ✅'); await loadVisitorData(); renderDashboard(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 async function markVisitClose(visitId) {
-  if (!confirm('Confirm: Ready for installation? This will forward to Designer team.')) return;
-  const data = await apiPost('markVisitClose', { visitId: visitId, by: session.name });
-  if (data.success) {
-    showToast('Visit Closed — Designer request sent ✅');
-    await loadVisitorData();
-    renderDashboard();
-  } else {
-    showToast(data.error || 'Failed', 'error');
-  }
+  if (!confirm('Ready for installation? This will forward to Designer team.')) return;
+  const data = await apiPost('markVisitClose', { visitId, by: session.name });
+  if (data.success) { showToast('Closed — Designer requested ✅'); await loadVisitorData(); renderDashboard(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+function openVisitorEdit(row) {
+  currentVisit = row;
+  document.getElementById('visEditId').value = row['Visit ID'];
+  document.getElementById('visEditCustomer').value = row['Customer_Name'];
+  document.getElementById('visEditDate').value = row['Visit Date'] || '';
+  document.getElementById('visEditTime').value = row['Visit Time'] || '';
+  document.getElementById('visEditStatus').value = row['Visit_Status'] || 'Pending';
+  document.getElementById('visEditAddress').value = row['Address'] || '';
+  document.getElementById('visEditNotes').value = row['Notes'] || '';
+  document.getElementById('visitorEditModal').classList.add('show');
+}
+async function submitVisitorEdit() {
+  const visitId = document.getElementById('visEditId').value;
+  const data = await apiPost('updateVisitor', {
+    visitId: visitId,
+    'Visit Date': document.getElementById('visEditDate').value,
+    'Visit Time': document.getElementById('visEditTime').value,
+    'Visit_Status': document.getElementById('visEditStatus').value,
+    'Address': document.getElementById('visEditAddress').value,
+    'Notes': document.getElementById('visEditNotes').value
+  });
+  if (data.success) { closeModal('visitorEditModal'); showToast('Updated'); await loadVisitorData(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
-// DESIGNER (stub)
+// DESIGNER
 // ============================================================
 async function loadDesignerData() {
-  const data = await apiGet('getDesignerData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getDesignerData', { role: roleParam, username: usernameParam });
+  allDesignerData = extractArray(data, ['data']);
+  renderDesignerStats();
+  renderDesignerTable();
+}
+function renderDesignerStats() {
+  const rows = allDesignerData;
   document.getElementById('designerStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Materials</div></div>
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Materials</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Complete</div></div>
   `;
-  drawChart('designerChart', { labels: ['Complete', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+  drawChart('designerChart', { labels: ['Complete','Pending'], data: [0,rows.length], colors: ['#10B981','#F59E0B'] }, 'pie');
 }
+function renderDesignerTable() {
+  const tbody = document.getElementById('designerBody');
+  if (!tbody) return;
+  if (!allDesignerData.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No materials</td></tr>'; return; }
+  tbody.innerHTML = allDesignerData.map(r => `
+    <tr>
+      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+      <td>${r['Designer_Name'] || '-'}</td>
+      <td>${r['Material_Description'] || '-'}</td>
+      <td>${r['QTY'] || '-'}</td>
+      <td>${r['UOM'] || '-'}</td>
+      <td>${r['Size'] || '-'}</td>
+      <td>
+        <button class="btn-sm btn-warning" onclick='openDesignerEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>
+        <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Designer","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Request Production</button>
+      </td>
+    </tr>`).join('');
+}
+function openDesignerEdit(row) {
+  currentDs = row;
+  document.getElementById('dsEditId').value = row['Visit ID'] || '';
+  document.getElementById('dsEditCustomer').value = row['Customer_Name'] || '';
+  document.getElementById('dsEditMaterial').value = row['Material_Description'] || '';
+  document.getElementById('dsEditQty').value = row['QTY'] || '';
+  document.getElementById('dsEditUom').value = row['UOM'] || 'Pcs';
+  document.getElementById('dsEditSize').value = row['Size'] || '';
+  document.getElementById('designerEditModal').classList.add('show');
+}
+async function submitDesignerEdit() {
+  const data = await apiPost('updateDesigner', {
+    visitId: document.getElementById('dsEditId').value,
+    customerName: document.getElementById('dsEditCustomer').value,
+    designerName: currentDs['Designer_Name'] || '',
+    'Material_Description': document.getElementById('dsEditMaterial').value,
+    'QTY': document.getElementById('dsEditQty').value,
+    'UOM': document.getElementById('dsEditUom').value,
+    'Size': document.getElementById('dsEditSize').value
+  });
+  if (data.success) { closeModal('designerEditModal'); showToast('Updated'); await loadDesignerData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// PRODUCTION
+// ============================================================
 async function loadProductionData() {
-  const data = await apiGet('getProductionData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getProductionData', { role: roleParam, username: usernameParam });
+  allProductionData = extractArray(data, ['data']);
+  renderProductionStats();
+  renderProductionTable();
+}
+function renderProductionStats() {
+  const rows = allProductionData;
   document.getElementById('productionStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Produced</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
   `;
-  drawChart('productionChart', { labels: ['Produced', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+  drawChart('productionChart', { labels: ['Produced','Pending'], data: [0,rows.length], colors: ['#10B981','#F59E0B'] }, 'pie');
 }
+function renderProductionTable() {
+  const tbody = document.getElementById('productionBody');
+  if (!tbody) return;
+  if (!allProductionData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No production</td></tr>'; return; }
+  tbody.innerHTML = allProductionData.map(r => `
+    <tr>
+      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+      <td>${r['Material_Description'] || '-'}</td>
+      <td>${r['QTY'] || '-'}</td>
+      <td>${r['Available_Material'] || '-'}</td>
+      <td>${r['Produced QTY'] || '-'}</td>
+      <td>
+        <button class="btn-sm btn-warning" onclick='openProductionEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>
+        <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Production","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Request Dispatch</button>
+      </td>
+    </tr>`).join('');
+}
+function openProductionEdit(row) {
+  currentPr = row;
+  document.getElementById('prEditCustomer').value = row['Customer_Name'] || '';
+  document.getElementById('prEditMaterial').value = row['Material_Description'] || '';
+  document.getElementById('prEditAvailable').value = row['Available_Material'] || '';
+  document.getElementById('prEditProduced').value = row['Produced QTY'] || '';
+  document.getElementById('productionEditModal').classList.add('show');
+}
+async function submitProductionEdit() {
+  const data = await apiPost('updateProduction', {
+    customerName: document.getElementById('prEditCustomer').value,
+    materialDescription: document.getElementById('prEditMaterial').value,
+    'Available_Material': document.getElementById('prEditAvailable').value,
+    'Produced QTY': document.getElementById('prEditProduced').value
+  });
+  if (data.success) { closeModal('productionEditModal'); showToast('Updated'); await loadProductionData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// DISPATCH
+// ============================================================
 async function loadDispatchData() {
-  const data = await apiGet('getDispatchData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getDispatchData', { role: roleParam, username: usernameParam });
+  allDispatchData = extractArray(data, ['data']);
+  renderDispatchStats();
+  renderDispatchTable();
+}
+function renderDispatchStats() {
+  const rows = allDispatchData;
   document.getElementById('dispatchStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Dispatched</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
   `;
-  drawChart('dispatchChart', { labels: ['Dispatched', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+  drawChart('dispatchChart', { labels: ['Dispatched','Pending'], data: [0,rows.length], colors: ['#10B981','#F59E0B'] }, 'pie');
 }
+function renderDispatchTable() {
+  const tbody = document.getElementById('dispatchBody');
+  if (!tbody) return;
+  if (!allDispatchData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No dispatch</td></tr>'; return; }
+  tbody.innerHTML = allDispatchData.map(r => `
+    <tr>
+      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+      <td>${r['Material_Description'] || '-'}</td>
+      <td>${r['Dispatch_Date'] || '-'}</td>
+      <td>${r['Dispatched QTY'] || '-'}</td>
+      <td>${r['Vehicle'] || '-'}</td>
+      <td>
+        <button class="btn-sm btn-warning" onclick='openDispatchEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>
+        <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Dispatch","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Request Installation</button>
+      </td>
+    </tr>`).join('');
+}
+function openDispatchEdit(row) {
+  currentDp = row;
+  document.getElementById('dpEditCustomer').value = row['Customer_Name'] || '';
+  document.getElementById('dpEditDate').value = row['Dispatch_Date'] || '';
+  document.getElementById('dpEditQty').value = row['Dispatched QTY'] || '';
+  document.getElementById('dpEditVehicle').value = row['Vehicle'] || '';
+  document.getElementById('dpEditReceived').value = row['Received By'] || '';
+  document.getElementById('dpEditNotes').value = row['Notes'] || '';
+  document.getElementById('dispatchEditModal').classList.add('show');
+}
+async function submitDispatchEdit() {
+  const data = await apiPost('updateDispatch', {
+    customerName: document.getElementById('dpEditCustomer').value,
+    'Dispatch_Date': document.getElementById('dpEditDate').value,
+    'Dispatched QTY': document.getElementById('dpEditQty').value,
+    'Vehicle': document.getElementById('dpEditVehicle').value,
+    'Received By': document.getElementById('dpEditReceived').value,
+    'Notes': document.getElementById('dpEditNotes').value
+  });
+  if (data.success) { closeModal('dispatchEditModal'); showToast('Updated'); await loadDispatchData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// INSTALLATION
+// ============================================================
 async function loadInstallationData() {
-  const data = await apiGet('getInstallationData', { role: session.role, username: session.name });
-  const rows = extractArray(data, ['data']);
+  const roleParam = session.role === 'Admin' ? 'Admin' : session.role;
+  const usernameParam = session.role === 'Admin' ? '' : session.name;
+  const data = await apiGet('getInstallationData', { role: roleParam, username: usernameParam });
+  allInstallationData = extractArray(data, ['data']);
+  renderInstallationStats();
+  renderInstallationTable();
+}
+function renderInstallationStats() {
+  const rows = allInstallationData;
   document.getElementById('installationStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total Assigned</div></div>
+    <div class="stat-card"><div class="stat-value">${rows.length}</div><div class="stat-label">Total</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">Installed</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">Pending</div></div>
   `;
-  drawChart('installationChart', { labels: ['Installed', 'Pending'], data: [0, rows.length], colors: ['#10B981', '#F59E0B'] }, 'pie');
+  drawChart('installationChart', { labels: ['Installed','Pending'], data: [0,rows.length], colors: ['#10B981','#F59E0B'] }, 'pie');
+}
+function renderInstallationTable() {
+  const tbody = document.getElementById('installationBody');
+  if (!tbody) return;
+  if (!allInstallationData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No installation</td></tr>'; return; }
+  tbody.innerHTML = allInstallationData.map(r => `
+    <tr>
+      <td><strong>${r['Customer_Name'] || '-'}</strong></td>
+      <td>${r['Material_Description'] || '-'}</td>
+      <td>${r['Installed QTY'] || '-'}</td>
+      <td>${r['Date'] || '-'}</td>
+      <td>${r['Final_Installation_Date'] || '-'}</td>
+      <td>
+        <button class="btn-sm btn-warning" onclick='openInstallationEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button>
+        <button class="btn-sm btn-success" onclick='markComplete("${r['Customer_Name']}")'>✅ Complete</button>
+      </td>
+    </tr>`).join('');
+}
+function openInstallationEdit(row) {
+  currentIn = row;
+  document.getElementById('inEditCustomer').value = row['Customer_Name'] || '';
+  document.getElementById('inEditQty').value = row['Installed QTY'] || '';
+  document.getElementById('inEditDate').value = row['Date'] || '';
+  document.getElementById('inEditFinalDate').value = row['Final_Installation_Date'] || '';
+  document.getElementById('installationEditModal').classList.add('show');
+}
+async function submitInstallationEdit() {
+  const data = await apiPost('updateInstallation', {
+    customerName: document.getElementById('inEditCustomer').value,
+    'Installed QTY': document.getElementById('inEditQty').value,
+    'Date': document.getElementById('inEditDate').value,
+    'Final_Installation_Date': document.getElementById('inEditFinalDate').value
+  });
+  if (data.success) { closeModal('installationEditModal'); showToast('Updated'); await loadInstallationData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+async function markComplete(customerName) {
+  if (!confirm(`Mark ${customerName} project as COMPLETE?`)) return;
+  const data = await apiPost('markProjectComplete', { customerName: customerName, by: session.name });
+  if (data.success) { showToast('Project Complete 🎉'); await loadInstallationData(); }
+  else showToast(data.error || 'Failed', 'error');
+}
+
+// ============================================================
+// REQUEST NEXT TEAM (Generic)
+// ============================================================
+async function requestNextTeamFn(fromTeam, customerName, contactNumber) {
+  if (!confirm(`Request next team for ${customerName}?`)) return;
+  const data = await apiPost('requestNextTeam', {
+    fromTeam: fromTeam,
+    customerName: customerName,
+    contactNumber: contactNumber,
+    by: session.name
+  });
+  if (data.success) showToast('Request sent to Admin ✅');
+  else showToast(data.error || 'Failed', 'error');
 }
 
 // ============================================================
@@ -1613,10 +1696,7 @@ async function loadAdminOverview() {
 function renderPendingAssignments() {
   const el = document.getElementById('pendingAssignments');
   if (!el) return;
-  if (!allPendingAssignments.length) {
-    el.innerHTML = '<div class="empty-state">No pending assignments</div>';
-    return;
-  }
+  if (!allPendingAssignments.length) { el.innerHTML = '<div class="empty-state">No pending</div>'; return; }
   el.innerHTML = allPendingAssignments.map(req => `
     <div class="callback-item today" style="margin-bottom:12px;">
       <div class="callback-info" style="flex:1;">
@@ -1625,64 +1705,46 @@ function renderPendingAssignments() {
         <div class="meta">📅 ${req['Requested At']}</div>
       </div>
       <button class="btn-sm btn-call" onclick='openAssignModal(${JSON.stringify(req).replace(/'/g, "&apos;")})'>Assign</button>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 function openAssignModal(req) {
   document.getElementById('assignRequestId').value = req['Request ID'];
   document.getElementById('assignRequestType').value = req['Request Type'];
   document.getElementById('assignCustomer').value = req['Customer Name'];
   document.getElementById('assignTypeLabel').value = req['Request Type'];
-  const roleMap = {
-    'Assign Visitor': 'Visit', 'Assign Designer': 'Designer',
-    'Assign Production': 'Production', 'Assign Dispatch': 'Dispatch',
-    'Assign Installation': 'Installation'
-  };
+  const roleMap = { 'Assign Visitor': 'Visit', 'Assign Designer': 'Designer', 'Assign Production': 'Production', 'Assign Dispatch': 'Dispatch', 'Assign Installation': 'Installation' };
   const targetRole = roleMap[req['Request Type']];
   const matching = allUsers.filter(u => u.Role === targetRole && u.Status === 'Active');
-  document.getElementById('assignUserSelect').innerHTML = '<option value="">Select user...</option>' +
-    matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
+  document.getElementById('assignUserSelect').innerHTML = '<option value="">Select...</option>' + matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
   document.getElementById('assignModal').classList.add('show');
 }
 async function submitAssignment() {
   const requestId = document.getElementById('assignRequestId').value;
   const assignedTo = document.getElementById('assignUserSelect').value;
-  if (!assignedTo) return showToast('Select a user', 'error');
+  if (!assignedTo) return showToast('Select user', 'error');
   const data = await apiPost('assignUser', { requestId, assignedTo, assignedBy: session.name });
-  if (data.success) {
-    closeModal('assignModal');
-    showToast(`Assigned to ${assignedTo}`);
-    loadAdminOverview();
-  } else {
-    showToast(data.error || 'Failed', 'error');
-  }
+  if (data.success) { closeModal('assignModal'); showToast(`Assigned to ${assignedTo}`); loadAdminOverview(); }
+  else showToast(data.error || 'Failed', 'error');
 }
 function renderAdminStats() {
   const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
   const visits = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
   document.getElementById('adminStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls Done</div></div>
-    <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visit Ready</div></div>
+    <div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls</div></div>
+    <div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visits</div></div>
     <div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">🎨 Materials</div></div>
     <div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">🏭 Produced</div></div>
     <div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">🚚 Dispatched</div></div>
     <div class="stat-card purple"><div class="stat-value">0</div><div class="stat-label">🔧 Installed</div></div>
   `;
-  drawChart('adminChart', {
-    labels: ['Calls', 'Visits', 'Materials', 'Produced', 'Dispatched', 'Installed'],
-    data: [calls, visits, 0, 0, 0, 0],
-    colors: ['#4A90D9', '#06B6D4', '#F59E0B', '#10B981', '#17A2B8', '#8B5CF6']
-  }, 'doughnut');
+  drawChart('adminChart', { labels: ['Calls','Visits','Materials','Produced','Dispatched','Installed'], data: [calls,visits,0,0,0,0], colors: ['#4A90D9','#06B6D4','#F59E0B','#10B981','#17A2B8','#8B5CF6'] }, 'doughnut');
 }
 async function renderMasterSheet() {
   const tbody = document.getElementById('masterBody');
   if (!tbody) return;
   const data = await apiGet('getMasterSheet');
   const rows = extractArray(data, ['data']);
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No master data yet</td></tr>';
-    return;
-  }
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No master data</td></tr>'; return; }
   tbody.innerHTML = rows.slice(0, 20).map(r => `
     <tr>
       <td><strong>${r['Customer Name'] || '-'}</strong></td>
@@ -1691,8 +1753,7 @@ async function renderMasterSheet() {
       <td>${r['Status'] || '-'}</td>
       <td><span class="badge installed">${r['Status'] || 'New'}</span></td>
       <td>${r['Last Updated At'] || '-'}</td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
 
 // ============================================================
@@ -1704,13 +1765,6 @@ async function loadDailyAlerts() {
 }
 async function checkDailyCallbacks(silent = false) {
   await loadDailyAlerts();
-  const today = getISTDate();
-  if (localStorage.getItem('lifeasy_alert_dismissed') === today) return;
-  const total = Object.values(allAlerts).reduce((s, arr) => s + arr.length, 0);
-  if (total === 0 || silent) return;
-  playRingSound();
-  blinkTitle(`${total} Alerts`);
-  showBrowserNotification('Lifeasy CRM', `${total} tasks due today`);
 }
 async function pollNotifications() {
   try {
@@ -1724,100 +1778,28 @@ function updateBell(items) {
   const count = document.getElementById('bellCount');
   const dropdown = document.getElementById('bellDropdown');
   if (!count || !dropdown) return;
-  if (!items.length) {
-    count.classList.add('hide');
-    dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>';
-    return;
-  }
+  if (!items.length) { count.classList.add('hide'); dropdown.innerHTML = '<div class="bell-header">Notifications</div><div class="bell-empty">No notifications</div>'; return; }
   count.textContent = items.length;
   count.classList.remove('hide');
-  dropdown.innerHTML = `
-    <div class="bell-header">Notifications (${items.length})</div>
-    ${items.slice(0, 10).map(n => `
-      <div class="bell-item">
-        <div><strong>${n['Type'] || 'Alert'}</strong></div>
-        <div>${n['Details'] || ''}</div>
-        <div class="time">${n['Created At'] || ''}</div>
-      </div>
-    `).join('')}
-  `;
+  dropdown.innerHTML = `<div class="bell-header">Notifications (${items.length})</div>` +
+    items.slice(0, 10).map(n => `<div class="bell-item"><div><strong>${n['Type'] || 'Alert'}</strong></div><div>${n['Details'] || ''}</div><div class="time">${n['Created At'] || ''}</div></div>`).join('');
 }
-function toggleBell(e) {
-  e.stopPropagation();
-  document.getElementById('bellDropdown').classList.toggle('show');
-}
-document.addEventListener('click', (e) => {
-  const dd = document.getElementById('bellDropdown');
-  if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show');
-});
-
-function playRingSound() {
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const playBeep = (freq, delay) => {
-      setTimeout(() => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-        osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
-      }, delay);
-    };
-    playBeep(800, 0); playBeep(1000, 400);
-  } catch (err) {}
-}
-function blinkTitle(text) {
-  if (titleBlinkInterval) return;
-  let blink = true;
-  titleBlinkInterval = setInterval(() => {
-    document.title = blink ? `🔔 ${text}` : originalTitle;
-    blink = !blink;
-  }, 1000);
-  setTimeout(() => {
-    clearInterval(titleBlinkInterval);
-    titleBlinkInterval = null;
-    document.title = originalTitle;
-  }, 15000);
-}
-function showBrowserNotification(title, body) {
-  if (!('Notification' in window)) return;
-  if (Notification.permission === 'granted') {
-    new Notification(title, { body });
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(p => {
-      if (p === 'granted') new Notification(title, { body });
-    });
-  }
-}
+function toggleBell(e) { e.stopPropagation(); document.getElementById('bellDropdown').classList.toggle('show'); }
+document.addEventListener('click', (e) => { const dd = document.getElementById('bellDropdown'); if (dd && !e.target.closest('.bell-wrap')) dd.classList.remove('show'); });
 
 // ============================================================
 // HELPERS
 // ============================================================
-function closeModal(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.remove('show');
-}
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('show');
-  });
-});
+function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('show'); }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', (e) => { if (e.target === o) o.classList.remove('show'); }));
 function showToast(text, type = 'success') {
   const el = document.getElementById('toast');
   if (!el) return;
   el.textContent = text;
-  el.className = 'toast show ' + (type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'success');
+  el.className = 'toast show ' + (type === 'error' ? 'error' : 'success');
   setTimeout(() => el.classList.remove('show'), 3000);
 }
-function logout() {
-  if (confirm('Are you sure you want to logout?')) {
-    localStorage.clear();
-    window.location.href = 'index.html';
-  }
-}
+function logout() { if (confirm('Logout?')) { localStorage.clear(); window.location.href = 'index.html'; } }
 </script>
 </body>
 </html>
-</div>
