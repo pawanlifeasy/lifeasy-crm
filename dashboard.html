@@ -436,6 +436,7 @@ tr:hover { background: #F1F5F9; }
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Dispatch</h2><button class="modal-close" onclick="closeModal('dispatchEditModal')">×</button></div>
     <div class="form-group"><label>Customer</label><input type="text" id="dpEditCustomer" readonly></div>
+    <div class="form-group"><label>Material</label><input type="text" id="dpEditMaterial" readonly></div>
     <div class="form-group"><label>Dispatch Date</label><input type="date" id="dpEditDate"></div>
     <div class="form-group"><label>Dispatched QTY</label><input type="number" id="dpEditQty"></div>
     <div class="form-group"><label>Vehicle</label><input type="text" id="dpEditVehicle"></div>
@@ -449,6 +450,7 @@ tr:hover { background: #F1F5F9; }
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Installation</h2><button class="modal-close" onclick="closeModal('installationEditModal')">×</button></div>
     <div class="form-group"><label>Customer</label><input type="text" id="inEditCustomer" readonly></div>
+    <div class="form-group"><label>Material</label><input type="text" id="inEditMaterial" readonly></div>
     <div class="form-group"><label>Installed QTY</label><input type="number" id="inEditQty"></div>
     <div class="form-group"><label>Installation Date</label><input type="date" id="inEditDate"></div>
     <div class="form-group"><label>Final Date</label><input type="date" id="inEditFinalDate"></div>
@@ -726,7 +728,6 @@ function renderTelecallerLeads() {
   if (!leads.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No leads</td></tr>'; return; }
   tbody.innerHTML = leads.map(l => { const nc = l['Next Call Date'] || ''; return `<tr><td>${l['Lead ID']}</td><td><strong>${l['Customer_Name']}</strong></td><td>${l['Contact_Number']}</td><td>${l['Assigned To']||'-'}</td><td><span class="badge ${statusToClass(l['Call_Status'])}">${l['Call_Status']||'New'}</span></td><td class="${getNextCallClass(nc)}">${nc||'—'}</td><td><button class="btn-sm btn-call" onclick='openEditLead(${JSON.stringify(l).replace(/'/g, "&apos;")})'>✏️ Edit</button></td></tr>`; }).join('');
 }
-
 function openEditLead(lead) {
   currentLead = lead;
   document.getElementById('editLeadId').value = lead['Lead ID'];
@@ -985,7 +986,7 @@ async function deleteDesignerMaterial(customer, designer, material) {
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ PRODUCTION / DISPATCH / INSTALLATION ============
+// ============ PRODUCTION (Row Index) ============
 async function loadProductionData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -1004,27 +1005,37 @@ function renderProductionStats() {
 function renderProductionTable() {
   const tbody = document.getElementById('productionBody');
   if (!allProductionData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No production</td></tr>'; return; }
-  tbody.innerHTML = allProductionData.map(r => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['QTY']||'-'}</td><td>${r['Available_Material']||'-'}</td><td>${r['Produced QTY']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openProductionEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Production","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Dispatch</button></td></tr>`).join('');
+  tbody.innerHTML = allProductionData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['QTY']||'-'}</td><td>${r['Available_Material']||'-'}</td><td>${r['Produced QTY']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openProductionEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Production","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Dispatch</button></td></tr>`).join('');
 }
-function openProductionEdit(row) {
+function openProductionEdit(row, rowIndex) {
   document.getElementById('prEditCustomer').value = row['Customer_Name']||'';
   document.getElementById('prEditMaterial').value = row['Material_Description']||'';
   document.getElementById('prEditAvailable').value = row['Available_Material']||'';
   document.getElementById('prEditProduced').value = row['Produced QTY']||'';
+  document.getElementById('productionEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('productionEditModal').classList.add('show');
 }
 async function submitProductionEdit() {
-  const data = await apiPost('updateProduction', { customerName: document.getElementById('prEditCustomer').value, materialDescription: document.getElementById('prEditMaterial').value, 'Available_Material': document.getElementById('prEditAvailable').value, 'Produced QTY': document.getElementById('prEditProduced').value });
+  const rowIndex = document.getElementById('productionEditModal').dataset.rowIndex;
+  const data = await apiPost('updateProduction', {
+    rowIndex: rowIndex,
+    customerName: document.getElementById('prEditCustomer').value,
+    materialDescription: document.getElementById('prEditMaterial').value,
+    'Available_Material': document.getElementById('prEditAvailable').value,
+    'Produced QTY': document.getElementById('prEditProduced').value
+  });
   if (data.success) { closeModal('productionEditModal'); showToast('Updated'); await loadProductionData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 
+// ============ DISPATCH (Row Index) ============
 async function loadDispatchData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getDispatchData', { role: rp, username: up });
   allDispatchData = exArr(data, ['data']);
-  renderDispatchStats(); renderDispatchTable();
+  renderDispatchStats();
+  renderDispatchTable();
 }
 function renderDispatchStats() {
   const r = allDispatchData;
@@ -1036,29 +1047,43 @@ function renderDispatchStats() {
 function renderDispatchTable() {
   const tbody = document.getElementById('dispatchBody');
   if (!allDispatchData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No dispatch</td></tr>'; return; }
-  tbody.innerHTML = allDispatchData.map(r => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Dispatch_Date']||'-'}</td><td>${r['Dispatched QTY']||'-'}</td><td>${r['Vehicle']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openDispatchEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Dispatch","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Install</button></td></tr>`).join('');
+  tbody.innerHTML = allDispatchData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Dispatch_Date']||'-'}</td><td>${r['Dispatched QTY']||'-'}</td><td>${r['Vehicle']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openDispatchEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Dispatch","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Install</button></td></tr>`).join('');
 }
-function openDispatchEdit(row) {
+function openDispatchEdit(row, rowIndex) {
   document.getElementById('dpEditCustomer').value = row['Customer_Name']||'';
+  document.getElementById('dpEditMaterial').value = row['Material_Description']||'';
   document.getElementById('dpEditDate').value = row['Dispatch_Date']||'';
   document.getElementById('dpEditQty').value = row['Dispatched QTY']||'';
   document.getElementById('dpEditVehicle').value = row['Vehicle']||'';
   document.getElementById('dpEditReceived').value = row['Received By']||'';
   document.getElementById('dpEditNotes').value = row['Notes']||'';
+  document.getElementById('dispatchEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('dispatchEditModal').classList.add('show');
 }
 async function submitDispatchEdit() {
-  const data = await apiPost('updateDispatch', { customerName: document.getElementById('dpEditCustomer').value, 'Dispatch_Date': document.getElementById('dpEditDate').value, 'Dispatched QTY': document.getElementById('dpEditQty').value, 'Vehicle': document.getElementById('dpEditVehicle').value, 'Received By': document.getElementById('dpEditReceived').value, 'Notes': document.getElementById('dpEditNotes').value });
+  const rowIndex = document.getElementById('dispatchEditModal').dataset.rowIndex;
+  const data = await apiPost('updateDispatch', {
+    rowIndex: rowIndex,
+    customerName: document.getElementById('dpEditCustomer').value,
+    materialDescription: document.getElementById('dpEditMaterial').value,
+    'Dispatch_Date': document.getElementById('dpEditDate').value,
+    'Dispatched QTY': document.getElementById('dpEditQty').value,
+    'Vehicle': document.getElementById('dpEditVehicle').value,
+    'Received By': document.getElementById('dpEditReceived').value,
+    'Notes': document.getElementById('dpEditNotes').value
+  });
   if (data.success) { closeModal('dispatchEditModal'); showToast('Updated'); await loadDispatchData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 
+// ============ INSTALLATION (Row Index) ============
 async function loadInstallationData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
   const data = await apiGet('getInstallationData', { role: rp, username: up });
   allInstallationData = exArr(data, ['data']);
-  renderInstallationStats(); renderInstallationTable();
+  renderInstallationStats();
+  renderInstallationTable();
 }
 function renderInstallationStats() {
   const r = allInstallationData;
@@ -1070,17 +1095,27 @@ function renderInstallationStats() {
 function renderInstallationTable() {
   const tbody = document.getElementById('installationBody');
   if (!allInstallationData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No installation</td></tr>'; return; }
-  tbody.innerHTML = allInstallationData.map(r => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Installed QTY']||'-'}</td><td>${r['Date']||'-'}</td><td>${r['Final_Installation_Date']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openInstallationEdit(${JSON.stringify(r).replace(/'/g, "&apos;")})'>✏️ Edit</button> <button class="btn-sm btn-success" onclick='markComplete("${r['Customer_Name']}")'>✅ Complete</button></td></tr>`).join('');
+  tbody.innerHTML = allInstallationData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Installed QTY']||'-'}</td><td>${r['Date']||'-'}</td><td>${r['Final_Installation_Date']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openInstallationEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-success" onclick='markComplete("${r['Customer_Name']}")'>✅ Complete</button></td></tr>`).join('');
 }
-function openInstallationEdit(row) {
+function openInstallationEdit(row, rowIndex) {
   document.getElementById('inEditCustomer').value = row['Customer_Name']||'';
+  document.getElementById('inEditMaterial').value = row['Material_Description']||'';
   document.getElementById('inEditQty').value = row['Installed QTY']||'';
   document.getElementById('inEditDate').value = row['Date']||'';
   document.getElementById('inEditFinalDate').value = row['Final_Installation_Date']||'';
+  document.getElementById('installationEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('installationEditModal').classList.add('show');
 }
 async function submitInstallationEdit() {
-  const data = await apiPost('updateInstallation', { customerName: document.getElementById('inEditCustomer').value, 'Installed QTY': document.getElementById('inEditQty').value, 'Date': document.getElementById('inEditDate').value, 'Final_Installation_Date': document.getElementById('inEditFinalDate').value });
+  const rowIndex = document.getElementById('installationEditModal').dataset.rowIndex;
+  const data = await apiPost('updateInstallation', {
+    rowIndex: rowIndex,
+    customerName: document.getElementById('inEditCustomer').value,
+    materialDescription: document.getElementById('inEditMaterial').value,
+    'Installed QTY': document.getElementById('inEditQty').value,
+    'Date': document.getElementById('inEditDate').value,
+    'Final_Installation_Date': document.getElementById('inEditFinalDate').value
+  });
   if (data.success) { closeModal('installationEditModal'); showToast('Updated'); await loadInstallationData(); }
   else showToast(data.error || 'Failed', 'error');
 }
