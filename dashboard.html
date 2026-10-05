@@ -3,89 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lifeasy CRM</title>
+<title>Lifeasy INTERIOR</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, system-ui, sans-serif; }
 body { background: #F8FAFC; min-height: 100vh; color: #0F172A; }
-:root { --primary: #4A90D9; --success: #10B981; --warning: #F59E0B; --danger: #EF4444; --info: #06B6D4; --purple: #8B5CF6; }
-.loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; z-index: 9999; transition: opacity 0.4s; }
+
+:root {
+  --red: #E63946;
+  --red-dark: #C8102E;
+  --grey: #6B7280;
+  --grey-dark: #475569;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #06B6D4;
+  --purple: #8B5CF6;
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --border: #E2E8F0;
+}
+
+/* ============ LOADING ============ */
+.loading-overlay { position: fixed; inset: 0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; z-index: 9999; transition: opacity 0.5s; }
 .loading-overlay.hide { opacity: 0; pointer-events: none; }
-.loading-dots { display: flex; gap: 12px; }
-.loading-dots span { width: 14px; height: 14px; border-radius: 50%; background: #4A90D9; animation: bounce 1.4s infinite; }
-.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes bounce { 0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; } 40% { transform: scale(1.2); opacity: 1; } }
-.loading-text { color: #64748B; font-size: 14px; font-weight: 500; }
-.topbar { background: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #E2E8F0; }
-.brand { font-weight: 700; font-size: 18px; color: #0F172A; display: flex; align-items: center; gap: 8px; }
-.brand-icon { font-size: 22px; }
-.user-info { display: flex; align-items: center; gap: 14px; font-size: 14px; }
+.loading-logo { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.loading-logo .line1 { font-size: 52px; font-weight: 800; color: var(--red); letter-spacing: -1px; display: flex; }
+.loading-logo .line2 { font-size: 16px; font-weight: 600; color: var(--grey); letter-spacing: 8px; display: flex; margin-top: -8px; margin-left: 8px; }
+.loading-letter { display: inline-block; opacity: 0; transform: translateY(-20px); animation: letterIn 0.4s ease forwards; }
+@keyframes letterIn { to { opacity: 1; transform: translateY(0); } }
+.loading-dots { display: flex; gap: 8px; margin-top: 10px; }
+.loading-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--red); opacity: 0; animation: bounce 1.4s infinite; }
+.loading-dots span:nth-child(1) { animation-delay: 1.8s, 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 1.8s, 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 1.8s, 0.4s; }
+@keyframes bounce { 0% { opacity: 1; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.2); } 80%, 100% { opacity: 1; transform: scale(0.8); } }
+.loading-dots.show span { opacity: 1; }
+.loading-text { color: #94A3B8; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.5s; }
+.loading-text.show { opacity: 1; }
+
+/* ============ TOPBAR ============ */
+.topbar { background: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); border-bottom-width: 3px; }
+.topbar.admin { border-bottom-color: var(--grey-dark); }
+.topbar.telecaller { border-bottom-color: #06B6D4; }
+.topbar.visit { border-bottom-color: #F59E0B; }
+.topbar.designer { border-bottom-color: #8B5CF6; }
+.topbar.production { border-bottom-color: #10B981; }
+.topbar.dispatch { border-bottom-color: #F97316; }
+.topbar.installation { border-bottom-color: #3B82F6; }
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-logo { max-height: 40px; width: auto; }
+.brand-fallback { font-size: 20px; font-weight: 800; color: var(--red); letter-spacing: -0.5px; }
+.brand-fallback small { font-size: 11px; color: var(--grey); letter-spacing: 3px; margin-left: 6px; font-weight: 600; }
+
+.user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; }
 .user-name { font-weight: 600; color: #0F172A; }
-.user-role { background: #DBEAFE; color: #1E40AF; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.logout-btn { background: #FEE2E2; color: #EF4444; border: none; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-.logout-btn:hover { background: #EF4444; color: #fff; }
+.user-role { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.user-role.admin { background: #F1F5F9; color: #334155; }
+.user-role.telecaller { background: #ECFEFF; color: #155E75; }
+.user-role.visit { background: #FFFBEB; color: #92400E; }
+.user-role.designer { background: #F5F3FF; color: #6B21A8; }
+.user-role.production { background: #ECFDF5; color: #065F46; }
+.user-role.dispatch { background: #FFF7ED; color: #9A3412; }
+.user-role.installation { background: #EFF6FF; color: #1E40AF; }
+
+.logout-btn { background: #FEE2E2; color: var(--red); border: none; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.logout-btn:hover { background: var(--red); color: #fff; }
+
 .bell-wrap { position: relative; }
 .bell { position: relative; cursor: pointer; font-size: 20px; padding: 8px 10px; border-radius: 10px; background: #F1F5F9; transition: all 0.2s; }
 .bell:hover { background: #E2E8F0; }
-.bell-count { position: absolute; top: 2px; right: 2px; background: #EF4444; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center; }
+.bell-count { position: absolute; top: 2px; right: 2px; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; min-width: 18px; text-align: center; }
 .bell-count.hide { display: none; }
-.bell-dropdown { position: absolute; top: 100%; right: 0; margin-top: 10px; width: 360px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); display: none; z-index: 200; max-height: 440px; overflow-y: auto; }
+.bell-dropdown { position: absolute; top: 100%; right: 0; margin-top: 10px; width: 360px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); display: none; z-index: 200; max-height: 440px; overflow-y: auto; }
 .bell-dropdown.show { display: block; }
-.bell-header { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; font-weight: 700; font-size: 14px; }
-.bell-item { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; }
-.bell-item:hover { background: #F1F5F9; }
+.bell-header { padding: 14px 18px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 14px; }
+.bell-item { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 13px; }
 .bell-item:last-child { border-bottom: none; }
-.bell-item .time { color: #64748B; font-size: 11px; margin-top: 4px; }
-.bell-empty { padding: 30px; text-align: center; color: #64748B; font-size: 13px; }
-.tabs { background: #FFFFFF; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid #E2E8F0; scrollbar-width: none; }
+.bell-item .time { color: var(--grey); font-size: 11px; margin-top: 4px; }
+.bell-empty { padding: 30px; text-align: center; color: var(--grey); font-size: 13px; }
+
+/* ============ TABS ============ */
+.tabs { background: #FFFFFF; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--border); scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
-.tab { padding: 16px 18px; font-size: 14px; font-weight: 500; color: #64748B; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-.tab:hover { color: #4A90D9; }
-.tab.active { color: #2563EB; border-bottom-color: #4A90D9; font-weight: 600; }
-.content { padding: 24px; max-width: 1280px; margin: 0 auto; }
+.tab { padding: 16px 18px; font-size: 14px; font-weight: 500; color: var(--grey); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: var(--red); }
+.tab.active { color: var(--red); border-bottom-color: var(--red); font-weight: 600; }
+
+/* ============ CONTENT ============ */
+.content { padding: 24px; max-width: 1400px; margin: 0 auto; }
 .section { display: none; }
 .section.active { display: block; }
+
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 14px; }
 .section-title { font-size: 24px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 10px; }
-.btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
-.btn-primary { background: #4A90D9; color: #fff; }
-.btn-primary:hover { background: #2563EB; }
-.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 4px; }
-.btn-call { background: #4A90D9; color: #fff; }
-.btn-call:hover { background: #2563EB; }
-.btn-warning { background: #F59E0B; color: #fff; }
-.btn-warning:hover { background: #D97706; }
-.btn-success { background: #10B981; color: #fff; }
-.btn-success:hover { background: #059669; }
-.btn-info { background: #06B6D4; color: #fff; }
-.btn-info:hover { background: #0891B2; }
-.btn-purple { background: #8B5CF6; color: #fff; }
-.btn-purple:hover { background: #7C3AED; }
-.btn-danger { background: #EF4444; color: #fff; }
-.btn-danger:hover { background: #DC2626; }
+
+/* ============ FILTER ============ */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; background: #FFFFFF; padding: 12px; border-radius: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.filter-btn { padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; border: 2px solid var(--border); background: #FFFFFF; color: var(--grey); transition: all 0.2s; }
+.filter-btn:hover { border-color: var(--red); color: var(--red); }
+.filter-btn.active { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+.filter-custom { display: none; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; width: 100%; }
+.filter-custom.show { display: flex; }
+.filter-custom input { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 13px; font-family: inherit; outline: none; }
+.filter-custom input:focus { border-color: var(--red); }
+.filter-apply { padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; background: var(--red); color: #FFFFFF; }
+
+/* ============ STATS ============ */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; transition: all 0.2s; }
+.stat-card { background: #FFFFFF; padding: 22px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid var(--grey-dark); transition: all 0.2s; }
 .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-.stat-card.green { border-left-color: #10B981; }
-.stat-card.amber { border-left-color: #F59E0B; }
-.stat-card.red { border-left-color: #EF4444; }
-.stat-card.cyan { border-left-color: #06B6D4; }
-.stat-card.purple { border-left-color: #8B5CF6; }
-.stat-value { font-size: 30px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
-.stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
+.stat-card.green { border-left-color: var(--success); }
+.stat-card.amber { border-left-color: var(--warning); }
+.stat-card.red { border-left-color: var(--danger); }
+.stat-card.cyan { border-left-color: var(--info); }
+.stat-card.purple { border-left-color: var(--purple); }
+.stat-card.blue { border-left-color: #3B82F6; }
+.stat-card.orange { border-left-color: #F97316; }
+.stat-value { font-size: 32px; font-weight: 700; color: #0F172A; margin-bottom: 4px; line-height: 1; }
+.stat-label { font-size: 13px; color: var(--grey); font-weight: 500; }
+.stat-date { font-size: 11px; color: #94A3B8; margin-top: 6px; font-weight: 500; }
+
+/* Team-specific dashboard bg */
+.team-dashboard.admin { background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); }
+.team-dashboard.telecaller { background: linear-gradient(135deg, #FFFFFF 0%, #ECFEFF 100%); }
+.team-dashboard.visit { background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%); }
+.team-dashboard.designer { background: linear-gradient(135deg, #FFFFFF 0%, #F5F3FF 100%); }
+.team-dashboard.production { background: linear-gradient(135deg, #FFFFFF 0%, #ECFDF5 100%); }
+.team-dashboard.dispatch { background: linear-gradient(135deg, #FFFFFF 0%, #FFF7ED 100%); }
+.team-dashboard.installation { background: linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%); }
+
+/* Team section card */
+.team-section { background: #FFFFFF; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.team-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+.team-section-icon { font-size: 24px; }
+.team-section-title { font-size: 18px; font-weight: 700; color: #0F172A; }
+
+/* ============ CHART ============ */
 .chart-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 22px; margin-bottom: 20px; }
 .chart-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
 .chart-container { position: relative; height: 300px; max-width: 500px; margin: 0 auto; }
+
+/* ============ TABLE ============ */
 .table-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 20px; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; min-width: 700px; }
 th, td { padding: 14px 16px; text-align: left; font-size: 14px; }
-th { background: #F8FAFC; font-weight: 600; color: #64748B; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #E2E8F0; }
-tr { border-bottom: 1px solid #E2E8F0; transition: background 0.15s; }
+th { background: #F8FAFC; font-weight: 600; color: var(--grey); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
 tr:last-child { border-bottom: none; }
-tr:hover { background: #F1F5F9; }
+tr:hover { background: #F8FAFC; }
+td { color: #334155; }
+
+/* ============ BADGES ============ */
 .badge { display: inline-block; padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge.active { background: #D1FAE5; color: #065F46; }
 .badge.inactive { background: #FEE2E2; color: #991B1B; }
@@ -99,102 +171,141 @@ tr:hover { background: #F1F5F9; }
 .badge.pending { background: #FEF3C7; color: #92400E; }
 .badge.installed { background: #D1FAE5; color: #065F46; }
 .badge.blue { background: #DBEAFE; color: #1E40AF; }
+.badge.orange { background: #FED7AA; color: #9A3412; }
+.badge.ready { background: #D1FAE5; color: #065F46; }
+.badge.dispatched { background: #DBEAFE; color: #1E40AF; }
+
 .next-call-today { background: #FEF3C7 !important; color: #92400E !important; font-weight: 700 !important; border-left: 3px solid #F59E0B; }
-.next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; animation: pulse-bg 2s infinite; }
-@keyframes pulse-bg { 0%, 100% { background: #FEE2E2; } 50% { background: #FCA5A5; } }
-.next-call-normal { color: #64748B; }
+.next-call-overdue { background: #FEE2E2 !important; color: #991B1B !important; font-weight: 700 !important; border-left: 3px solid #EF4444; }
+.next-call-normal { color: var(--grey); }
+
+/* ============ BUTTONS ============ */
+.btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: var(--red-dark); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-sm { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 4px; }
+.btn-call { background: #4A90D9; color: #fff; }
+.btn-warning { background: var(--warning); color: #fff; }
+.btn-warning:hover { background: #D97706; }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: #059669; }
+.btn-info { background: var(--info); color: #fff; }
+.btn-purple { background: var(--purple); color: #fff; }
+.btn-purple:hover { background: #7C3AED; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #DC2626; }
+
+/* ============ TOOLBAR ============ */
 .toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; padding: 16px; background: #F8FAFC; border-radius: 12px; }
-.toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
-.toolbar input:focus, .toolbar select:focus { border-color: #4A90D9; }
+.toolbar input, .toolbar select { padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; font-family: inherit; background: #FFFFFF; }
+.toolbar input:focus, .toolbar select:focus { border-color: var(--red); }
 .toolbar input { flex: 1; min-width: 200px; }
+
+/* ============ MODAL ============ */
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal { background: #FFFFFF; border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
 .modal.wide { max-width: 750px; }
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid #E2E8F0; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .modal-title { font-size: 20px; font-weight: 700; color: #0F172A; }
-.modal-close { background: #F8FAFC; border: none; font-size: 22px; cursor: pointer; color: #64748B; width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-.modal-close:hover { background: #FEE2E2; color: #EF4444; }
+.modal-close { background: #F8FAFC; border: none; font-size: 22px; cursor: pointer; color: var(--grey); width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: #FEE2E2; color: var(--red); }
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #0F172A; margin-bottom: 6px; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #E2E8F0; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; background: #FFFFFF; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4A90D9; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; background: #FFFFFF; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
 .form-group textarea { resize: vertical; min-height: 80px; }
 .form-group input[readonly] { background: #F1F5F9; }
-.required { color: #EF4444; }
-.modal-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #E2E8F0; }
+.required { color: var(--red); }
+.modal-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
 .modal-actions button { flex: 1; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .btn-cancel { background: #F1F5F9; color: #0F172A; border: none; }
-.btn-cancel:hover { background: #E2E8F0; }
-.btn-save { background: #4A90D9; color: #fff; border: none; }
-.btn-save:hover { background: #2563EB; }
+.btn-save { background: var(--red); color: #fff; border: none; }
+.btn-save:hover { background: var(--red-dark); }
 .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
-.upload-zone { border: 2px dashed #E2E8F0; border-radius: 12px; padding: 40px 20px; text-align: center; background: #F8FAFC; cursor: pointer; transition: all 0.2s; }
-.upload-zone:hover { border-color: #4A90D9; background: #EFF6FF; }
+
+/* ============ UPLOAD ============ */
+.upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; background: #F8FAFC; cursor: pointer; transition: all 0.2s; }
+.upload-zone:hover { border-color: var(--red); background: #FEF2F2; }
 .upload-zone input { display: none; }
-.preview-table { max-height: 240px; overflow: auto; border: 1px solid #E2E8F0; border-radius: 8px; margin: 12px 0; }
-.preview-table table { font-size: 12px; }
+.preview-table { max-height: 240px; overflow: auto; border: 1px solid var(--border); border-radius: 8px; margin: 12px 0; }
+.preview-table table { font-size: 12px; min-width: auto; }
 .preview-table th, .preview-table td { padding: 8px 10px; }
-.empty-state { padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; }
+
+/* ============ CALLBACK ============ */
+.callback-item { padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.callback-item.overdue { background: #FEE2E2; border-color: #FCA5A5; }
+.callback-item.today { background: #FEF3C7; border-color: #FCD34D; }
+.callback-info { flex: 1; }
+.callback-info .name { font-weight: 700; font-size: 14px; color: #0F172A; }
+.callback-info .meta { font-size: 12px; color: var(--grey); margin-top: 4px; }
+
+/* ============ EMPTY + TOAST ============ */
+.empty-state { padding: 50px 20px; text-align: center; color: var(--grey); font-size: 14px; }
 .toast { position: fixed; bottom: 28px; right: 28px; background: #0F172A; color: #fff; padding: 16px 22px; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.2); font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 2000; pointer-events: none; max-width: 400px; }
 .toast.show { opacity: 1; transform: translateY(0); }
-.toast.success { background: #10B981; }
-.toast.error { background: #EF4444; }
-.toast.warning { background: #F59E0B; }
-.detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
-.detail-row:last-child { border-bottom: none; }
-.detail-label { font-size: 13px; color: #64748B; font-weight: 500; width: 130px; flex-shrink: 0; }
-.detail-value { font-size: 14px; color: #0F172A; font-weight: 500; word-break: break-word; flex: 1; }
-.detail-section { margin-bottom: 20px; }
-.detail-section-title { font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
-.tc-summary-card { background: #FFFFFF; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border-left: 4px solid #4A90D9; }
-.tc-summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-.tc-summary-name { font-weight: 700; font-size: 16px; color: #0F172A; }
-.tc-summary-count { font-size: 12px; color: #64748B; background: #F1F5F9; padding: 4px 10px; border-radius: 8px; }
-.tc-summary-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-.tc-summary-stat { text-align: center; padding: 10px 6px; background: #F8FAFC; border-radius: 8px; }
-.tc-summary-stat .val { font-size: 20px; font-weight: 700; color: #0F172A; }
-.tc-summary-stat .lbl { font-size: 10px; color: #64748B; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
-.designer-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; overflow: hidden; border-left: 4px solid #8B5CF6; }
-.designer-card-header { padding: 18px 22px; background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.warning { background: var(--warning); }
+
+/* ============ DESIGNER CARDS ============ */
+.designer-card { background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; overflow: hidden; border-left: 4px solid var(--purple); }
+.designer-card-header { padding: 18px 22px; background: linear-gradient(135deg, #F8FAFC 0%, #F5F3FF 100%); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .designer-card-customer { font-size: 18px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 8px; }
-.designer-card-count { font-size: 12px; color: #8B5CF6; background: #EDE9FE; padding: 5px 12px; border-radius: 20px; font-weight: 600; }
+.designer-card-count { font-size: 12px; color: var(--purple); background: #EDE9FE; padding: 5px 12px; border-radius: 20px; font-weight: 600; }
 .designer-card-materials { padding: 12px 22px; }
 .designer-material-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #F1F5F9; gap: 12px; flex-wrap: wrap; }
 .designer-material-row:last-child { border-bottom: none; }
-.designer-material-num { width: 28px; height: 28px; background: #8B5CF6; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.designer-material-num { width: 28px; height: 28px; background: var(--purple); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
 .designer-material-name { font-weight: 600; font-size: 14px; color: #0F172A; flex: 1; min-width: 120px; }
-.designer-material-info { font-size: 13px; color: #64748B; min-width: 100px; }
+.designer-material-info { font-size: 13px; color: var(--grey); min-width: 100px; }
 .designer-material-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.designer-card-footer { padding: 16px 22px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.designer-card-footer { padding: 16px 22px; background: #F8FAFC; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+/* ============ MOBILE ============ */
 @media (max-width: 768px) {
   .topbar { padding: 12px 16px; }
-  .brand { font-size: 16px; }
+  .brand-logo { max-height: 32px; }
+  .brand-fallback { font-size: 16px; }
+  .brand-fallback small { font-size: 9px; letter-spacing: 2px; }
+  .user-name { display: none; }
   .tabs { padding: 0 12px; }
   .tab { padding: 14px 12px; font-size: 13px; }
   .content { padding: 16px; }
-  .user-name { display: none; }
   .section-title { font-size: 20px; }
-  th, td { padding: 10px 12px; font-size: 13px; }
-  .bell-dropdown { width: 290px; right: -60px; }
-  .modal.wide { max-width: 95vw; }
+  .stat-value { font-size: 26px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .chart-container { height: 240px; }
-  .tc-summary-stats { grid-template-columns: repeat(3, 1fr); }
-  .detail-label { width: 100px; font-size: 12px; }
+  .bell-dropdown { width: 290px; right: -60px; }
+  .modal.wide { max-width: 95vw; }
+  th, td { padding: 10px 12px; font-size: 13px; }
   .designer-material-row { padding: 10px 0; }
   .designer-material-actions { width: 100%; justify-content: flex-end; }
+  .filter-btn { padding: 6px 12px; font-size: 12px; }
+  .loading-logo .line1 { font-size: 42px; }
+  .loading-logo .line2 { font-size: 13px; letter-spacing: 6px; }
 }
 </style>
 </head>
 <body>
+
+<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-dots"><span></span><span></span><span></span></div>
-  <div class="loading-text">Loading Lifeasy CRM...</div>
+  <div class="loading-logo">
+    <div class="line1" id="loadLine1"></div>
+    <div class="line2" id="loadLine2"></div>
+  </div>
+  <div class="loading-dots" id="loadDots"><span></span><span></span><span></span></div>
+  <div class="loading-text" id="loadText">Loading Lifeasy INTERIOR...</div>
 </div>
 
-<div class="topbar">
-  <div class="brand"><span class="brand-icon">🏢</span><span>Lifeasy CRM</span></div>
+<!-- TOPBAR -->
+<div class="topbar" id="topbar">
+  <div class="brand">
+    <img src="https://lifeasyinterior.com/wp-content/uploads/2024/01/lifeasy-interior-logo.png" alt="Lifeasy INTERIOR" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="brand-fallback" style="display:none;">Lifeasy <small>INTERIOR</small></div>
+  </div>
   <div class="user-info">
     <div class="bell-wrap">
       <div class="bell" onclick="toggleBell(event)">🔔<span class="bell-count hide" id="bellCount">0</span></div>
@@ -206,104 +317,194 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs" id="tabs"></div>
 
+<!-- CONTENT -->
 <div class="content">
+
+  <!-- DASHBOARD -->
   <div class="section active" id="section-dashboard">
-    <div class="section-header"><h1 class="section-title">📊 Dashboard</h1></div>
-    <div class="stats-grid" id="statsGrid"></div>
-    <div class="chart-card"><div class="chart-title">📈 My Progress</div><div class="chart-container"><canvas id="dashboardChart"></canvas></div></div>
-  </div>
-
-  <div class="section" id="section-users">
-    <div class="section-header"><h1 class="section-title">👤 User Management</h1><button class="btn btn-primary" onclick="openUserModal()">+ Add New User</button></div>
-    <div class="table-card"><div class="table-wrap"><table><thead><tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead><tbody id="usersTbody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div></div>
-  </div>
-
-  <div class="section" id="section-leads">
-    <div class="section-header"><h1 class="section-title">📋 All Leads</h1><button class="btn btn-primary" id="bulkUploadBtn" onclick="openBulkUpload()" style="display:none;">📤 Bulk Upload</button></div>
-    <div class="toolbar">
-      <input type="text" id="leadsSearch" placeholder="🔍 Search..." oninput="renderLeads()">
-      <select id="leadsFilter" onchange="renderLeads()"><option value="">All</option><option>New</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option></select>
+    <div class="section-header">
+      <h1 class="section-title">📊 Dashboard</h1>
     </div>
-    <div class="table-card"><div class="table-wrap"><table><thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead><tbody id="leadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div></div>
+
+    <!-- Date Filter -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="month" onclick="setFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" data-filter="week" onclick="setFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" data-filter="year" onclick="setFilter('year', this)">📅 Year</button>
+      <button class="filter-btn" data-filter="custom" onclick="setFilter('custom', this)">🎯 Custom</button>
+      <div class="filter-custom" id="customFilter">
+        <input type="date" id="filterFrom">
+        <span>to</span>
+        <input type="date" id="filterTo">
+        <button class="filter-apply" onclick="applyCustomFilter()">Apply</button>
+      </div>
+    </div>
+
+    <div id="dashboardContent"></div>
   </div>
 
+  <!-- USERS -->
+  <div class="section" id="section-users">
+    <div class="section-header">
+      <h1 class="section-title">👤 User Management</h1>
+      <button class="btn btn-primary" onclick="openUserModal()">+ Add New User</button>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>User ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTbody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADS -->
+  <div class="section" id="section-leads">
+    <div class="section-header">
+      <h1 class="section-title">📋 All Leads</h1>
+      <button class="btn btn-primary" id="bulkUploadBtn" onclick="openBulkUpload()" style="display:none;">📤 Bulk Upload</button>
+    </div>
+    <div class="toolbar">
+      <input type="text" id="leadsSearch" placeholder="🔍 Search name or phone..." oninput="renderLeads()">
+      <select id="leadsFilter" onchange="renderLeads()">
+        <option value="">All Status</option>
+        <option>New</option><option>Call Later</option><option>Interested</option>
+        <option>Visit Ready</option><option>Not Interested</option>
+        <option>Not Answered</option><option>Wrong Number</option>
+      </select>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
+          <tbody id="leadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELECALLER -->
   <div class="section" id="section-telecaller">
     <div class="section-header"><h1 class="section-title">📞 Telecaller</h1></div>
     <div id="tcCallbackBanner"></div>
     <div class="stats-grid" id="tcStats"></div>
-    <div class="chart-card"><div class="chart-title">📈 Call Progress</div><div class="chart-container"><canvas id="telecallerChart"></canvas></div></div>
-    <div id="adminTelecallerSection" style="display:none;"><h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">👥 All Telecallers Summary</h3><div id="tcSummaryContainer"></div></div>
     <div class="table-card">
       <div style="padding:16px;">
         <div class="toolbar">
           <input type="text" id="tcSearch" placeholder="🔍 Search..." oninput="renderTelecallerLeads()">
-          <select id="tcStatusFilter" onchange="renderTelecallerLeads()"><option value="">All</option><option>New</option><option>Call Later</option><option>Interested</option><option>Visit Ready</option><option>Not Interested</option><option>Not Answered</option><option>Wrong Number</option></select>
+          <select id="tcStatusFilter" onchange="renderTelecallerLeads()">
+            <option value="">All Status</option>
+            <option>New</option><option>Call Later</option><option>Interested</option>
+            <option>Visit Ready</option><option>Not Interested</option>
+            <option>Not Answered</option><option>Wrong Number</option>
+          </select>
         </div>
-        <div class="table-wrap"><table><thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead><tbody id="tcLeadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Lead ID</th><th>Customer</th><th>Phone</th><th>Assigned To</th><th>Status</th><th>Next Call</th><th>Action</th></tr></thead>
+            <tbody id="tcLeadsBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- VISITOR -->
   <div class="section" id="section-visitor">
     <div class="section-header"><h1 class="section-title">🚗 Visitor</h1></div>
     <div class="stats-grid" id="visitorStats"></div>
-    <div class="chart-card"><div class="chart-title">📈 Visit Progress</div><div class="chart-container"><canvas id="visitorChart"></canvas></div></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap"><table><thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Status</th><th>Action</th></tr></thead><tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Visit ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="visitorBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- DESIGNER -->
   <div class="section" id="section-designer">
     <div class="section-header"><h1 class="section-title">🎨 Designer</h1></div>
     <div class="stats-grid" id="designerStats"></div>
     <div id="designerCardsContainer"></div>
   </div>
 
+  <!-- PRODUCTION -->
   <div class="section" id="section-production">
     <div class="section-header"><h1 class="section-title">🏭 Production</h1></div>
     <div class="stats-grid" id="productionStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Available</th><th>Produced</th><th>Action</th></tr></thead><tbody id="productionBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Available</th><th>Produced</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="productionBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- DISPATCH -->
   <div class="section" id="section-dispatch">
     <div class="section-header"><h1 class="section-title">🚚 Dispatch</h1></div>
     <div class="stats-grid" id="dispatchStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Date</th><th>Qty</th><th>Vehicle</th><th>Action</th></tr></thead><tbody id="dispatchBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Material</th><th>Date</th><th>Qty</th><th>Vehicle</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="dispatchBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- INSTALLATION -->
   <div class="section" id="section-installation">
     <div class="section-header"><h1 class="section-title">🔧 Installation</h1></div>
     <div class="stats-grid" id="installationStats"></div>
     <div class="table-card">
       <div style="padding:16px;">
-        <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Date</th><th>Final Date</th><th>Action</th></tr></thead><tbody id="installationBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Material</th><th>Qty</th><th>Date</th><th>Final Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="installationBody"><tr><td colspan="7" class="empty-state">Loading...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ADMIN -->
   <div class="section" id="section-admin">
     <div class="section-header"><h1 class="section-title">👤 Admin Overview</h1></div>
-    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#0F172A;">🔔 Pending Assignments</h3>
-    <div class="table-card"><div style="padding:20px;" id="pendingAssignments"><div class="empty-state">Loading...</div></div></div>
-    <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">📊 All Teams Progress</h3>
-    <div class="stats-grid" id="adminStats"></div>
-    <div class="chart-card"><div class="chart-title">📈 All Teams</div><div class="chart-container" style="max-width:600px;"><canvas id="adminChart"></canvas></div></div>
-    <h3 style="font-size:16px;font-weight:700;margin:20px 0 14px;color:#0F172A;">📋 Master Sheet</h3>
-    <div class="table-card"><div style="padding:16px;"><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone</th><th>Material</th><th>Stage</th><th>Status</th><th>Last Updated</th></tr></thead><tbody id="masterBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody></table></div></div></div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="month" onclick="setAdminFilter('month', this)">📅 Month</button>
+      <button class="filter-btn" data-filter="week" onclick="setAdminFilter('week', this)">📆 Week</button>
+      <button class="filter-btn" data-filter="year" onclick="setAdminFilter('year', this)">📅 Year</button>
+      <button class="filter-btn" data-filter="custom" onclick="setAdminFilter('custom', this)">🎯 Custom</button>
+      <div class="filter-custom" id="adminCustomFilter">
+        <input type="date" id="adminFilterFrom">
+        <span>to</span>
+        <input type="date" id="adminFilterTo">
+        <button class="filter-apply" onclick="applyAdminCustomFilter()">Apply</button>
+      </div>
+    </div>
+
+    <div id="adminDashboardContent"></div>
   </div>
-</div>
+
+<!-- ============ MODAL: USER ============ -->
 <div class="modal-overlay" id="userModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title" id="modalTitle">Add New User</h2><button class="modal-close" onclick="closeModal('userModal')">×</button></div>
@@ -313,11 +514,12 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Role <span class="required">*</span></label><select id="formRole"><option value="">Select</option><option>Telecaller</option><option>Visit</option><option>Designer</option><option>Production</option><option>Dispatch</option><option>Installation</option><option>Admin</option></select></div>
     <div class="form-group"><label>Username <span class="required">*</span></label><input type="text" id="formUsername"></div>
     <div class="form-group"><label>Password <span class="required">*</span></label><input type="password" id="formPassword"></div>
-    <div class="form-group"><label>Email</label><input type="email" id="formEmail"></div>
+    <div class="form-group"><label>Email (optional)</label><input type="email" id="formEmail"></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('userModal')">Cancel</button><button class="btn-save" id="saveUserBtn" onclick="saveUser()">Save User</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: EDIT LEAD ============ -->
 <div class="modal-overlay" id="editLeadModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Lead</h2><button class="modal-close" onclick="closeModal('editLeadModal')">×</button></div>
@@ -334,30 +536,33 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============ MODAL: BULK UPLOAD ============ -->
 <div class="modal-overlay" id="bulkUploadModal">
   <div class="modal wide">
-    <div class="modal-header"><h2 class="modal-title">📤 Bulk Upload</h2><button class="modal-close" onclick="closeModal('bulkUploadModal')">×</button></div>
+    <div class="modal-header"><h2 class="modal-title">📤 Bulk Upload Leads</h2><button class="modal-close" onclick="closeModal('bulkUploadModal')">×</button></div>
     <div class="form-group"><label>Upload Date</label><input type="text" id="bulkDate" readonly></div>
     <div class="form-group"><label>Method</label><div style="display:flex;gap:10px;margin-bottom:12px;"><button class="btn btn-primary" id="bulkFileBtn" onclick="switchBulkTab('file')" style="flex:1;">📁 CSV</button><button class="btn btn-cancel" id="bulkPasteBtn" onclick="switchBulkTab('paste')" style="flex:1;">📋 Paste</button></div></div>
     <div id="bulkFileSection"><div class="upload-zone" onclick="document.getElementById('bulkFileInput').click()"><div style="font-size:36px;margin-bottom:10px;">📁</div><div style="font-weight:600;">Click to choose CSV</div><input type="file" id="bulkFileInput" accept=".csv,.txt" onchange="handleBulkFile(event)"></div></div>
     <div id="bulkPasteSection" style="display:none;"><div class="form-group"><label>Paste (tab-separated)</label><textarea id="bulkPasteArea" rows="6" oninput="handleBulkPaste()"></textarea></div></div>
-    <div class="form-group"><label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicates</label></div>
+    <div class="form-group"><label><input type="checkbox" id="bulkSkipDuplicates" checked style="width:auto;margin-right:6px;"> Skip duplicate phone numbers</label></div>
     <div id="bulkPreview"></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('bulkUploadModal')">Cancel</button><button class="btn-save" id="bulkImportBtn" onclick="submitBulkUpload()" disabled>Import 0 Leads</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: ASSIGN ============ -->
 <div class="modal-overlay" id="assignModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">👤 Assign User</h2><button class="modal-close" onclick="closeModal('assignModal')">×</button></div>
     <input type="hidden" id="assignRequestId">
     <div class="form-group"><label>Customer</label><input type="text" id="assignCustomer" readonly></div>
-    <div class="form-group"><label>Request</label><input type="text" id="assignTypeLabel" readonly></div>
-    <div class="form-group"><label>Assign To <span class="required">*</span></label><select id="assignUserSelect"><option value="">Select...</option></select></div>
+    <div class="form-group"><label>Request Type</label><input type="text" id="assignTypeLabel" readonly></div>
+    <div class="form-group"><label>Assign To <span class="required">*</span></label><select id="assignUserSelect"><option value="">Select user...</option></select></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('assignModal')">Cancel</button><button class="btn-save" onclick="submitAssignment()">✅ Assign</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: VISIT DETAILS ============ -->
 <div class="modal-overlay" id="visitDetailsModal">
   <div class="modal wide">
     <div class="modal-header"><h2 class="modal-title">👁️ Visit Details</h2><button class="modal-close" onclick="closeModal('visitDetailsModal')">×</button></div>
@@ -366,6 +571,7 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============ MODAL: VISIT DONE ============ -->
 <div class="modal-overlay" id="visitDoneModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✅ Mark Visit Done</h2><button class="modal-close" onclick="closeModal('visitDoneModal')">×</button></div>
@@ -381,6 +587,7 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============ MODAL: VISITOR EDIT ============ -->
 <div class="modal-overlay" id="visitorEditModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Visit</h2><button class="modal-close" onclick="closeModal('visitorEditModal')">×</button></div>
@@ -395,6 +602,7 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============ MODAL: DESIGNER EDIT ============ -->
 <div class="modal-overlay" id="designerEditModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Material</h2><button class="modal-close" onclick="closeModal('designerEditModal')">×</button></div>
@@ -405,10 +613,12 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>QTY</label><input type="number" id="dsEditQty"></div>
     <div class="form-group"><label>UOM</label><select id="dsEditUom"><option>Pcs</option><option>Sq.ft</option><option>Meter</option><option>Kg</option></select></div>
     <div class="form-group"><label>Size</label><input type="text" id="dsEditSize"></div>
+    <div class="form-group"><label>Design Status</label><select id="dsEditStatus"><option>Pending</option><option>Ready</option></select></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('designerEditModal')">Cancel</button><button class="btn-save" onclick="submitDesignerEdit()">💾 Save</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: ADD MATERIAL ============ -->
 <div class="modal-overlay" id="designerAddMaterialModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">➕ Add Material</h2><button class="modal-close" onclick="closeModal('designerAddMaterialModal')">×</button></div>
@@ -421,17 +631,21 @@ tr:hover { background: #F1F5F9; }
   </div>
 </div>
 
+<!-- ============ MODAL: PRODUCTION EDIT ============ -->
 <div class="modal-overlay" id="productionEditModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Production</h2><button class="modal-close" onclick="closeModal('productionEditModal')">×</button></div>
     <div class="form-group"><label>Customer</label><input type="text" id="prEditCustomer" readonly></div>
     <div class="form-group"><label>Material</label><input type="text" id="prEditMaterial" readonly></div>
+    <div class="form-group"><label>QTY (Designer)</label><input type="text" id="prEditQty" readonly></div>
     <div class="form-group"><label>Available Material</label><input type="number" id="prEditAvailable"></div>
     <div class="form-group"><label>Produced QTY</label><input type="number" id="prEditProduced"></div>
+    <div class="form-group"><label>Production Status</label><select id="prEditStatus"><option>Pending</option><option>Ready to dispatch</option></select></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('productionEditModal')">Cancel</button><button class="btn-save" onclick="submitProductionEdit()">💾 Save</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: DISPATCH EDIT ============ -->
 <div class="modal-overlay" id="dispatchEditModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Dispatch</h2><button class="modal-close" onclick="closeModal('dispatchEditModal')">×</button></div>
@@ -442,10 +656,12 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Vehicle</label><input type="text" id="dpEditVehicle"></div>
     <div class="form-group"><label>Received By</label><input type="text" id="dpEditReceived"></div>
     <div class="form-group"><label>Notes</label><textarea id="dpEditNotes"></textarea></div>
+    <div class="form-group"><label>Dispatch Status</label><select id="dpEditStatus"><option>Dispatch Pending</option><option>Dispatch</option></select></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('dispatchEditModal')">Cancel</button><button class="btn-save" onclick="submitDispatchEdit()">💾 Save</button></div>
   </div>
 </div>
 
+<!-- ============ MODAL: INSTALLATION EDIT ============ -->
 <div class="modal-overlay" id="installationEditModal">
   <div class="modal">
     <div class="modal-header"><h2 class="modal-title">✏️ Edit Installation</h2><button class="modal-close" onclick="closeModal('installationEditModal')">×</button></div>
@@ -453,30 +669,74 @@ tr:hover { background: #F1F5F9; }
     <div class="form-group"><label>Material</label><input type="text" id="inEditMaterial" readonly></div>
     <div class="form-group"><label>Installed QTY</label><input type="number" id="inEditQty"></div>
     <div class="form-group"><label>Installation Date</label><input type="date" id="inEditDate"></div>
-    <div class="form-group"><label>Final Date</label><input type="date" id="inEditFinalDate"></div>
+    <div class="form-group"><label>Final Installation Date</label><input type="date" id="inEditFinalDate"></div>
+    <div class="form-group"><label>Installation Status</label><select id="inEditStatus"><option>Pending</option><option>Completed</option></select></div>
     <div class="modal-actions"><button class="btn-cancel" onclick="closeModal('installationEditModal')">Cancel</button><button class="btn-save" onclick="submitInstallationEdit()">💾 Save</button></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 </body>
+
 <script>
+// ============================================================
+// CONFIG
+// ============================================================
 const WORKER_URL = 'https://lifeasy-api.lifeasyinteriorcrm.workers.dev';
+
+// ============================================================
+// SESSION
+// ============================================================
 const sessionRaw = localStorage.getItem('lifeasy_session');
 if (!sessionRaw) { window.location.href = 'index.html'; }
 const session = JSON.parse(sessionRaw);
-if (Date.now() - session.loginTime > 8*60*60*1000) { localStorage.clear(); window.location.href = 'index.html'; }
+if (Date.now() - session.loginTime > 8 * 60 * 60 * 1000) { localStorage.clear(); window.location.href = 'index.html'; }
+
 document.getElementById('userName').textContent = session.name;
 document.getElementById('userRole').textContent = session.role;
+
+// Team class apply
+const roleClassMap = { 'Admin': 'admin', 'Telecaller': 'telecaller', 'Visit': 'visit', 'Designer': 'designer', 'Production': 'production', 'Dispatch': 'dispatch', 'Installation': 'installation' };
+const teamClass = roleClassMap[session.role] || 'admin';
+document.getElementById('topbar').classList.add(teamClass);
+document.getElementById('userRole').classList.add(teamClass);
+document.getElementById('section-dashboard').classList.add('team-dashboard', teamClass);
+
 if (session.role === 'Admin') { const b = document.getElementById('bulkUploadBtn'); if (b) b.style.display = 'inline-flex'; }
 
+// ============================================================
+// LOADING ANIMATION
+// ============================================================
+const line1El = document.getElementById('loadLine1');
+const line2El = document.getElementById('loadLine2');
+'Lifeasy'.split('').forEach((ch, i) => {
+  const s = document.createElement('span'); s.className = 'loading-letter'; s.textContent = ch;
+  s.style.animationDelay = (i * 0.1) + 's'; line1El.appendChild(s);
+});
+'INTERIOR'.split('').forEach((ch, i) => {
+  const s = document.createElement('span'); s.className = 'loading-letter'; s.textContent = ch;
+  s.style.animationDelay = (0.9 + i * 0.08) + 's'; line2El.appendChild(s);
+});
+setTimeout(() => { document.getElementById('loadDots').classList.add('show'); document.getElementById('loadText').classList.add('show'); }, 1800);
+setTimeout(() => { document.getElementById('loadingOverlay').classList.add('hide'); }, 2200);
+
+// ============================================================
+// STATE
+// ============================================================
 let allLeads = [], allTelecallerData = [], allUsers = [], allVisitorData = [];
 let allDesignerData = [], allProductionData = [], allDispatchData = [], allInstallationData = [];
 let allPendingAssignments = [];
 let currentLead = null, currentVisit = null;
 let bulkParsedLeads = [];
 let charts = {};
+let currentFilter = 'month';
+let currentAdminFilter = 'month';
+let customFrom = '', customTo = '';
+let adminFrom = '', adminTo = '';
 
+// ============================================================
+// UTILS
+// ============================================================
 function getISTDate() { const n = new Date(); const ist = new Date(n.getTime() + 5.5*60*60*1000); return ist.toISOString().slice(0,10); }
 function getTomorrowIST() { const n = new Date(); const ist = new Date(n.getTime() + 5.5*60*60*1000 + 24*60*60*1000); return ist.toISOString().slice(0,10); }
 function truncate(t, len=30) { if (!t) return '—'; t = String(t); return t.length>len ? t.slice(0,len)+'...' : t; }
@@ -500,6 +760,9 @@ function exArr(res, keys=[]) {
   return [];
 }
 
+// ============================================================
+// TABS
+// ============================================================
 const TABS_BY_ROLE = {
   Admin: ['Dashboard','Users','Leads','Telecaller','Visitor','Designer','Production','Dispatch','Installation','Admin'],
   Telecaller: ['Dashboard','Telecaller'],
@@ -513,6 +776,7 @@ const userTabs = TABS_BY_ROLE[session.role] || ['Dashboard'];
 document.getElementById('tabs').innerHTML = userTabs.map((t,i) => `<div class="tab ${i===0?'active':''}" data-tab="${t}">${t}</div>`).join('');
 document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab, tab)));
 const TAB_MAP = { 'Dashboard':'section-dashboard','Users':'section-users','Leads':'section-leads','Telecaller':'section-telecaller','Visitor':'section-visitor','Designer':'section-designer','Production':'section-production','Dispatch':'section-dispatch','Installation':'section-installation','Admin':'section-admin' };
+
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -530,87 +794,225 @@ function switchTab(name, el) {
   if (name === 'Admin') loadAdminOverview();
 }
 
+// ============================================================
+// FILTER
+// ============================================================
+function setFilter(type, btn) {
+  document.querySelectorAll('.filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = type;
+  const customEl = document.getElementById('customFilter');
+  if (type === 'custom') { customEl.classList.add('show'); }
+  else { customEl.classList.remove('show'); loadDashboard(); }
+}
+function applyCustomFilter() {
+  const from = document.getElementById('filterFrom').value;
+  const to = document.getElementById('filterTo').value;
+  if (!from || !to) { showToast('Select both dates', 'error'); return; }
+  customFrom = from; customTo = to;
+  loadDashboard();
+}
+function setAdminFilter(type, btn) {
+  document.querySelectorAll('#section-admin .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentAdminFilter = type;
+  const customEl = document.getElementById('adminCustomFilter');
+  if (type === 'custom') { customEl.classList.add('show'); }
+  else { customEl.classList.remove('show'); loadAdminDashboard(); }
+}
+function applyAdminCustomFilter() {
+  const from = document.getElementById('adminFilterFrom').value;
+  const to = document.getElementById('adminFilterTo').value;
+  if (!from || !to) { showToast('Select both dates', 'error'); return; }
+  adminFrom = from; adminTo = to;
+  loadAdminDashboard();
+}
+
+// ============================================================
+// INIT
+// ============================================================
 (async function init() {
   try {
-    if (session.role === 'Admin') { await Promise.all([loadUsers(), loadLeadsForAdmin()]); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Telecaller') { await loadTelecallerData(); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Visit') { await loadVisitorData(); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Designer') { await loadDesignerData(); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Production') { await loadProductionData(); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Dispatch') { await loadDispatchData(); renderDashboard(); hideLoader(); }
-    else if (session.role === 'Installation') { await loadInstallationData(); renderDashboard(); hideLoader(); }
-    else { renderDashboard(); hideLoader(); }
+    if (session.role === 'Admin') { await Promise.all([loadUsers(), loadLeadsForAdmin()]); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Telecaller') { await loadTelecallerData(); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Visit') { await loadVisitorData(); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Designer') { await loadDesignerData(); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Production') { await loadProductionData(); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Dispatch') { await loadDispatchData(); loadDashboard(); hideLoader(); }
+    else if (session.role === 'Installation') { await loadInstallationData(); loadDashboard(); hideLoader(); }
+    else { loadDashboard(); hideLoader(); }
   } catch(e) { console.error(e); hideLoader(); }
   pollNotifications();
   setInterval(pollNotifications, 30000);
 })();
 function hideLoader() { const l = document.getElementById('loadingOverlay'); if (l) l.classList.add('hide'); }
 
-function renderDashboard() {
-  const role = session.role;
-  let cards = [], chartData = {};
-  if (role === 'Admin') {
-    const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const vr = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    cards = [{value:calls,label:'📞 Calls',cls:''},{value:vr,label:'🚗 Visits',cls:'cyan'},{value:0,label:'🎨 Materials',cls:'amber'},{value:0,label:'🏭 Produced',cls:'green'},{value:0,label:'🚚 Dispatched',cls:'cyan'},{value:0,label:'🔧 Installed',cls:'purple'}];
-    chartData = { labels:['Calls','Visits','Materials','Produced','Dispatched','Installed'], data:[calls,vr,0,0,0,0], colors:['#4A90D9','#06B6D4','#F59E0B','#10B981','#17A2B8','#8B5CF6'] };
-  } else if (role === 'Telecaller') {
-    const t = allTelecallerData.length;
-    const d = allTelecallerData.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const vr = allTelecallerData.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const cl = allTelecallerData.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-    const ni = allTelecallerData.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
-    cards = [{value:t,label:'Total Call',cls:''},{value:d,label:'Call Done',cls:'green'},{value:vr,label:'Visit Ready',cls:'amber'},{value:cl,label:'Call Later',cls:'cyan'},{value:ni,label:'Not Int / Wrong',cls:'red'}];
-    chartData = { labels:['Visit Ready','Call Later','Not Int/Wrong'], data:[vr,cl,ni], colors:['#F59E0B','#06B6D4','#EF4444'] };
-  } else if (role === 'Visit') {
-    const total = allVisitorData.length;
-    const p = allVisitorData.filter(v => v['Visit_Status'] === 'Pending' || !v['Visit_Status']).length;
-    const d = allVisitorData.filter(v => v['Visit_Status'] === 'Done').length;
-    const c = allVisitorData.filter(v => v['Visit_Status'] === 'Close').length;
-    cards = [{value:total,label:'Assigned',cls:''},{value:p,label:'Pending',cls:'amber'},{value:d,label:'Done',cls:'cyan'},{value:c,label:'Close',cls:'green'}];
-    chartData = { labels:['Pending','Done','Close'], data:[p,d,c], colors:['#F59E0B','#06B6D4','#10B981'] };
-  } else if (role === 'Designer') {
-    const total = allDesignerData.length;
-    const withMat = allDesignerData.filter(d => d['Material_Description'] && String(d['Material_Description']).trim() !== '').length;
-    const empty = total - withMat;
-    cards = [{value:total,label:'📦 Total Rows',cls:'purple'},{value:withMat,label:'✅ With Material',cls:'green'},{value:empty,label:'⏳ Empty',cls:'amber'}];
-    chartData = { labels:['With Material','Empty'], data:[withMat,empty], colors:['#10B981','#F59E0B'] };
-  } else if (role === 'Production') {
-    const total = allProductionData.length;
-    const produced = allProductionData.filter(p => p['Produced QTY'] && String(p['Produced QTY']).trim() !== '').length;
-    const pending = total - produced;
-    cards = [{value:total,label:'📦 Assigned',cls:''},{value:produced,label:'✅ Produced',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
-    chartData = { labels:['Produced','Pending'], data:[produced,pending], colors:['#10B981','#F59E0B'] };
-  } else if (role === 'Dispatch') {
-    const total = allDispatchData.length;
-    const dispatched = allDispatchData.filter(d => d['Dispatched QTY'] && String(d['Dispatched QTY']).trim() !== '').length;
-    const pending = total - dispatched;
-    cards = [{value:total,label:'🚚 Assigned',cls:''},{value:dispatched,label:'✅ Dispatched',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
-    chartData = { labels:['Dispatched','Pending'], data:[dispatched,pending], colors:['#10B981','#F59E0B'] };
-  } else if (role === 'Installation') {
-    const total = allInstallationData.length;
-    const installed = allInstallationData.filter(i => i['Installed QTY'] && String(i['Installed QTY']).trim() !== '').length;
-    const pending = total - installed;
-    cards = [{value:total,label:'🔧 Assigned',cls:''},{value:installed,label:'✅ Installed',cls:'green'},{value:pending,label:'⏳ Pending',cls:'amber'}];
-    chartData = { labels:['Installed','Pending'], data:[installed,pending], colors:['#10B981','#F59E0B'] };
-  } else {
-    cards = [{value:'—',label:'Assigned',cls:''},{value:'—',label:'In Progress',cls:'amber'},{value:'—',label:'Completed',cls:'green'}];
+// ============================================================
+// DASHBOARD (Team-specific)
+// ============================================================
+async function loadDashboard() {
+  const params = {
+    role: session.role,
+    username: session.name,
+    filterType: currentFilter
+  };
+  if (currentFilter === 'custom') { params.fromDate = customFrom; params.toDate = customTo; }
+
+  const data = await apiGet('getDashboardData', params);
+  if (!data.success) { document.getElementById('dashboardContent').innerHTML = '<div class="empty-state">Failed to load dashboard</div>'; return; }
+
+  const d = data.data;
+  const rangeText = data.rangeStart + ' to ' + data.rangeEnd;
+  let html = '';
+
+  if (session.role === 'Admin') {
+    // Admin — all teams
+    html += renderAdminAllTeams(d, rangeText);
+  } else if (session.role === 'Telecaller' && d.telecaller) {
+    const t = d.telecaller;
+    html += `<div class="stats-grid">
+      <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
+    </div>
+    <div class="chart-card"><div class="chart-title">📈 Call Progress</div><div class="chart-container"><canvas id="dashChart"></canvas></div></div>`;
+  } else if (session.role === 'Visit' && d.visitor) {
+    const v = d.visitor;
+    html += `<div class="stats-grid">
+      <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
+    </div>`;
+  } else if (session.role === 'Designer' && d.designer) {
+    const x = d.designer;
+    html += `<div class="stats-grid">
+      <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
+    </div>`;
+  } else if (session.role === 'Production' && d.production) {
+    const x = d.production;
+    html += `<div class="stats-grid">
+      <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
+    </div>`;
+  } else if (session.role === 'Dispatch' && d.dispatch) {
+    const x = d.dispatch;
+    html += `<div class="stats-grid">
+      <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
+    </div>`;
+  } else if (session.role === 'Installation' && d.installation) {
+    const x = d.installation;
+    html += `<div class="stats-grid">
+      <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
+      <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+      <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
+    </div>`;
   }
-  document.getElementById('statsGrid').innerHTML = cards.map(c => `<div class="stat-card ${c.cls}"><div class="stat-value">${c.value}</div><div class="stat-label">${c.label}</div></div>`).join('');
-  drawChart('dashboardChart', chartData, 'doughnut');
+
+  document.getElementById('dashboardContent').innerHTML = html;
 }
 
-function drawChart(id, data, type='pie') {
-  const ctx = document.getElementById(id);
-  if (!ctx) return;
-  if (charts[id]) charts[id].destroy();
-  charts[id] = new Chart(ctx, {
-    type, data: { labels: data.labels || [], datasets: [{ data: data.data || [], backgroundColor: data.colors || ['#4A90D9','#10B981','#F59E0B','#EF4444','#8B5CF6','#06B6D4'], borderWidth:3, borderColor:'#fff' }] },
-    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ font:{size:13}, padding:14, usePointStyle:true } } } }
-  });
+function renderAdminAllTeams(d, rangeText) {
+  let html = '';
+  // Telecaller
+  if (d.telecaller) {
+    const t = d.telecaller;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">📞</span><span class="team-section-title">Telecaller</span></div>
+      <div class="stats-grid">
+        <div class="stat-card cyan"><div class="stat-value">${t.total}</div><div class="stat-label">Total Calls</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${t.callDone}</div><div class="stat-label">Call Done</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${t.visitReady}</div><div class="stat-label">Visit Ready</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card blue"><div class="stat-value">${t.callLater}</div><div class="stat-label">Call Later</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card red"><div class="stat-value">${t.notInt}</div><div class="stat-label">Not Int / Wrong</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  // Visitor
+  if (d.visitor) {
+    const v = d.visitor;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">🚗</span><span class="team-section-title">Visitor</span></div>
+      <div class="stats-grid">
+        <div class="stat-card amber"><div class="stat-value">${v.total}</div><div class="stat-label">Total Assign</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${v.pending}</div><div class="stat-label">Pending</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card cyan"><div class="stat-value">${v.done}</div><div class="stat-label">Done</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${v.close}</div><div class="stat-label">Close</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  // Designer
+  if (d.designer) {
+    const x = d.designer;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">🎨</span><span class="team-section-title">Designing Team</span></div>
+      <div class="stats-grid">
+        <div class="stat-card purple"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Design Ready</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Pending for Designing</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  // Production
+  if (d.production) {
+    const x = d.production;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">🏭</span><span class="team-section-title">Production Team</span></div>
+      <div class="stats-grid">
+        <div class="stat-card green"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${x.ready}</div><div class="stat-label">Ready for Dispatch</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Production Pending</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  // Dispatch
+  if (d.dispatch) {
+    const x = d.dispatch;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">🚚</span><span class="team-section-title">Dispatch Team</span></div>
+      <div class="stats-grid">
+        <div class="stat-card orange"><div class="stat-value">${x.total}</div><div class="stat-label">Total Sites Assign</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Dispatch Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Dispatch Pending</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  // Installation
+  if (d.installation) {
+    const x = d.installation;
+    html += `<div class="team-section">
+      <div class="team-section-header"><span class="team-section-icon">🔧</span><span class="team-section-title">Installation</span></div>
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-value">${x.total}</div><div class="stat-label">Total Installation Assign</div><div class="stat-date">${rangeText}</div></div>
+        <div class="stat-card green"><div class="stat-value">${x.completed}</div><div class="stat-label">Installation Completed</div><div class="stat-date">${x.latestDate || rangeText}</div></div>
+        <div class="stat-card amber"><div class="stat-value">${x.pending}</div><div class="stat-label">Installation Pending</div><div class="stat-date">${rangeText}</div></div>
+      </div>
+    </div>`;
+  }
+  return html;
 }
 
-// ============ USERS ============
+// ============================================================
+// ADMIN DASHBOARD (Sab teams summary)
+// ============================================================
+async function loadAdminDashboard() {
+  const params = { role: 'Admin', filterType: currentAdminFilter };
+  if (currentAdminFilter === 'custom') { params.fromDate = adminFrom; params.toDate = adminTo; }
+  const data = await apiGet('getDashboardData', params);
+  if (!data.success) { document.getElementById('adminDashboardContent').innerHTML = '<div class="empty-state">Failed to load</div>'; return; }
+  document.getElementById('adminDashboardContent').innerHTML = renderAdminAllTeams(data.data, data.rangeStart + ' to ' + data.rangeEnd);
+}
+
+// ============================================================
+// USERS
+// ============================================================
 async function loadUsers() {
   const tbody = document.getElementById('usersTbody');
   const data = await apiGet('getUsers');
@@ -659,7 +1061,9 @@ async function toggleUser(userId, status) {
   if (data.success) { showToast('Updated'); loadUsers(); }
 }
 
-// ============ LEADS ============
+// ============================================================
+// LEADS
+// ============================================================
 async function loadLeadsForAdmin() {
   const data = await apiGet('getLeads', { role: 'Admin', username: '' });
   allLeads = exArr(data, ['data']);
@@ -680,7 +1084,9 @@ function renderLeads() {
 function getNextCallClass(nc) { if (!nc) return 'next-call-normal'; const t = getISTDate(); const d = String(nc).slice(0,10); if (d === t) return 'next-call-today'; if (d < t) return 'next-call-overdue'; return 'next-call-normal'; }
 function statusToClass(s) { const m = {'New':'new','Interested':'interested','Not Interested':'not','Call Later':'later','Visit Ready':'visit','Wrong Number':'gray','Call Completed':'not','Not Answered':'gray'}; return m[s] || 'new'; }
 
-// ============ TELECALLER ============
+// ============================================================
+// TELECALLER
+// ============================================================
 async function loadTelecallerData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -688,7 +1094,6 @@ async function loadTelecallerData() {
   allTelecallerData = exArr(data, ['data']);
   renderTelecallerStats();
   renderTelecallerLeads();
-  if (session.role === 'Admin') renderTelecallerSummary();
 }
 function renderTelecallerStats() {
   const leads = session.role === 'Admin' ? allTelecallerData : allTelecallerData.filter(l => l['Assigned To'] === session.name);
@@ -698,22 +1103,6 @@ function renderTelecallerStats() {
   const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
   const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
   document.getElementById('tcStats').innerHTML = `<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total Call</div></div><div class="stat-card green"><div class="stat-value">${d}</div><div class="stat-label">Call Done</div></div><div class="stat-card amber"><div class="stat-value">${vr}</div><div class="stat-label">Visit Ready</div></div><div class="stat-card cyan"><div class="stat-value">${cl}</div><div class="stat-label">Call Later</div></div><div class="stat-card red"><div class="stat-value">${ni}</div><div class="stat-label">Not Int / Wrong</div></div>`;
-  drawChart('telecallerChart', { labels:['Visit Ready','Call Later','Not Int/Wrong'], data:[vr,cl,ni], colors:['#F59E0B','#06B6D4','#EF4444'] }, 'pie');
-}
-function renderTelecallerSummary() {
-  const s = document.getElementById('adminTelecallerSection'), c = document.getElementById('tcSummaryContainer');
-  if (!s || !c || session.role !== 'Admin') { if (s) s.style.display = 'none'; return; }
-  s.style.display = 'block';
-  const map = {};
-  allTelecallerData.forEach(l => { const n = l['Assigned To'] || 'Unassigned'; if (!map[n]) map[n] = []; map[n].push(l); });
-  if (!Object.keys(map).length) { c.innerHTML = '<div class="empty-state">No data</div>'; return; }
-  c.innerHTML = Object.entries(map).map(([n, leads]) => {
-    const t = leads.length, d = leads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-    const vr = leads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-    const cl = leads.filter(l => l['Call_Status'] === 'Call Later' || l['Call_Status'] === 'Not Answered').length;
-    const ni = leads.filter(l => l['Call_Status'] === 'Not Interested' || l['Call_Status'] === 'Wrong Number' || l['Call_Status'] === 'Call Completed').length;
-    return `<div class="tc-summary-card"><div class="tc-summary-header"><span class="tc-summary-name">👤 ${n}</span><span class="tc-summary-count">${t} leads</span></div><div class="tc-summary-stats"><div class="tc-summary-stat"><div class="val">${t}</div><div class="lbl">Total</div></div><div class="tc-summary-stat"><div class="val" style="color:#10B981">${d}</div><div class="lbl">Done</div></div><div class="tc-summary-stat"><div class="val" style="color:#F59E0B">${vr}</div><div class="lbl">Visit</div></div><div class="tc-summary-stat"><div class="val" style="color:#06B6D4">${cl}</div><div class="lbl">Later</div></div><div class="tc-summary-stat"><div class="val" style="color:#EF4444">${ni}</div><div class="lbl">Not Int</div></div></div></div>`;
-  }).join('');
 }
 function renderTelecallerLeads() {
   const tbody = document.getElementById('tcLeadsBody');
@@ -762,7 +1151,9 @@ async function saveEditedLead() {
   } else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ BULK UPLOAD ============
+// ============================================================
+// BULK UPLOAD
+// ============================================================
 function openBulkUpload() {
   document.getElementById('bulkDate').value = getISTDate();
   document.getElementById('bulkFileInput').value = '';
@@ -812,7 +1203,9 @@ async function submitBulkUpload() {
   else { btn.disabled = false; btn.textContent = 'Retry'; showToast(data.error || 'Failed', 'error'); }
 }
 
-// ============ VISITOR ============
+// ============================================================
+// VISITOR
+// ============================================================
 async function loadVisitorData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -828,7 +1221,6 @@ function renderVisitorStats() {
   const d = r.filter(v => v['Visit_Status'] === 'Done').length;
   const c = r.filter(v => v['Visit_Status'] === 'Close').length;
   document.getElementById('visitorStats').innerHTML = `<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total</div></div><div class="stat-card amber"><div class="stat-value">${p}</div><div class="stat-label">Pending</div></div><div class="stat-card cyan"><div class="stat-value">${d}</div><div class="stat-label">Done</div></div><div class="stat-card green"><div class="stat-value">${c}</div><div class="stat-label">Close</div></div>`;
-  drawChart('visitorChart', { labels:['Pending','Done','Close'], data:[p,d,c], colors:['#F59E0B','#06B6D4','#10B981'] }, 'pie');
 }
 function renderVisitorTable() {
   const tbody = document.getElementById('visitorBody');
@@ -846,7 +1238,7 @@ function renderVisitorTable() {
 function openVisitDetails(row) {
   const notes = row['Notes'] || '';
   const pm = notes.match(/Property:\s*([^|]+)/), bm = notes.match(/Budget:\s*([^|]+)/), im = notes.match(/Interested:\s*([^|]+)/), nm = notes.match(/Notes:\s*(.+)$/);
-  document.getElementById('visitDetailsBody').innerHTML = `<div class="detail-section"><div class="detail-section-title">📋 Customer</div><div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${row['Customer_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${row['Contact_Number']||'—'}</div></div><div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${row['Address']||'—'}</div></div></div><div class="detail-section"><div class="detail-section-title">📅 Visit</div><div class="detail-row"><div class="detail-label">ID</div><div class="detail-value">${row['Visit ID']||'—'}</div></div><div class="detail-row"><div class="detail-label">Date</div><div class="detail-value">${row['Visit Date']||'—'}</div></div><div class="detail-row"><div class="detail-label">Visitor</div><div class="detail-value">${row['Visitor_Name']||'—'}</div></div><div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${row['Visit_Status']||'Pending'}</div></div></div>${pm||bm||im ? `<div class="detail-section"><div class="detail-section-title">🏠 Property</div><div class="detail-row"><div class="detail-label">Type</div><div class="detail-value">${pm?pm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Budget</div><div class="detail-value">${bm?'₹ '+bm[1].trim():'—'}</div></div><div class="detail-row"><div class="detail-label">Interested</div><div class="detail-value">${im?im[1].trim():'—'}</div></div></div>` : ''}${nm ? `<div class="detail-section"><div class="detail-section-title">📝 Notes</div><div class="detail-value" style="padding:10px;background:#F8FAFC;border-radius:8px;">${nm[1]}</div></div>` : ''}`;
+  document.getElementById('visitDetailsBody').innerHTML = `<div style="margin-bottom:16px"><strong style="display:block;margin-bottom:8px;border-bottom:2px solid #E2E8F0;padding-bottom:6px;">📋 Customer</strong><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Name:</span> ${row['Customer_Name']||'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Phone:</span> ${row['Contact_Number']||'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Address:</span> ${row['Address']||'—'}</div></div><div style="margin-bottom:16px"><strong style="display:block;margin-bottom:8px;border-bottom:2px solid #E2E8F0;padding-bottom:6px;">📅 Visit</strong><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">ID:</span> ${row['Visit ID']||'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Date:</span> ${row['Visit Date']||'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Visitor:</span> ${row['Visitor_Name']||'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Status:</span> ${row['Visit_Status']||'Pending'}</div></div>${pm||bm||im ? `<div style="margin-bottom:16px"><strong style="display:block;margin-bottom:8px;border-bottom:2px solid #E2E8F0;padding-bottom:6px;">🏠 Property</strong><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Type:</span> ${pm?pm[1].trim():'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Budget:</span> ${bm?'₹ '+bm[1].trim():'—'}</div><div style="padding:6px 0;"><span style="color:#64748B;width:100px;display:inline-block;">Interested:</span> ${im?im[1].trim():'—'}</div></div>` : ''}${nm ? `<div style="margin-bottom:16px"><strong style="display:block;margin-bottom:8px;border-bottom:2px solid #E2E8F0;padding-bottom:6px;">📝 Notes</strong><div style="padding:10px;background:#F8FAFC;border-radius:8px;">${nm[1]}</div></div>` : ''}`;
   document.getElementById('visitDetailsModal').classList.add('show');
 }
 function openVisitDone(row) {
@@ -874,13 +1266,13 @@ async function submitVisitDone() {
   btn.disabled = true; btn.textContent = 'Saving...';
   const data = await apiPost('markVisitDone', { visitId, visitDate, propertyType, budget, address, interested, notes, by: session.name });
   btn.disabled = false; btn.textContent = '✅ Save & Done';
-  if (data.success) { closeModal('visitDoneModal'); showToast('Done ✅'); await loadVisitorData(); renderDashboard(); }
+  if (data.success) { closeModal('visitDoneModal'); showToast('Done ✅'); await loadVisitorData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 async function markVisitClose(visitId) {
   if (!confirm('Ready for installation? Forward to Designer.')) return;
   const data = await apiPost('markVisitClose', { visitId, by: session.name });
-  if (data.success) { showToast('Closed — Designer requested ✅'); await loadVisitorData(); renderDashboard(); }
+  if (data.success) { showToast('Closed — Designer requested ✅'); await loadVisitorData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 function openVisitorEdit(row) {
@@ -900,7 +1292,9 @@ async function submitVisitorEdit() {
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ DESIGNER ============
+// ============================================================
+// DESIGNER
+// ============================================================
 async function loadDesignerData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -924,12 +1318,12 @@ function renderDesignerCards() {
     const key = `${r['Customer_Name']}||${r['Designer_Name']}`;
     if (!groups[key]) groups[key] = { customer: r['Customer_Name'], designer: r['Designer_Name'], contact: r['Contact_Number'], materials: [] };
     if (r['Material_Description']) {
-      groups[key].materials.push({ material: r['Material_Description'], qty: r['QTY'], uom: r['UOM'], size: r['Size'] });
+      groups[key].materials.push({ material: r['Material_Description'], qty: r['QTY'], uom: r['UOM'], size: r['Size'], status: r['Design_Status'] || 'Pending' });
     }
   });
   container.innerHTML = Object.entries(groups).map(([key, g]) => {
     const matCount = g.materials.length;
-    const materialRows = matCount > 0 ? g.materials.map((m, i) => `<div class="designer-material-row"><div class="designer-material-num">${i + 1}</div><div class="designer-material-name">${m.material || '—'}</div><div class="designer-material-info">Qty: ${m.qty || '—'} ${m.uom || ''}</div><div class="designer-material-info">Size: ${m.size || '—'}</div><div class="designer-material-actions"><button class="btn-sm btn-warning" onclick='openDesignerEdit(${JSON.stringify({customerName: g.customer, designerName: g.designer, materialDescription: m.material, qty: m.qty, uom: m.uom, size: m.size}).replace(/'/g, "&apos;")})'>✏️ Edit</button><button class="btn-sm btn-danger" onclick='deleteDesignerMaterial("${g.customer}", "${g.designer}", "${m.material}")'>🗑️</button></div></div>`).join('') : `<div class="designer-material-row" style="color:#94A3B8;font-style:italic;">No materials yet — click Add Material below</div>`;
+    const materialRows = matCount > 0 ? g.materials.map((m, i) => `<div class="designer-material-row"><div class="designer-material-num">${i + 1}</div><div class="designer-material-name">${m.material || '—'}</div><div class="designer-material-info">Qty: ${m.qty || '—'} ${m.uom || ''}</div><div class="designer-material-info">Size: ${m.size || '—'}</div><div class="designer-material-info"><span class="badge ${m.status === 'Ready' ? 'ready' : 'pending'}">${m.status}</span></div><div class="designer-material-actions"><button class="btn-sm btn-warning" onclick='openDesignerEdit(${JSON.stringify({customerName: g.customer, designerName: g.designer, materialDescription: m.material, qty: m.qty, uom: m.uom, size: m.size, status: m.status}).replace(/'/g, "&apos;")})'>✏️</button><button class="btn-sm btn-danger" onclick='deleteDesignerMaterial("${g.customer}", "${g.designer}", "${m.material}")'>🗑️</button></div></div>`).join('') : `<div class="designer-material-row" style="color:#94A3B8;font-style:italic;">No materials yet</div>`;
     return `<div class="designer-card"><div class="designer-card-header"><div class="designer-card-customer">👤 ${g.customer}</div><div class="designer-card-count">${matCount} material${matCount !== 1 ? 's' : ''}</div></div><div class="designer-card-materials">${materialRows}</div><div class="designer-card-footer"><button class="btn btn-primary" onclick='openAddMaterialModal("${g.customer}", "${g.designer}")'>➕ Add Material</button><button class="btn btn-purple" onclick='requestNextTeamFn("Designer","${g.customer}","${g.contact || ''}")'>📤 Request Production</button></div></div>`;
   }).join('');
 }
@@ -941,6 +1335,7 @@ function openDesignerEdit(row) {
   document.getElementById('dsEditQty').value = row.qty || '';
   document.getElementById('dsEditUom').value = row.uom || 'Pcs';
   document.getElementById('dsEditSize').value = row.size || '';
+  document.getElementById('dsEditStatus').value = row.status || 'Pending';
   document.getElementById('designerEditModal').classList.add('show');
 }
 async function submitDesignerEdit() {
@@ -951,7 +1346,8 @@ async function submitDesignerEdit() {
     'Material_Description': document.getElementById('dsEditMaterial').value,
     'QTY': document.getElementById('dsEditQty').value,
     'UOM': document.getElementById('dsEditUom').value,
-    'Size': document.getElementById('dsEditSize').value
+    'Size': document.getElementById('dsEditSize').value,
+    'Design_Status': document.getElementById('dsEditStatus').value
   });
   if (data.success) { closeModal('designerEditModal'); showToast('Updated'); await loadDesignerData(); }
   else showToast(data.error || 'Failed', 'error');
@@ -980,13 +1376,15 @@ async function submitAddDesignerMaterial() {
   else showToast(data.error || 'Failed', 'error');
 }
 async function deleteDesignerMaterial(customer, designer, material) {
-  if (!confirm(`Delete "${material}" for ${customer}?`)) return;
+  if (!confirm(`Delete "${material}"?`)) return;
   const data = await apiPost('deleteDesignerMaterial', { customerName: customer, designerName: designer, materialDescription: material });
   if (data.success) { showToast('Deleted ✅'); await loadDesignerData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ PRODUCTION (Row Index) ============
+// ============================================================
+// PRODUCTION
+// ============================================================
 async function loadProductionData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -1004,31 +1402,39 @@ function renderProductionStats() {
 }
 function renderProductionTable() {
   const tbody = document.getElementById('productionBody');
-  if (!allProductionData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No production</td></tr>'; return; }
-  tbody.innerHTML = allProductionData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['QTY']||'-'}</td><td>${r['Available_Material']||'-'}</td><td>${r['Produced QTY']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openProductionEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Production","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Dispatch</button></td></tr>`).join('');
+  if (!allProductionData.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No production</td></tr>'; return; }
+  tbody.innerHTML = allProductionData.map((r, idx) => {
+    const st = r['Production_Status'] || 'Pending';
+    const bc = st === 'Ready to dispatch' ? 'ready' : 'pending';
+    return `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['QTY']||'-'}</td><td>${r['Available_Material']||'-'}</td><td>${r['Produced QTY']||'-'}</td><td><span class="badge ${bc}">${st}</span></td><td><button class="btn-sm btn-warning" onclick='openProductionEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Production","${r['Customer_Name']}","${r['Contact_Number']}")'>📤</button></td></tr>`;
+  }).join('');
 }
 function openProductionEdit(row, rowIndex) {
   document.getElementById('prEditCustomer').value = row['Customer_Name']||'';
   document.getElementById('prEditMaterial').value = row['Material_Description']||'';
+  document.getElementById('prEditQty').value = row['QTY']||'';
   document.getElementById('prEditAvailable').value = row['Available_Material']||'';
   document.getElementById('prEditProduced').value = row['Produced QTY']||'';
+  document.getElementById('prEditStatus').value = row['Production_Status'] || 'Pending';
   document.getElementById('productionEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('productionEditModal').classList.add('show');
 }
 async function submitProductionEdit() {
   const rowIndex = document.getElementById('productionEditModal').dataset.rowIndex;
   const data = await apiPost('updateProduction', {
-    rowIndex: rowIndex,
-    customerName: document.getElementById('prEditCustomer').value,
+    rowIndex, customerName: document.getElementById('prEditCustomer').value,
     materialDescription: document.getElementById('prEditMaterial').value,
     'Available_Material': document.getElementById('prEditAvailable').value,
-    'Produced QTY': document.getElementById('prEditProduced').value
+    'Produced QTY': document.getElementById('prEditProduced').value,
+    'Production_Status': document.getElementById('prEditStatus').value
   });
   if (data.success) { closeModal('productionEditModal'); showToast('Updated'); await loadProductionData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ DISPATCH (Row Index) ============
+// ============================================================
+// DISPATCH
+// ============================================================
 async function loadDispatchData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -1046,8 +1452,12 @@ function renderDispatchStats() {
 }
 function renderDispatchTable() {
   const tbody = document.getElementById('dispatchBody');
-  if (!allDispatchData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No dispatch</td></tr>'; return; }
-  tbody.innerHTML = allDispatchData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Dispatch_Date']||'-'}</td><td>${r['Dispatched QTY']||'-'}</td><td>${r['Vehicle']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openDispatchEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Dispatch","${r['Customer_Name']}","${r['Contact_Number']}")'>📤 Install</button></td></tr>`).join('');
+  if (!allDispatchData.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No dispatch</td></tr>'; return; }
+  tbody.innerHTML = allDispatchData.map((r, idx) => {
+    const st = r['Dispatch_Status'] || 'Dispatch Pending';
+    const bc = st === 'Dispatch' ? 'dispatched' : 'pending';
+    return `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Dispatch_Date']||'-'}</td><td>${r['Dispatched QTY']||'-'}</td><td>${r['Vehicle']||'-'}</td><td><span class="badge ${bc}">${st}</span></td><td><button class="btn-sm btn-warning" onclick='openDispatchEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️</button> <button class="btn-sm btn-purple" onclick='requestNextTeamFn("Dispatch","${r['Customer_Name']}","${r['Contact_Number']}")'>📤</button></td></tr>`;
+  }).join('');
 }
 function openDispatchEdit(row, rowIndex) {
   document.getElementById('dpEditCustomer').value = row['Customer_Name']||'';
@@ -1057,26 +1467,29 @@ function openDispatchEdit(row, rowIndex) {
   document.getElementById('dpEditVehicle').value = row['Vehicle']||'';
   document.getElementById('dpEditReceived').value = row['Received By']||'';
   document.getElementById('dpEditNotes').value = row['Notes']||'';
+  document.getElementById('dpEditStatus').value = row['Dispatch_Status'] || 'Dispatch Pending';
   document.getElementById('dispatchEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('dispatchEditModal').classList.add('show');
 }
 async function submitDispatchEdit() {
   const rowIndex = document.getElementById('dispatchEditModal').dataset.rowIndex;
   const data = await apiPost('updateDispatch', {
-    rowIndex: rowIndex,
-    customerName: document.getElementById('dpEditCustomer').value,
+    rowIndex, customerName: document.getElementById('dpEditCustomer').value,
     materialDescription: document.getElementById('dpEditMaterial').value,
     'Dispatch_Date': document.getElementById('dpEditDate').value,
     'Dispatched QTY': document.getElementById('dpEditQty').value,
     'Vehicle': document.getElementById('dpEditVehicle').value,
     'Received By': document.getElementById('dpEditReceived').value,
-    'Notes': document.getElementById('dpEditNotes').value
+    'Notes': document.getElementById('dpEditNotes').value,
+    'Dispatch_Status': document.getElementById('dpEditStatus').value
   });
   if (data.success) { closeModal('dispatchEditModal'); showToast('Updated'); await loadDispatchData(); }
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ INSTALLATION (Row Index) ============
+// ============================================================
+// INSTALLATION
+// ============================================================
 async function loadInstallationData() {
   const rp = session.role === 'Admin' ? 'Admin' : session.role;
   const up = session.role === 'Admin' ? '' : session.name;
@@ -1094,8 +1507,12 @@ function renderInstallationStats() {
 }
 function renderInstallationTable() {
   const tbody = document.getElementById('installationBody');
-  if (!allInstallationData.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No installation</td></tr>'; return; }
-  tbody.innerHTML = allInstallationData.map((r, idx) => `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Installed QTY']||'-'}</td><td>${r['Date']||'-'}</td><td>${r['Final_Installation_Date']||'-'}</td><td><button class="btn-sm btn-warning" onclick='openInstallationEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️ Edit</button> <button class="btn-sm btn-success" onclick='markComplete("${r['Customer_Name']}")'>✅ Complete</button></td></tr>`).join('');
+  if (!allInstallationData.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No installation</td></tr>'; return; }
+  tbody.innerHTML = allInstallationData.map((r, idx) => {
+    const st = r['Installation_Status'] || 'Pending';
+    const bc = st === 'Completed' ? 'installed' : 'pending';
+    return `<tr><td><strong>${r['Customer_Name']}</strong></td><td>${r['Material_Description']||'-'}</td><td>${r['Installed QTY']||'-'}</td><td>${r['Date']||'-'}</td><td>${r['Final_Installation_Date']||'-'}</td><td><span class="badge ${bc}">${st}</span></td><td><button class="btn-sm btn-warning" onclick='openInstallationEdit(${JSON.stringify(r).replace(/'/g, "&apos;")}, ${idx})'>✏️</button> <button class="btn-sm btn-success" onclick='markComplete("${r['Customer_Name']}")'>✅</button></td></tr>`;
+  }).join('');
 }
 function openInstallationEdit(row, rowIndex) {
   document.getElementById('inEditCustomer').value = row['Customer_Name']||'';
@@ -1103,18 +1520,19 @@ function openInstallationEdit(row, rowIndex) {
   document.getElementById('inEditQty').value = row['Installed QTY']||'';
   document.getElementById('inEditDate').value = row['Date']||'';
   document.getElementById('inEditFinalDate').value = row['Final_Installation_Date']||'';
+  document.getElementById('inEditStatus').value = row['Installation_Status'] || 'Pending';
   document.getElementById('installationEditModal').dataset.rowIndex = rowIndex;
   document.getElementById('installationEditModal').classList.add('show');
 }
 async function submitInstallationEdit() {
   const rowIndex = document.getElementById('installationEditModal').dataset.rowIndex;
   const data = await apiPost('updateInstallation', {
-    rowIndex: rowIndex,
-    customerName: document.getElementById('inEditCustomer').value,
+    rowIndex, customerName: document.getElementById('inEditCustomer').value,
     materialDescription: document.getElementById('inEditMaterial').value,
     'Installed QTY': document.getElementById('inEditQty').value,
     'Date': document.getElementById('inEditDate').value,
-    'Final_Installation_Date': document.getElementById('inEditFinalDate').value
+    'Final_Installation_Date': document.getElementById('inEditFinalDate').value,
+    'Installation_Status': document.getElementById('inEditStatus').value
   });
   if (data.success) { closeModal('installationEditModal'); showToast('Updated'); await loadInstallationData(); }
   else showToast(data.error || 'Failed', 'error');
@@ -1126,7 +1544,9 @@ async function markComplete(customerName) {
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ REQUEST NEXT TEAM ============
+// ============================================================
+// REQUEST NEXT TEAM
+// ============================================================
 async function requestNextTeamFn(fromTeam, customerName, contactNumber) {
   if (!confirm(`Request next team for ${customerName}?`)) return;
   const data = await apiPost('requestNextTeam', { fromTeam, customerName, contactNumber, by: session.name });
@@ -1134,53 +1554,24 @@ async function requestNextTeamFn(fromTeam, customerName, contactNumber) {
   else showToast(data.error || 'Failed', 'error');
 }
 
-// ============ ADMIN ============
+// ============================================================
+// ADMIN OVERVIEW
+// ============================================================
 async function loadAdminOverview() {
   await Promise.all([loadUsers(), loadLeadsForAdmin()]);
   const data = await apiGet('getPendingAssignments');
   allPendingAssignments = data.pending || [];
   renderPendingAssignments();
-  renderAdminStats();
-  renderMasterSheet();
+  loadAdminDashboard();
 }
 function renderPendingAssignments() {
-  const el = document.getElementById('pendingAssignments');
-  if (!allPendingAssignments.length) { el.innerHTML = '<div class="empty-state">No pending</div>'; return; }
-  el.innerHTML = allPendingAssignments.map(req => `<div class="callback-item today" style="margin-bottom:12px;"><div class="callback-info" style="flex:1;"><div class="name">${req['From User']} (${req['From Team']})</div><div class="meta">${req['Request Type']} — ${req['Customer Name']}</div><div class="meta">📅 ${req['Requested At']}</div></div><button class="btn-sm btn-call" onclick='openAssignModal(${JSON.stringify(req).replace(/'/g, "&apos;")})'>Assign</button></div>`).join('');
-}
-function openAssignModal(req) {
-  document.getElementById('assignRequestId').value = req['Request ID'];
-  document.getElementById('assignCustomer').value = req['Customer Name'];
-  document.getElementById('assignTypeLabel').value = req['Request Type'];
-  const rm = { 'Assign Visitor': 'Visit', 'Assign Designer': 'Designer', 'Assign Production': 'Production', 'Assign Dispatch': 'Dispatch', 'Assign Installation': 'Installation' };
-  const tr = rm[req['Request Type']];
-  const matching = allUsers.filter(u => u.Role === tr && u.Status === 'Active');
-  document.getElementById('assignUserSelect').innerHTML = '<option value="">Select...</option>' + matching.map(u => `<option value="${u.Name}">${u.Name}</option>`).join('');
-  document.getElementById('assignModal').classList.add('show');
-}
-async function submitAssignment() {
-  const requestId = document.getElementById('assignRequestId').value;
-  const assignedTo = document.getElementById('assignUserSelect').value;
-  if (!assignedTo) return showToast('Select user', 'error');
-  const data = await apiPost('assignUser', { requestId, assignedTo, assignedBy: session.name });
-  if (data.success) { closeModal('assignModal'); showToast(`Assigned to ${assignedTo}`); loadAdminOverview(); }
-  else showToast(data.error || 'Failed', 'error');
-}
-function renderAdminStats() {
-  const calls = allLeads.filter(l => l['Call_Status'] && l['Call_Status'] !== 'New').length;
-  const visits = allLeads.filter(l => l['Call_Status'] === 'Visit Ready').length;
-  document.getElementById('adminStats').innerHTML = `<div class="stat-card"><div class="stat-value">${calls}</div><div class="stat-label">📞 Calls</div></div><div class="stat-card cyan"><div class="stat-value">${visits}</div><div class="stat-label">🚗 Visits</div></div><div class="stat-card amber"><div class="stat-value">0</div><div class="stat-label">🎨 Materials</div></div><div class="stat-card green"><div class="stat-value">0</div><div class="stat-label">🏭 Produced</div></div><div class="stat-card cyan"><div class="stat-value">0</div><div class="stat-label">🚚 Dispatched</div></div><div class="stat-card purple"><div class="stat-value">0</div><div class="stat-label">🔧 Installed</div></div>`;
-  drawChart('adminChart', { labels:['Calls','Visits','Materials','Produced','Dispatched','Installed'], data:[calls,visits,0,0,0,0], colors:['#4A90D9','#06B6D4','#F59E0B','#10B981','#17A2B8','#8B5CF6'] }, 'doughnut');
-}
-async function renderMasterSheet() {
-  const tbody = document.getElementById('masterBody');
-  const data = await apiGet('getMasterSheet');
-  const rows = exArr(data, ['data']);
-  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No data</td></tr>'; return; }
-  tbody.innerHTML = rows.slice(0,20).map(r => `<tr><td><strong>${r['Customer Name']||'-'}</strong></td><td>${r['Contact Number']||'-'}</td><td>${r['Material Description']||'-'}</td><td>${r['Status']||'-'}</td><td><span class="badge installed">${r['Status']||'New'}</span></td><td>${r['Last Updated At']||'-'}</td></tr>`).join('');
+  const el = document.getElementById('adminDashboardContent');
+  // Pending assignments integrated with admin dashboard — nothing to render here separately
 }
 
-// ============ NOTIFICATIONS ============
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
 async function pollNotifications() {
   try {
     const data = await apiGet('checkNotifications', { role: session.role, username: session.name });
@@ -1199,7 +1590,9 @@ function updateBell(items) {
 function toggleBell(e) { e.stopPropagation(); document.getElementById('bellDropdown').classList.toggle('show'); }
 document.addEventListener('click', e => { const d = document.getElementById('bellDropdown'); if (d && !e.target.closest('.bell-wrap')) d.classList.remove('show'); });
 
-// ============ HELPERS ============
+// ============================================================
+// HELPERS
+// ============================================================
 function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('show'); }
 document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('show'); }));
 function showToast(text, type = 'success') {
@@ -1213,3 +1606,4 @@ function logout() { if (confirm('Logout?')) { localStorage.clear(); window.locat
 </script>
 </body>
 </html>
+</div>
